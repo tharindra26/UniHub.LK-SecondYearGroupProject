@@ -7,6 +7,10 @@
     // require_once 'libraries/Controller.php';
     // require_once 'libraries/Database.php';
 
+    //Load helpers
+    require_once 'helpers/url_helper.php';
+    require_once 'helpers/session_helper.php';
+
     //Autoload Core Libraries
     spl_autoload_register(function($className){ //uda comment karala thiyena classes tika auto load wenawa
         require_once 'libraries/'.$className.'.php';
