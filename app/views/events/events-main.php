@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> <?php echo SITENAME; ?> </title>
     <link rel="stylesheet" href="<?php echo URLROOT?>/css/events/events-main_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <?php require APPROOT . '/views/inc/navbar.php'; ?>
@@ -38,16 +39,15 @@
         </div>
       </div>
 
-      <div class="main-class">
 
-        <div class="mini-box1">
-          <div class="minibox-option1">cxcx</div>
-          <div class="minibox-option2">xcxcx</div>
+      <div class="outer-body-container">
+        <div class="option-section">
+          <input type="button" class="button" value="Request Event">
         </div>
-
-        <div class="mini-box2"></div>
-
+        <div class="content-section"></div>
       </div>
+
+      
 
 
 <!-- <h1><?php echo $data['title']; ?></h1> -->
