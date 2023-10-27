@@ -17,7 +17,7 @@ class Pages  extends Controller {
         $data= [
             'title' => 'Events',
         ];
-        $this->view('pages/events', $data);
+        $this->view('events/events-main', $data);
     }
 
     public function about(){
