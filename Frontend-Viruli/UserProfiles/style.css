@@ -7,13 +7,14 @@
     font-family: 'Poppins';
 }
 
+
 .mainbox{
     display: flex;
     flex-direction: row;
 }
 
 .left-margin{
-    width: 50px;
+    width: 5vW;
     display: flex;
     border: 1px solid black;
     
@@ -52,11 +53,103 @@
 
 .material-upload{
     border: 1px solid black;
+    padding: 0 35px;
 }
-.card-wrapper{
+
+.slider{
+    max-width: 700px;
+    width: 100%;
+    position: relative;
     border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+}
+.slider i{
+    height: 30px;
+    width: 30px;
+    background: blue;
+    color: white;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 3px 6px rgb(32, 22, 22);
+}
+
+.slider i:first-child{
+    left: -10px;
+}
+
+.slider i:last-child{
+    right: -10px;
+}
+
+.slider .carousel{
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% / 3) - 12px);
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: 0;
+}
+
+.carousel::-webkit-scrollbar{
+    display: none;
+}
+
+.carousel.dragging{
+    scroll-snap-type: none;
+    scroll-behavior: auto;
+}
+
+.carousel.dragging .card{
+    cursor: grab;
+    user-select: none;
+}
+
+.carousel .card{
+    scroll-snap-align: start;
+    height: 250px;
+    width: 180px;
+    list-style: none;
+    border-radius: 8px;
+    display: flex;
+    padding-bottom: 15px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 .card{
+    
     border: 1px solid black;
     width: 200px;
+    cursor:  pointer;
+}
+
+@media screen and (max-width: 900px) {
+    .material-slider .carousel{
+        grid-auto-columns: calc((100% / 2) - 9px);
+       
+    }
+
+    .carousel .card{
+        width: 280px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .material-slider .carousel{
+        grid-auto-columns: 100%;
+        
+    }
+
+    .carousel .card{
+        width: 100%;
+    }
+    
 }
