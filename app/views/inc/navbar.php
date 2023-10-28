@@ -7,7 +7,7 @@
         <label class="logo">UniHub.LK</label>
         <ul >
             <li><a class="active nav-elements" href="<?php echo URLROOT ?>/pages/index">Home</a></li>
-            <li><a  class="nav-elements" href="<?php echo URLROOT ?>/pages/events">Events</a></li>
+            <li><a  class="nav-elements" href="<?php echo URLROOT ?>/events/index">Events</a></li>
             <li><a class="nav-elements" href="<?php echo URLROOT ?>/pages/knowledgehub">Knowledge Hub</a></li>
             <li><a class="nav-elements" href="<?php echo URLROOT ?>/pages/opportunities">Opportunities</a></li>
             <li><a class="nav-elements" href="<?php echo URLROOT ?>/pages/organizations">Organizations</a></li>
