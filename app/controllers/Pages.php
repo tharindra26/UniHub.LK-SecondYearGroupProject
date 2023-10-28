@@ -7,9 +7,17 @@ class Pages  extends Controller {
     public function index(){
 
         $data= [
-            'title' => 'Welcome to the HOME page',
+            'title' => 'Home',
         ];
         $this->view('pages/index', $data);
+    }
+
+    public function events(){
+
+        $data= [
+            'title' => 'Events',
+        ];
+        $this->view('events/events-main', $data);
     }
 
     public function about(){

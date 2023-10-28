@@ -1,0 +1,48 @@
+.box {
+    position: relative;
+    width: 270px;
+    height: 351px;
+  }
+  
+  .box .group {
+    position: fixed;
+    width: 272px;
+    height: 351px;
+    top: 0;
+    left: 0;
+  }
+  
+  .box .rectangle {
+    position: absolute;
+    width: 270px;
+    height: 285px;
+    top: 0;
+    left: 0;
+    background-color: #d9d9d9;
+    border-radius: 29.25px 29.25px 0px 0px;
+  }
+  
+  .box .overlap-group {
+    position: absolute;
+    width: 270px;
+    height: 66px;
+    top: 285px;
+    left: 0;
+    background-color: #00aeef;
+    border-radius: 0px 0px 29.25px 29.25px;
+  }
+  
+  .box .text-wrapper {
+    position: absolute;
+    width: 141px;
+    height: 35px;
+    top: 16px;
+    left: 64px;
+    font-family: "Poppins-Medium", Helvetica;
+    font-weight: 500;
+    color: #ffffff;
+    font-size: 21.1px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
+  }
