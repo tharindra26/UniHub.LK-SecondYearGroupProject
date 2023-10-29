@@ -23,10 +23,10 @@
     justify-content: center;
 
 }
-.header{
+/* .header{
     padding-left: 5vw;
     padding-right: 5vw;
-}
+} */
 nav{
     background: white;
     position: static;
@@ -58,6 +58,18 @@ nav ul li a{
     border-radius: 50px;
     text-transform: uppercase;
 }
+
+/* main navigation bar update code ==========================================*/
+.main-nav {
+    padding-left: 5vw;
+    padding-right: 5vw;
+    background-color: #1B262C;
+}
+.main-nav ul li a {
+    color: white;
+}
+/* =============================================================================== */
+
 a.active{
     background: #1b9bff;
     color: white;
