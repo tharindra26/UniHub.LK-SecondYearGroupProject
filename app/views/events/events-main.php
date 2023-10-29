@@ -17,7 +17,7 @@
                 class="search-input"
                 placeholder=" Search "
                 name="search">
-          <button>
+          <button class="search-button">
               <i class="fa fa-search"
                 style="font-size: 18px;">
               </i>
@@ -71,88 +71,43 @@
 
         <!-- card-displaying-section -->
         <div class="content-section">
+          <div class="flash-message-section">
+            <?php flash('event_message'); ?>
+          </div>
+        
 
-
-          <?php foreach ($data['events'] as $event) : ?>
+        <?php foreach ($data['events'] as $event) : ?>
             <?php
               // Assuming $event->start_date_time is in the format 'Y-m-d H:i:s'
               $dateTime = new DateTime($event->date);
               $date = $dateTime->format('d');   // Extract the day of the month
               $month = $dateTime->format('M');  // Extract the abbreviated month
             ?>
-            <a href="<?php echo URLROOT ?>/events/show/<?php echo $event->eventId ?>">
+            
               <div class="event-card">
-              <div class="image-section">
-                <img src="<?php echo URLROOT ?>/img/event-cards-images/event-card-img-1.jpg" alt="event-card-img-1">
-              </div>
-              <div class="details-section">
-                <div class="event-date">
-                  <div class="number-date"><?php echo $date; ?></div>
-                  <div class="month"><?php echo $month; ?></div>
-                </div>
-                <div class="event-description">
-                  <div class="event-title"><?php echo $event->title; ?></div>
-                  <div class="event-location"><?php echo $event->location; ?></div> 
-                  <div class="event-category"><?php echo $event->type; ?></div> 
-                  posted by <?php echo $event->name; ?>  
-                </div>
-              </div>
+
+                  <div class="image-section">
+                    <a class="linked-card" href="<?php echo URLROOT ?>/events/show/<?php echo $event->eventId ?>">
+                      <img src="<?php echo URLROOT ?>/img/event-card-images/<?php echo $event->event_card_image ?>" alt="event-card-img-1">
+                    </a>
+                  </div>
+               
+                  <div class="details-section">
+                    <div class="event-date">
+                      <div class="number-date"><?php echo $date; ?></div>
+                      <div class="month"><?php echo $month; ?></div>
+                    </div>
+                    <div class="event-description">
+                      <div class="event-title"><?php echo $event->title; ?></div>
+                      <div class="event-location"><?php echo $event->location; ?></div> 
+                      <div class="event-category"><?php echo $event->type; ?></div> 
+                      posted by <?php echo $event->name; ?>  
+                    </div>
+                  </div>
             </div>
-          </a>
+          
           <?php endforeach; ?>
 
-          
-
-          <!-- <div class="event-card">
-            <div class="image-section">
-              <img src="<?php echo URLROOT ?>/img/event-cards-images/event-card-img-1.jpg" alt="event-card-img-1">
-            </div>
-            <div class="details-section">
-              <div class="event-date">
-                <div class="number-date">29</div>
-                <div class="month">OCT</div>
-              </div>
-              <div class="event-description">
-                <div class="event-title">Event-1</div>
-                <div class="event-location">Sugathadasa Indoor Stadium</div> 
-                <div class="event-category">Music Show</div>   
-              </div>
-            </div>
-          </div>
-
-          <div class="event-card">
-            <div class="image-section">
-              <img src="<?php echo URLROOT ?>/img/event-cards-images/event-card-img-1.jpg" alt="event-card-img-1">
-            </div>
-            <div class="details-section">
-              <div class="event-date">
-                <div class="number-date">29</div>
-                <div class="month">OCT</div>
-              </div>
-              <div class="event-description">
-                <div class="event-title">Event-1</div>
-                <div class="event-location">Sugathadasa Indoor Stadium</div> 
-                <div class="event-category">Music Show</div>   
-              </div>
-            </div>
-          </div>
-
-          <div class="event-card">
-            <div class="image-section">
-              <img src="<?php echo URLROOT ?>/img/event-cards-images/event-card-img-1.jpg" alt="event-card-img-1">
-            </div>
-            <div class="details-section">
-              <div class="event-date">
-                <div class="number-date">29</div>
-                <div class="month">OCT</div>
-              </div>
-              <div class="event-description">
-                <div class="event-title">Event-1</div>
-                <div class="event-location">Sugathadasa Indoor Stadium</div> 
-                <div class="event-category">Music Show</div>   
-              </div>
-            </div>
-          </div> -->
 
           
         </div>

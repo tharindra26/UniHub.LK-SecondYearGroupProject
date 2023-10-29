@@ -72,7 +72,7 @@
         <!-- card-displaying-section -->
         <div class="content-section">
             <!-- add-form -->
-            <form action="<?php echo URLROOT; ?>/events/add" method="post">
+            <form action="<?php echo URLROOT; ?>/events/add" method="post" enctype="multipart/form-data">
             
                 <div class="container">
                     <label for="event_title"><b>Event Title</b></label>
@@ -88,7 +88,7 @@
                     <?php endif; ?>
 
                     <label for="description"><b>Description</b></label>
-                    <textarea class="custom-text-area" name="description" value="<?php echo $data['description'] ?>" ></textarea>
+                    <textarea class="custom-text-area" name="description" value="<?php echo $data['description'] ?>" ><?php echo $data['description'] ?></textarea>
                     <?php if (!empty($data['description_err'])): ?>
                         <span class="error-message"><?php echo $data['description_err']; ?></span>
                     <?php endif; ?>
@@ -103,6 +103,12 @@
                     <input type="text" placeholder="Enter Location" name="location" value="<?php echo $data['location'] ?>" >
                     <?php if (!empty($data['location_err'])): ?>
                         <span class="error-message"><?php echo $data['location_err']; ?></span>
+                    <?php endif; ?>
+
+                    <label for="location"><b>Event Card Image</b></label>
+                    <input class="file-upload" type="file" placeholder="Enter event card image" name="event_card_image" value="<?php echo $data['event_card_image'] ?>" >
+                    <?php if (!empty($data['event_card_image_err'])): ?>
+                        <span class="error-message"><?php echo $data['event_card_image_err']; ?></span>
                     <?php endif; ?>
 
 
