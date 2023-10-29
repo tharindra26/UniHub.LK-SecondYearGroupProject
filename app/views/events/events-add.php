@@ -105,10 +105,16 @@
                         <span class="error-message"><?php echo $data['location_err']; ?></span>
                     <?php endif; ?>
 
-                    <label for="location"><b>Event Card Image</b></label>
+                    <label for="event_card_image"><b>Event Card Image</b></label>
                     <input class="file-upload" type="file" placeholder="Enter event card image" name="event_card_image" value="<?php echo $data['event_card_image'] ?>" >
                     <?php if (!empty($data['event_card_image_err'])): ?>
                         <span class="error-message"><?php echo $data['event_card_image_err']; ?></span>
+                    <?php endif; ?>
+
+                    <label for="event_cover_image"><b>Event Cover Image</b></label>
+                    <input class="file-upload" type="file" placeholder="Enter event cover image" name="event_cover_image" value="<?php echo $data['event_cover_image'] ?>" >
+                    <?php if (!empty($data['event_cover_image_err'])): ?>
+                        <span class="error-message"><?php echo $data['event_cover_image_err']; ?></span>
                     <?php endif; ?>
 
 

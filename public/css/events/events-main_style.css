@@ -20,17 +20,18 @@
     justify-content: center;
 
 }
-.header{
+/* .header{
     padding-left: 5vw;
     padding-right: 5vw;
-}
+} */
 nav{
-    background: white;
+    background-color: white;
     position: static;
     height: 10vh;
     width: 100%;
 
 }
+
 
 label.logo{
     font-family: poppins ;
@@ -55,6 +56,17 @@ nav ul li a{
     border-radius: 50px;
     text-transform: uppercase;
 }
+
+/* main navigation bar update code ==========================================*/
+.main-nav {
+    padding-left: 5vw;
+    padding-right: 5vw;
+    background-color: #1B262C;
+}
+.main-nav ul li a {
+    color: white;
+}
+/* =============================================================================== */
 a.active{
     background: #1b9bff;
     color: white;
@@ -327,7 +339,7 @@ a.active{
     margin-top: 10px;
     background-color:#D9D9D9;
     border: 1px solid red;
-    border-radius: 20px;
+    border-radius: 10px;
     width: 20vw;
   }
   .date-filter h1{
