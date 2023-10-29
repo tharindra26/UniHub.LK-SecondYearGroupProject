@@ -21,7 +21,7 @@
     margin-right: 50px;
 }
 nav{
-    background: white;
+    background-color: #1B262C;
     position: static;
     height: 80px;
     width: 100%;
@@ -44,7 +44,7 @@ nav ul li{
     margin: 0 5px;
 }
 nav ul li a{
-    color: black;
+    color: white;
     font-family: poppins ;
     font-size: 15px;
     padding: 7px 13px;
