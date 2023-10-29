@@ -175,7 +175,7 @@ a.active{
     border: 1px solid red;
 }
     .request-event-button{
-        padding:15px;
+        padding:10px;
         background-color: #4CAF50;
         color:white;
         border-radius: 20px;
@@ -333,6 +333,21 @@ input[type=datetime-local] {
     background-color: #fff; /* Set the background color */
     color: #333; /* Set the text color */
 }
+
+.file-upload{
+    background-color: #3498db;
+    color: #fff;
+    border: 1px solid #3498db;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+  .file-upload:hover {
+    background-color: #2980b9;
+    border: 1px solid #2980b9;
+  }
 
 .custom-text-area:focus {
     outline: none; /* Remove the default focus outline */

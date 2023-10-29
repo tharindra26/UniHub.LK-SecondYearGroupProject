@@ -1,9 +1,9 @@
 <?php
     class Events extends Controller{
         public function __construct(){
-            if(!isLoggedIn()){
-                redirect('/users/login');
-            }
+            // if(!isLoggedIn()){
+            //     redirect('/users/login');
+            // }
 
             $this->postModel =$this->model('Event');
         }
@@ -18,6 +18,12 @@
         }
 
         public function add(){
+
+            //check the user is a registered user
+            if(!isLoggedIn()){
+                redirect('/users/login');
+            }
+
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 //process form
     
@@ -31,11 +37,13 @@
                     'description' =>trim($_POST['description']),
                     'date' =>trim($_POST['date']),
                     'location' =>trim($_POST['location']),
+                    'event_card_image' =>trim($_POST['event_card_image']),
                     'event_title_err' =>'',
                     'event_type_err' =>'',
                     'description_err' =>'',
                     'date_err' =>'',
                     'location_err' =>'',
+                    'event_card_image_err' =>'',
                     
                 ];
     
@@ -64,7 +72,35 @@
       
                 // Make sure errors are empty
                 if(empty($data['event_title_err']) && empty($data['event_type_err']) && empty($data['description_err']) && empty($data['date_err'])&& empty($data['location_err'])){
+                    //Validated
+                    if (isset($_FILES['event_card_image']['name']) AND !empty($_FILES['event_card_image']['name'])) {
+         
+         
+                        $img_name = $_FILES['event_card_image']['name'];
+                        $tmp_name = $_FILES['event_card_image']['tmp_name'];
+                        $error = $_FILES['event_card_image']['error'];
+                        
+                        if($error === 0){
+                           $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                           $img_ex_to_lc = strtolower($img_ex);
+               
+                           $allowed_exs = array('jpg', 'jpeg', 'png');
+                           if(in_array($img_ex_to_lc, $allowed_exs)){
+                              $new_img_name = $data['event_title'] . '-event-card-image.' . $img_ex_to_lc;
+                              $img_upload_path = "../public/img/event-card-images/".$new_img_name;
+                              move_uploaded_file($tmp_name, $img_upload_path);
 
+                              $data['event_card_image']=$new_img_name;
+                           }
+                        }
+                    }
+                              
+
+
+                    if($this->postModel->addEvent($data)){
+                        flash('event_message', "Event Added Successfully");
+                        redirect('events');
+                    }
                 }else{
                     //load view with error
                     $this->view('events/events-add', $data);
@@ -80,11 +116,13 @@
                 'description' =>'',
                 'date' =>'',
                 'location' =>'',
+                'event_card_image' =>'',
                 'event_title_err' =>'',
                 'event_type_err' =>'',
                 'description_err' =>'',
                 'date_err' =>'',
                 'location_err' =>'',
+                'event_card_image_err' =>'',
                 
             ];
       

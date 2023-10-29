@@ -91,7 +91,7 @@ a.active{
 .search{
     width: 100%;
     height: 50px;
-    display: flex;
+    display: block;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
@@ -100,7 +100,7 @@ a.active{
 
 .search input[type=text]{
     background-color: #D9D9D9;
-    width:1200px;
+    width:100%;
     height:30px;
     border-radius:25px;
     border: none;
@@ -111,10 +111,9 @@ a.active{
     text-align: center;
 }
      
-.search button{
+.search-button{
     position: relative;
-    z-index: 100;
-    right:40px;
+    z-index:99;
     border-radius: 100%;
     background-color: #D9D9D9;
     color: black;
@@ -175,7 +174,7 @@ a.active{
     border: 1px solid red;
 }
     .request-event-button{
-        padding:15px;
+        padding:10px;
         background-color: #4CAF50;
         color:white;
         border-radius: 20px;
@@ -202,6 +201,10 @@ a.active{
     padding-left: 10px;
 }
 
+.linked-card{
+    text-decoration: none !important;
+}
+
 .event-card{
     display:flex;
     flex-direction: column;
@@ -209,7 +212,7 @@ a.active{
     height: 450px;
     background-color:#D9D9D9 ;
     border-radius: 20px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     margin-bottom: 30px;
 
     opacity: 0;
@@ -239,7 +242,7 @@ a.active{
         max-width: 100%;
         max-height: 100%;
         overflow: hidden;
-        border:1px solid red;
+        /* border:1px solid red; */
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
     }
@@ -253,7 +256,7 @@ a.active{
         height: 20%;
         display: flex;
         flex-direction: raw;
-        border: 1px solid red;
+        /* border: 1px solid red; */
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
     }
@@ -266,7 +269,7 @@ a.active{
             width: 30%;
             height: 100%;
             border-bottom-left-radius: 20px;
-            border:1px solid black;
+            /* border:1px solid black; */
         }
 
         .event-description{
@@ -277,7 +280,7 @@ a.active{
             font-size: 15px;
             width: 70%;
             border-bottom-right-radius: 20px;
-            border:1px solid black;
+            /* border:1px solid black; */
             height:100%;
         }
 
@@ -400,6 +403,25 @@ a.active{
     transform: rotate(45deg);
   }
 
+
+  /* ================================================================= */
+
+
+ /* flash message */
+ .alert-success {
+    background-color: #4CAF50; /* Green background color */
+    color: #fff; /* White text color */
+    padding: 10px; /* Add some padding for better visibility */
+    text-align: center; /* Center the text */
+    border-radius: 5px; /* Add rounded corners */
+    margin-bottom: 10px; /* Create some space at the bottom */
+}
+
+.flash-message-section{
+    display: block;
+    width: 100%;
+}
+/* ================================================================ */
 
 
   
