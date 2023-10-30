@@ -105,22 +105,20 @@
                         &nbsp Report Event
                     </div>
 
-                    <a  href="<?php echo URLROOT ?>/events/edit/<?php echo $data['event']->id; ?>">
-                    <div class="update-event">
-                        <i class="fa-solid fa-wrench"></i>
-                        &nbsp Update Event
-                    </div>
-                    </a>
                     
-                    <!-- <a  href="<?php echo URLROOT ?>/events/delete/<?php echo $data['event']->id; ?>" method="POST">
-                    <div class="delete-event">
-                        <i class="fa-regular fa-trash-can"></i>
-                        &nbsp Delete Event
-                    </div>
-                    </a> -->
-                    <form  action="<?php echo URLROOT; ?>/events/delete/<?php echo $data['event']->id; ?>" method="post">
-                        <input type="submit" value="Delete" class="delete-event">
-                    </form>
+
+                    <?php if($_SESSION['user_id'] == $data['event']-> user_id || $_SESSION['user_type'] == 'admin'):?>
+                        <a  href="<?php echo URLROOT ?>/events/edit/<?php echo $data['event']->id; ?>">
+                            <div class="update-event">
+                                <i class="fa-solid fa-wrench"></i>
+                                &nbsp Update Event
+                            </div>
+                        </a>
+                    
+                        <form  action="<?php echo URLROOT; ?>/events/delete/<?php echo $data['event']->id; ?>" method="post">
+                            <input type="submit" value="Delete" class="delete-event">
+                        </form>
+                    <?php endif; ?>
 
                 </div>
             </div>

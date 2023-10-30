@@ -13,9 +13,9 @@
             <li><a class="nav-elements" href="<?php echo URLROOT ?>/pages/organizations">Organizations</a></li>
 
             <?php if(isset($_SESSION['user_id'])): ?>
-                <li><a class="active nav-elements" href="<?php echo URLROOT ?>/users/logout">
+                <li><a class="active nav-elements" href="<?php echo URLROOT ?>/users/show/<?php echo $_SESSION['user_id'] ?>">
                     <i class="fa-solid fa-user"></i>
-                    &nbsp <?php echo ($_SESSION['user_type'] === 'admin') ? 'Admin' : 'MY PROFILE'; ?>
+                    &nbsp <?php echo ($_SESSION['user_type'] === 'admin') ? 'Admin-'.$_SESSION['user_name']  : 'MY PROFILE-'.$_SESSION['user_name']; ?>
                 </a></li>
                 <li><a class="active nav-elements" href="<?php echo URLROOT ?>/users/logout">Logout</a></li>
             <?php else : ?>

@@ -36,7 +36,48 @@ class User{
         } else {
           return false;
         }
-      }
+    }
+
+    public function addUser($data){
+        $this->db->query("INSERT INTO users (name, user_type, email, password) VALUES(:name, :user_type, :email, :password)");
+        //Bind values
+        $this->db->bind(':name' , $data['name']);
+        $this->db->bind(':user_type' , $data['user_type']);
+        $this->db->bind(':email' ,  $data['email']);
+        $this->db->bind(':password' ,  $data['password']);
+
+        //Execute the query
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function updateUser($data){
+        $this->db->query("UPDATE users SET name = :name, user_type = :user_type, email = :email, password = :password WHERE id= :id");
+        //Bind values
+        $this->db->bind(':id' , $data['id']);
+        $this->db->bind(':name' , $data['name']);
+        $this->db->bind(':user_type' , $data['user_type']);
+        $this->db->bind(':email' ,  $data['email']);
+        $this->db->bind(':password' ,  $data['password']);
+
+        //Execute the query
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+
+    public function getUsers(){
+        $this->db->query('SELECT * FROM users');
+        $results= $this->db->resultSet();
+        return $results;
+    }
 
     //Find user by email
     public function findUserByEmail($email){
@@ -60,6 +101,18 @@ class User{
 
         $row = $this->db->single();
         return $row;
+    }
+
+    public function deleteUser($id){
+        $this->db->query("DELETE FROM users WHERE id = :id");
+        //Bind values
+        $this->db->bind(':id' ,  $id);
+        //Execute the query
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 
