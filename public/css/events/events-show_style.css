@@ -107,7 +107,7 @@ a.active{
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .search input[type=text]{
@@ -139,14 +139,14 @@ a.active{
     display: flex;
     flex-direction: row;
     width:100%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     align-items: center;
 }
 
 .section-name{
     display: flex;
     width:20vw;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     align-items: center;
     font-size: 30px;
     font-family: poppins;
@@ -159,7 +159,7 @@ a.active{
     font-family: poppins;
     color: black;
     justify-content: flex-end;
-    border:1px solid red;
+    /* border:1px solid red; */
 } 
 
 .shortcut-options ul li{
@@ -312,7 +312,7 @@ a.active{
         .left-section{
             display: flex;
             flex-direction: column;
-            border:1px solid red;
+            /* border:1px solid red; */
             width:20%; 
         }
             .social-media-box{
@@ -345,7 +345,7 @@ a.active{
         .middle-section{
             display: flex;
             flex-direction: column;
-            border:1px solid red;
+            /* border:1px solid red; */
             width:60%;
             align-items: center; /* Vertically center items */
         }
@@ -367,7 +367,7 @@ a.active{
         .right-section{
             display: flex;
             flex-direction: column;
-            border:1px solid red;
+            /* border:1px solid red; */
             width:20%;
         }
 

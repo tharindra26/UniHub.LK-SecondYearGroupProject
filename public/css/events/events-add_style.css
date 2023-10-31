@@ -106,7 +106,7 @@ a.active{
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .search input[type=text]{
@@ -139,7 +139,7 @@ a.active{
     display: flex;
     flex-direction: row;
     width:100%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     align-items: center;
 }
 
@@ -159,7 +159,7 @@ a.active{
     font-family: poppins;
     color: black;
     justify-content: flex-end;
-    border:1px solid red;
+    /* border:1px solid red; */
 } 
 
 .shortcut-options ul li{
@@ -206,7 +206,7 @@ a.active{
     display: flex;
     flex-direction: raw;
     width: 70vw;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     flex-wrap: wrap;
     justify-content: space-around;
     align-content: flex-start;
@@ -220,7 +220,7 @@ a.active{
     padding-left:10px;
     margin-top: 10px;
     background-color:#D9D9D9;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     border-radius: 20px;
     width: 20vw;
   }
