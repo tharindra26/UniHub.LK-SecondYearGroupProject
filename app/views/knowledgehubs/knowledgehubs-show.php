@@ -43,6 +43,7 @@
       <div class="outer-body-container">
         <div class="header-outer-box">
             <div class="cover-image">
+                
                 <img src="<?php echo URLROOT ?>/img/knowledgehub-cover-images/<?php echo $data['knowledgehub']->knowledgehub_cover_image; ?>">
             </div>
             <div class="header-inner-box">

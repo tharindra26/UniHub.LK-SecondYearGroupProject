@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> <?php echo SITENAME; ?> </title>
-    <link rel="stylesheet" href="<?php echo URLROOT?>/css/events/events-show_style.css">
+    <link rel="stylesheet" href="<?php echo URLROOT?>/css/organizations/organizations-show_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
@@ -17,11 +17,11 @@
                 class="search-input"
                 placeholder=" Search "
                 name="search">
-          <button class="search-button">
+          <!-- <button class="search-button">
               <i class="fa fa-search"
                 style="font-size: 18px;">
               </i>
-          </button>
+          </button> -->
         </form>
       </div>
 
@@ -43,33 +43,24 @@
       <div class="outer-body-container">
         <div class="header-outer-box">
             <div class="cover-image">
-                <img src="<?php echo URLROOT ?>/img/event-cover-images/<?php echo $data['event']->event_cover_image; ?>">
+               
+                <img src="<?php echo URLROOT ?>/img/organization-cover-images/<?php echo $data['organization']->organization_cover_image; ?>">
             </div>
             <div class="header-inner-box">
                 <div class="top-half">
                     <div class="left-part">
-                        <div class="title-part"><?php echo $data['event']->title; ?></div>
-                        <div class="sub-details-part"><?php echo $data['event']->type; ?></div>
+                        <div class="title-part"><?php echo $data['organization']->name; ?></div>
+                        <div class="sub-details-part"><?php echo $data['organization']->university; ?></div>
                     </div>
                     <div class="right-part">
                         <div class="link-button">
-                            Register
+                            Join With Us
                         </div>
                     </div>
                 </div>
                 <div class="middle-line"></div>
                 <div class="bottom-half">
-                    <?php
-                        $rawDateTime = $data['event']->date;
-
-                        // Convert the raw datetime to a timestamp
-                        $timestamp = strtotime($rawDateTime);
-
-                        // Format the timestamp as "01st JUNE 10:10PM"
-                        $formattedDateTime = date("dS F Y h:ia", $timestamp);
-                    ?>
-                    <div class="date-text"><i class="fa-solid fa-calendar-days"></i> &nbsp <?php echo $formattedDateTime; ?></div>
-                    <div class="location-text"><i class="fa-solid fa-location-dot"></i> &nbsp <?php echo $data['event']->location; ?></div>
+                    <div class="date-text"><i class="fa-solid fa-calendar-days"></i> &nbsp <?php echo $data['organization']->link; ?></div>
                 </div>
             </div>
         </div>
@@ -77,7 +68,7 @@
             <div class="left-section">
                 <div class="social-media-box">
                     <div class="social-media-text">
-                        Share this event
+                        Connect with us
                     </div>
                     <div class="social-media-icons">
                         <i class="fa-brands fa-square-facebook"></i>
@@ -90,7 +81,7 @@
             </div>
             <div class="middle-section">
                 <div class="event-description-box">
-                <?php echo $data['event']->description; ?>
+                <?php echo $data['organization']->description; ?>
                 </div>
             </div>
             <div class="right-section">
@@ -102,20 +93,20 @@
 
                     <div class="report-event">
                         <i class="fa-solid fa-bug"></i>
-                        &nbsp Report Event
+                        &nbsp Report Organization
                     </div>
 
                     
                     <?php if(isset($_SESSION['user_id'])):?>
-                        <?php if($_SESSION['user_id'] == $data['event']-> user_id || $_SESSION['user_type'] == 'admin'):?>
-                            <a  href="<?php echo URLROOT ?>/events/edit/<?php echo $data['event']->id; ?>">
+                        <?php if($_SESSION['user_id'] == $data['organization']-> user_id || $_SESSION['user_type'] == 'admin'):?>
+                            <a  href="<?php echo URLROOT ?>/organizations/edit/<?php echo $data['organization']->id; ?>">
                                 <div class="update-event">
                                     <i class="fa-solid fa-wrench"></i>
-                                    &nbsp Update Event
+                                    &nbsp Update Organization
                                 </div>
                             </a>
                         
-                            <form  action="<?php echo URLROOT; ?>/events/delete/<?php echo $data['event']->id; ?>" method="post">
+                            <form  action="<?php echo URLROOT; ?>/organizations/delete/<?php echo $data['organization']->id; ?>" method="post">
                                 <input type="submit" value="Delete" class="delete-event">
                             </form>
                         <?php endif; ?>
