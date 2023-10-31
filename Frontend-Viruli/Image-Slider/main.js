@@ -49,7 +49,7 @@ dots.forEach((li, key) => {
     })
 })
 
-refreshSlider = setInterval(next, 5000);
+refreshSlider = setInterval(next, 3000);
 
 // Add an event listener to stop the slider when the user hovers over it
 list.addEventListener('mouseenter', function () {
@@ -58,7 +58,7 @@ list.addEventListener('mouseenter', function () {
 
 // Add an event listener to resume the slider when the user leaves the slider
 list.addEventListener('mouseleave', function () {
-    refreshSlider = setInterval(next, 5000);
+    refreshSlider = setInterval(next, 3000);
 });
 
 const infiniteScroll = () => {
