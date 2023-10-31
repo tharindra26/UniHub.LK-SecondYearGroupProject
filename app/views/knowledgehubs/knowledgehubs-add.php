@@ -26,7 +26,7 @@
       </div>
 
       <div class="quick-shortcut-bar">
-        <div class="section-name">Events</div>
+        <div class="section-name">Knowledgehub</div>
         <div class="shortcut-set">
           <nav class="shortcut-options">
             <ul>
@@ -45,7 +45,7 @@
           <a href="<?php echo URLROOT ?>/knowledgehubs/add">
             <div class="request-event-button">
               <i class="fa-regular fa-pen-to-square"></i>
-              <span>Request Event</span>
+              <span>Add Post</span>
             </div>
           </a>
           <!-- <input type="button" class="button" value="Request Event"> -->

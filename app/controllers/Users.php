@@ -2,6 +2,7 @@
 class Users extends Controller{
     public function __construct(){
         $this->userModel = $this->model('User');
+        $this->organizationalModel = $this->model('Organization');
     }
 
     Public function register(){
@@ -189,6 +190,14 @@ class Users extends Controller{
 
         if($user->user_type=='admin'){
           $this->view('users/users-show-admin', $data);
+        }else if($user->user_type=='org'){
+          $organization = $this->organizationalModel->getOrganizationByUserId($user->id);
+          $user = $this->userModel->getUserById($organization->user_id);
+          $data =[
+            'organization' =>$organization,
+            'user' =>$user,
+          ];
+          $this->view('organizations/organizations-show', $data);
         }else{
           $this->view('users/users-show-und', $data);
         }
