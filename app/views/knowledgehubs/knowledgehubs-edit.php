@@ -17,11 +17,11 @@
                 class="search-input"
                 placeholder=" Search "
                 name="search">
-          <button class="search-button">
+          <!-- <button class="search-button">
               <i class="fa fa-search"
                 style="font-size: 18px;">
               </i>
-          </button>
+          </button> -->
         </form>
       </div>
 
@@ -30,9 +30,9 @@
         <div class="shortcut-set">
           <nav class="shortcut-options">
             <ul>
-              <li><a  href="#">Hackathons</a></li>
-              <li><a  href="#">Entertainments</a></li>
-              <li><a  href="#">Workshops</a></li>
+            <li><a  href="#">Blog Posts</a></li>
+              <li><a  href="#">Research Papers</a></li>
+              <li><a  href="#">Social Media Posts</a></li>
             </ul>
           </nav>
           
@@ -69,7 +69,7 @@
                         $formattedDateTime = date("dS F Y h:ia", $timestamp);
                     ?>
 
-                     <div class="location-text"><i class="fa-solid fa-location-dot"></i> &nbsp Posted by: <?php echo $data['user_name'] ?></div>
+                     <div class="location-text"><i class="fa-solid fa-user"></i> &nbsp Posted by: <?php echo $data['user_name'] ?></div>
                 
                     <div class="date-text"><i class="fa-solid fa-calendar-days"></i> &nbsp Created at: <?php echo $formattedDateTime; ?></div>
                    

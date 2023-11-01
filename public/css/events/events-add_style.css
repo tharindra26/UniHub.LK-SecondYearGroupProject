@@ -150,6 +150,7 @@ a.active{
     align-items: center;
     font-size: 30px;
     font-family: poppins;
+    font-weight: bolder;
 }
 
 .shortcut-options ul{

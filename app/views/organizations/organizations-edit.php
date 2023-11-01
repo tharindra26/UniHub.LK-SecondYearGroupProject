@@ -30,9 +30,9 @@
         <div class="shortcut-set">
           <nav class="shortcut-options">
             <ul>
-              <li><a  href="#">Hackathons</a></li>
-              <li><a  href="#">Entertainments</a></li>
-              <li><a  href="#">Workshops</a></li>
+            <li><a  href="#">Trending</a></li>
+              <li><a  href="#">Technical</a></li>
+              <li><a  href="#">Religious</a></li>
             </ul>
           </nav>
           
@@ -120,7 +120,7 @@
                     <?php endif; ?>
 
 
-                    <button class="form-button" type="submit">Update Post</button>
+                    <button class="form-button" type="submit">Update Organization</button>
                 </div>
 
             </form>

@@ -17,11 +17,11 @@
                 class="search-input"
                 placeholder=" Search "
                 name="search">
-          <button class="search-button">
+          <!-- <button class="search-button">
               <i class="fa fa-search"
                 style="font-size: 18px;">
               </i>
-          </button>
+          </button> -->
         </form>
       </div>
 
