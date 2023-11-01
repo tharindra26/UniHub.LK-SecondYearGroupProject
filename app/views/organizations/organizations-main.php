@@ -17,11 +17,11 @@
                 class="search-input"
                 placeholder=" Search "
                 name="search">
-          <button class="search-button">
+          <!-- <button class="search-button">
               <i class="fa fa-search"
                 style="font-size: 18px;">
               </i>
-          </button>
+          </button> -->
         </form>
       </div>
 
@@ -42,12 +42,12 @@
 
       <div class="outer-body-container">
         <div class="option-section">
-          <a href="<?php echo URLROOT ?>/events/add">
+          <!-- <a href="<?php echo URLROOT ?>/events/add">
             <div class="request-event-button">
               <i class="fa-regular fa-pen-to-square"></i>
               <span>Request Event</span>
             </div>
-          </a>
+          </a> -->
           <!-- <input type="button" class="button" value="Request Event"> -->
 
           <!-- date-filter -->

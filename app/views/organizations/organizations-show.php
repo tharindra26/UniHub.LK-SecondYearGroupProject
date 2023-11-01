@@ -26,13 +26,13 @@
       </div>
 
       <div class="quick-shortcut-bar">
-        <div class="section-name">Events</div>
+        <div class="section-name">Organizations</div>
         <div class="shortcut-set">
           <nav class="shortcut-options">
             <ul>
-              <li><a  href="#">Hackathons</a></li>
-              <li><a  href="#">Entertainments</a></li>
-              <li><a  href="#">Workshops</a></li>
+            <li><a  href="#">Trending</a></li>
+              <li><a  href="#">Technical</a></li>
+              <li><a  href="#">Religious</a></li>
             </ul>
           </nav>
           
@@ -60,7 +60,7 @@
                 </div>
                 <div class="middle-line"></div>
                 <div class="bottom-half">
-                    <div class="date-text"><i class="fa-solid fa-calendar-days"></i> &nbsp <?php echo $data['organization']->link; ?></div>
+                    <div class="date-text"><i class="fa-solid fa-link"></i> &nbsp <?php echo $data['organization']->link; ?></div>
                 </div>
             </div>
         </div>
@@ -87,8 +87,8 @@
             <div class="right-section">
                 <div class="action-box">
                     <div class="add-calender-event">
-                        <i class="fa-regular fa-calendar-check"></i>
-                        &nbsp Add to Calendar
+                        <i class="fa-solid fa-heart"></i>
+                        &nbsp Follow Us
                     </div>
 
                     <div class="report-event">

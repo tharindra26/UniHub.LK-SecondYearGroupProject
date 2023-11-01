@@ -17,11 +17,11 @@
                 class="search-input"
                 placeholder=" Search "
                 name="search">
-          <button class="search-button">
+          <!-- <button class="search-button">
               <i class="fa fa-search"
                 style="font-size: 18px;">
               </i>
-          </button>
+          </button> -->
         </form>
       </div>
 
@@ -30,9 +30,9 @@
         <div class="shortcut-set">
           <nav class="shortcut-options">
             <ul>
-              <li><a  href="#">Hackathons</a></li>
-              <li><a  href="#">Entertainments</a></li>
-              <li><a  href="#">Workshops</a></li>
+            <li><a  href="#">Blog Posts</a></li>
+              <li><a  href="#">Research Papers</a></li>
+              <li><a  href="#">Social Media Posts</a></li>
             </ul>
           </nav>
           
@@ -81,7 +81,7 @@
                         <span class="error-message"><?php echo $data['title_err']; ?></span>
                     <?php endif; ?>
 
-                    <label for="type"><b>Event Type</b></label>
+                    <label for="type"><b>Post Type</b></label>
                     <input type="text" placeholder="Enter Post Type" name="type" value="<?php echo $data['type'] ?>" >
                     <?php if (!empty($data['type_err'])): ?>
                         <span class="error-message"><?php echo $data['type_err']; ?></span>
@@ -99,13 +99,13 @@
                         <span class="error-message"><?php echo $data['link_err']; ?></span>
                     <?php endif; ?>
 
-                    <label for="knowledgehub_card_image"><b>Event Card Image</b></label>
+                    <label for="knowledgehub_card_image"><b>Post Card Image</b></label>
                     <input class="file-upload" type="file" placeholder="Enter event card image" name="knowledgehub_card_image" value="<?php echo $data['knowledgehub_card_image'] ?>" >
                     <?php if (!empty($data['knowledgehub_card_image_err'])): ?>
                         <span class="error-message"><?php echo $data['knowledgehub_card_image_err']; ?></span>
                     <?php endif; ?>
 
-                    <label for="knowledgehub_cover_image"><b>Event Cover Image</b></label>
+                    <label for="knowledgehub_cover_image"><b>Post Cover Image</b></label>
                     <input class="file-upload" type="file" placeholder="Enter event cover image" name="knowledgehub_cover_image" value="<?php echo $data['knowledgehub_cover_image'] ?>" >
                     <?php if (!empty($data['event_cover_image_err'])): ?>
                         <span class="error-message"><?php echo $data['knowledgehub_cover_image_err']; ?></span>
