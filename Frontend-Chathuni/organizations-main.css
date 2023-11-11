@@ -1,0 +1,6 @@
+.image-background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('C:/xampp/htdocs/unihub/public/img/background-img.png');
+}
