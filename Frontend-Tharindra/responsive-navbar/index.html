@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- navigation-bar -->
+    <nav>
+
+        <!-- vertical navbar -->
+        <ul class="sidebar">
+            <!-- <li><a href="#"><img src="unihub-logo.png" alt="" class="navbar-logo"></a></li> -->
+            <li onclick=hideSideBar()><a href="#" ><svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a></li>
+            <li><a href="#">Events</a></li>
+            <li><a href="#">Organizations</a></li>
+            <li><a href="#">KnowledgeHub</a></li>
+            <li><a href="#">Opportunities</a></li>
+            <li><a href="#">About Us</a></li>
+        </ul>
+
+
+        <!-- horizontal-navbar -->
+        <ul>
+            <!-- <li><a href="#"><img src="unihub-logo.png" alt="" class="navbar-logo"></a></li> -->
+            <li><a href="#" class="unihub-logo-text">UniHub.lk</a></li>
+            <li class="hideOnMobile"><a href="#">Events</a></li>
+            <li class="hideOnMobile"><a href="#">Organizations</a></li>
+            <li class="hideOnMobile"><a href="#">KnowledgeHub</a></li>
+            <li class="hideOnMobile"><a href="#">Opportunities</a></li>
+            <li class="hideOnMobile"><a href="#">About Us</a></li>
+            <li class="menu-button" onclick=showSideBar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a></li>
+        </ul>
+    </nav>
+
+    <!-- navigation-bar -->
+
+    <script src="animation.js"></script>
+</body>
+</html>
