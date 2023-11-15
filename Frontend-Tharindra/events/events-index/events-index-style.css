@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Overpass:wght@500&family=Poppins:wght@100;500;600&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+}
+
+:root{
+    --primary: hsla(228, 19%, 5%, 0.50)  ;
+    --secondary:  hsla(228, 19%, 5%, 0.50) ;
+    
+}
+
+.container{
+    width:90%;
+    margin:0 auto;
+}
+
+body{
+    min-height: 100vh;
+    /* background: linear-gradient(90deg, var(--primary), var(--secondary) ),url(img2.jpg); */
+    background: url(Frame.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-family: poppins;
+}
+
+.navigation-bar-container{
+    margin-top: 20px;
+}
+
+/* Search bar */
+.search-bar-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    /* border: 1px solid red; */
+}
+
+    .search-bar{
+        width: 100%;
+        max-width: 100%;
+        background: rgba(255, 255, 255, 0.3);
+        display: flex;
+        align-items: center;
+        border-radius: 60px;
+        padding: 3px 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+        .search-bar input{
+            background: transparent;
+            flex:1; 
+            /* flex:1 get the full width */
+            border: 0;
+            outline: none;
+            font-size: 15px;
+            color: #c5c6c7;
+            text-align: center;
+
+        }
+
+            .search-bar input::placeholder{
+                color: #c5c6c7;
+            }
+
+        .search-bar button{
+            border: 0;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            background: rgba(31, 40, 51, 0.5);
+            cursor: pointer;
+        }
+
+        .fa-magnifying-glass{
+            color: white;
+        }
+/* Search bar */
+
+/* Quick-shortcut-bar */
+.shortcut-bar{
+    width: 100%;
+    /* border: 1px solid red; */
+    height:50px;
+    display: flex;
+    flex-direction: row;
+}
+    .section-name{
+        width: 25%;
+        /* border: 1px solid white; */
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        color: white;
+        font-family: poppins;
+        font-size: 30px;
+        
+    }
+    .shortcut-options{
+        width:75%;
+        /* border:1px solid white; */
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        font-weight: 500;
+    }
+        .option{
+            color: white;
+            margin-left: 30px;
+            padding: 10px;
+            /* border: 1px solid white; */
+            border-radius: 50px;
+        }
+/* Quick-shortcut-bar */
+
+/* main event showing section */
+.outer-body-container{
+    width:100%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+    .filters-section{
+        width:25%;
+        outline: none;
+        /* border: 1px solid red; */
+    }
+        .request-event-button{
+            width: 90%;
+            padding:10px;
+            background-color: #45a29e;
+            color:white;
+            border-radius: 20px;
+            font-family: poppins;
+            text-decoration: none;
+            cursor: po;
+        }
+
+        .request-event-button:hover {
+            background: #1b9bff;
+            color: white;
+            transition: .5s;
+            -webkit-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
+            -moz-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
+            box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
+        }
+    .content-section{
+        width:75%;
+        height: 40px;
+        /* border: 1px solid red; */
+    }
+/* main event showing section */
+
+@media(max-width: 1536px){
+    .container{
+        max-width: 1280px;
+    }
+}
+
+@media(max-width: 1280px){
+    .container{
+        max-width: 1024px;
+    }
+}
+
+@media(max-width: 1024px){
+    .container{
+        max-width: 768px;
+    }
+}
+
+@media(max-width: 768px){
+    .container{
+        max-width: 640px;
+    }
+}
+
+@media(max-width: 640px){
+    .container{
+        max-width: 475px;
+    }
+}
+
+@media(max-width: 475px){
+    .container{
+        max-width: 100%;
+    }
+}
