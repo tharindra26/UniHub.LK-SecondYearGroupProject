@@ -9,7 +9,7 @@
             <li><a class="active nav-elements" href="<?php echo URLROOT ?>/pages/index">Home</a></li>
             <li><a  class="nav-elements" href="<?php echo URLROOT ?>/events/index">Events</a></li>
             <li><a class="nav-elements" href="<?php echo URLROOT ?>/knowledgehubs/index">Knowledge Hub</a></li>
-            <li><a class="nav-elements" href="<?php echo URLROOT ?>/pages/opportunities">Opportunities</a></li>
+            <li><a class="nav-elements" href="<?php echo URLROOT ?>#">Opportunities</a></li>
             <li><a class="nav-elements" href="<?php echo URLROOT ?>/organizations/index">Organizations</a></li>
 
             <?php if(isset($_SESSION['user_id'])): ?>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+    <link rel="stylesheet" href="events-index-style.css">
+    <link rel="stylesheet" href="../../responsive-navbar/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <!-- navigation-bar -->
+    <div class="container">
+        <div class="navigation-bar-container">
+            <nav>
+                <!-- vertical navbar -->
+                <ul class="sidebar">
+                    <!-- <li><a href="#"><img src="unihub-logo.png" alt="" class="navbar-logo"></a></li> -->
+                    <li onclick=hideSideBar()><a href="#" ><svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Organizations</a></li>
+                    <li><a href="#">KnowledgeHub</a></li>
+                    <li><a href="#">Opportunities</a></li>
+                    <li><a href="#">About Us</a></li>
+                </ul>
+
+
+                <!-- horizontal-navbar -->
+                <ul>
+                    <!-- <li><a href="#"><img src="unihub-logo.png" alt="" class="navbar-logo"></a></li> -->
+                    <li><a href="#" class="unihub-logo-text">UniHub.lk</a></li>
+                    <li class="hideOnMobile"><a href="#">Events</a></li>
+                    <li class="hideOnMobile"><a href="#">Organizations</a></li>
+                    <li class="hideOnMobile"><a href="#">KnowledgeHub</a></li>
+                    <li class="hideOnMobile"><a href="#">Opportunities</a></li>
+                    <li class="hideOnMobile"><a href="#">About Us</a></li>
+                    <li class="menu-button" onclick=showSideBar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- navigation-bar -->
+
+    <!-- Search-bar -->
+    <div class="container">
+        <div class="search-bar-container">
+            <form action="" class="search-bar">
+                <input type="text" name="" id="" placeholder="Search anything">
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+        </div>
+    </div>
+    <!-- Search-bar -->
+
+    <!-- Quick-shortcut-bar -->
+    <div class="container">
+        <div class="shortcut-bar">
+            <div class="section-name">Events</div>
+            <div class="shortcut-options">
+                <div class="option">Hackathons</div>
+                <div class="option">Entertainment</div>
+                <div class="option">Workshops</div>
+            </div>
+        </div>
+    </div>
+    <!-- Quick-shortcut-bar -->
+
+    <!-- event-showing-section -->
+    <div class="container">
+        <div class="outer-body-container">
+
+            <div class="filters-section">
+                <a href="#">
+                    <div class="request-event-button">
+                      <i class="fa-regular fa-pen-to-square"></i>
+                      <span>Request Event</span>
+                    </div>
+                  </a>
+            </div>
+
+            <div class="content-section"></div>
+        </div> 
+    </div>
+    <!-- event-showing-section -->
+
+
+</body>
+</html>
