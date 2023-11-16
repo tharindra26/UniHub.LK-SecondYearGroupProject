@@ -188,11 +188,10 @@ a.active{
 }
     .request-event-button{
         padding:10px;
-        background-color: #45a29e;
+        background-color: #4CAF50;
         color:white;
         border-radius: 20px;
         font-family: poppins;
-        text-decoration: none;
     }
 
     .request-event-button:hover {

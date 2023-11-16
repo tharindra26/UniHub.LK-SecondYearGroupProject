@@ -17,17 +17,13 @@
 
 body{
     min-height: 100vh;
-    /* background: linear-gradient(90deg, var(--primary), var(--secondary) ),url(img2.jpg); */
-    background: url(Frame.png);
+    background: #EEEEEE;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     font-family: poppins;
 }
 
-.navigation-bar-container{
-    margin-top: 20px;
-}
 
 /* Search bar */
 .search-bar-container{
@@ -41,11 +37,11 @@ body{
     .search-bar{
         width: 100%;
         max-width: 100%;
-        background: rgba(255, 255, 255, 0.3);
+        background: rgba(127, 140, 141, 0.3);
         display: flex;
         align-items: center;
         border-radius: 60px;
-        padding: 3px 20px;
+        padding: 3px 5px;
         margin-top: 10px;
         margin-bottom: 10px;
     }
@@ -57,13 +53,13 @@ body{
             border: 0;
             outline: none;
             font-size: 15px;
-            color: #c5c6c7;
+            color: rgb(130, 130, 130);
             text-align: center;
 
         }
 
             .search-bar input::placeholder{
-                color: #c5c6c7;
+                color: rgb(130, 130, 130);
             }
 
         .search-bar button{
@@ -94,7 +90,7 @@ body{
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        color: white;
+        color: black;
         font-family: poppins;
         font-size: 30px;
         
@@ -109,7 +105,7 @@ body{
         font-weight: 500;
     }
         .option{
-            color: white;
+            color: black;
             margin-left: 30px;
             padding: 10px;
             /* border: 1px solid white; */
@@ -117,43 +113,7 @@ body{
         }
 /* Quick-shortcut-bar */
 
-/* main event showing section */
-.outer-body-container{
-    width:100%;
-    display: flex;
-    flex-direction: row;
-    margin-top: 10px;
-}
-    .filters-section{
-        width:25%;
-        outline: none;
-        /* border: 1px solid red; */
-    }
-        .request-event-button{
-            width: 90%;
-            padding:10px;
-            background-color: #45a29e;
-            color:white;
-            border-radius: 20px;
-            font-family: poppins;
-            text-decoration: none;
-            
-        }
 
-        .request-event-button:hover {
-            background: #1b9bff;
-            color: white;
-            transition: .5s;
-            -webkit-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
-            -moz-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
-            box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
-        }
-    .content-section{
-        width:75%;
-        height: 40px;
-        /* border: 1px solid red; */
-    }
-/* main event showing section */
 
 @media(max-width: 1536px){
     .container{
