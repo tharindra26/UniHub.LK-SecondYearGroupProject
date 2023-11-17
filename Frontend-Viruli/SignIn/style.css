@@ -15,108 +15,35 @@
 }
 body{
     position: absolute;
-    
+    min-height: 100vh;
+    background: #EEEEEE;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
     font-family: poppins;
-    
+    background-image: linear-gradient(150deg, var(--primary), var(--secondary) ),url(../SignIn/img/img2.jpg); 
+    background-attachment: fixed;
+    z-index: -1;
+    justify-content: center;
+    align-items: center;
 }
 
 .container{
-    background: linear-gradient(150deg, var(--primary), var(--secondary) ),url(../SignIn/img/img2.jpg);
-    min-height: 100vh;
-    max-width: 100%;
-    background-size: cover;
-    z-index: -1;
-    background-position: bottom;
+    width: 90%;
+    margin:0 auto;
 }
 
 .background{
     justify-content: space-between;
     display: flex; 
-    padding: 5vw 5vw 0;
     overflow: hidden; 
 }
 
-/* navbar  */
-nav{
-    /* background-color: rgba(255, 255, 255, 0.2); */
-    box-shadow: 3px 3px 5px rgba(0,0,0,0.1);
-    backdrop-filter: blur(5px);
-}
-
-nav ul{
-    width: 100%;
-    list-style: none;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    
-
-}
-
-nav li{
-    height: 50px;
-}
-
-.unihub-logo-text{
-    font-family: overpass;
-    color:white;
-    font-size: 30px;
-    font-weight: bold;
-}
-
-nav a{
-    height: 100%;
-    padding: 0 30px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    color: white;
-}
-
-nav a:hover{
-    background-color: #f0f0f0;
-    color: #0B0C10;
-}
-
-nav li:first-child{
-    margin-right: auto;
-}
-
-.sidebar{
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    width: 250px;
-    z-index: 999;
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    box-shadow: -10px 0 10px rgba(0,0,0,0.1);
-    display: none;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-
-}
-
-.sidebar li{
-    width: 100%;
-}
-
-.sidebar a{
-    width: 100%;
-}
-
-.menu-button{
-    display: none;
-}
-
-/* navbar  */
 
 .content{
     position: relative;
-    top: 80px;
-    width: 60vw;
+    top: 200px;
+    width: 60%;
     padding: 20px;
     justify-content: center;
     align-items: center;
@@ -172,7 +99,8 @@ nav li:first-child{
 }
 
 .wrapper{
-    width: 30vw;
+    margin-top: 150px;
+    width: 40%;
     justify-content: center;
     padding: 20px;
     overflow: hidden;
@@ -296,17 +224,43 @@ nav li:first-child{
     text-decoration: underline;
 }
 
-@media(max-width: 950px){
-    .hideOnMobile{
-        display: none;
-    }
-    .menu-button{
-        display: block;
+ /* @media(max-width: 1536px){
+    .container{
+        max-width: 1280px;
     }
 }
 
-@media(max-width: 400px){
-    .sidebar{
-        width: 100%;
+@media(max-width: 1280px){
+    .container{
+        max-width: 1024px;
     }
 }
+
+@media(max-width: 1024px){
+    .container{
+        max-width: 768px;
+        flex-direction: column;
+    }
+}
+
+@media(max-width: 768px){
+    .container{
+        max-width: 640px;
+        flex-direction: column;
+    }
+}
+
+@media(max-width: 640px){
+    .container{
+        max-width: 475px;
+        flex-direction: column;
+    }
+}
+
+@media(max-width: 475px){
+    .container{
+        max-width: 100%;
+        flex-direction: column;
+    }
+}
+ */

@@ -9,7 +9,7 @@
 
 :root{
     --primary: hsla(228, 19%, 5%, 0.80)  ;
-    --secondary:  hsla(177, 40%, 45%, 0.50) ;
+    --secondary:  hsla(210, 29%, 24%, 0.65) ;
 }
 
 .container{
@@ -27,7 +27,7 @@ body{
     background-repeat: no-repeat;
     background-position: center center;
     font-family: poppins;
-    background-image: linear-gradient(150deg, var(--primary), var(--secondary) ),url(../SignIn/img/img6.jpg); 
+    background-image: linear-gradient(180deg, var(--primary), var(--secondary) ),url(../SignIn/img/img6.jpg); 
     background-attachment: fixed;
     z-index: -1;
     justify-content: center;
@@ -88,8 +88,8 @@ body{
 }
 
 .reg-btn:hover{
-    color: white;
-    background: linear-gradient(90deg,#0B0C10, #C5C6C7, #0B0C10);
+    color: black;
+    background: linear-gradient(90deg,#2980b9, #C5C6C7, #2980b9);
     transition: 0.5s;
     border: none;
 }
@@ -122,7 +122,7 @@ body{
     text-align: center;
     font-size: 40px;
     font-weight: 500px; 
-    margin-bottom: 10px;
+    margin: 20px 0 10px 0;
 }
 
 .register .input-box{
@@ -183,6 +183,7 @@ body{
 .drop-down.active{
     border: none;
     margin: 0;
+    
 }
 
 .drop-down .selected{
@@ -196,18 +197,27 @@ body{
     transition: 0.3s;
     outline: none;
     border: none;
+    margin: 30px  0  0 0;
+    /* justify-content: space-between; */
 }
 
 .selected .fa-graduation-cap{
     position: relative;
     color: black;
     font-size: 1.2em;
+    margin:-10px 5px  0  0;
+}
+
+.selected .btn-text{
+    position: relative;
+    margin-left: 10px;
 }
 
 .selected .arrow-dwn{
+    position: relative;
     font-size: 1.2em;
     transition: 0.3s;
-    margin: 5px 0 10px 0;
+    margin: -2px  0  0 auto;
 }
 
 .drop-down.active .selected .arrow-dwn{
@@ -252,7 +262,6 @@ body{
 }
 
 
-
 .register .terms{
     position: relative;
     color: black;
@@ -273,7 +282,7 @@ body{
     border: none;
     outline: none;
     border-radius: 40px;
-    background: linear-gradient(90deg, #0B0C10, #45A29E, #0B0C10);
+    background: linear-gradient(90deg, #0B0C10, #2980b9, #0B0C10);
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     cursor: pointer;
     font-size: 1.3em;
