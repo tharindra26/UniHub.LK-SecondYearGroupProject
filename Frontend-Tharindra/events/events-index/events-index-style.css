@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora&family=Overpass:wght@500&family=Poppins:wght@100;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Overpass:wght@500&family=Poppins:wght@100;200;500;600&display=swap');
 *{
     margin: 0;
     padding: 0;
@@ -154,10 +154,14 @@ body{
         }
 
 
+        /* university filter */
         .select-btn, .uni-filter-options li{
             display: flex;
             cursor: pointer;
             align-items:center;
+            text-decoration: none;
+            color: black;
+            font-weight: 400;
         }
 
         .select-btn{
@@ -215,6 +219,7 @@ body{
             margin-top: 10px;
             max-height: 250px;
             overflow-y: auto;
+            padding-right: 7px;
         }
         .uni-filter-options::-webkit-scrollbar{
             width: 7px;
@@ -234,11 +239,13 @@ body{
             font-size: 21px;
         }
 
-        .uni-filter-options li:hover{
+        .uni-filter-options li:hover, li.selected{
             background: #f2f2f2;
         }
+        /* university filter */
+        
     .content-section{
-        padding-left: 10px;
+        padding-left: 30px;
         width:75%;
         /* border: 1px solid red; */
         display: flex;
