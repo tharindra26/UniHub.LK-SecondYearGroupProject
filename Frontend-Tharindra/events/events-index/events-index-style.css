@@ -141,7 +141,7 @@ body{
             color:white;
             border-radius: 5px;
             font-family: poppins;
-            margin-bottom: 10px;
+            margin-bottom: 30px;
             font-size: 15px;
             
         }
@@ -177,7 +177,7 @@ body{
             border-radius: 7px;
             background: white;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin-bottom: 30px;
         }
 
         .select-btn i{
@@ -258,7 +258,7 @@ body{
         .date-filter{
             display: flex;
             max-width: 100%;
-            margin-bottom: 10px;
+            margin-bottom: 30px;
         }
         .date-filter input[type="date"]{
             background-color: #3498db;
@@ -292,6 +292,7 @@ body{
             background-color: white;
             justify-content: space-between;
             cursor: pointer;
+            margin-bottom: 30px;
             
         }
 
