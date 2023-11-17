@@ -10,7 +10,7 @@
 
 :root{
     --primary: hsla(228, 19%, 5%, 0.80)  ;
-    --secondary:  hsla(177, 40%, 45%, 0.50) ;
+    --secondary:  hsla(210, 29%, 24%, 0.80)  ;
     
 }
 body{
@@ -21,7 +21,7 @@ body{
     background-repeat: no-repeat;
     background-position: center center;
     font-family: poppins;
-    background-image: linear-gradient(150deg, var(--primary), var(--secondary) ),url(../SignIn/img/img2.jpg); 
+    background-image: linear-gradient(180deg, var(--primary), var(--secondary) ),url(../SignIn/img/img2.jpg); 
     background-attachment: fixed;
     z-index: -1;
     justify-content: center;
@@ -194,7 +194,7 @@ body{
     border: none;
     outline: none;
     border-radius: 40px;
-    background: linear-gradient(90deg, #0B0C10, #45A29E);
+    background: linear-gradient(90deg, #0B0C10, #2980b9, #0B0C10);
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     cursor: pointer;
     font-size: 1.3em;
@@ -204,8 +204,9 @@ body{
 }
 
 .btn:hover{
-    background: linear-gradient(90deg, #C5C6C7, #0B0C10);
+    background: linear-gradient(90deg,#0B0C10, #C5C6C7, #0B0C10);
     font-weight: 600;
+    color: black;
 }
 .login .register-link{
     font-size: 0.9em;
