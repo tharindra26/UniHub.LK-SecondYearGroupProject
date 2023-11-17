@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora&family=Overpass:wght@500&family=Poppins:wght@100;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Overpass:wght@500&family=Poppins:wght@100;200;500;600&display=swap');
 *{
     margin: 0;
     padding: 0;
@@ -24,6 +24,12 @@ body{
     font-family: poppins;
 }
 
+.nav-outer-container{
+    display: flex;
+    background-color: rgba(44, 62, 80, 1);
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.4);
+    width: 100%;
+}
 
 /* Search bar */
 .search-bar-container{
@@ -154,23 +160,28 @@ body{
         }
 
 
+        /* university filter */
         .select-btn, .uni-filter-options li{
             display: flex;
             cursor: pointer;
             align-items:center;
+            text-decoration: none;
+            color: black;
+            font-weight: 400;
         }
 
         .select-btn{
-            height:65px;
-            font-size: 22px;
+            height:45px;
+            font-size: 15px;
             padding: 0 20px;
             border-radius: 7px;
             background: white;
             justify-content: space-between;
+            margin-bottom: 10px;
         }
 
         .select-btn i{
-            font-size: 31px;
+            font-size: 20px;
             transition: transform 0.3s linear;
         }
 
@@ -184,6 +195,7 @@ body{
             border-radius: 7px;
             background-color: white;
             display: none;
+            margin-bottom: 10px;
         }
 
         .uni-filter-active .uni-filter-content{
@@ -202,19 +214,21 @@ body{
         }
 
         .uni-filter-search input{
-            height: 53px;
+            height: 40px;
             width: auto;
             font-size: 17px;
             padding: 0 15px 0 43px;
             outline: none;
             border: 1px solid #b3b3b3;
             border-radius: 5px;
+            position: static;
         }
 
         .uni-filter-content, .uni-filter-options{
             margin-top: 10px;
             max-height: 250px;
             overflow-y: auto;
+            padding-right: 7px;
         }
         .uni-filter-options::-webkit-scrollbar{
             width: 7px;
@@ -228,17 +242,130 @@ body{
             border-radius: 25px;
         }
         .uni-filter-options li{
-            height: 50px;
+            height: 35px;
             border-radius: 5px;
             padding: 0 13px;
-            font-size: 21px;
+            font-size: 15px;
         }
 
-        .uni-filter-options li:hover{
+        .uni-filter-options li:hover, li.selected{
             background: #f2f2f2;
         }
+        /* university filter */
+       
+
+        /* date filter */
+        .date-filter{
+            display: flex;
+            max-width: 100%;
+            margin-bottom: 10px;
+        }
+        .date-filter input[type="date"]{
+            background-color: #3498db;
+            padding: 10px;
+            font-family: poppins;
+            color: white;
+            font-size: 15px;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+        }
+
+        .date-filter ::-webkit-calendar-picker-indicator{
+            background-color: white;
+            padding: 5px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        /* date filter */
+
+
+
+        /* category filter */
+        .category-select-btn{
+            display: flex;
+            height:45px;
+            align-items: center;
+            padding: 0 20px;
+            border-radius: 7px;
+            background-color: white;
+            justify-content: space-between;
+            cursor: pointer;
+            
+        }
+
+        .category-select-btn .btn-txt{
+            font-size: 15px;
+            color: black;
+            font-weight: 400;
+        }
+
+        .category-select-btn .fa-angle-down{
+            transition: transform 0.3s linear;
+            font-size: 20px;
+        }
+
+        .category-filter-active .fa-angle-down{
+            transform: rotate(-180deg);
+        }
+        .list-items{
+            margin-top:15px;
+            border-radius: 7px;
+            padding:20px;
+            background-color: white;
+            display: none;
+        }
+
+        .category-filter-active ~ .list-items{
+            display: block;
+        }
+        .list-items .item{
+            display: flex;
+            align-items: center;
+            list-style: none;
+            height: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            padding:8px;
+            border-radius: 7px;
+        }
+
+        .list-items .item:hover{
+            background-color: #e7edfe;
+        }
+
+        .item .checkbox{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 16px;
+            width: 16px;
+            border-radius: 4px;
+            margin-right: 12px;
+            border: 1.5px solid #c0c0c0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .checkbox .check-icon{
+            color: white;
+            font-size: 11px;
+            transform: scale(0);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .category-checked .check-icon{
+            transform: scale(1);
+        }
+
+        .category-checked .checkbox{
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+        /* category filter */
+
     .content-section{
-        padding-left: 10px;
+        padding-left: 30px;
         width:75%;
         /* border: 1px solid red; */
         display: flex;

@@ -1,15 +1,15 @@
 
 
 /* navbar  */
-.navigation-bar-container{
+/* .navigation-bar-container{
     margin-top: 20px;
-}
+} */
 
 nav{
     background-color: rgba(44, 62, 80, 1);
-    backdrop-filter: blur(5px);
-    box-shadow: 3px 3px 5px rgba(0,0,0,0.4);
-    border-radius: 100px;
+    /* backdrop-filter: blur(5px); */
+    /* box-shadow: 3px 3px 5px rgba(0,0,0,0.4); */
+    border-radius: 10px;
 }
 
 nav ul{
@@ -27,19 +27,19 @@ nav li{
 
 .unihub-logo-text{
     font-family: overpass;
-    color:#00AEEF;
+    color:white;
     font-size: 30px;
     font-weight: bold;
 }
 
 nav a{
     height: 100%;
-    padding: 0 30px;
+    padding: 0 20px;
     text-decoration: none;
     display: flex;
     align-items: center;
     color: white;
-    font-size: 15px;
+    font-size: 13px;
 }
 
 nav a:hover{
