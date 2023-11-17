@@ -4,7 +4,7 @@ searchInput = uniFilter.querySelector("input"),
 uniFilterOptions= uniFilter.querySelector(".uni-filter-options");
 
 
-let universities = ["Colombo","Moratuwa", "Jaffna", "SLIIT", "IIT", "UWU", "KDU"];
+let universities = ["Colombo","Moratuwa", "Jaffna", "SLIIT", "IIT", "UWU", "KDU", "USJP"];
 
 
 function addUniversity(selectedUniversity){
