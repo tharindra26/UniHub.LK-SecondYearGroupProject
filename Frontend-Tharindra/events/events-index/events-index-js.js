@@ -1,3 +1,4 @@
+//university filter
 const uniFilter =document.querySelector(".uni-filter"),
 selectBtn = uniFilter.querySelector(".select-btn"),
 searchInput = uniFilter.querySelector("input"),
@@ -43,3 +44,31 @@ searchInput.addEventListener("keyup", ()=>{
 selectBtn.addEventListener("click", () => {
     uniFilter.classList.toggle("uni-filter-active");
 });
+//university filter
+
+//category filter
+const categorySelectBtn = document.querySelector(".category-select-btn"),
+items = document.querySelectorAll(".item");
+
+categorySelectBtn.addEventListener("click", () => {
+    categorySelectBtn.classList.toggle("category-filter-active");
+});
+
+items.forEach(item => {
+    item.addEventListener("click", () => {
+        item.classList.toggle("category-checked");
+
+        let checked =document.querySelectorAll(".category-checked"),
+        categoryBtnText = document.querySelector(".category-btn-txt");
+
+        if(checked && checked.length > 0) {
+            categoryBtnText.innerText = `${checked.length} Categories Selected`;
+        }else{
+            categoryBtnText.innerText = `Select Category`;
+        }
+
+    });
+
+    
+});
+//category filter

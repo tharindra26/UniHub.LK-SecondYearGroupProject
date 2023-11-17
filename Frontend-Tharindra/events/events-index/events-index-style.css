@@ -24,6 +24,12 @@ body{
     font-family: poppins;
 }
 
+.nav-outer-container{
+    display: flex;
+    background-color: rgba(44, 62, 80, 1);
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.4);
+    width: 100%;
+}
 
 /* Search bar */
 .search-bar-container{
@@ -215,7 +221,7 @@ body{
             outline: none;
             border: 1px solid #b3b3b3;
             border-radius: 5px;
-            position: fixed;
+            position: static;
         }
 
         .uni-filter-content, .uni-filter-options{
@@ -246,12 +252,13 @@ body{
             background: #f2f2f2;
         }
         /* university filter */
-
+       
 
         /* date filter */
         .date-filter{
             display: flex;
             max-width: 100%;
+            margin-bottom: 10px;
         }
         .date-filter input[type="date"]{
             background-color: #3498db;
@@ -272,6 +279,90 @@ body{
         }
 
         /* date filter */
+
+
+
+        /* category filter */
+        .category-select-btn{
+            display: flex;
+            height:45px;
+            align-items: center;
+            padding: 0 20px;
+            border-radius: 7px;
+            background-color: white;
+            justify-content: space-between;
+            cursor: pointer;
+            
+        }
+
+        .category-select-btn .btn-txt{
+            font-size: 15px;
+            color: black;
+            font-weight: 400;
+        }
+
+        .category-select-btn .fa-angle-down{
+            transition: transform 0.3s linear;
+            font-size: 20px;
+        }
+
+        .category-filter-active .fa-angle-down{
+            transform: rotate(-180deg);
+        }
+        .list-items{
+            margin-top:15px;
+            border-radius: 7px;
+            padding:20px;
+            background-color: white;
+            display: none;
+        }
+
+        .category-filter-active ~ .list-items{
+            display: block;
+        }
+        .list-items .item{
+            display: flex;
+            align-items: center;
+            list-style: none;
+            height: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            padding:8px;
+            border-radius: 7px;
+        }
+
+        .list-items .item:hover{
+            background-color: #e7edfe;
+        }
+
+        .item .checkbox{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 16px;
+            width: 16px;
+            border-radius: 4px;
+            margin-right: 12px;
+            border: 1.5px solid #c0c0c0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .checkbox .check-icon{
+            color: white;
+            font-size: 11px;
+            transform: scale(0);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .category-checked .check-icon{
+            transform: scale(1);
+        }
+
+        .category-checked .checkbox{
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+        /* category filter */
 
     .content-section{
         padding-left: 30px;
