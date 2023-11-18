@@ -2,6 +2,7 @@
 const uniFilter =document.querySelector(".uni-filter"),
 selectBtn = uniFilter.querySelector(".select-btn"),
 searchInput = uniFilter.querySelector("input"),
+uniResetBtn = uniFilter.querySelector(".uni-reset-btn");
 uniFilterOptions= uniFilter.querySelector(".uni-filter-options");
 
 
@@ -44,11 +45,29 @@ searchInput.addEventListener("keyup", ()=>{
 selectBtn.addEventListener("click", () => {
     uniFilter.classList.toggle("uni-filter-active");
 });
+
+uniResetBtn.addEventListener("click", () => {
+    searchInput.value= "";
+    addUniversity();
+    uniFilter.classList.remove("uni-filter-active");
+    selectBtn.firstElementChild.innerText = `Select University`;
+});
 //university filter
+
+//date filter
+function resetDate() {
+    // Get the date input element
+    var dateInput = document.getElementById('date-input');
+
+    // Set the date input value to an empty string to reset it
+    dateInput.value = '';
+}
+//date filter
 
 //category filter
 const categorySelectBtn = document.querySelector(".category-select-btn"),
-items = document.querySelectorAll(".item");
+items = document.querySelectorAll(".item"),
+categoryResetBtn= document.querySelector(".category-reset-btn");
 
 categorySelectBtn.addEventListener("click", () => {
     categorySelectBtn.classList.toggle("category-filter-active");
@@ -68,7 +87,15 @@ items.forEach(item => {
         }
 
     });
-
     
+});
+
+categoryResetBtn.addEventListener("click", () => {
+    items.forEach(item => {
+        item.classList.remove("category-checked");
+    });
+
+    // Reset the category button text
+    document.querySelector(".category-btn-txt").innerText = `Select Category`;
 });
 //category filter
