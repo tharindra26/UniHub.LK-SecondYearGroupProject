@@ -43,13 +43,15 @@ body{
     .search-bar{
         width: 100%;
         max-width: 100%;
-        background: rgba(127, 140, 141, 0.3);
+        /* background: rgba(127, 140, 141, 0.3); */
+        background: rgba(255, 255, 255, 0.5);
         display: flex;
         align-items: center;
         border-radius: 60px;
         padding: 3px 5px;
         margin-top: 10px;
         margin-bottom: 10px;
+        border: 1px solid black;
     }
 
         .search-bar input{
@@ -161,6 +163,16 @@ body{
 
 
         /* university filter */
+        .uni-reset-btn{
+            display: flex;
+            font-size: 13px;
+            align-items: center;
+            justify-content: flex-end;
+            color: #3498db;
+            cursor: pointer;
+            padding-bottom: 7px;
+        }
+
         .select-btn, .uni-filter-options li{
             display: flex;
             cursor: pointer;
@@ -259,6 +271,14 @@ body{
             display: flex;
             max-width: 100%;
             margin-bottom: 30px;
+            align-items: flex-start;
+            justify-content:space-between ;
+        }
+        .date-reset-btn{
+            display: flex;
+            font-size: 13px;
+            color: #3498db;
+            cursor: pointer;
         }
         .date-filter input[type="date"]{
             background-color: #3498db;
@@ -294,6 +314,16 @@ body{
             cursor: pointer;
             margin-bottom: 30px;
             
+        }
+
+        .category-reset-btn{
+            display: flex;
+            font-size: 13px;
+            align-items: center;
+            justify-content: flex-end;
+            color: #3498db;
+            cursor: pointer;
+            padding-bottom: 7px;
         }
 
         .category-select-btn .btn-txt{
