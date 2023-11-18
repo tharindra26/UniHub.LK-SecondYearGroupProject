@@ -6,9 +6,10 @@
 } */
 
 nav{
-    background-color: rgba(44, 62, 80, 1);
+    /* background-color: rgba(44, 62, 80, 1); */
+    background-color: white;
     /* backdrop-filter: blur(5px); */
-    /* box-shadow: 3px 3px 5px rgba(0,0,0,0.4); */
+    /* box-shadow: 3px 3px 5px rgba(0,0,0,0.5); */
     border-radius: 10px;
 }
 
@@ -22,34 +23,39 @@ nav ul{
 }
 
 nav li{
+    display: flex;
     height: 70px;
+    /* border: 1px solid red; */
+    align-items: center;
+    justify-content: center;
 }
 
 .unihub-logo-text{
     font-family: overpass;
-    color:white;
-    font-size: 30px;
+    color:#3498db;
+    font-size: 40px;
     font-weight: bold;
 }
 
 nav a{
-    height: 100%;
-    padding: 0 20px;
+    padding: 10px 20px;
     text-decoration: none;
     display: flex;
     align-items: center;
-    color: white;
+    color: black;
     font-size: 13px;
+    /* border: 1px solid red; */
 }
 
 nav a:hover{
-    padding: 0px 20px;
+    padding: 5px 20px;
     border-radius: 100px;
     color: black;
     background-color: #f0f0f0;
 }
 
 nav li:first-child{
+    padding-left: 0;
     margin-right: auto;
 }
 
