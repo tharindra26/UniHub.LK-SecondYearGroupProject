@@ -31,7 +31,7 @@ body{
 
 /* title bar */
 .title-bar{
-    height: 150px;
+    height: 200px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -130,16 +130,11 @@ body{
         font-weight: 500;
     }
         .option{
-            color: #2980b9;
+            color: black;
             margin-left: 30px;
             padding: 10px;
             /* border: 1px solid white; */
             border-radius: 50px;
-            cursor: pointer;
-        }
-        .option:hover{
-            color: black;
-            background-color: #bdc3c7;
         }
 /* Quick-shortcut-bar */
 
@@ -167,7 +162,6 @@ body{
             font-family: poppins;
             margin-bottom: 30px;
             font-size: 15px;
-            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
             
         }
 
@@ -194,7 +188,6 @@ body{
             color: #3498db;
             cursor: pointer;
             padding-bottom: 7px;
-            
         }
 
         .select-btn, .uni-filter-options li{
@@ -214,7 +207,6 @@ body{
             background: white;
             justify-content: space-between;
             margin-bottom: 30px;
-            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
         }
 
         .select-btn i{
@@ -299,7 +291,6 @@ body{
             align-items: flex-start;
             justify-content:space-between ;
         }
-        
         .date-reset-btn{
             display: flex;
             font-size: 13px;
@@ -315,7 +306,6 @@ body{
             border: none;
             outline: none;
             border-radius: 5px;
-            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
         }
 
         .date-filter ::-webkit-calendar-picker-indicator{
@@ -339,7 +329,6 @@ body{
             justify-content: space-between;
             cursor: pointer;
             margin-bottom: 30px;
-            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
             
         }
 
