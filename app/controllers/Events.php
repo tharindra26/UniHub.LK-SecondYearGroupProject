@@ -76,6 +76,8 @@
                 // Make sure errors are empty
                 if(empty($data['event_title_err']) && empty($data['event_type_err']) && empty($data['description_err']) && empty($data['date_err'])&& empty($data['location_err'])){
                     //Validated
+
+                    //event-card image adding
                     if (isset($_FILES['event_card_image']['name']) AND !empty($_FILES['event_card_image']['name'])) {
          
          
@@ -98,6 +100,8 @@
                         }
                     }
 
+
+                    //event-cover image adding
                     if (isset($_FILES['event_cover_image']['name']) AND !empty($_FILES['event_cover_image']['name'])) {
          
          
