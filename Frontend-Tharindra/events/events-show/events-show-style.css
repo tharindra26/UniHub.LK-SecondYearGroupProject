@@ -301,6 +301,7 @@ body{
 
             .description{
                 display: flex;
+                flex-direction: column;
                 font-weight: 400;
                 border: 1px solid red;
                 color: #2c3e50;
