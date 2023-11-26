@@ -28,7 +28,6 @@ nav ul{
 nav li{
     display: flex;
     height: 100px;
-    /* border: 1px solid red; */
     align-items: center;
     justify-content: center;
 }
@@ -38,9 +37,10 @@ nav a{
     text-decoration: none;
     display: flex;
     align-items: center;
+    font-family: poppins;
+    font-weight: 400;
     color: black;
-    font-size: 13px;
-    /* border: 1px solid red; */
+    font-size: 15px;
 }
 
 .unihub-logo-text{
@@ -69,6 +69,7 @@ nav li:first-child {
     background-color: white;
 }
 
+/* Verticle mobile navbar */
 .sidebar{
     position: fixed;
     top: 0;
@@ -86,6 +87,7 @@ nav li:first-child {
     border-top-right-radius: 10px;
 
 }
+/* Verticle mobile navbar */
 
 .sidebar li{
     width: 100%;
