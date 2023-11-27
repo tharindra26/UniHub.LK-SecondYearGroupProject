@@ -4,36 +4,59 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins';
-    background-color: #ececec;
+    font-family: 'Poppins'; 
 }
 
-
-.mainbox{
-    display: flex;
-    flex-direction: row;
-}
-
-.left-margin{
-    width: 5vW;
-    display: flex;
-    border: 1px solid black;
-    
-   
+body{
+    background-color: #ededed;
 }
 
 .container{
-    width: 60vw;
+    width:90%;
+    margin:0 auto; 
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+}
+
+.left-bar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 70%;
     border: 1px solid black;
     align-items: center;
-    padding: 1vw;
+}
+
+.right-bar{
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    width: 30%;
+    border: 1px solid black;
+}
+
+.profile_header{
+    width: 95%;
+    border: 1px solid green;
+    position: relative; 
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset; */
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.photos{
+    background-color: white;
+    border: 1px solid blue;
+    border-radius: 10px  10px 0 0 ;
+    align-items: center;
 }
 
 .cover-photo{
+    width: 100%;
+    height: 250px;
     display: block;
-    width: 58vw;
-    border-radius: 20px;
+    border-radius: 10px 10px 0 0;
 }
 
 .profile-photo{
@@ -45,127 +68,131 @@
     transition: box-shadow 0.5s;
 }
 
+.profile-info{
+    border: 1px solid red;
+    background-color: white;
+    border-radius: 0 0 10px  10px  ;
+    position: relative;
+    padding: 20px;
+    display: flex;
+}
+
+.profile-info .description{
+    width: 70%;
+}
+.profile-header h1{
+    margin-left: 30px; 
+}
+
+.profile-header p{
+    margin-left: 30px;
+}
+
 .profile-photo:hover{
     box-shadow: 0 0 0 5px rgb(11, 1, 34);
 }
 
+.uni{
+    margin-bottom: 20px;
+}
+
 .follow-btn{
-    margin-right: 20px;
-    color: #ececec;
-    background-color: #0f4c75;
-}
-
-
- 
-.about{
-    border: 1px solid black;
-}
-
-.material-upload{
-    border: 1px solid black;
-    padding: 0 35px;
-}
-
-.slider{
-    max-width: 700px;
-    width: 100%;
-    position: relative;
-    border: 1px solid black;
-    justify-content: center;
-    align-items: center;
-}
-.slider i{
-    height: 30px;
-    width: 30px;
-    background: #1b262c;
+    margin: 20px;
+    padding:10px 20px 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
     color: white;
-    text-align: center;
-    line-height: 30px;
-    border-radius: 50%;
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    box-shadow: 0 3px 6px rgb(32, 22, 22);
+    background-color: #2980b9;
+    border: 2px solid #2980b9;
 }
 
-.slider i:first-child{
-    left: -10px;
+.msg-btn{
+    margin: 20px;
+    padding:10px 20px 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: black;
+    border: 2px solid #2980b9;
+    color: #2980b9;
 }
 
-.slider i:last-child{
-    right: -10px;
+.report{margin: 20px;
+    padding:10px 20px 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: white;
+    background-color: #2980b9;
+    border: 2px solid #2980b9;}
+
+.current-work{
+    border: 1px solid black;
+}
+.current-work .work-list{
+    border: 1px solid blue;
 }
 
-.slider .carousel{
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: calc((100% / 3) - 12px);
-    gap: 16px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    scrollbar-width: 0;
+.current-work .work-list .option{
+    list-style: none;
+    margin: 15px 0 15px 0;
+    border: 1px solid red;
+}
+.current-work .work-list .option .list-op{
+    display: flex;    
 }
 
-.carousel::-webkit-scrollbar{
+.current-work .work-list .option img {
+    width: 25px;
+    height: 25px;
+    margin-right: 15px;
+}
+
+.current-work .work-list .option a{
+    text-decoration: none;
+    color: black;
+}
+
+.about{
+    border-radius: 10px;
+    width: 95%;
+    border: 1px solid black;
+    background-color: white;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.see-more-btn{
+    color: #2980b9;
+}
+
+.see-more-text{
     display: none;
 }
 
-.carousel.dragging{
-    scroll-snap-type: none;
-    scroll-behavior: auto;
+.see-more-text--show{
+    display: inline;
 }
 
-.carousel.dragging .card{
-    cursor: grab;
-    user-select: none;
-}
-
-.carousel .card{
-    scroll-snap-align: start;
-    height: 250px;
-    width: 180px;
-    list-style: none;
-    border-radius: 8px;
-    display: flex;
-    padding-bottom: 15px;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
+/* card slider css start */
 .card{
-    
-    border: 1px solid black;
+   border-radius: 25px; 
+}
+
+.card-image{
+    position: relative;
     width: 200px;
-    cursor:  pointer;
+    height: 150px;
 }
 
-@media screen and (max-width: 900px) {
-    .slider .carousel{
-        grid-auto-columns: calc((100% / 2) - 9px);
-       
-    }
-
-    .carousel .card{
-        width: 280px;
-    }
+.card-image .card-img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
+/* card slider css end */
 
-@media screen and (max-width: 600px) {
-    .slider .carousel{
-        grid-auto-columns: 100%;
-        
-    }
-
-    .carousel .card{
-        width: 100%;
-    }
-    
-}
-
-.options{
-    border: 1px solid black;
-    width: 25vw;
-    height: 100vh;
+.portfolio a{
+    padding: 10px 20px 20px 10px;
+    background: linear-gradient(90deg, #0B0C10, #C5C6C7);;
 }
