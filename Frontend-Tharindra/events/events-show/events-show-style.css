@@ -87,13 +87,13 @@ body{
         .countdown-section{
             display: flex;
             flex-direction: column;
-            width: 60%;
+            width: 65%;
             /* border: 1px solid red; */
         }
             .countdown-header{
                 display: flex;
                 flex-direction: raw;
-                height: 30%;
+                height: 20%;
                 border: 1px solid red;
                 align-items: flex-end;
             }
@@ -103,7 +103,7 @@ body{
                     font-weight: 500;
                 }
             .countdown{
-                height: 70%;
+                height: 80%;
                 /* border: 1px solid red; */
                 display: flex;
                 flex-direction: raw;
@@ -142,7 +142,7 @@ body{
                 color: white;
                 font-weight: 500;
                 font-family: poppins;
-                padding: 25px 50px;
+                padding: 10px 20px;
                 border-radius: 10px;
                 justify-content: center;
                 align-items: center;
@@ -158,22 +158,20 @@ body{
         .profile-image-section{
             display: flex;
             width: 20%;
+            border: 1px solid blue;
+            z-index: 4;
+            align-items: center;
+            justify-content: center;
+            margin-top: -50px;
+            border: 3px solid red;  
+            background-color: white;
+            padding: 10px;
             /* border: 1px solid red; */
         }
-            .profile-image-border{
-                display: flex;
-                height: 320px;
-                width: 320px;
-                z-index: 4;
-                align-items: center;
-                justify-content: center;
-                margin-top: -50px;
-                /* border: 1px solid red;   */
-                background-color: white;
-            }
+
                 .profile-image{
-                    height: 300px;
-                    width: 300px;
+                    height: auto;
+                    width: auto;
                     /* border: 1px solid red;          */
                 }
 
@@ -183,7 +181,7 @@ body{
                 }
 
         .event-reaction-section{
-            width: 20%;
+            width: 15%;
             /* border: 1px solid red; */
             display: flex;
             flex-direction: column;
@@ -196,8 +194,8 @@ body{
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                width: 200px;
-                padding: 20px 0;
+                width: 150px;
+                padding: 15px 0;
                 border-radius: 10px;
                 font-size: 20px;
                 font-weight: 400;
@@ -246,6 +244,7 @@ body{
             padding: 20px;
             /* border: 1px solid red; */
             color: #2c3e50;
+            margin-bottom: 20px;
         }
             .social-media-title{
                 font-size: 22px;
@@ -262,12 +261,27 @@ body{
             }
                 .icon{
                     display: flex;
-                    width: 50px;
-                    height: 50px;
+                    width: 40px;
+                    height: 40px;
                     justify-content: center;
                     align-items: center;
                     /* border: 1px solid red; */
                 }
+
+        .event-settings-btn{
+            display: flex;
+            padding: 10px;
+            width: auto;
+            background-color: #e67e22;
+            color: white;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }
+
+            .event-settings-link{
+                text-decoration: none;
+            }
     /* left-section=============================== */
     
 
@@ -306,13 +320,50 @@ body{
                 border: 1px solid red;
                 color: #2c3e50;
             }
+            .read-more-btn{
+                color: #3498db;
+            }
+            .read-more-text{
+                display: none;
+            }
+            .read-more-text--show{
+                display: inline;
+            }
     /* middle-section=============================== */
     .right-section{
         display: flex;
+        flex-direction: column;
         width: 30%;
         border: 1px solid red;
         padding: 20px;
     }
+        .placement{
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            padding: 20px;
+            border: 1px solid red;
+            margin-bottom: 20px;
+        }
+        .placement-icons{
+            color: #2980b9;
+        }
+            .date-time{
+                margin-bottom: 10px;
+            }
+            .venue{
+                margin-bottom: 10px;
+            }
+            .organization{
+
+            }
+
+        .event-map{
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            height: 300px;
+        }
 /* bottom main section */
 
 /* footer-section */
