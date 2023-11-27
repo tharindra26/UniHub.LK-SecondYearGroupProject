@@ -1,44 +1,19 @@
-const carousel = document.querySelector(".carousel");
-const arrowBtns = document.querySelectorAll(".slider i");
-const firstCardWidth = carousel.querySelector(".card").offsetWidth;
+//Start About Section See more option
+const parentContainer = document.querySelector('.about');
 
+parentContainer.addEventListener('click', event => {
+    const current = event.target;
 
-let isDragging = false, startX, startScrollLeft, timeoutId;
+    const isSeeMoreBtn = current.className.includes('see-more-btn');
 
-//Add event listeners for the arrow buttons to scroll the carousel left and right
-arrowBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-        carousel.scrollLeft += btn.id === "left" ? -firstCardWidth : firstCardWidth;
-    })
-}); 
+    if(!isSeeMoreBtn) return;
 
-const dragStart = (e) => {
-    isDragging = true;
-    carousel.classList.add("dragging");
-    //Records the initial cursor and scroll position of the carousel
-    startX = e.pageX;
-    startScrollLeft = carousel.scrollLeft;
-}
+    const currentText = event.target.parentNode.querySelector('.see-more-text');
 
-const dragging = (e) => {
-    if(!isDragging) return; // if isDragging is false return from here
-    // Update the scroll position of the carousel based on the cursor movement
-    carousel.scrollLeft = startScrollLeft - (e.pageX - startX);
-}
+    currentText.classList.toggle('see-more-text--show');
 
-const dragStop = () => {
-    isDragging = false;
-    carousel.classList.remove("dragging");
-}
+    current.textContent = current.textContent.includes('See more') ?
+    "See less..." : "See more...";
+})
 
-const autoPlay = () => {
-    // AUtoplay the carousel after every 2500 ms
-    timeoutId = setTimeout(() => carousel.scrollLeft += firstCardWidth, 2500);
-}
-
-autoPlay();
-
-carousel.addEventListener("mousedown", dragStart);
-carousel.addEventListener("mousemove", dragging);
-carousel.addEventListener("mouseup", dragStop);
-
+// End About Section See more option
