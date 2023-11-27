@@ -268,7 +268,7 @@ a.active{
     .details-section{
         height: 20%;
         display: flex;
-        flex-direction: raw;
+        flex-direction: column;
         /* border: 1px solid red; */
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
@@ -298,7 +298,9 @@ a.active{
         }
 
             .event-title{
+                display: flex;
                 font-weight: bold;
+
             }
 
             .event-location{
