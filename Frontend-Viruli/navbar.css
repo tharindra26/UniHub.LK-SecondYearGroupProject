@@ -1,16 +1,17 @@
-
-
 /* navbar  */
-.navigation-bar-container{
-    margin-top: 20px;
-    width: 100%;
+.nav-outer-container{
+    display: flex;
+    background-color: transparent;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1);
 }
 
+
 nav{
-    background-color: rgba(44, 62, 80, 1);
-    backdrop-filter: blur(5px);
-    box-shadow: 3px 3px 5px rgba(0,0,0,0.4);
-    border-radius: 100px;
+    /* background-color: rgba(44, 62, 80, 1); */
+    background-color: transparent;
+    /* backdrop-filter: blur(5px); */
+    /* box-shadow: 3px 3px 5px rgba(0,0,0,0.5); */
+    border-radius: 10px;
 }
 
 nav ul{
@@ -19,42 +20,55 @@ nav ul{
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    
 
 }
 
 nav li{
-    height: 50px;
-}
-
-.unihub-logo-text{
-    font-family: overpass;
-    color:#00AEEF;
-    font-size: 30px;
-    font-weight: bold;
+    display: flex;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+    
 }
 
 nav a{
-    height: 100%;
-    padding: 0 30px;
+    padding: 10px 20px;
     text-decoration: none;
     display: flex;
     align-items: center;
+    font-family: poppins;
+    font-weight: 400;
     color: white;
     font-size: 15px;
 }
 
-nav a:hover{
-    padding: 0px 20px;
-    border-radius: 100px;
-    color: black;
-    background-color: #f0f0f0;
+.unihub-logo-text{
+    font-family: overpass;
+    color:#3498db;
+    font-size: 50px;
+    font-weight: bold;
+    padding:10px 0;
 }
 
-nav li:first-child{
+nav a:hover{
+    padding: 5px 20px;
+    border-radius: 100px;
+    color: black;
+    background-color: #2880b9;
+    color:white
+}
+
+nav li:first-child {
     margin-right: auto;
 }
 
+.unihub-logo-text:hover{
+    padding: 0;
+    color:white;
+    background-color: transparent;
+}
+
+/* Verticle mobile navbar */
 .sidebar{
     position: fixed;
     top: 0;
@@ -72,6 +86,7 @@ nav li:first-child{
     border-top-right-radius: 10px;
 
 }
+/* Verticle mobile navbar */
 
 .sidebar li{
     width: 100%;
