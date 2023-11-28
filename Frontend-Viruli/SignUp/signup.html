@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../navbar.css">
     <link rel="stylesheet" href="signup_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>SignUp</title>
@@ -47,98 +46,104 @@
         </div>
     </div>
     <!-- navigation-bar -->
-    
     <div class="container">
-        
-        <div class="wrapper">
-            <div class="register">
-                <h2>SignUp</h2>
-                <form action="#">
-                    <div class="input-box">
-                        <span>
-                            <i class="fa-solid fa-envelope"></i>
-                        </span> 
-                        <input type="email" required>  
-                        <label>University Email</label>  
-                    </div>
-                    <div class="input-box">
-                        <span>
-                            <i class="fa-solid fa-user"></i>
-                        </span> 
-                        <input type="text" required>  
-                        <label>First Name</label>  
-                    </div>
-                    <div class="input-box">
-                        <span>
-                            <i class="fa-solid fa-user"></i>
-                        </span> 
-                        <input type="email" required>  
-                        <label>Last Name</label>  
-                    </div>
-                    <div class="drop-down">
-                        <div class="selected">
+        <div class="outer-box">
+            <div class="wrapper">
+                <div class="register">
+                    <h2>SignUp</h2>
+                    <form action="#">
+                        <div class="input-box">
                             <span>
-                                <i class="fa-solid fa-graduation-cap"></i>
-                            </span>
-                            <span class="btn-text">University</span>
-                            <span class="arrow-dwn">
-                                <i class="fa-solid fa-chevron-down"></i>   
-                            </span>
+                                <i class="fa-solid fa-envelope"></i>
+                            </span> 
+                            <input type="email" required>  
+                            <label>University Email</label>  
                         </div>
-                        <ul class="options">
-                            <li class="option">
-                                <img src="../SignUp/img/uni.png" alt="">
-                                <span class="option-text">University of Colombo</span>
-                            </li>
-                            <li class="option">
-                                <img src="../SignUp/img/uni.png" alt="">
-                                <span class="option-text">University of Moratuwa</span>
-                            </li>
-                            <li class="option">
-                                <img src="../SignUp/img/uni.png" alt="">
-                                <span class="option-text">University of Kelaniya</span>
-                            </li>
-                            <li class="option">
-                                <img src="../SignUp/img/uni.png" alt="">
-                                <span class="option-text">University of Ruhuna</span>
-                            </li>
-                        </ul>
-                    </div>
+                        <div class="input-box">
+                            <span>
+                                <i class="fa-solid fa-user"></i>
+                            </span> 
+                            <input type="text" required>  
+                            <label>First Name</label>  
+                        </div>
+                        <div class="input-box">
+                            <span>
+                                <i class="fa-solid fa-user"></i>
+                            </span> 
+                            <input type="email" required>  
+                            <label>Last Name</label>  
+                        </div>
+                        <div class="drop-down">
+                            <div class="selected">
+                                <span>
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                </span>
+                                <span class="btn-text">University</span>
+                                <span class="arrow-dwn">
+                                    <i class="fa-solid fa-chevron-down"></i>   
+                                </span>
+                            </div>
+                            <ul class="options">
+                                <li class="option">
+                                    <img src="../SignUp/img/uni.png" alt="">
+                                    <span class="option-text">University of Colombo</span>
+                                </li>
+                                <li class="option">
+                                    <img src="../SignUp/img/uni.png" alt="">
+                                    <span class="option-text">University of Moratuwa</span>
+                                </li>
+                                <li class="option">
+                                    <img src="../SignUp/img/uni.png" alt="">
+                                    <span class="option-text">University of Kelaniya</span>
+                                </li>
+                                <li class="option">
+                                    <img src="../SignUp/img/uni.png" alt="">
+                                    <span class="option-text">University of Ruhuna</span>
+                                </li>
+                            </ul>
+                        </div>
+                    
+                        <div class="input-box">
+                            <span>
+                                <i class="fa-solid fa-lock"></i>
+                            </span>
+                            <input type="password" required>
+                            <label>Password</label>
+                        </div>
+                        <div class="input-box">
+                            <span>
+                                <i class="fa-solid fa-lock"></i>
+                            </span>
+                            <input type="password" required>
+                            <label>Confirm Password</label>
+                        </div>
+                        <div class="terms">
+                            <label><input type="checkbox" name="" id="">I agree to the terms & conditions</label>
+                        </div>
+                        <button type="submit" class="btn">Register</button>
+                        <div class="register-link">
+                            <p>Already have an account? <a href="#">Sign In</a></p>
+                        </div>
+                            
+                    </form>
+                </div>
+            </div>
+            
+            <div class="content">
+                <!--<h1>UniHub.lk</h1>-->
+                <div class="description">
+                    <p class="description">Revolutionizing University Connectivity and Organizations Showcase.....</p>
+                </div>
                 
-                    <div class="input-box">
-                        <span>
-                            <i class="fa-solid fa-lock"></i>
-                        </span>
-                        <input type="password" required>
-                        <label>Password</label>
-                    </div>
-                    <div class="input-box">
-                        <span>
-                            <i class="fa-solid fa-lock"></i>
-                        </span>
-                        <input type="password" required>
-                        <label>Confirm Password</label>
-                    </div>
-                    <div class="terms">
-                        <label><input type="checkbox" name="" id="">I agree to the terms & conditions</label>
-                    </div>
-                    <button type="submit" class="btn">Register</button>
-                    <div class="register-link">
-                        <p>Already have an account? <a href="#">Sign In</a></p>
-                    </div>
-                        
-                </form>
+                <div class="organization-btn">
+                    <a href="#" class="reg-btn">Register As An Organization</a>
+                </div> 
+                
+                    
             </div>
         </div>
-        
-        <div class="content">
-            <!--<h1>UniHub.lk</h1>-->
-            <p class="description">Revolutionizing University Connectivity and Organizations Showcase.....</p>
-                
-            <a href="#" class="reg-btn">Register As An Organization</a>
-                
-        </div>
     </div>
+    
     <script src="../animation.js"></script>
     <script src="../SignUp/signup_script.js"></script>
 </body>
