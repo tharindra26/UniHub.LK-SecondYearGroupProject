@@ -1,7 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,500;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Overpass:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,500;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Overpass:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,500;1,900&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Overpass:wght@500&family=Poppins:wght@100;300;400;500;700;800&display=swap');
 
+/* Poppins:
+Thin 100
+Light 300
+Regular 400
+Medium 500
+Bold 700
+ExtraBold 800 */
 *{
     margin: 0;
     padding: 0;
