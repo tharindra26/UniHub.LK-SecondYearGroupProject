@@ -1,0 +1,13 @@
+/* footer-section */
+footer {
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+}
+.footer-section{
+    width: 100%;
+    height: 400px;
+    background-color: #03254C;
+    border: 1px solid red;
+}
+/* footer-section */
