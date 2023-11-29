@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora&family=Overpass:wght@500&family=Poppins:wght@100;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Overpass:wght@500&family=Poppins:wght@100;200;500;600&display=swap');
 *{
     margin: 0;
     padding: 0;
@@ -13,17 +13,39 @@
 .container{
     width:90%;
     margin:0 auto;
+    /* border: 1px solid red; */
 }
 
 body{
     min-height: 100vh;
-    background: #EEEEEE;
+    max-width: 100vw;
+    background: #EDEDED;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     font-family: poppins;
 }
 
+
+
+/* title bar */
+.title-bar{
+    height: 150px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(90deg, var(--primary), var(--secondary) ),url(img2.jpg);
+    background-size: cover; /* Ensures the background image covers the entire container */
+    background-position: center; /* Center the background image */
+    overflow: hidden;
+}
+.title-bar-txt{
+    color: white;
+    font-size: 50px;
+    letter-spacing: 5px;
+}
+/* title bar */
 
 /* Search bar */
 .search-bar-container{
@@ -37,13 +59,15 @@ body{
     .search-bar{
         width: 100%;
         max-width: 100%;
-        background: rgba(127, 140, 141, 0.3);
+        /* background: rgba(127, 140, 141, 0.3); */
+        background: rgba(255, 255, 255, 1);
         display: flex;
         align-items: center;
         border-radius: 60px;
         padding: 3px 5px;
         margin-top: 10px;
         margin-bottom: 10px;
+        border: 2px solid #2980b9;
     }
 
         .search-bar input{
@@ -67,7 +91,7 @@ body{
             border-radius: 50%;
             width: 35px;
             height: 35px;
-            background: rgba(31, 40, 51, 0.5);
+            background: #2980b9;
             cursor: pointer;
         }
 
@@ -105,15 +129,35 @@ body{
         font-weight: 500;
     }
         .option{
-            color: black;
+            color: #2980b9;
             margin-left: 30px;
             padding: 10px;
             /* border: 1px solid white; */
             border-radius: 50px;
+            cursor: pointer;
+        }
+        .option:hover{
+            color: black;
+            background-color: #bdc3c7;
         }
 /* Quick-shortcut-bar */
 
 
+
+
+
+
+
+
+
+
+/* footer-section */
+.footer-section{
+    width: 100%;
+    height: 400px;
+    background-color: #03254C;
+}
+/* footer-section */
 
 @media(max-width: 1536px){
     .container{
