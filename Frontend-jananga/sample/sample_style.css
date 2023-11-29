@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Overpass:wght@500&family=Poppins:wght@100;500;600&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+}
+
+:root{
+    --primary: hsla(228, 19%, 5%, 0.90)  ;
+    --secondary:  hsla(177, 40%, 45%, 0.50) ;
+    
+}
+
+.container{
+    width:90%;
+    margin:0 auto;
+}
+
+body{
+    min-height: 100vh;
+    background: #EEEEEE;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-family: poppins;
+}
+
+.header{
+    display: flex;
+    width: 100%;
+    height: 600px;
+    border: 1px solid red;
+}
+
+    .cover_image{
+        display: flex;
+        width: 100%;
+        height: 40%;
+        border: 1px solid red;
+    }
