@@ -175,8 +175,27 @@ body{
 }
 
 /* card slider css start */
+.slide-container{
+    width: 95%;
+    background-color: #95a5a6;
+    padding: 20px 0;
+    margin: 20px;
+    border-radius: 10px;
+}
 .card{
-   border-radius: 25px; 
+   border-radius: 10px;
+   background-color: white;
+   width: 220px;
+   margin: 10px;
+}
+
+.card-title{
+    padding: 0 0 0 10px;
+}
+
+.image-content{
+    position: relative;
+    row-gap: 5px;
 }
 
 .card-image{
@@ -189,6 +208,32 @@ body{
     height: 100%;
     width: 100%;
     object-fit: cover;
+    margin: 10px;
+}
+
+
+.card-content{
+    margin-top: 20px;
+    padding: 0 0 10px 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-btn{
+    width: 220px;
+    background-color: #3498db;
+    border-radius:0 0 10px 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.card-btn a{
+    text-decoration: none;
+    color: white;
+}
+
+.card-btn:hover{
+    background-color: #95a5a6;
 }
 /* card slider css end */
 
