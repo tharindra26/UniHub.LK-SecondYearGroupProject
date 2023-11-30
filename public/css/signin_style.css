@@ -1,0 +1,376 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --primary: hsla(228, 19%, 5%, 0.80)  ;
+    --secondary:  hsla(210, 29%, 24%, 0.80)  ;
+    
+}
+body{
+    position: absolute;
+    min-height: 100vh;
+    min-width: 100vw;
+    background: #EEEEEE;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    font-family: poppins;
+    background-image: linear-gradient(180deg, var(--primary), var(--secondary) ),url(../img/signin/img2.jpg); 
+    background-attachment: fixed;
+    z-index: -1;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    width: 90%;
+    margin:0 auto;
+}
+
+/* navigation bar css */
+/* navbar  */
+.nav-outer-container{
+    display: flex;
+    background-color: rgba(255, 0, 0, 0);
+    /* box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1); */
+}
+
+
+nav{
+    background-color: rgba(255, 0, 0, 0);
+    border-radius: 10px;
+}
+
+nav ul{
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+}
+
+nav li{
+    display: flex;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+}
+
+nav a{
+    padding: 10px 20px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-family: poppins;
+    font-weight: 400;
+    color: white;
+    font-size: 15px;
+}
+
+.unihub-logo-text{
+    font-family: overpass;
+    color:#3498db;
+    font-size: 50px;
+    font-weight: bold;
+    padding:10px 0;
+}
+
+nav a:hover{
+    padding: 5px 20px;
+    border-radius: 100px;
+    color: black;
+    background-color: #2880b9;
+    color:white
+}
+
+nav li:first-child {
+    margin-right: auto;
+}
+
+.unihub-logo-text:hover{
+    padding: 0;
+    color: #3498db;
+    background-color: rgba(255, 0, 0, 0);
+}
+
+/* Verticle mobile navbar */
+.sidebar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 250px;
+    z-index: 999;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: -10px 0 10px rgba(0,0,0,0.1);
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border-top-right-radius: 10px;
+
+}
+/* Verticle mobile navbar */
+
+.sidebar li{
+    width: 100%;
+}
+
+.sidebar a{
+    width: auto;
+}
+
+.menu-button{
+    display: none;
+    color: white;
+}
+/* navigation bar css */
+
+
+
+.background{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    display: flex; 
+    /* border: 1px solid red; */
+}
+
+
+.content{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding: 20px;
+    /* border: 1px solid red; */
+    justify-content: center;
+}
+
+.content h1{
+    font-family: 'Overpass';
+    font-style: bold;
+    font-weight: 1000px;
+    font-size: 60px;
+    letter-spacing: 5px;
+    color: rgb(255, 255, 255);
+    /* border: 1px solid red; */
+
+}
+
+.content .description{
+    font-family: 'poppins', serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: white;
+    /* border: 1px solid red; */
+}
+
+/* .content .list{
+    font-family: 'Poppins', sans-serif;
+    margin: 15px 0 20px  0;
+    font-size: 15px;
+    font-weight: 700px;
+    color: white;
+} */
+
+.content .list ul{
+    padding-left: 25px;
+    /* border: 1px solid red; */
+}
+
+.content .reg-btn{
+    display: flex;
+    padding: 10px 20px;
+    width: 200px;
+    border: 2px solid white;
+    border-radius: 40px;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    margin: 10px 0;
+    color: white;
+    font-weight: 500;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.reg-btn:hover{
+    color: white;
+    background: linear-gradient(90deg, #0B0C10, #C5C6C7);
+    transition: 0.5s;
+    border: none;
+}
+
+.wrapper{
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    /* border: 1px solid red; */
+    justify-content: center;
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    align-items: center;
+}
+
+.login{
+    padding: 50px 0;
+    /* border: 1px solid blue; */
+}
+
+.login h2{
+    font-family: 'Overpass';
+    color: white; 
+    text-align: center;
+    font-size: 40px;
+    font-weight: 500px; 
+}
+
+.login .input-box{
+    width: 100%;
+    height: 40px;
+    margin: 30px 0 40px 0;
+}
+
+.input-box input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: 1px solid white;
+    outline: none;
+    border-radius: 40px;
+    color: white;
+    font-size: 1em;
+    padding: 0 5px 0 50px;
+}
+
+.input-box label{
+    position: relative;
+    left: 50px;    
+    top: -85%;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: white;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.input-box input:focus~label,
+.input-box input:valid~label{
+    font-size: 0.9em;
+    top: -63px;
+    left: 20px;
+}
+
+.input-box .fa-solid{
+    position: relative;
+    color: white;
+    top: 34px;
+    left: 15px;
+    font-size: 1.2em;
+}
+
+.login .remember-forgot{
+    position: relative;
+    color: white;
+    font-weight: 500;
+    margin: 15px 0 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.remember-forgot label input{
+    accent-color: #0B0C10;
+    margin-right: 3px;
+}
+
+.remember-forgot a{
+    color: white;
+    text-decoration: none;
+}
+
+.remember-forgot a:hover{
+    text-decoration: underline;
+}
+
+.login .btn{
+    width: 100%;
+    height: 50px;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    background: linear-gradient(90deg, #0B0C10, #2980b9, #0B0C10);
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    cursor: pointer;
+    font-size: 1.3em;
+    color: white;
+    font-weight: 500;
+    transition: 0.5s;
+}
+
+.btn:hover{
+    background: linear-gradient(90deg,#0B0C10, #C5C6C7, #0B0C10);
+    font-weight: 600;
+    color: black;
+}
+.login .register-link{
+    font-size: 0.9em;
+    color: white;
+    text-align: center;
+    margin: 30px 0;
+}
+
+.register-link p a{
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link p a:hover{
+    text-decoration: underline;
+}
+
+@media(max-width: 1536px){
+    .container{
+        max-width: 1280px;
+    }
+}
+
+@media(max-width: 1280px){
+    .container{
+        max-width: 1024px;
+    }
+}
+
+@media(max-width: 1024px){
+    .container{
+        max-width: 768px;
+    }
+    .hideOnMobile{
+        display: none;
+    }
+    .menu-button{
+        display: block;
+    }
+}
+
+@media(max-width: 768px){
+    .container{
+        max-width: 640px;
+    }
+}
+
+@media(max-width: 640px){
+    .container{
+        max-width: 475px;
+    }
+}
+
+@media(max-width: 475px){
+    .container{
+        max-width: 100%;
+    }
+}
