@@ -1,8 +1,8 @@
 <?php
 class Users extends Controller{
     public function __construct(){
-        // $this->userModel = $this->model('User');
-        // $this->organizationalModel = $this->model('Organization');
+        $this->userModel = $this->model('User');
+        $this->organizationalModel = $this->model('Organization');
     }
 
     Public function register(){
