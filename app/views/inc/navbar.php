@@ -1,4 +1,5 @@
 <!-- new-edition-here -->
+<?php var_dump($_SESSION)?>
 <link rel="stylesheet" href="<?php echo URLROOT?>/css/navbar_style.css">
 <!-- navigation-bar -->
 <div class="nav-outer-container">
@@ -59,8 +60,8 @@
                                         <img src="profile-image.jpg" alt="not found">
                                     </div>
                                     <div class="profile-name">
-                                        <div class="user-name">Tharindra Fernando</div>
-                                        <div class="user-type">Admin</div>
+                                        <div class="user-name"> <?php echo $_SESSION['user_name']?></div>
+                                        <div class="user-type"><?php echo $_SESSION['user_type']?></div>
                                     </div>
                                 </div>
                             </a>
