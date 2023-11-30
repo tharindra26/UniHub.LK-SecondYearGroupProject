@@ -105,21 +105,34 @@
             <div class="wrapper">
                 <div class="form-box login">
                     <h2>SignIn</h2>
-                    <form action="#">
+                    <form action="<?php echo URLROOT; ?>/users/login" method="post">
+
                         <div class="input-box">
                             <span>
                                 <i class="fa-solid fa-envelope"></i>
                             </span> 
-                            <input type="email" required>  
-                            <label>Enter Your Email</label>  
+
+                            <input type="email" value="<?php echo $data['email'] ?>" name="email">  
+                            <label>Enter Your Email</label> 
+
+                            <?php if (!empty($data['email_err'])): ?>
+                                <span class="error-message"><?php echo $data['email_err']; ?></span>
+                            <?php endif; ?> 
                         </div>
+
                         <div class="input-box">
                             <span>
                                 <i class="fa-solid fa-lock"></i>
                             </span>
-                            <input type="password" required>
+
+                            <input type="password" value="<?php echo $data['password'] ?>" name="password">
                             <label>Enter Your Password</label>
+
+                            <?php if (!empty($data['password_err'])): ?>
+                                <span class="error-message"><?php echo $data['password_err']; ?></span>
+                            <?php endif; ?>
                         </div>
+
                         <div class="remember-forgot">
                             <label><input type="checkbox" name="" id="">Remember Me</label>
                             <a href="#">Forgot Password?</a>
