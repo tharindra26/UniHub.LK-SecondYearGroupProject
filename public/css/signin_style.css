@@ -270,6 +270,13 @@ nav li:first-child {
     font-size: 1.2em;
 }
 
+.error-message{
+    color: red;
+    font-style: italic;
+    font-weight: 100;
+    font-size: 12px;
+  }
+
 .login .remember-forgot{
     position: relative;
     color: white;
