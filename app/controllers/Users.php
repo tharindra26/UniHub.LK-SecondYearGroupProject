@@ -93,9 +93,9 @@ class Users extends Controller{
             if($this->userModel->register($data)){
 
                 //mail sending code
-                $verification_URL = 'http://localhost/users/emailVerification?code=' . $data['verification_code'];
+                $verification_URL = 'http://localhost/unihub/users/emailVerification/' . $data['verification_code'];
 
-                  $to             = 'tharindragayashika@gmail.com';
+                  $to             = $data['email'];
                   $sender         = 'developer.unihub@gmail.com';
                   $mail_subject   = 'Verify Email Address';
                   
@@ -180,11 +180,18 @@ class Users extends Controller{
           }
   
           // Check for user/email
-          if($this->userModel->findUserByEmail($data['email'])){
-            // User found
-          } else {
+          if (!$this->userModel->findUserByEmail($data['email'])) {
             // User not found
-            $data['email_err'] = 'No user found';
+              $data['email_err'] = 'No user found';
+          } else {
+              // User found, check status
+              $status = $this->userModel->getUserStatusByEmail($data['email']);
+
+              if ($status == 0) {
+                  $data['password_err'] = 'Account is not activated.';
+                  $this->view('signin', $data);
+                  return; // Add this return statement to stop further execution
+              }
           }
   
           // Make sure errors are empty
@@ -197,16 +204,8 @@ class Users extends Controller{
   
             if($loggedInUser){
               // Create Session
-              if($status){
-                
-                $this->createUserSession($loggedInUser);
-              }else{
-                $data['password_err'] = 'Account is not activated';
-                $this->view('signin', $data);
-              }
-              
+              $this->createUserSession($loggedInUser);
             } else {
-              
               $data['password_err'] = 'Password incorrect';
               $this->view('signin', $data);
             }
@@ -523,6 +522,22 @@ class Users extends Controller{
         }
       } else {
         redirect('users/adminaccounthandling');
+      }
+    }
+
+    public function emailVerification($code){
+      if(isset($code)){
+        $result = $this->userModel->getUserByVerificationCode($code);
+
+        if($result['rowCount']==1){ //check number of raws using mysqli_num_rows
+          if($this->userModel->activateUser($code)){
+            echo 'Email address verified successfully';
+          }else{
+            echo 'Invalid verification code';
+          }
+        }else{
+          echo 'Invalid verification code';
+        }
       }
     }
 
