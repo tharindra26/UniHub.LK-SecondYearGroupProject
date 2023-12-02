@@ -31,7 +31,7 @@ class Users extends Controller{
                 'university_err' =>'',
                 'password_err' =>'',
                 'confirm_password_err' =>'',
-                'verification_code' => sha1($data['email'] .time()),
+                'verification_code' => sha1($_POST['email'] .time()),
             ];
 
           
@@ -188,7 +188,7 @@ class Users extends Controller{
               $status = $this->userModel->getUserStatusByEmail($data['email']);
 
               if ($status == 0) {
-                  $data['password_err'] = 'Account is not activated.';
+                  $data['email_err'] = 'Account is not activated.';
                   $this->view('signin', $data);
                   return; // Add this return statement to stop further execution
               }
