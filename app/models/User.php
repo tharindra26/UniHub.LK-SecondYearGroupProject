@@ -117,19 +117,55 @@ class User{
         return $row;
     }
 
-    //Check user status byid
-    public function getUserStatusByEmail($email){
+    // Check user status by email
+    public function getUserStatusByEmail($email) {
         $this->db->query('SELECT status FROM users WHERE email = :email');
-        $this->db->bind(':email' , $email);
+        $this->db->bind(':email', $email);
 
         $row = $this->db->single();
-        return $row;
+
+        if ($row) {
+            return $row->status;
+        } else {
+            return null; // or another default value depending on your logic
+        }
+    }
+
+    //get user by verification code
+    public function getUserByVerificationCode($code){
+        $this->db->query('SELECT * FROM users WHERE verification_code = :verification_code');
+
+        $this->db->bind(':verification_code' , $code);
+
+        $row = $this->db->execute();
+        $rowCount =$this->db->rowCount();
+        
+        return $result=[
+            'row' => $row,
+            'rowCount' => $rowCount,
+            
+        ];
     }
 
     public function deleteUser($id){
         $this->db->query("DELETE FROM users WHERE id = :id");
         //Bind values
         $this->db->bind(':id' ,  $id);
+        //Execute the query
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function activateUser($verificationCode){
+        $this->db->query("UPDATE users SET status = :status, verification_code = :new_verification_code WHERE verification_code= :verification_code");
+        //Bind values
+        $this->db->bind(':status' , true);
+        $this->db->bind(':new_verification_code' , NULL);
+        $this->db->bind(':verification_code' , $verificationCode);
+    
         //Execute the query
         if($this->db->execute()){
             return true;
