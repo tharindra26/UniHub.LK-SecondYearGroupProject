@@ -1,5 +1,4 @@
 <!-- new-edition-here -->
-<?php var_dump($_SESSION)?>
 <link rel="stylesheet" href="<?php echo URLROOT?>/css/navbar_style.css">
 <!-- navigation-bar -->
 <div class="nav-outer-container">
@@ -18,8 +17,8 @@
                                         <img src="profile-image.jpg" alt="not found">
                                     </div>
                                     <div class="profile-name">
-                                        <div class="user-name">Tharindra Fernando</div>
-                                        <div class="user-type">Admin</div>
+                                        <div class="user-name"><?php echo $_SESSION["user_name"] ?></div>
+                                        <div class="user-type"><?php echo $_SESSION["user_type"] ?></div>
                                     </div>
                                 </div>
                             </a>
@@ -34,6 +33,8 @@
                     <?php if(!isset($_SESSION["user_id"])): ?>
                         <li><a href="<?php echo URLROOT ?>/users/login">Login</a></li>
                         <li><a href="<?php echo URLROOT ?>/users/register">Register</a></li>
+                    <?php else: ?>
+                        <li><a href="<?php echo URLROOT ?>/users/logout">Logout</a></li>
                     <?php endif; ?>
 
                 </ul>
@@ -57,15 +58,17 @@
                             <a href="#">
                                 <div class="profile-navigator">
                                     <div class="profile-image">
-                                        <img src="profile-image.jpg" alt="not found">
+                                        <img src="<?php echo URLROOT ?>/img/users/default/<?php echo $_SESSION["user_profile_image"] ?>" alt="not found">
                                     </div>
                                     <div class="profile-name">
-                                        <div class="user-name"> <?php echo $_SESSION['user_name']?></div>
-                                        <div class="user-type"><?php echo $_SESSION['user_type']?></div>
+                                        <div class="user-name"><?php echo $_SESSION["user_name"] ?></div>
+                                        <div class="user-type"><?php echo $_SESSION["user_type"] ?></div>
                                     </div>
                                 </div>
                             </a>
                         </li>
+                        <li class="hideOnMobile"><a href="<?php echo URLROOT ?>/users/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> &nbsp Signout</a></li>
+
                     <?php else : ?>
                         <li class="hideOnMobile"><a href="<?php echo URLROOT ?>/users/login">Login</a></li>
                         <li class="hideOnMobile"><a href="<?php echo URLROOT ?>/users/register">Register</a></li>
