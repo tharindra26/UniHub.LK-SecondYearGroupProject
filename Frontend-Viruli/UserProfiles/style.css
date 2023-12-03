@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Overpass:wght@500&family=Poppins:wght@100;300;400;500;700;800&display=swap');
 
 *{
     margin: 0;
@@ -239,11 +239,9 @@ body{
 
 /* slide-indicator css starts */
 .slide-indicator{
-    border: 1px solid red;
     width: 95%;
     background-color: white;
     border-radius: 10px;
-    padding: 10px;
     display: flex;
     flex-direction: column;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
@@ -294,7 +292,7 @@ input[type = "radio"]{
 
 .slide-indicator nav .nav-slider{
     position: absolute;
-    height: 4.5px;
+    height: 4.5px; 
     background-color: #3498db;
     border-radius: 20px;
     width: 25%;
@@ -305,6 +303,100 @@ input[type = "radio"]{
     filter: blur(0.4px);
 }
 
+#going_events:checked ~ nav .nav-slider{
+    left:25%;
+}
+
+#interest:checked ~ nav .nav-slider{
+    left:50%;
+}
+
+#watch_later:checked ~ nav .nav-slider{
+    left:75%;
+}
+
+#liked_materials:checked ~ nav .liked_materials{
+    color: #3498db;
+}
+#going_events:checked ~ nav .going_events{
+    color: #3498db;
+}
+
+#interest:checked ~ nav .interest{
+    color: #3498db;
+}
+
+#watch_later:checked ~ nav .watch_later{
+    color: #3498db;
+}
+
+.tab-content{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.tab-content .material{
+    padding: 10px;
+    border-bottom: 1px solid silver;
+    
+}
+
+.tab-content .material a{
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+}
+
+.material-img{
+    width: 300px;
+    max-height: 300px;
+    
+    margin: 10px;
+}
+
+.material-img img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.material-content{
+    margin: 10px;
+}
+
+.material-content h4{
+    padding: 10px;
+    color: black;
+    font-size: 20px;
+}
+
+.material-content p{
+    padding: 0 10px;
+    color: black;
+}
+
+.show-more-link{
+    text-align: center;
+    border-top: 1px solid silver;
+    border-radius: 0 0 10px 10px;
+    padding: 10px;
+    background-color: #ededed;
+}
+
+
+.show-more-link a{
+    padding: 10px;
+    font-size: 17px;
+    text-decoration: none;
+    color: #95a5a6;
+    transition: all 0.5s ease;
+    font-weight: 500;
+}
+
+.show-more-link a:hover{
+    color: #2980b9;
+}
 /* slide-indicator css end */
 
 .portfolio a{
