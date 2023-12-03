@@ -5,17 +5,17 @@
             //     redirect('/users/login');
             // }
 
-            $this->eventModel =$this->model('Event');
-            $this->userModel =$this->model('User');
+            // $this->eventModel =$this->model('Event');
+            // $this->userModel =$this->model('User');
         }
         public function index(){
             //get Posts
-            $events= $this->eventModel->getEvents();
+            // $events= $this->eventModel->getEvents();
             $data=[
-                'events'=> $events
+                
             ];
 
-            $this->view('events/events-main', $data);
+            $this->view('events/events-index', $data);
         }
 
         public function add(){
