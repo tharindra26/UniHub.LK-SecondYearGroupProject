@@ -9,7 +9,7 @@ class Pages  extends Controller {
         $data= [
             'title' => 'Home',
         ];
-        $this->view('pages/index', $data);
+        $this->view('home/home-page', $data);
     }
 
     public function events(){

@@ -249,6 +249,7 @@ nav li:first-child {
     padding: 0 5px 0 50px;
 }
 
+
 .input-box label{
     position: relative;
     left: 50px;    
@@ -259,6 +260,9 @@ nav li:first-child {
     pointer-events: none;
     transition: 0.5s;
     
+}
+.input-box .dob-label{
+    top: -90%;
 }
 
 .input-box input:focus~label,
