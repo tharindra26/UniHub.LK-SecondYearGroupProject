@@ -4,7 +4,7 @@
 
 <!-- title bar -->
     
-<div class="title-bar">
+    <div class="title-bar">
         <div class="title-bar-txt">Events</div>
     </div>
     
@@ -14,7 +14,7 @@
     <div class="container">
         <div class="search-bar-container">
             <form action="" class="search-bar">
-                <input type="text" name="" id="" placeholder="Search anything">
+                <input type="text" name="searchInput"  placeholder="Search anything" id="searchInput">
                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
         </div>
@@ -105,77 +105,38 @@
 
             <!-- events-card-section -->
             <div class="content-section">
-                <div class="event-card">
-                    <div class="image-section">
-                        <img src="<?php echo URLROOT ?>/img/events/events_profile_images/default_event_profile_image.jpg " alt="">
-                    </div>
-                    <div class="details-section">
-                        <div class="date-section">
-                            <i class="fa-regular fa-calendar-days"></i> &nbsp THU NOV 16 &nbsp &nbsp
-                            <i class="fa-solid fa-clock"></i> &nbsp 06:00 PM
+                <?php foreach ($data['events'] as $event) : ?>
+                    <?php
+                        $eventStartDate = $event->start_datetime;
+                        // Convert MySQL datetime to DateTime object
+                        $dateTime = new DateTime($eventStartDate);
+                        // Format the DateTime object to extract only THU NOV 16
+                        $extractedDate = $dateTime->format('D M j');
+                        // Format the DateTime object to extract only the time (06.00PM)
+                        $extractedTime = $dateTime->format('h. A');
+                    ?>
+                    
+                    <div class="event-card">
+                        <div class="image-section">
+                            <img src="<?php echo URLROOT ?>/img/events/events_profile_images/<?php echo $event->event_profile_image ?> " alt="event-profile-image">
                         </div>
-                        <div class="title-section">Mad-Hack 3.0</div>
-                        <div class="venue-section">UCSC-Colombo</div>
-                        <a href="#" class="view-event-button">
-                            <div class="">View Event</div>
-                        </a>
-                    </div>
-                </div>
-
-
-                <div class="event-card">
-                    <div class="image-section">
-                        <img src="sample-card-img.jpg" alt="">
-                    </div>
-                    <div class="details-section">
-                        <div class="date-section">
-                            <i class="fa-regular fa-calendar-days"></i> &nbsp THU NOV 16 &nbsp &nbsp
-                            <i class="fa-solid fa-clock"></i> &nbsp 06:00 PM
+                        <div class="details-section">
+                            <div class="date-section">
+                                <i class="fa-regular fa-calendar-days"></i> &nbsp <?php echo $extractedDate ?> &nbsp &nbsp
+                                <i class="fa-solid fa-clock"></i> &nbsp <?php echo $extractedTime ?>
+                            </div>
+                            <div class="title-section"><?php echo $event->title ?></div>
+                            <div class="venue-section"><?php echo $event->venue ?></div>
+                            <a href="#" class="view-event-button">
+                                <div class="">View Event</div>
+                            </a>
                         </div>
-                        <div class="title-section">Mad-Hack 3.0</div>
-                        <div class="venue-section">UCSC-Colombo</div>
-                        <a href="#" class="view-event-button">
-                            <div class="">View Event</div>
-                        </a>
-                    </div>
-                </div>
-
-
-                <div class="event-card">
-                    <div class="image-section">
-                        <img src="sample-card-img.jpg" alt="">
-                    </div>
-                    <div class="details-section">
-                        <div class="date-section">
-                            <i class="fa-regular fa-calendar-days"></i> &nbsp THU NOV 16 &nbsp &nbsp
-                            <i class="fa-solid fa-clock"></i> &nbsp 06:00 PM
-                        </div>
-                        <div class="title-section">Mad-Hack 3.0</div>
-                        <div class="venue-section">UCSC-Colombo</div>
-                        <a href="#" class="view-event-button">
-                            <div class="">View Event</div>
-                        </a>
-                    </div>
-                </div>
-
-
-                <div class="event-card">
-                    <div class="image-section">
-                        <img src="sample-card-img.jpg" alt="">
-                    </div>
-                    <div class="details-section">
-                        <div class="date-section">
-                            <i class="fa-regular fa-calendar-days"></i> &nbsp THU NOV 16 &nbsp &nbsp
-                            <i class="fa-solid fa-clock"></i> &nbsp 06:00 PM
-                        </div>
-                        <div class="title-section">Mad-Hack 3.0</div>
-                        <div class="venue-section">UCSC-Colombo</div>
-                        <a href="#" class="view-event-button">
-                            <div class="">View Event</div>
-                        </a>
-                    </div>
-                </div>
+                
+                <?php endforeach; ?>
             </div>
+
+
+            
             <!-- events-card-section -->
 
         </div> 
@@ -184,6 +145,8 @@
 
 
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="<?php echo URLROOT?>/js/events/events-index.js"></script>
+
+
 <?php require APPROOT . '/views/inc/footer.php'; ?>

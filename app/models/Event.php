@@ -12,7 +12,7 @@
                         users.id AS userId
                         FROM events
                         INNER JOIN users
-                        ON events.user_id = users.id
+                        ON events.created_by = users.id
                         ORDER BY events.created_at DESC
                     ');
         $results= $this->db->resultSet();
