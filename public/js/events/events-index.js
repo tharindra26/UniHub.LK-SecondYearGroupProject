@@ -99,3 +99,14 @@ categoryResetBtn.addEventListener("click", () => {
     document.querySelector(".category-btn-txt").innerText = `Select Category`;
 });
 //category filter
+
+
+//live-search
+$(document).ready(function() {
+    // Attach a keyup event listener to the search input
+    $('#searchInput').keyup(function() {
+      // Get the value entered in the search input
+      var searchKey = $(this).val();
+      alert(searchKey);
+    });
+});

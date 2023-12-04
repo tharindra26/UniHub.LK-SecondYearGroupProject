@@ -29,7 +29,7 @@ nav li{
 }
 
 nav a{
-    padding: 10px 20px;
+    padding: 5px 15px;
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -48,7 +48,7 @@ nav a{
 }
 
 nav a:hover{
-    padding: 5px 20px;
+    padding: 5px 15px;
     border-radius: 100px;
     color: black;
     background-color: #2880b9;
