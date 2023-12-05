@@ -33,7 +33,7 @@
         background: rgba(255, 255, 255, 1);
         display: flex;
         align-items: center;
-        border-radius: 60px;
+        border-radius: 10px;
         padding: 3px 5px;
         margin-top: 10px;
         margin-bottom: 10px;
@@ -275,7 +275,7 @@
             color: #3498db;
             cursor: pointer;
         }
-        .date-filter input[type="date"]{
+        .date-filter input[type="datetime-local"]{
             background-color: white;
             padding: 10px;
             font-family: poppins;

@@ -80,5 +80,30 @@
         return $row;
 
     }
+
+    public function getEventsBySearch($data){
+        $keyword = $data['keyword'];
+        $date = $data['date'];
+
+        if (empty($keyword) && empty($date)) {
+            $this->db->query('SELECT * FROM events;');
+            $row= $this->db->resultSet();
+            return $row;
+        } elseif (!empty($keyword) && empty($date)) {
+            $this->db->query("SELECT * FROM events WHERE title LIKE '%$keyword%';");
+            $row= $this->db->resultSet();
+            return $row;
+        } elseif (empty($keyword) && !empty($date)) {
+            $formattedDate = date('Y-m-d H:i:s', strtotime($date));
+            $this->db->query("SELECT * FROM events WHERE start_datetime = '$formattedDate';");
+            $row= $this->db->resultSet();
+            return $row;
+        } else {
+            $formattedDate = date('Y-m-d H:i:s', strtotime($date));
+            $this->db->query("SELECT * FROM events WHERE title LIKE '%$keyword%' AND start_datetime = '$formattedDate';");
+            $row= $this->db->resultSet();
+            return $row;
+        }
+    }
     
  }

@@ -14,7 +14,7 @@
     <div class="container">
         <div class="search-bar-container">
             <form action="" class="search-bar">
-                <input type="text" name="searchInput"  placeholder="Search anything" id="searchInput">
+                <input type="text" name="searchInput"  placeholder="Search Events" id="search-bar-input">
                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
         </div>
@@ -50,7 +50,7 @@
                 <!-- university-filter -->
                 <div class="uni-filter ">
                     <div class="select-btn">
-                        <span>Select University</span>
+                        <span id="universitySpan">Select University</span>
                         <i class="fa-solid fa-angle-down"></i>
                     </div>
                     <div class="uni-filter-content">
@@ -68,7 +68,7 @@
                 <!-- date filter -->
                 
                 <div class="date-filter">
-                    <input type="date" name="" id="date-input">
+                    <input type="datetime-local" name="" id="date-input">
                     <span class="date-reset-btn"  onclick="resetDate()">Reset Date</span>
                 </div>
                 <!-- date filter -->
@@ -104,35 +104,9 @@
             <!-- filters-section -->
 
             <!-- events-card-section -->
-            <div class="content-section">
-                <?php foreach ($data['events'] as $event) : ?>
-                    <?php
-                        $eventStartDate = $event->start_datetime;
-                        // Convert MySQL datetime to DateTime object
-                        $dateTime = new DateTime($eventStartDate);
-                        // Format the DateTime object to extract only THU NOV 16
-                        $extractedDate = $dateTime->format('D M j');
-                        // Format the DateTime object to extract only the time (06.00PM)
-                        $extractedTime = $dateTime->format('h. A');
-                    ?>
-                    
-                    <div class="event-card">
-                        <div class="image-section">
-                            <img src="<?php echo URLROOT ?>/img/events/events_profile_images/<?php echo $event->event_profile_image ?> " alt="event-profile-image">
-                        </div>
-                        <div class="details-section">
-                            <div class="date-section">
-                                <i class="fa-regular fa-calendar-days"></i> &nbsp <?php echo $extractedDate ?> &nbsp &nbsp
-                                <i class="fa-solid fa-clock"></i> &nbsp <?php echo $extractedTime ?>
-                            </div>
-                            <div class="title-section"><?php echo $event->title ?></div>
-                            <div class="venue-section"><?php echo $event->venue ?></div>
-                            <a href="#" class="view-event-button">
-                                <div class="">View Event</div>
-                            </a>
-                        </div>
+            <div class="content-section" id="content-section">
                 
-                <?php endforeach; ?>
+                
             </div>
 
 
