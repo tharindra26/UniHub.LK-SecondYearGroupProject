@@ -20,7 +20,7 @@
             </div>
             <div class="title-section"><?php echo $event->title ?></div>
             <div class="venue-section"><?php echo $event->venue ?></div>
-            <a href="<?php echo URLROOT ?>/events/show/$event" class="view-event-button">
+            <a href="<?php echo URLROOT ?>/events/show/<?php echo $event->id ?>" class="view-event-button">
                 <div class="">View Event</div>
             </a>
         </div>

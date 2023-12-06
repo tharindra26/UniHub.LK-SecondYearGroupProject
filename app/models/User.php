@@ -112,7 +112,7 @@ class User{
 
         $this->db->bind(':id' , $id);
 
-        $raw = $this->db->single();
+        $row = $this->db->single();
         
         return $row;
     }

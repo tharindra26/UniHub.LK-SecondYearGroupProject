@@ -1,41 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora&family=Overpass:wght@500&family=Poppins:wght@100;300;400;500;700;800&display=swap');
-
-/* Poppins:
-Thin 100
-Light 300
-Regular 400
-Medium 500
-Bold 700
-ExtraBold 800 */
-
-*{
-    margin: 0;
-    padding: 0;
-}
-
-:root{
-    --primary: hsla(228, 19%, 5%, 0.90)  ;
-    --secondary:  hsla(177, 40%, 45%, 0.50) ;
-    
-}
-
-.container{
-    width:90%;
-    margin:0 auto;
-    /* border: 1px solid red; */
-}
-
-body{
-    min-height: 100vh;
-    max-width: 100vw;
-    background: #EDEDED;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    font-family: poppins;
-}
-
-/* cover image section */
+* cover image section */
 .event-header{
     display: flex;
     width: 100%;
@@ -154,7 +117,7 @@ body{
              .main-action-button-link{
                 text-decoration: none;
              }
-        .profile-image-section{
+        .event-profile-image-section{
             display: flex;
             width: 20%;
             border: 1px solid blue;
@@ -165,16 +128,16 @@ body{
             border: 3px solid red;  
             background-color: white;
             padding: 10px;
-            border: 1px solid red;
+            /* border: 1px solid red; */
         }
 
-                .profile-image{
+                .event-profile-image{
                     height: auto;
                     width: auto;
-                    border: 1px solid red;         
+                    /* border: 1px solid red;          */
                 }
 
-                .profile-image img{
+                .event-profile-image img{
                     width: 100%;
                     height: auto;
                 }

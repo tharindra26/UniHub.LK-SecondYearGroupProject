@@ -12,7 +12,7 @@
                         users.id AS userId
                         FROM events
                         INNER JOIN users
-                        ON events.created_by = users.id
+                        ON events.user_id = users.id
                         ORDER BY events.created_at DESC
                     ');
         $results= $this->db->resultSet();
@@ -95,12 +95,12 @@
             return $row;
         } elseif (empty($keyword) && !empty($date)) {
             $formattedDate = date('Y-m-d H:i:s', strtotime($date));
-            $this->db->query("SELECT * FROM events WHERE start_datetime = '$formattedDate';");
+            $this->db->query("SELECT * FgROM events WHERE DATE(start_datetime) = '$formattedDate';");
             $row= $this->db->resultSet();
             return $row;
         } else {
             $formattedDate = date('Y-m-d H:i:s', strtotime($date));
-            $this->db->query("SELECT * FROM events WHERE title LIKE '%$keyword%' AND start_datetime = '$formattedDate';");
+            $this->db->query("SELECT * FROM events WHERE title LIKE '%$keyword%' AND DATE(start_datetime) = '$formattedDate';");
             $row= $this->db->resultSet();
             return $row;
         }
