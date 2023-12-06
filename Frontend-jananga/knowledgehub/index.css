@@ -37,7 +37,7 @@ body{
 
     .cover-image{
         width: 100%;
-        height: 250px;
+        height: 150px;
         max-width: 100%;
         max-height: 100%;
         overflow: hidden;
@@ -56,13 +56,18 @@ body{
 
         .title-overlay{
             position: absolute;
-            top: 70%;
+            top: 60%;
             left: 200px;
             text-align: center;
             color: white;
             z-index: 2;
             font-size: 20px;
         }
+.search-bar{
+    width: 100%;
+    height: 75px;
+    border: 1px solid red;
+}
 
     .details-section{
         display: flex;
@@ -73,16 +78,44 @@ body{
 
         .left-section{
             display: flex;
+            flex-direction: column;
             width: 25%;
             border: 1px solid red;
         }
+            .title{
+                display: flex;
+                width: 100%;
+                height: 30px;
+                border: 1px solid red;
+            }
+                .link{
+                    text-decoration: none;
+                }
+
+                    .text{
+                        display: flex;
+                        height: 25px;
+                        border: 1px solid red;
+                        margin: 5px 50px ;
+                        padding: 20px 30px;
+                        background-color: #2980b9;
+                        color: white;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 10px;
+                        cursor: pointer;
+                    }
+
+                    .plus-mark{
+                        color: black;
+                    }
 
         .middle-section{
             display: flex;
             flex-direction: column;
             width: 50%;
             border: 1px solid red;
-            margin-top: 20px;
+            /* margin-top: 20px; */
             margin-left: 20px;
         }
 
@@ -92,10 +125,41 @@ body{
                 width: 90%;
                 height: 200px;
                 border: 1px solid red;
-                margin-top: 20px;
+                margin-top: 10px;
                 margin-left: 20px;
                 margin-bottom: 30px;
             }
+
+                .image_box{
+                    display: flex;
+                    width: 30%;
+                    border: 1px solid red;
+                    height: 150px;
+                    max-width: 100%;
+                    max-height: 100%;
+                    overflow: hidden;
+                    margin-top: 20px;
+                    margin-left: 10px;
+                    border-radius: 15px;
+                    /* position: relative; */
+                }
+                    .image_box post_image{
+                        min-width: 100%;
+                        height: auto;
+                    }
+
+                .card_details{
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    margin-left: 20px;
+                    border: 1px solid red;
+                }
+                    .card_header{
+                        width: 100%;
+                        height: 30%;
+                        border: 1px solid red;
+                    }
 
         .right-section{
             width: 25%;

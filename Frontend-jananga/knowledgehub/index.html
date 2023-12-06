@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="../../Frontend-Tharindra/Responsive-Format/navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <script src="index.js"></script>
+
 </head>
 <body>
     <!-- navigation-bar -->
@@ -58,10 +60,33 @@
                 <h1>Knowledge Hub</h1>
             </div>
         </div>
+        <div class="search-bar"></div>
         <div class="details-section">
-            <div class="left-section"></div>
-            <div class="middle-section">
-                <div class="card"></div>
+            <div class="left-section">
+                <div class="tilte">
+                    <a href="#" class="link">
+                        <div class="text">
+                            <i class="fa-solid fa-plus plus-mark"></i>&nbsp Blogs will start on...
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="middle-section" id="card_parent">
+                <div class="card">
+                    <div class="image_box">
+                        <img class="post_image" src="image1.jpg" alt="">
+                    </div>
+                    <div class="card_details">
+                        <div class="card_header">
+                            <h2>My First Blog</h2>
+                        </div>
+                        <div class="details">
+                            <p> when other actions, functions, and events occur, an Execution Context is created
+                                for each of these events. Due to the single-threaded nature of JavaScript, a stack of
+                                piled-up execution contexts to be executed is created, known as the Execution Stack.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="right-section"></div>
         </div>
