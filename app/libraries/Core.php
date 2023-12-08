@@ -15,12 +15,14 @@ class Core{
         $url = $this->getUrl();
 
         // Look in controllers for first value
-        if(file_exists('../app/controllers/' .ucwords($url[0]). '.php')){ //uppercase first letter in url
-            //if exists, set as controller
-            $this->currentController=ucwords($url[0]);
-            //Unset 0 index
-            unset($url[0]);
-        }
+        
+            if(!empty($url) && file_exists('../app/controllers/' .ucwords($url[0]). '.php')){ //uppercase first letter in url
+                //if exists, set as controller
+                $this->currentController=ucwords($url[0]);
+                //Unset 0 index
+                unset($url[0]);
+            }
+        
 
          // Require the controller
         require_once '../app/controllers/'. $this->currentController . '.php';
@@ -55,5 +57,6 @@ class Core{
             
           }
     }
+
 }
 

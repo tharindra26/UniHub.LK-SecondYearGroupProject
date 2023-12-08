@@ -1,7 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,500;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Overpass:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,500;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Overpass:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,500;1,900&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Overpass:wght@500&family=Poppins:wght@100;300;400;500;700;800&display=swap');
 
+/* Poppins:
+Thin 100
+Light 300
+Regular 400
+Medium 500
+Bold 700
+ExtraBold 800 */
 *{
     margin: 0;
     padding: 0;
@@ -13,15 +18,12 @@
 }
 
 .container{
-    width:90%;
+    width:100%;
     margin:0 auto; 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
 }
 
 body{
-    position: absolute;
+    /* position: absolute; */
     min-height: 100vh;
     background: #EEEEEE;
     background-size: cover;
@@ -35,12 +37,126 @@ body{
     align-items: center;
 }
 
+/* navigation bar css */
+/* navbar  */
+.nav-outer-container{
+    display: flex;
+    background-color: rgba(255, 0, 0, 0);
+    /* border: 1px solid red; */
+    /* box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1); */
+}
+
+
+nav{
+    display: flex;
+    /* border: 1px solid red; */
+    background-color: rgba(255, 0, 0, 0);
+    border-radius: 10px;
+    width: auto;
+
+}
+
+nav ul{
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+}
+
+nav li{
+    display: flex;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+}
+
+nav a{
+    padding: 10px 20px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-family: poppins;
+    font-weight: 400;
+    color: white;
+    font-size: 15px;
+}
+
+.unihub-logo-text{
+    font-family: overpass;
+    color:#3498db;
+    font-size: 50px;
+    font-weight: bold;
+    padding:10px 0;
+}
+
+nav a:hover{
+    padding: 5px 20px;
+    border-radius: 100px;
+    color: black;
+    background-color: #2880b9;
+    color:white
+}
+
+nav li:first-child {
+    margin-right: auto;
+}
+
+.unihub-logo-text:hover{
+    padding: 0;
+    color: #3498db;
+    background-color: rgba(255, 0, 0, 0);
+}
+
+/* Verticle mobile navbar */
+.sidebar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 250px;
+    z-index: 999;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: -10px 0 10px rgba(0,0,0,0.1);
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border-top-right-radius: 10px;
+
+}
+/* Verticle mobile navbar */
+
+.sidebar li{
+    width: 100%;
+}
+
+.sidebar a{
+    width: auto;
+}
+
+.menu-button{
+    display: none;
+    color: white;
+}
+/* navigation bar css */
+
+.outer-box{
+    display: flex;
+    flex-direction: raw;
+    width: 100%;
+    padding: 20px;
+    /* border: 2px solid blue; */
+}
 
 .content{
-    position: relative;
-    top: 200px;
-    padding: 20px;
-    align-items: center; 
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 40%;
+    /* border: 1px solid red; */
     width: 40%;
     line-height: 30px;
 }
@@ -84,16 +200,18 @@ body{
 }
 
 .wrapper{
+    display: flex;
     width: 60%;
-    justify-content: center;
-    padding: 20px;
+    /* border: 1px solid red; */
     overflow: hidden;
     font-family: 'Poppins', sans-serif;
     letter-spacing: 1px;
     justify-content: center;
+
 }
 
 .register{
+    width: 80%;
     overflow: hidden;
     border: 2px solid rgba(255, 255, 255, 0.5);
     padding: 10px 30px 10px 30px;
@@ -101,16 +219,15 @@ body{
     background: transparent;
     background-color: hsla(0, 0%, 100%, 0.3);
     backdrop-filter: blur(20px);
-    width: 80%;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
 .register h2{
-    font-family: 'Overpass';
-    color: black; 
+    font-family: poppins;
+    color: white; 
     text-align: center;
     font-size: 40px;
-    font-weight: 500px; 
+    font-weight: 400; 
     margin: 20px 0 10px 0;
 }
 
@@ -132,6 +249,7 @@ body{
     padding: 0 5px 0 50px;
 }
 
+
 .input-box label{
     position: relative;
     left: 50px;    
@@ -142,6 +260,9 @@ body{
     pointer-events: none;
     transition: 0.5s;
     
+}
+.input-box .dob-label{
+    top: -90%;
 }
 
 .input-box input:focus~label,
@@ -301,7 +422,7 @@ body{
     text-decoration: underline;
 }
 
-/* @media(max-width: 1536px){
+@media(max-width: 1536px){
     .container{
         max-width: 1280px;
     }
@@ -340,4 +461,4 @@ body{
         flex-direction: column;
     }
 }
- */
+

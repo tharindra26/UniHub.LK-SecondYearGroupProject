@@ -1,0 +1,169 @@
+
+/* navbar  */
+.nav-outer-container{
+    display: flex;
+    background-color: white;
+    /* box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1); */
+}
+
+
+nav{
+    background-color: white;
+    border-radius: 10px;
+}
+
+nav ul{
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+}
+
+nav li{
+    display: flex;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+}
+
+nav a{
+    padding: 5px 15px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-family: poppins;
+    font-weight: 400;
+    color: black;
+    font-size: 15px;
+}
+
+.unihub-logo-text{
+    font-family: overpass;
+    color:#3498db;
+    font-size: 50px;
+    font-weight: bold;
+    padding:10px 0;
+}
+
+nav a:hover{
+    padding: 5px 15px;
+    border-radius: 100px;
+    color: black;
+    background-color: #2880b9;
+    color:white
+}
+
+nav li:first-child {
+    margin-right: auto;
+}
+
+.unihub-logo-text:hover{
+    padding: 0;
+    color: #3498db;
+    background-color: rgba(255, 0, 0, 0);
+}
+
+/* Verticle mobile navbar */
+.sidebar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 250px;
+    z-index: 999;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: -10px 0 10px rgba(0,0,0,0.1);
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border-top-right-radius: 10px;
+
+}
+/* Verticle mobile navbar */
+
+.sidebar li{
+    width: 100%;
+}
+
+.sidebar a{
+    width: auto;
+}
+
+.menu-button{
+    display: none;
+    color: white;
+}
+
+.profile-navigator{
+    display: flex;
+    flex-direction: raw;
+    /* border: 1px solid red; */
+}
+    .profile-image{
+        display: flex;
+        width: 50px;
+        height: 50px;
+        /* border: 1px solid red; */
+        border-radius: 100%;
+        overflow: hidden;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .profile-image img{
+        width: 100%;
+        height: autos;
+    }
+    .profile-name{
+        display: flex;
+        flex-direction: column;
+        /* border: 1px solid red; */
+        padding-left: 5px;
+    }
+/* navigation bar css */
+
+@media(max-width: 1536px){
+    .container{
+        max-width: 1280px;
+    }
+}
+
+@media(max-width: 1280px){
+    .container{
+        max-width: 1024px;
+    }
+}
+
+@media(max-width: 1024px){
+    .container{
+        max-width: 768px;
+    }
+    .hideOnMobile{
+        display: none;
+    }
+    .menu-button{
+        display: block;
+    }
+}
+
+@media(max-width: 768px){
+    .container{
+        max-width: 640px;
+    }
+}
+
+@media(max-width: 640px){
+    .container{
+        max-width: 475px;
+    }
+}
+
+@media(max-width: 475px){
+    .container{
+        max-width: 100%;
+    }
+}

@@ -5,6 +5,8 @@ class Users extends Controller{
         $this->organizationalModel = $this->model('Organization');
     }
 
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
     Public function register(){
         //Check for POST
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -15,15 +17,21 @@ class Users extends Controller{
 
             //Init data
             $data =[
-                'title' =>'Register Form',
-                'name' =>trim($_POST['name']),
                 'email' =>trim($_POST['email']),
+                'fname' =>trim($_POST['fname']),
+                'lname' =>trim($_POST['lname']),
+                'dob' =>trim($_POST['dob']),
+                'university' =>trim($_POST['university']),
                 'password' =>trim($_POST['password']),
                 'confirm_password' =>trim($_POST['confirm_password']),
-                'name_err' =>'',
                 'email_err' =>'',
+                'fname_err' =>'',
+                'lname_err' =>'',
+                'dob_err' =>'',
+                'university_err' =>'',
                 'password_err' =>'',
                 'confirm_password_err' =>'',
+                'verification_code' => sha1($_POST['email'] .time()),
             ];
 
           
@@ -39,8 +47,23 @@ class Users extends Controller{
           }
   
           // Validate Name
-          if(empty($data['name'])){
-            $data['name_err'] = 'Pleae enter name';
+          if(empty($data['fname'])){
+            $data['fname_err'] = 'Pleae enter first name';
+          }
+
+          // Validate Name
+          if(empty($data['lname'])){
+            $data['lname_err'] = 'Pleae enter last name';
+          }
+
+          // Validate Name
+          if(empty($data['dob'])){
+            $data['dob_err'] = 'Pleae enter date of birth';
+          }
+
+          // Validate Name
+          if(empty($data['university'])){
+            $data['university_err'] = 'Pleae select University';
           }
   
           // Validate Password
@@ -60,7 +83,7 @@ class Users extends Controller{
           }
   
           // Make sure errors are empty
-        if(empty($data['email_err']) && empty($data['name_err']) && empty($data['password_err']) && empty($data['confirm_password_err'])){
+        if(empty($data['email_err']) && empty($data['fname_err']) && empty($data['lname_err']) && empty($data['dob_err']) && empty($data['university_err']) && empty($data['password_err']) && empty($data['confirm_password_err'])){
             // Validated
            
             //Hash Password
@@ -68,31 +91,65 @@ class Users extends Controller{
 
             //Register User
             if($this->userModel->register($data)){
-                flash('register_success', 'You are registered and can log in');
+
+                //mail sending code
+                $verification_URL = 'http://localhost/unihub/users/emailVerification/' . $data['verification_code'];
+
+                  $to             = $data['email'];
+                  $sender         = 'developer.unihub@gmail.com';
+                  $mail_subject   = 'Verify Email Address';
+                  
+                  // Initialize $email_body properly and append to it
+                  $email_body = '<p>Dear ' . $data['fname'] . ' ' . $data['lname'] . '</p>';
+                  $email_body .= '<p>Thank you for signing up. There is one more step. Click below link to verify your email address in order to activate your account.</p>';
+                  $email_body .= '<p>' . $verification_URL . '</p>';
+                  $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+                  
+                  $header = "From: {$sender}\r\n";
+                  $header .= "Content-Type: text/html;";
+                  
+                  $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+                  
+                  
+                  if ($send_mail_result) {
+                      echo 'Please check your email';
+                  } else {
+                      echo 'Error.';
+                  }
+                  
+
+                // flash('register_success', 'You are registered and can log in');
                 redirect('users/login'); //redirect back to login page if register is successful
             }else{
                 die("Something went wrong");
             }
           } else {
             // Load view with errors
-            $this->view('users/register', $data);
+            $this->view('register', $data);
           }
   
         } else {
           // Init data
           $data =[
-            'name' => '',
-            'email' => '',
-            'password' => '',
-            'confirm_password' => '',
-            'name_err' => '',
-            'email_err' => '',
-            'password_err' => '',
-            'confirm_password_err' => ''
+            'email' =>'',
+            'fname' =>'',
+            'lname' =>'',
+            'dob' =>'',
+            'university' =>'',
+            'password' =>'',
+            'confirm_password' =>'',
+            'email_err' =>'',
+            'fname_err' =>'',
+            'lname_err' =>'',
+            'dob_err' =>'',
+            'university_err' =>'',
+            'password_err' =>'',
+            'confirm_password_err' =>'',
+            'verification_code' =>'',
           ];
   
           // Load view
-          $this->view('users/register', $data);
+          $this->view('register', $data);
         }
       }
 
@@ -123,11 +180,18 @@ class Users extends Controller{
           }
   
           // Check for user/email
-          if($this->userModel->findUserByEmail($data['email'])){
-            // User found
-          } else {
+          if (!$this->userModel->findUserByEmail($data['email'])) {
             // User not found
-            $data['email_err'] = 'No user found';
+              $data['email_err'] = 'No user found';
+          } else {
+              // User found, check status
+              $status = $this->userModel->getUserStatusByEmail($data['email']);
+
+              if ($status == 0) {
+                  $data['email_err'] = 'Account is not activated.';
+                  $this->view('signin', $data);
+                  return; // Add this return statement to stop further execution
+              }
           }
   
           // Make sure errors are empty
@@ -135,18 +199,19 @@ class Users extends Controller{
             // Validated
             // Check and set logged in user
             $loggedInUser = $this->userModel->login($data['email'], $data['password']);
+            $status = $this->userModel->getUserStatusByEmail($data['email']);
+            
   
             if($loggedInUser){
               // Create Session
               $this->createUserSession($loggedInUser);
             } else {
               $data['password_err'] = 'Password incorrect';
-  
-              $this->view('users/login', $data);
+              $this->view('signin', $data);
             }
           } else {
             // Load view with errors
-            $this->view('users/login', $data);
+            $this->view('signin', $data);
           }
   
   
@@ -160,7 +225,7 @@ class Users extends Controller{
           ];
   
           // Load view
-          $this->view('users/login', $data);
+          $this->view('signin', $data);
         }
 
       }
@@ -168,9 +233,10 @@ class Users extends Controller{
       public function createUserSession($user){
         $_SESSION['user_id'] = $user->id;
         $_SESSION['user_email'] = $user->email;
-        $_SESSION['user_name'] = $user->name;
-        $_SESSION['user_type'] = $user->user_type;
-        redirect('events');
+        $_SESSION['user_name'] = $user->fname;
+        $_SESSION['user_type'] = $user->type;
+        $_SESSION['user_profile_image'] = $user->profile_image;
+        redirect('pages');
       }
 
       public function logout(){
@@ -178,6 +244,7 @@ class Users extends Controller{
         unset($_SESSION['user_email']);
         unset($_SESSION['user_name']);
         unset($_SESSION['user_type']);
+        unset($_SESSION['user_profile_image']);
         session_destroy();
         redirect('users/login');
       }
@@ -455,6 +522,22 @@ class Users extends Controller{
         }
       } else {
         redirect('users/adminaccounthandling');
+      }
+    }
+
+    public function emailVerification($code){
+      if(isset($code)){
+        $result = $this->userModel->getUserByVerificationCode($code);
+
+        if($result['rowCount']==1){ //check number of raws using mysqli_num_rows
+          if($this->userModel->activateUser($code)){
+            echo 'Email address verified successfully';
+          }else{
+            echo 'Invalid verification code';
+          }
+        }else{
+          echo 'Invalid verification code';
+        }
       }
     }
 

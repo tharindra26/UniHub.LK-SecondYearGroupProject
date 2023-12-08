@@ -1,3 +1,4 @@
+//Read More section
 const description= document.querySelector('.description');
 description.addEventListener('click', event=>{
     const current = event.target;
@@ -12,3 +13,4 @@ description.addEventListener('click', event=>{
     console.log(currentText.textContent.includes("Read More"));
     current.textContent = currentText.classList.contains('read-more-text--show') ? "Read Less" : "Read More";
 })
+//Read More section
