@@ -32,7 +32,7 @@ body{
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 1000px;
+    height: auto;
     border: 1px solid red;
 }
 
@@ -134,9 +134,12 @@ body{
 .details_section{
     display: flex;
     flex-direction: row;
-    width: 100%;
-    height: 600px;
+    width: 90%;
+    height: 1000px;
+    /* height: auto; */
     border: 1px solid red;
+    margin-left: auto;
+    margin-right: auto;
 }
 
     .left_section{
@@ -148,31 +151,109 @@ body{
 
     }
 
+
+
+        .add_blog_button{
+            text-align: center;
+            padding:10px;
+            background-color: #3498db;
+            color:white;
+            border-radius: 5px;
+            font-family: poppins;
+            margin-bottom: 30px;
+            font-size: 15px;
+            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
     .right_section{
         display: flex;
+        flex-wrap: wrap;
         width: 75%;
         border: 1px solid red;
+        align-items: space-around;
     }
 
-    .container {
+    .container1 {
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
     }
     
     .card {
+        display: flex;
+        flex-direction: column;
         background: white;
         width: 270px;
         height: 400px;
-        margin: 10px;
+        margin: 20px;
         border-radius: 15px;
+        border: 1px solid red;
     }
     
     .card-image {
         background-color: aqua;
-        height: 190px;
-        margin-bottom: 15px;
+        width: 100%;
+        height: 65%;
+        /* margin-bottom: 15px; */
         background-size: cover;
         border-radius: 15px 15px 0 0;
+        border: 1px solid red;
+        max-width: 100%;
+        max-height: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .date_and_time{
+        display: flex;
+        padding-top: 10px;
+        width: 100%;
+        height: 20px;
+        border: 1px solid red;
+
+        font-size: 10px;
+        align-items: center;
+        justify-content: center;
+        color: #95a5a6;
+    }
+
+
+    .title{
+        width: 100%;
+        height: 50px;
+        border: 1px solid red;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 15px;
+        font-weight: bold;
+        line-height: 22px;
+    }
+
+    .uni_name{
+        width: 100%;
+        height: 30px;
+        /* border-radius: 0 0 15px 15px; */
+        border: 1px solid red;
+        display: flex;
+        justify-content: center;
+        font-size: 10px;
+        align-items: center;
+        color: #95a5a6;
+    }
+
+    .view_blog_button{
+        display: flex;
+        height: 30px;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 13px;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        text-decoration: none;
+        background: rgb(44,62,80);
+        background: linear-gradient(90deg, rgb(113, 124, 136) 0%, rgb(27, 39, 46) 100%);
     }
 
 
