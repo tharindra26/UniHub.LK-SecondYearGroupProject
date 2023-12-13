@@ -1,4 +1,5 @@
 <?php foreach ($data['events'] as $event) : ?>
+    
     <?php
         $eventStartDate = $event->start_datetime;
         // Convert MySQL datetime to DateTime object
@@ -19,8 +20,13 @@
                 <i class="fa-solid fa-clock"></i> &nbsp <?php echo $extractedTime ?>
             </div>
             <div class="title-section"><?php echo $event->title ?></div>
+            <div class="category-section">
+                <?php foreach ($event->categories as $category) : ?>
+                    <span class="category"><?php echo $category->category_name; ?></span>
+                <?php endforeach; ?>
+            </div>
             <div class="venue-section"><?php echo $event->venue ?></div>
-            <a href="<?php echo URLROOT ?>/events/show/$event" class="view-event-button">
+            <a href="<?php echo URLROOT ?>/events/show/<?php echo $event->id ?>" class="view-event-button">
                 <div class="">View Event</div>
             </a>
         </div>

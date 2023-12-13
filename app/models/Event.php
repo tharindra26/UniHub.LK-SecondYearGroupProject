@@ -12,7 +12,7 @@
                         users.id AS userId
                         FROM events
                         INNER JOIN users
-                        ON events.created_by = users.id
+                        ON events.user_id = users.id
                         ORDER BY events.created_at DESC
                     ');
         $results= $this->db->resultSet();
@@ -84,26 +84,89 @@
     public function getEventsBySearch($data){
         $keyword = $data['keyword'];
         $date = $data['date'];
+        $university = trim($data['university']);
+        $categories = isset($data['categories']) ? $data['categories'] : [];
 
-        if (empty($keyword) && empty($date)) {
-            $this->db->query('SELECT * FROM events;');
-            $row= $this->db->resultSet();
-            return $row;
-        } elseif (!empty($keyword) && empty($date)) {
-            $this->db->query("SELECT * FROM events WHERE title LIKE '%$keyword%';");
-            $row= $this->db->resultSet();
-            return $row;
-        } elseif (empty($keyword) && !empty($date)) {
-            $formattedDate = date('Y-m-d H:i:s', strtotime($date));
-            $this->db->query("SELECT * FROM events WHERE start_datetime = '$formattedDate';");
-            $row= $this->db->resultSet();
-            return $row;
-        } else {
-            $formattedDate = date('Y-m-d H:i:s', strtotime($date));
-            $this->db->query("SELECT * FROM events WHERE title LIKE '%$keyword%' AND start_datetime = '$formattedDate';");
-            $row= $this->db->resultSet();
-            return $row;
+        // Create a placeholder for each category
+        $categoryPlaceholders = implode(',', array_fill(0, count($categories), '?'));
+    
+        $query = 'SELECT DISTINCT e.*
+                  FROM events e
+                  INNER JOIN users u ON e.user_id = u.id
+                  LEFT JOIN events_categories ec ON e.id = ec.event_id
+                  LEFT JOIN categories c ON ec.category_id = c.id
+                  WHERE 1=1';
+    
+        if (!empty($keyword)) {
+            $query .= " AND e.title LIKE '%$keyword%'";
         }
+    
+        if (!empty($date)) {
+            $formattedDate = date('Y-m-d', strtotime($date));
+            $query .= " AND DATE(e.start_datetime) = '$formattedDate'";
+        }
+    
+        if (!empty($categories)) {
+            // Add conditions for the selected categories
+            $query .= " AND c.category_name IN ($categoryPlaceholders)";
+        }
+    
+        // Prepare and execute the query with bound values
+        $this->db->query($query);
+    
+        // Bind values to the placeholders
+        foreach ($categories as $key => $category) {
+            $this->db->bind(($key + 1), $category);
+        }
+    
+        // Execute the query
+        $this->db->execute();
+    
+        // Fetch the results
+        $row = $this->db->resultSet();
+        return $row;
+
+        // var_dump($categories);
+        // die();
+
+        
+        // if (empty($keyword) && empty($date) && empty($university)) {
+        //     $this->db->query('SELECT * FROM events;');
+        //     $row = $this->db->resultSet();
+        //     return $row;
+        // } elseif (!empty($keyword) && empty($date) && empty($university)) {
+        //     $this->db->query("SELECT * FROM events WHERE title LIKE '%$keyword%';");
+        //     $row = $this->db->resultSet();
+        //     return $row;
+        // } elseif (empty($keyword) && !empty($date) && empty($university)) {
+        //     $formattedDate = date('Y-m-d', strtotime($date));
+        //     $this->db->query("SELECT * FROM events WHERE DATE(start_datetime) = '$formattedDate';");
+        //     $row = $this->db->resultSet();
+        //     return $row;
+        // } elseif (empty($keyword) && empty($date) && !empty($university)) {
+        //     $this->db->query("SELECT * FROM events WHERE university = '$university';");
+        //     $row = $this->db->resultSet();
+        //     return $row;
+        // } elseif (!empty($keyword) && !empty($date) && empty($university)) {
+        //     $formattedDate = date('Y-m-d', strtotime($date));
+        //     $this->db->query("SELECT * FROM events WHERE title LIKE '%$keyword%' AND DATE(start_datetime) = '$formattedDate';");
+        //     $row = $this->db->resultSet();
+        //     return $row;
+        // } elseif (!empty($keyword) && empty($date) && !empty($university)) {
+        //     $this->db->query("SELECT * FROM events WHERE title LIKE '%$keyword%' AND university = '$university';");
+        //     $row = $this->db->resultSet();
+        //     return $row;
+        // } elseif (empty($keyword) && !empty($date) && !empty($university)) {
+        //     $formattedDate = date('Y-m-d', strtotime($date));
+        //     $this->db->query("SELECT * FROM events WHERE DATE(start_datetime) = '$formattedDate' AND university = '$university';");
+        //     $row = $this->db->resultSet();
+        //     return $row;
+        // } else {
+        //     $formattedDate = date('Y-m-d', strtotime($date));
+        //     $this->db->query("SELECT * FROM events WHERE title LIKE '%$keyword%' AND DATE(start_datetime) = '$formattedDate' AND university = '$university';");
+        //     $row = $this->db->resultSet();
+        //     return $row;
+        // }
     }
     
  }

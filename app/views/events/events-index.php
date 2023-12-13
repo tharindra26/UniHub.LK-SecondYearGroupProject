@@ -68,7 +68,7 @@
                 <!-- date filter -->
                 
                 <div class="date-filter">
-                    <input type="datetime-local" name="" id="date-input">
+                    <input type="date" name="" id="date-input">
                     <span class="date-reset-btn"  onclick="resetDate()">Reset Date</span>
                 </div>
                 <!-- date filter -->
@@ -96,6 +96,13 @@
                                 <i class="fa-solid fa-check check-icon"></i>
                             </span>
                             <span class="item-text">Musical Show</span>
+                        </li>
+
+                        <li class="item">
+                            <span class="checkbox">
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </span>
+                            <span class="item-text">Workshop</span>
                         </li>
                     </ul>
                 </div>

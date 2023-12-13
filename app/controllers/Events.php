@@ -10,9 +10,9 @@
         }
         public function index(){
             //get Posts
-            $events= $this->eventModel->getEvents();
+            // $events= $this->eventModel->getEvents();
             $data=[
-                'events'=> $events
+                // 'events'=> $events
             ];
 
             $this->view('events/events-index', $data);
@@ -340,7 +340,7 @@
             'event' =>$event,
             'user' =>$user,
           ];
-          $this->view('events/events-show', $data);
+          $this->view('events/event-show', $data);
         }
 
         public function searchEvents(){
@@ -353,7 +353,7 @@
             // $date = $_POST['date'];
             $events = $this->eventModel->getEventsBySearch($_POST);
             $data =[
-              'events' =>$events
+              'events' =>$events,
             ];
             $this->view('events/filter-events', $data);
             
