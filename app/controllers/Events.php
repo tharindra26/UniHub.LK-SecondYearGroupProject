@@ -353,7 +353,7 @@
             // $date = $_POST['date'];
             $events = $this->eventModel->getEventsBySearch($_POST);
             $data =[
-              'events' =>$events
+              'events' =>$events,
             ];
             $this->view('events/filter-events', $data);
             

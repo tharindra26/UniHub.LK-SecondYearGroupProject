@@ -56,7 +56,7 @@
                 display: flex;
                 flex-direction: raw;
                 height: 20%;
-                border: 1px solid red;
+                /* border: 1px solid red; */
                 align-items: flex-end;
             }
                 .countdown-header-text{
@@ -125,15 +125,16 @@
             align-items: center;
             justify-content: center;
             margin-top: -50px;
-            border: 3px solid red;  
+            /* border: 3px solid red;   */
             background-color: white;
             padding: 10px;
             /* border: 1px solid red; */
         }
 
                 .event-profile-image{
-                    height: auto;
-                    width: auto;
+                    max-height: 300px;
+                    max-width: 300px;
+                    overflow: hidden;
                     /* border: 1px solid red;          */
                 }
 
@@ -187,7 +188,7 @@
 .bottom-main-section{
     display: flex;
     flex-direction: raw;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width: 100%;
 }
 
@@ -196,7 +197,7 @@
         display: flex;
         flex-direction: column;
         width: 20%;
-        border: 1px solid red;
+        /* border: 1px solid red; */
         padding: 20px;
     }
         .social-media{
@@ -251,7 +252,7 @@
     .middle-section{
         display: flex;
         width: 50%;
-        border: 1px solid red;
+        /* border: 1px solid red; */
         padding: 20px;
     }
         .event-description{
@@ -261,7 +262,7 @@
             flex-direction: column;
             background-color: white;
             padding: 20px;
-            border: 1px solid red;
+            /* border: 1px solid red; */
             
 
         }
@@ -271,7 +272,7 @@
                 font-size: 25px;
                 font-weight: 500;
                 align-items: center;
-                border: 1px solid red;
+                /* border: 1px solid red; */
                 padding-bottom: 10px;
             }
 
@@ -279,7 +280,7 @@
                 display: flex;
                 flex-direction: column;
                 font-weight: 400;
-                border: 1px solid red;
+                /* border: 1px solid red; */
                 color: #2c3e50;
             }
             .read-more-btn{
@@ -296,7 +297,7 @@
         display: flex;
         flex-direction: column;
         width: 30%;
-        border: 1px solid red;
+        /* border: 1px solid red; */
         padding: 20px;
     }
         .placement{
@@ -304,7 +305,7 @@
             flex-direction: column;
             background-color: white;
             padding: 20px;
-            border: 1px solid red;
+            /* border: 1px solid red; */
             margin-bottom: 20px;
         }
         .placement-icons{

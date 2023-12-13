@@ -1,40 +1,39 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
-<?php echo var_dump($data) ?>
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/events/event-show_style.css">
 
     <div class="event-header">
         <div class="cover-image-section">
-            <img src="sample-cover-image.jpg" alt="event cover image">
+            <img src="<?php echo URLROOT ?>/img/events/events_cover_images/<?php echo $data['event']->event_cover_image ?>" alt="event cover image">
             <div class="title-overlay">
-                <h1>Event-Title</h1>
+                <h1><?php echo $data['event']->title ?></h1>
             </div>
         </div>
         <div class="secondary-section">
             <div class="countdown-section">
                 <div class="countdown-header">
-                    <div class="countdown-header-text">Event will start on</div>
+                    <div class="countdown-header-text"><?php echo $data['event']->countdown_text ?></div>
                 </div>
                 <div class="countdown">
                     <div class="days countdown-box">
-                        <p>20</p> 
+                        <p id="days">20</p> 
                         <span>DAYS</span>
                     </div>
                     <div class="hours countdown-box">
-                        <p>5</p> 
+                        <p id="hours">5</p> 
                         <span>HOURS</span>
                     </div>
                     <div class="mins countdown-box">
-                        <p>4</p> 
+                        <p id="minutes">4</p> 
                         <span>MINS</span>
                     </div>
                     <div class="sec countdown-box">
-                        <p>32</p> 
-                        <span>SECS</span>
+                        <p id="seconds">32</p> 
+                        <span >SECS</span>
                     </div>
-                    <a class="main-action-button-link" href="#">
+                    <a class="main-action-button-link" href="<?php echo $data['event']->main_button_link ?>">
                         <div class="main-action-button">
-                            <span>Register Now</span>
+                            <span><?php echo $data['event']->main_button_action ?></span>
                             <i class="fa-solid fa-angles-right"></i>
                         </div>
                     </a>
@@ -100,13 +99,20 @@
             <!-- middle-section -->
             <div class="middle-section">
                 <div class="event-description">
+
+                    <?php
+                        $description = $data['event']->description; // Assuming $data['event']->description contains the full text
+                        $words = explode(' ', $description);
+                        $first100Words = implode(' ', array_slice($words, 0, 100));
+                        $remainingWords = implode(' ', array_slice($words, 100));
+                    ?>
                     <div class="description-title">
-                        Event-Title
+                        <?php echo $data['event']->title ?>
                     </div>
                     <div class="description">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit, quisquam? Asperiores ipsa et quam ducimus porro labore earum odit deserunt quisquam eius. 
+                        <p> <?php echo $first100Words ?>
                             <span class="read-more-text">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. At debitis voluptate nihil? Molestias quidem ea reiciendis id vel tenetur saepe, obcaecati voluptatibus quis earum nostrum adipisci inventore consequatur laborum tempore in similique? Fugit quod ab corrupti vero accusantium tempora repellendus blanditiis eos hic, ipsa a adipisci! Vitae, aliquid assumenda quasi adipisci, illo necessitatibus labore illum numquam accusantium asperiores quo ea nisi sed! Eligendi, quibusdam. 
+                                <?php echo $remainingWords ?>
                             </span>
                         </p>
                         <span class="read-more-btn">Read More</span>
@@ -119,13 +125,23 @@
             <div class="right-section">
                 <div class="placement">
                     <div class="date-time">
-                        <i class="fa-solid placement-icons fa-calendar-days"></i> &nbsp 2023-12-15 &nbsp 19:00:00
+                    <?php
+                        // Assuming $data['event']->date contains the datetime string
+                        $original_start_datetime = $data['event']->start_datetime;
+
+                        // Create a DateTime object from the original datetime string
+                        $dateTime = new DateTime($original_start_datetime);
+
+                        // Format the datetime as 'Y-m-d h:i A'
+                        $formattedDatetime = $dateTime->format('Y-m-d h:i A');
+                    ?>
+                        <i class="fa-solid placement-icons fa-calendar-days"></i> &nbsp <?php echo $formattedDatetime ?>
                     </div>
                     <div class="venue">
-                        <i class="fa-solid placement-icons fa-location-dot"></i> &nbsp Viharamahadevi Open Air Theatre
+                        <i class="fa-solid placement-icons fa-location-dot"></i> &nbsp <?php echo $data['event']->venue ?>
                     </div>
                     <div class="organization">
-                        <i class="fa-solid placement-icons fa-medal"></i> &nbsp Organized by IEEE Student Branch @UCSC
+                        <i class="fa-solid placement-icons fa-medal"></i> &nbsp <?php echo $data['event']->organized_by?>
                     </div>
                 </div>
 
