@@ -90,12 +90,14 @@
         // Create a placeholder for each category
         $categoryPlaceholders = implode(',', array_fill(0, count($categories), '?'));
     
-        $query = 'SELECT DISTINCT e.*
-                  FROM events e
-                  INNER JOIN users u ON e.user_id = u.id
-                  LEFT JOIN events_categories ec ON e.id = ec.event_id
-                  LEFT JOIN categories c ON ec.category_id = c.id
-                  WHERE 1=1';
+        $query = 'SELECT 
+                        e.*,
+                        GROUP_CONCAT(c.category_name) AS category_names
+                        FROM events e
+                        INNER JOIN users u ON e.user_id = u.id
+                        LEFT JOIN events_categories ec ON e.id = ec.event_id
+                        LEFT JOIN categories c ON ec.category_id = c.id
+                        WHERE 1=1';
     
         if (!empty($keyword)) {
             $query .= " AND e.title LIKE '%$keyword%'";

@@ -17,6 +17,116 @@
 }
 /* title bar */
 
+/* slider */
+.slider{
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+
+.slides{
+    width: 500%;
+    height: 500px;
+    display: flex;
+    
+}
+
+.slides input{
+    display: none;
+}
+
+.slide{
+    width: 20%;
+    transition: 2s;
+}
+
+.slide img{
+    width: 100%;
+    height: auto;
+}
+
+.navigation-manual{
+    position: absolute;
+    width: 100%;
+    margin-top: -120px;
+    display: flex;
+    justify-content: center;
+}
+
+
+.manual-btn{
+    border: 2px solid white;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.manual-btn:not(:last-child){
+    margin-right: 40px;
+}
+
+.manual-btn:hover{
+    background-color: white;
+}
+
+#radio1:checked ~ .first{
+    margin-left: 0;
+}
+
+#radio2:checked ~ .first{
+    margin-left: -20%;
+}
+
+#radio3:checked ~ .first{
+    margin-left: -40%;
+}
+
+#radio4:checked ~ .first{
+    margin-left: -60%;
+}
+
+/* css for automatic navigation */
+.navigation-auto{
+    position: absolute;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: -120px;
+
+}
+
+.navigation-auto div{
+    border: 2px solid white;
+    padding: 5px;
+    border-radius: 10px;
+    transition: 1s;
+}
+
+.navigation-auto div:not(:last-child){
+    margin-right: 40px;
+}
+
+#radio1:checked ~ .navigation-auto .auto-btn1{
+    background: white;
+}
+
+#radio2:checked ~ .navigation-auto .auto-btn2{
+    background: white;
+}
+
+#radio3:checked ~ .navigation-auto .auto-btn4{
+    background: white;
+}
+
+#radio4:checked ~ .navigation-auto .auto-btn5{
+    background: white;
+}
+/* css for automatic navigation */
+
+
+/* slider */
+
 /* Search bar */
 .search-bar-container{
     display: flex;
@@ -235,6 +345,7 @@
             max-height: 250px;
             overflow-y: auto;
             padding-right: 7px;
+            width: 85%;
         }
         .uni-filter-options::-webkit-scrollbar{
             width: 7px;
@@ -410,7 +521,7 @@
             /* border: 1px solid red; */
             border-radius: 10px;
             width:300px;
-            height: 500px;
+            height: 400px;
             background-color: white;
             margin-bottom: 30px;
             text-decoration: none;
@@ -489,12 +600,20 @@
                 }
                 .category-section{
                     display: flex;
+                    flex-direction: row;
                     height: 20%;
                     justify-content: center;
                     align-items: center;
                     font-size: 12px;
-                    border: 1px solid red;
+                    justify-content: space-between;
+                    padding: 0 5px;
                 }
+                    .category{
+                        padding: 2px;
+                        border: 1px solid #2c3e50;
+                        border-radius: 5px;
+                        
+                    }
                 .venue-section{
                     display: flex;
                     height: 20%;

@@ -21,8 +21,9 @@
             </div>
             <div class="title-section"><?php echo $event->title ?></div>
             <div class="category-section">
-                <?php foreach ($event->categories as $category) : ?>
-                    <span class="category"><?php echo $category->category_name; ?></span>
+                <?php $categories = explode(',', $event->category_names);
+                foreach ($categories as $category): ?>
+                    <div class="category"><?php echo $category; ?></div>
                 <?php endforeach; ?>
             </div>
             <div class="venue-section"><?php echo $event->venue ?></div>
