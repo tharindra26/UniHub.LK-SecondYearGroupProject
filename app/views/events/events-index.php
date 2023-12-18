@@ -88,7 +88,7 @@
 
             <!-- filters-section -->
             <div class="filters-section">
-                <a href="#">
+                <a href="<?php echo URLROOT ?>/events/add">
                     <div class="add-event-button">
                         <i class="fa-solid fa-plus"></i>
                       <span>Add Event</span>
