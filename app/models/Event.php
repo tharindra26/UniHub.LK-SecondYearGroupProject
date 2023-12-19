@@ -108,18 +108,18 @@
             $query .= " AND DATE(e.start_datetime) = '$formattedDate'";
         }
     
-        if (!empty($categories)) {
-            // Add conditions for the selected categories
-            $query .= " AND c.category_name IN ($categoryPlaceholders)";
-        }
+        // if (!empty($categories)) {
+        //     // Add conditions for the selected categories
+        //     $query .= " AND c.category_name IN ($categoryPlaceholders)";
+        // }
     
         // Prepare and execute the query with bound values
         $this->db->query($query);
     
         // Bind values to the placeholders
-        foreach ($categories as $key => $category) {
-            $this->db->bind(($key + 1), $category);
-        }
+        // foreach ($categories as $key => $category) {
+        //     $this->db->bind(($key + 1), $category);
+        // }
     
         // Execute the query
         $this->db->execute();
