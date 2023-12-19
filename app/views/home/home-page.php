@@ -120,7 +120,12 @@
                     </div>
                     
                 </div>
-                <div class="right-part"></div>
+                <div class="right-part">
+                    <div class="card"></div>
+                    <div class="card"></div>
+                    <div class="card"></div>
+                    <div class="card"></div>
+                </div>
             
             </div>
             
