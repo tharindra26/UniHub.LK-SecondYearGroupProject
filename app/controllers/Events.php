@@ -355,6 +355,7 @@
             // $keyword = $_POST['keyword'];
             // $date = $_POST['date'];
             $events = $this->eventModel->getEventsBySearch($_POST);
+           
             $data =[
               'events' =>$events,
             ];

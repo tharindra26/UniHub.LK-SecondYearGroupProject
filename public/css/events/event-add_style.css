@@ -1,3 +1,13 @@
+/* Poppins:
+Thin 100
+Light 300
+Regular 400
+Medium 500
+Bold 700
+ExtraBold 800
+lora
+overpass */
+
 .inner-container{
     width: 100%;
     display: flex;
@@ -10,6 +20,7 @@
     padding: 25px;
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    margin: 20px 20px 20px 0;
     /* border: 1px solid red; */
 }
 
@@ -35,16 +46,55 @@
         color: #2c3e50;
     }
 
-    .form .input-box input{
+    .form :where(.input-box input, .select-box) {
         position: relative;
         height: 50px;
         width: 100%;
         outline: none;
-        font-size: 1rem;
+        font-size: 16px;
         color: #7f8c8d;
         margin-top: 8px;
         border: 1px solid #bdc3c7;
         border-radius: 6px;
+    }
+    
+
+    .select-box{
+        border: none;
+    }
+
+    .add-event-form .column{
+        display: flex;
+        column-gap: 15px;
+    }
+
+    .select-box select{
+        height: 100%;
+        width: 100%;
+        outline: none;
+        border: none;
+        color: #7f8c8d;
+        font-size: 16px;
+        border-radius: 6px;
+        border: 1px solid #bdc3c7;
+    }
+
+    .form button {
+        height: 55px;
+        width: 100%;
+        font-size: 16px;
+        border: none;
+        margin-top: 30px;
+        cursor: pointer;
+        border-radius: 6px;
+        font-weight: 500;
+        background: #3498db;
+        color: white;
+        transition: all 0.2s ease;
+    }
+
+    .form button:hover {
+        background: #2980b9;
     }
 
 .image-section{
@@ -56,6 +106,7 @@
     max-height: 100%;
     overflow: hidden;
     background: white;
+    margin: 20px 0;
 }
 
     .image-section img{
