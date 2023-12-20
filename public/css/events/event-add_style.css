@@ -11,7 +11,7 @@ overpass */
 .inner-container{
     width: 100%;
     display: flex;
-    flex-direction: raw;
+    flex-direction: row;
 }
 .add-event-form{
     position: relative;
@@ -37,6 +37,8 @@ overpass */
     }
 
     .form .input-box{
+        display: flex;
+        flex-direction: column;
         width: 100%;
         margin-top: 20px;
         /* border: 1px solid red; */
@@ -49,13 +51,15 @@ overpass */
     .form :where(.input-box input, .select-box) {
         position: relative;
         height: 50px;
-        width: 100%;
+        width: 95%;
         outline: none;
         font-size: 16px;
         color: #7f8c8d;
         margin-top: 8px;
         border: 1px solid #bdc3c7;
         border-radius: 6px;
+        padding-left: 10px;
+
     }
     
 
@@ -79,7 +83,7 @@ overpass */
         border: 1px solid #bdc3c7;
     }
 
-    .form button {
+    .submit-btn {
         height: 55px;
         width: 100%;
         font-size: 16px;
@@ -93,8 +97,32 @@ overpass */
         transition: all 0.2s ease;
     }
 
-    .form button:hover {
+    .submit-btn:hover {
         background: #2980b9;
+    }
+
+    #custom-profile-img-btn{
+        padding: 10px;
+        color: white;
+        background: #34495e;
+        outline: none;
+        border-radius: 5px;
+        cursor: pointer;
+        border: 1px solid black;
+        margin-top: 8px;
+        width: 50%;
+    }
+
+    #custom-profile-img-btn:hover{
+        background: #2c3e50;
+    }
+
+    #profile-img-txt{
+        color: #7f8c8d;
+    }
+
+    #profileImageUpload{
+        display: none;
     }
 
 .image-section{

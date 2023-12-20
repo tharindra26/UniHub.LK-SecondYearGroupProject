@@ -6,7 +6,7 @@
     <div class="inner-container">
         <div class="add-event-form">
             <header>Add Event</header>
-            <form action="" class="form">
+            <form class="form" action="/upload" method="post" enctype="multipart/form-data">
                 <div class="input-box">
                     <label for="">Event Title</label>
                     <input type="text" name="" id="" placeholder="Enter full name">
@@ -71,7 +71,24 @@
                     </div>
                 </div>
 
-                <button type="submit">Submit</button>
+                <div class="column">
+                    <div class="input-box">
+                        <label for="">Choose Profile Image</label>
+                        <input type="file" id="profileImageUpload" name="image" accept="image/*" >
+                        <button type="button" id="custom-profile-img-btn"><i class="fa-regular fa-file-image"></i> &nbsp Choose a image</button>
+                        <span id="profile-img-txt">No file chosen, yet.</span>
+                    </div>
+
+                    <div class="input-box">
+                        <label for="">Choose Profile Image</label>
+                        <input type="file" id="profileImageUpload" name="image" accept="image/*">
+                        <button type="button" id="custom-profile-img-btn"><i class="fa-regular fa-file-image"></i> &nbsp Choose a image</button>
+                        <span id="profile-img-txt">No file choosen, yet.</span>
+                    </div>
+                    
+                </div>
+
+                <button class="submit-btn" type="submit">Submit</button>
             </form>
         </div>
 
