@@ -397,6 +397,32 @@ input[type = "radio"]{
 .show-more-link a:hover{
     color: #2980b9;
 }
+
+section{
+    filter: blur(0.3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section .tab-content{
+    display: none;
+}
+
+#liked_materials:checked ~ section .content-1{
+    display: block;
+}
+#going_events:checked ~ section .content-2{
+    display: block;
+}
+
+#interest:checked ~ section .content-3{
+    display: block;
+}
+
+#watch_later:checked ~ section .content-4{
+    display: block;
+}
 /* slide-indicator css end */
 
 .portfolio a{
