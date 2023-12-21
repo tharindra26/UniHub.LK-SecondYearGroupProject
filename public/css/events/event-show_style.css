@@ -1,41 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora&family=Overpass:wght@500&family=Poppins:wght@100;300;400;500;700;800&display=swap');
-
-/* Poppins:
-Thin 100
-Light 300
-Regular 400
-Medium 500
-Bold 700
-ExtraBold 800 */
-
-*{
-    margin: 0;
-    padding: 0;
-}
-
-:root{
-    --primary: hsla(228, 19%, 5%, 0.90)  ;
-    --secondary:  hsla(177, 40%, 45%, 0.50) ;
-    
-}
-
-.container{
-    width:90%;
-    margin:0 auto;
-    /* border: 1px solid red; */
-}
-
-body{
-    min-height: 100vh;
-    max-width: 100vw;
-    background: #EDEDED;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    font-family: poppins;
-}
-
-/* cover image section */
+* cover image section */
 .event-header{
     display: flex;
     width: 100%;
@@ -93,7 +56,7 @@ body{
                 display: flex;
                 flex-direction: raw;
                 height: 20%;
-                border: 1px solid red;
+                /* border: 1px solid red; */
                 align-items: flex-end;
             }
                 .countdown-header-text{
@@ -154,7 +117,7 @@ body{
              .main-action-button-link{
                 text-decoration: none;
              }
-        .profile-image-section{
+        .event-profile-image-section{
             display: flex;
             width: 20%;
             border: 1px solid blue;
@@ -162,19 +125,20 @@ body{
             align-items: center;
             justify-content: center;
             margin-top: -50px;
-            border: 3px solid red;  
+            /* border: 3px solid red;   */
             background-color: white;
             padding: 10px;
-            border: 1px solid red;
+            /* border: 1px solid red; */
         }
 
-                .profile-image{
-                    height: auto;
-                    width: auto;
-                    border: 1px solid red;         
+                .event-profile-image{
+                    max-height: 300px;
+                    max-width: 300px;
+                    overflow: hidden;
+                    /* border: 1px solid red;          */
                 }
 
-                .profile-image img{
+                .event-profile-image img{
                     width: 100%;
                     height: auto;
                 }
@@ -224,7 +188,7 @@ body{
 .bottom-main-section{
     display: flex;
     flex-direction: raw;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width: 100%;
 }
 
@@ -233,7 +197,7 @@ body{
         display: flex;
         flex-direction: column;
         width: 20%;
-        border: 1px solid red;
+        /* border: 1px solid red; */
         padding: 20px;
     }
         .social-media{
@@ -288,7 +252,7 @@ body{
     .middle-section{
         display: flex;
         width: 50%;
-        border: 1px solid red;
+        /* border: 1px solid red; */
         padding: 20px;
     }
         .event-description{
@@ -298,7 +262,7 @@ body{
             flex-direction: column;
             background-color: white;
             padding: 20px;
-            border: 1px solid red;
+            /* border: 1px solid red; */
             
 
         }
@@ -308,7 +272,7 @@ body{
                 font-size: 25px;
                 font-weight: 500;
                 align-items: center;
-                border: 1px solid red;
+                /* border: 1px solid red; */
                 padding-bottom: 10px;
             }
 
@@ -316,7 +280,7 @@ body{
                 display: flex;
                 flex-direction: column;
                 font-weight: 400;
-                border: 1px solid red;
+                /* border: 1px solid red; */
                 color: #2c3e50;
             }
             .read-more-btn{
@@ -333,7 +297,7 @@ body{
         display: flex;
         flex-direction: column;
         width: 30%;
-        border: 1px solid red;
+        /* border: 1px solid red; */
         padding: 20px;
     }
         .placement{
@@ -341,7 +305,7 @@ body{
             flex-direction: column;
             background-color: white;
             padding: 20px;
-            border: 1px solid red;
+            /* border: 1px solid red; */
             margin-bottom: 20px;
         }
         .placement-icons{
@@ -362,6 +326,13 @@ body{
             flex-direction: column;
             background-color: white;
             height: 300px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        iframe{
+            width: 100%;
+            height: 100%;
         }
 /* bottom main section */
 
@@ -395,7 +366,6 @@ body{
     .container{
         max-width: 640px;
     }
-    
 }
 
 @media(max-width: 640px){

@@ -2,10 +2,58 @@
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/events/events-index_style.css">
 
-<!-- title bar -->
+    <!-- title bar -->
     
-    <div class="title-bar">
+    <!-- <div class="title-bar">
         <div class="title-bar-txt">Events</div>
+    </div> -->
+    <div class="slider">
+        <div class="slides">
+            <!-- radio buttons -->
+            <input type="radio" name="radio-btn" id="radio1">
+            <input type="radio" name="radio-btn" id="radio2">
+            <input type="radio" name="radio-btn" id="radio3">
+            <input type="radio" name="radio-btn" id="radio4">
+            <!-- radio buttons -->
+
+            <!-- slide-image-start -->
+            <div class="slide first">
+                <img src="<?php echo URLROOT ?>/img/events/slider/parinamaya banner.jpg" alt="" >
+            </div>
+            <div class="slide">
+                <img src="<?php echo URLROOT ?>/img/events/slider/nye banner.jpg" alt="" >
+            </div>
+            <div class="slide">
+                <img src="<?php echo URLROOT ?>/img/events/slider/yaga banner.jpg" alt="" >
+            </div>
+            <div class="slide">
+                <img src="<?php echo URLROOT ?>/img/events/slider/youth banner.jpg" alt="" >
+            </div>
+            <!-- slide-image-end -->
+
+
+
+            <div class="navigation-auto">
+                    <div class="auto-btn1"></div>
+                    <div class="auto-btn2"></div>
+                    <div class="auto-btn4"></div>
+                    <div class="auto-btn5"></div>
+            </div>
+
+            
+            
+            
+        </div>
+        
+        <!-- manual navigation start -->
+        <div class="navigation-manual">
+            <label for="radio1" class="manual-btn" ></label>
+            <label for="radio2" class="manual-btn"></label>
+            <label for="radio3" class="manual-btn"></label>
+            <label for="radio4" class="manual-btn"></label>
+        </div>
+        
+        <!-- manual navigation end -->
     </div>
     
     <!-- title bar -->
@@ -40,7 +88,7 @@
 
             <!-- filters-section -->
             <div class="filters-section">
-                <a href="#">
+                <a href="<?php echo URLROOT ?>/events/add">
                     <div class="add-event-button">
                         <i class="fa-solid fa-plus"></i>
                       <span>Add Event</span>
@@ -68,7 +116,7 @@
                 <!-- date filter -->
                 
                 <div class="date-filter">
-                    <input type="datetime-local" name="" id="date-input">
+                    <input type="date" name="" id="date-input">
                     <span class="date-reset-btn"  onclick="resetDate()">Reset Date</span>
                 </div>
                 <!-- date filter -->
@@ -96,6 +144,13 @@
                                 <i class="fa-solid fa-check check-icon"></i>
                             </span>
                             <span class="item-text">Musical Show</span>
+                        </li>
+
+                        <li class="item">
+                            <span class="checkbox">
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </span>
+                            <span class="item-text">Workshop</span>
                         </li>
                     </ul>
                 </div>

@@ -17,6 +17,116 @@
 }
 /* title bar */
 
+/* slider */
+.slider{
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+
+.slides{
+    width: 500%;
+    height: 500px;
+    display: flex;
+    
+}
+
+.slides input{
+    display: none;
+}
+
+.slide{
+    width: 20%;
+    transition: 2s;
+}
+
+.slide img{
+    width: 100%;
+    height: auto;
+}
+
+.navigation-manual{
+    position: absolute;
+    width: 100%;
+    margin-top: -120px;
+    display: flex;
+    justify-content: center;
+}
+
+
+.manual-btn{
+    border: 2px solid white;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.manual-btn:not(:last-child){
+    margin-right: 40px;
+}
+
+.manual-btn:hover{
+    background-color: white;
+}
+
+#radio1:checked ~ .first{
+    margin-left: 0;
+}
+
+#radio2:checked ~ .first{
+    margin-left: -20%;
+}
+
+#radio3:checked ~ .first{
+    margin-left: -40%;
+}
+
+#radio4:checked ~ .first{
+    margin-left: -60%;
+}
+
+/* css for automatic navigation */
+.navigation-auto{
+    position: absolute;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: -120px;
+
+}
+
+.navigation-auto div{
+    border: 2px solid white;
+    padding: 5px;
+    border-radius: 10px;
+    transition: 1s;
+}
+
+.navigation-auto div:not(:last-child){
+    margin-right: 40px;
+}
+
+#radio1:checked ~ .navigation-auto .auto-btn1{
+    background: white;
+}
+
+#radio2:checked ~ .navigation-auto .auto-btn2{
+    background: white;
+}
+
+#radio3:checked ~ .navigation-auto .auto-btn4{
+    background: white;
+}
+
+#radio4:checked ~ .navigation-auto .auto-btn5{
+    background: white;
+}
+/* css for automatic navigation */
+
+
+/* slider */
+
 /* Search bar */
 .search-bar-container{
     display: flex;
@@ -130,7 +240,7 @@
         .add-event-button{
             text-align: center;
             padding:10px;
-            background-color: #3498db;
+            background: linear-gradient(90deg, rgba(44,62,80,1) 0%, rgba(52,152,219,1) 50%, rgba(44,62,80,1) 100%);
             color:white;
             border-radius: 5px;
             font-family: poppins;
@@ -235,6 +345,7 @@
             max-height: 250px;
             overflow-y: auto;
             padding-right: 7px;
+            width: 85%;
         }
         .uni-filter-options::-webkit-scrollbar{
             width: 7px;
@@ -263,10 +374,11 @@
         /* date filter */
         .date-filter{
             display: flex;
-            max-width: 100%;
+            width: 100%;
             margin-bottom: 30px;
             align-items: flex-start;
             justify-content:space-between ;
+            /* border: 1px solid red; */
         }
         
         .date-reset-btn{
@@ -274,8 +386,10 @@
             font-size: 13px;
             color: #3498db;
             cursor: pointer;
+            padding-left: 10px;
+            width: 80px;
         }
-        .date-filter input[type="datetime-local"]{
+        .date-filter input[type="date"]{
             background-color: white;
             padding: 10px;
             font-family: poppins;
@@ -411,11 +525,33 @@
             background-color: white;
             margin-bottom: 30px;
             text-decoration: none;
+            transition: transform 0.5s, opacity 0.5s;
 
             box-shadow: 0px 7px 17px 5px rgba(0,0,0,0.29);
             -webkit-box-shadow: 0px 7px 17px 5px rgba(0,0,0,0.29);
             -moz-box-shadow: 0px 7px 17px 5px rgba(0,0,0,0.29);
+            animation: fadeIn ease-out 0.5s forwards;
         }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+       
+    
+
+        
 
             .image-section{
                 display: flex;
@@ -445,8 +581,8 @@
             }
                 .date-section{
                     display: flex;
-                    height: 20%;
-                    font-size: 10px;
+                    height: 10%;
+                    font-size: 12px;
                     /* border: 1px solid red; */
                     align-items: center;
                     justify-content: center;
@@ -454,7 +590,7 @@
                 }
                 .title-section{
                     display: flex;
-                    height: 40%;
+                    height: 30%;
                     /* border: 1px solid red; */
                     justify-content: center;
                     align-items: center;
@@ -462,12 +598,31 @@
                     font-weight: bold;
                     line-height: 22px;
                 }
+                .category-section{
+                    display: flex;
+                    flex-direction: row;
+                    height: 20%;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 12px;
+                    padding: 0 5px;
+                }
+                    .category{
+                        padding: 2px;
+                        border: 1px solid #2c3e50;
+                        border-radius: 5px;
+                        
+                    }
+
+                    .category-section div:not(:last-child){
+                        margin-right: 5px;
+                    }
                 .venue-section{
                     display: flex;
                     height: 20%;
                     /* border: 1px solid red; */
                     justify-content: center;
-                    font-size: 10px;
+                    font-size: 12px;
                     align-items: center;
                     color: #95a5a6;
                     
