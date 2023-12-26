@@ -59,6 +59,8 @@ class Database{
 
         $this->stmt->bindValue($param, $value, $type);
     }
+
+    
   
     // Execute the prepared statement
     public function execute(){
@@ -81,5 +83,6 @@ class Database{
     public function rowCount(){
         return $this->stmt->rowCount();
     }
+
     
 }
