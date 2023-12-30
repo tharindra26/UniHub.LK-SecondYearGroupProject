@@ -249,26 +249,42 @@ class Users extends Controller{
         redirect('users/login');
       }
 
-      public function show($id){
-        $user = $this->userModel->getUserById($id);
+      // public function show($id){
+      //   $user = $this->userModel->getUserById($id);
+      //   $data =[
+      //     'user' =>$user,
+      //   ];
+
+      //   if($user->user_type=='admin'){
+      //     $this->view('users/users-show-admin', $data);
+      //   }else if($user->user_type=='org'){
+      //     $organization = $this->organizationalModel->getOrganizationByUserId($user->id);
+      //     $user = $this->userModel->getUserById($organization->user_id);
+      //     $data =[
+      //       'organization' =>$organization,
+      //       'user' =>$user,
+      //     ];
+      //     $this->view('organizations/organizations-show', $data);
+      //   }else{
+      //     $this->view('users/users-show-und', $data);
+      //   }
+        
+      // }
+      public function show(){
+        $user = $this->userModel->getUserById($_SESSION['user_id']);
         $data =[
           'user' =>$user,
         ];
 
-        if($user->user_type=='admin'){
-          $this->view('users/users-show-admin', $data);
-        }else if($user->user_type=='org'){
-          $organization = $this->organizationalModel->getOrganizationByUserId($user->id);
-          $user = $this->userModel->getUserById($organization->user_id);
-          $data =[
-            'organization' =>$organization,
-            'user' =>$user,
-          ];
-          $this->view('organizations/organizations-show', $data);
+        if($user->type=='Undergraduate'){
+          $this->view('users/undergraduate/profile', $data);
+        }else if($user->type=='admin'){
+          $this->view('users/admin/profile', $data);
         }else{
-          $this->view('users/users-show-und', $data);
+
         }
-        
+
+
       }
 
       public function adminaccounthandling(){
