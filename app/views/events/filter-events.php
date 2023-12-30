@@ -1,6 +1,4 @@
 <?php if (!empty($data['events'][0]->id)) : ?>
-    <?php var_dump($data['events']);
-    die(); ?>
     <?php foreach ($data['events'] as $event) : ?>
         <?php
             $eventStartDate = $event->start_datetime;

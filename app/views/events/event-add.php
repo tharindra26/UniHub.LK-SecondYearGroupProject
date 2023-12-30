@@ -16,7 +16,7 @@
                     <div class="input-box">
                         <label for="">University</label>
                         <div class="select-box">
-                            <select name="" id="">
+                            <select name="" id="selection">
                                 <option value="1">University of Colombo</option>
                                 <option value="2">University of Peradeniya</option>
                                 <option value="3">University of Moratuwa</option>
@@ -71,22 +71,59 @@
                     </div>
                 </div>
 
-                <div class="column">
-                    <div class="input-box">
-                        <label for="">Choose Profile Image</label>
-                        <input type="file" id="profileImageUpload" name="image" accept="image/*" >
-                        <button type="button" id="custom-profile-img-btn"><i class="fa-regular fa-file-image"></i> &nbsp Choose a image</button>
-                        <span id="profile-img-txt">No file chosen, yet.</span>
-                    </div>
-
-                    <div class="input-box">
-                        <label for="">Choose Profile Image</label>
-                        <input type="file" id="profileImageUpload" name="image" accept="image/*">
-                        <button type="button" id="custom-profile-img-btn"><i class="fa-regular fa-file-image"></i> &nbsp Choose a image</button>
-                        <span id="profile-img-txt">No file choosen, yet.</span>
-                    </div>
-                    
+                <div class="input-box">
+                    <label for="">Event Description</label>
+                    <textarea  id="eventDescription" name="eventDescription" placeholder="Enter event description"></textarea>
                 </div>
+
+                
+                <div class="input-box">
+                    <H3>Profile Image</H3>
+                    <label for="">Upload a 600x600 pixels image. Accepted formats: JPG, PNG.</label>
+                    <input type="file" id="profileImageUpload" name="image" accept="image/*" >
+                    <button type="button" id="custom-profile-img-btn"><i class="fa-regular fa-file-image"></i> &nbsp Choose a image</button>
+                    <span id="profile-img-txt">No file chosen, yet.</span>
+                </div>
+
+                <div class="input-box">
+                    <H3>Cover Image</H3>
+                    <label for="">Upload a cover image with a 16:9 aspect ratio. Recommended resolution: 1600x900 pixels. Accepted formats: JPG, PNG.</label>
+                    <input type="file" id="profileImageUpload" name="image" accept="image/*" >
+                    <button type="button" id="custom-profile-img-btn"><i class="fa-regular fa-file-image"></i> &nbsp Choose a image</button>
+                    <span id="profile-img-txt">No file chosen, yet.</span>
+                </div>
+
+                <div class="categories-section">
+                    <H3>Choose Categories</H3>
+                    <div class="column">
+                        <div class="input-box">
+                            <label for="">Category #1</label>
+                            <div class="select-box">
+                                <select name="" id="selection">
+                                    <option value="1">Musical</option>
+                                    <option value="1">Hackathon</option>
+                                    <option value="1">Workshop</option>
+                                    <option value="1">Workshop</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="input-box">
+                            <label for="">Category #2</label>
+                            <div class="select-box">
+                                <select name="" id="selection">
+                                    <option value="1">Musical</option>
+                                    <option value="1">Hackathon</option>
+                                    <option value="1">Workshop</option>
+                                    <option value="1">Workshop</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+                    
 
                 <button class="submit-btn" type="submit">Submit</button>
             </form>
