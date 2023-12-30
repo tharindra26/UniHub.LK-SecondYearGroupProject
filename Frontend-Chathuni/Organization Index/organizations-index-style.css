@@ -14,7 +14,7 @@
 .container{
     width:90%;
     margin:0 auto;
-    /* border: 1px solid red; */
+    border: 1px solid red;
 }
 
 body{
@@ -27,15 +27,75 @@ body{
     font-family: poppins;
 }
 
-.section-1{
-    background: url('img8.png');
-    height: 100vh;
+.container .slide{
     width: 100%;
-    background-size: cover; /* Ensures the background image covers the entire container */
-    background-position: center; /* Center the background image */
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
+}
+
+.container .slide .item{
+    height: 300px;
+    width: 200px;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    border-radius: 20px;
+    box-shadow: 0 30px 50px #505050;
+    background-size: cover;
+    display: inline-block;
+    transition: 0.5s;
+}
+
+.slide .item:nth-child(1),
+.slide .item:nth-child(2){
+    top: 0;
+    left: 0;
+    transform: translate(0, 0);
+    border-radius: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.slide .item:nth-child(3){
+    left: 50%;
+}
+
+.slide .item:nth-child(4){
+    left: calc(50% + 220px);
+}
+
+.slide .item:nth-child(5){
+    left: calc(50% + 440px);
+}
+
+/*here n = 0, 1, 2, 3,...*/
+.slide .item:nth-child(n + 6){
+    left: calc(50% + 660px);
+    opacity: 0;
+}
+
+.item .content{
+    position: absolute;
+    top: 50%;
+    left: 100px;
+    width: 300px;
+    text-align: left;
+    color: #eee;
+    transform: translate(0, -50%);
+    display: none; 
+}
+.slide .item:nth-child(2) .content{
+    display: block;
+}
+
+.content .name{
+    font-size: 40px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.content .description{
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 /* title bar */
