@@ -20,7 +20,7 @@ class User{
         $this->db->bind(':fname' ,  $data['fname']);
         $this->db->bind(':lname' ,  $data['lname']);
         $this->db->bind(':dob' ,  $data['dob']);
-        $this->db->bind(':university' ,  $data['university']);
+        $this->db->bind(':university_id' ,  $data['university_id']);
         $this->db->bind(':contact_number' ,  "0000000000");
         $this->db->bind(':description' ,  "default_description");
         $this->db->bind(':profile_image' ,  "default_profile_image.jpg");

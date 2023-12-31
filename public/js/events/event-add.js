@@ -1,5 +1,5 @@
-const profileImageUpload = document. getElementById('profileImageUpload'),
-customProfileImgBtn = document.getElementById('custom-profile-img-btn'),
+const profileImageUpload = document. getElementById('profileImageUpload'), //original button
+customProfileImgBtn = document.getElementById('custom-profile-img-btn'), //duplicate button view for us
 profileImgTxt =document.getElementById('profile-img-txt');
 
 customProfileImgBtn.addEventListener('click', function(){
@@ -47,4 +47,22 @@ profileImageUpload.addEventListener("change", function () {
 
     //     reader.readAsDataURL(fileInput.files[0]);
     // }
+});
+
+
+const coverImageUpload = document. getElementById('coverImageUpload'), //original button
+customCoverImgBtn = document.getElementById('custom-cover-img-btn'), //duplicate button view for us
+coverImgTxt =document.getElementById('cover-img-txt');
+
+customCoverImgBtn.addEventListener('click', function(){
+    coverImageUpload.click();
+})
+
+coverImageUpload.addEventListener("change", function () {
+    var fileInput = this;
+
+    if (fileInput.files && fileInput.files[0]) {
+        // Display the file name when an image is chosen
+        coverImgTxt.innerHTML = "File chosen: " + fileInput.files[0].name;
+    }
 });
