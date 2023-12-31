@@ -276,12 +276,17 @@ class Users extends Controller{
           'user' =>$user,
         ];
 
-        if($user->type=='Undergraduate'){
-          $this->view('users/undergraduate/profile', $data);
-        }else if($user->type=='admin'){
-          $this->view('users/admin/profile', $data);
-        }else{
-
+        if($user->type=='admin'){
+          $this->view('users/admin/adminprofile', $data);  
+        }
+        else if($user->type=='unirep'){
+          $this->view('users/unirep/profile', $data);
+        }
+        else if($user->type=='orgrep'){
+          $this->view('users/orgrep/profile', $data);
+        }
+        else{
+          $this->view('users/undergraduate/myprofile', $data);
         }
 
 
