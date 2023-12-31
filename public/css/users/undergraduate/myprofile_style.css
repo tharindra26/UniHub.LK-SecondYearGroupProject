@@ -11,12 +11,18 @@ body{
     background-color: #ededed;
 }
 
-.container{
-    width:90%;
-    margin:0 auto; 
+/* .container{
+    /* width:90%;
+    margin:0 auto;  */
+    
+    /* border: 1px solid black; 
+} */
+
+.content-profile{
+    position: relative;
     display: flex;
     flex-direction: row;
-    border: 1px solid black;
+    padding-top: 20px;
 }
 
 .left-bar{

@@ -1,32 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <!--Swiper CSS Link Start-->
-    <link rel="stylesheet" href="../Style/swiper-bundle.min.css">
-    <!--Swiper CSS Link End-->
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-</head>
-<body>
-    <div class="container">
+<?php require APPROOT . '/views/inc/header.php'; ?>
+<?php require APPROOT . '/views/inc/navbar.php'; ?>
+<link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/undergraduate/myprofile_style.css">
+    <div class="container content-profile">
         <div class="left-bar">
             <div class="profile_header">
                 <div class="photos">
-                    <img src="../UserProfiles/images/cover.jpg" alt="" class="cover-photo">
-                    <img src="../UserProfiles/images/profile.jpg" alt="" class="profile-photo">
+                    <img src="<?php echo URLROOT ?>/img/users/default/<?php echo $data['user']->cover_image ?>" alt="Cover Photo" class="cover-photo">
+                    <img src="<?php echo URLROOT ?>/img/users/default/<?php echo $data['user']->profile_image ?>" alt="Profile Picture" class="profile-photo">
                 </div>
                 <div class="profile-info">
                     <div class="description">
-                        <h1>John</h1>
+                        <h1><?php echo $data['user']->fname , " " , $data['user']->lname ?></h1>
                         <p class="title">Computer Science Undergraduate at University of Colombo School of Computing</p>
-                        <p class="uni">University of Colombo School of Computing</p>
-                        <a href="#" class="follow-btn">Follow</a>
-                        <a href="#" class="msg-btn">Message</a> 
-                        <a href="#" class="report">Report</a> 
+                        <p class="uni"><?php echo $data['user']->university ?></p>
+                        <a href="#" class="follow-btn">Update Profile</a>
+                        <a href="#" class="msg-btn">Delete Account</a> 
                     </div>
                     <div class="current-work">
                         <ul class="work-list">
@@ -53,19 +41,28 @@
             </div>
             <div class="about">
                 <h1>About</h1>
-                <p>The sun dipped below the horizon, casting a warm, golden glow over the tranquil meadow. 
-                    The gentle rustling of leaves in the nearby forest provided a soothing backdrop to the 
-                    symphony of chirping crickets. As I strolled through the field, the sweet scent of wildflowers filled
-                    the air, and a feeling of serenity washed over me. 
+                <p>
+                    <?php 
+                        $content = $data['user']->description;
+                        $string = strip_tags($content);
+                        if(strlen($string) > 300):
+                            $stringCut = substr($string, 0, 300);
+                            $endPoint = strrpos($stringCut, ' ');
+                            $string = $endPoint?substr($stringCut, 0, $endPoint):substr($stringCut,0);
+                            echo $string;
+                        endif;?>
                     <span class="see-more-text">
-                        The rhythmic sound of raindrops echoed through the quiet streets as the city slept under a blanket of darkness. 
-                        A lone streetlight flickered, casting shadows that danced along the wet pavement. In the distance, the faint 
-                        hum of traffic suggested that life persisted even in the tranquil night. Each raindrop seemed to tell a story, 
-                        tracing its way down windows like a painter creating an intricate masterpiece. The air was filled with the earthy
-                         scent of petrichor, a fragrance that embraced the serenity of the moment. Somewhere in the vastness of the city, 
-                         a stray cat sought shelter under the eaves, its fur glistening with raindrops. Nature and urbanity converged in 
-                         this nocturnal symphony, creating a harmonious lullaby for the dreaming city.
+                        <?php
+                            $content = $data['user']->description;
+                            $string = strip_tags($content);
+                            $endString = substr($string, $endPoint);
+                            echo $endString;
+                            // $startPoint = strrpos($endString, ' ');
+                            // $string = $startPoint?substr($endString, 0, $startPoint):substr($endString,0);
+                        
+                        ?> 
                     </span>
+                    
                 </p>
                 <span class="see-more-btn">See more...</span>
             </div>
@@ -296,13 +293,6 @@
                     
             </div>
         </div>
-
     </div>
-
-   
-    <!--Swiper Js-->
-    <script src="../js/swiper-bundle.min.js"></script>
-    <script type="text/javascript" src="main.js"></script>
-    
-</body>
-</html>
+    <script src="<?php echo URLROOT?>/js/users/undergraduate/myprofile.js"></script>
+<?php require APPROOT . '/views/inc/footer.php'; ?>
