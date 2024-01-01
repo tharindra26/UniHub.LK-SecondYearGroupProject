@@ -3,6 +3,7 @@ class Users extends Controller{
     public function __construct(){
         $this->userModel = $this->model('User');
         $this->organizationalModel = $this->model('Organization');
+        $this->universityModel = $this->model('University');
 
     }
 
@@ -89,6 +90,10 @@ class Users extends Controller{
            
             //Hash Password
             $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+
+            //Universe id
+            $data['university_id'] = $this->universityModel->getUniIdByName($data['university']);
+            
 
             //Register User
             if($this->userModel->register($data)){
