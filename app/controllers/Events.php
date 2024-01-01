@@ -7,6 +7,7 @@
 
             $this->eventModel =$this->model('Event');
             $this->userModel =$this->model('User');
+            $this->categoryModel =$this->model('Category');
         }
         public function index(){
             //get Posts
@@ -34,9 +35,11 @@
                 //Init data
                 $data =[
                     'title' =>trim($_POST['title']),
-                    'university' =>trim($_POST['university']),
+                    'university' => (trim($_POST['university']) == 'Select University' ? '' : trim($_POST['university'])),
                     'organized_by' =>trim($_POST['organized_by']),
                     'venue' =>trim($_POST['venue']),
+                    'email' =>trim($_POST['email']),
+                    'contact_number' =>trim($_POST['contact_number']),
                     'map_navigation' =>trim($_POST['map_navigation']),
                     'start_datetime' =>trim($_POST['start_datetime']),
                     'end_datetime' =>trim($_POST['end_datetime']),
@@ -48,6 +51,9 @@
                     'title_err' =>'',
                     'university_err' =>'',
                     'organized_by_err' =>'',
+                    'venue_err' =>'',
+                    'email_err' =>'',
+                    'contact_number_err' =>'',
                     'map_navigation_err' =>'',
                     'start_datetime_err' =>'',
                     'end_datetime_err' =>'',
@@ -71,6 +77,12 @@
               }
               if(empty($data['venue'])){
                 $data['venue_err'] = 'Pleae enter the venue';
+              }
+              if(empty($data['email'])){
+                $data['email_err'] = 'Pleae enter the email';
+              }
+              if(empty($data['contact_number'])){
+                $data['contact_number_err'] = 'Pleae enter the contact number';
               }
               if(empty($data['map_navigation'])){
                 $data['map_navigation_err'] = 'Pleae enter the embed Google map link';
@@ -122,7 +134,7 @@
                           $allowed_exs = array('jpg', 'jpeg', 'png');
                           if (in_array($img_ex_to_lc, $allowed_exs)) {
                               $new_img_name = $data['title'].'_event_profile_' . time() . '.' . $img_ex_to_lc;
-                              $img_upload_path = "../public/img/event-profile-images/" . $new_img_name;
+                              $img_upload_path = "../public/img/events/events_profile_images/" . $new_img_name;
                               move_uploaded_file($tmp_name, $img_upload_path);
                   
                               $data['event_profile_image'] = $new_img_name;
@@ -146,7 +158,7 @@
                         $allowed_exs = array('jpg', 'jpeg', 'png');
                         if (in_array($img_ex_to_lc, $allowed_exs)) {
                             $new_img_name = $data['title'].'_event_cover_' . time() . '.' . $img_ex_to_lc;
-                            $img_upload_path = "../public/img/event-cover-images/" . $new_img_name;
+                            $img_upload_path = "../public/img/events/events_cover_images/" . $new_img_name;
                             move_uploaded_file($tmp_name, $img_upload_path);
                 
                             $data['event_cover_image'] = $new_img_name;
@@ -155,7 +167,7 @@
                     }
                               
 
-
+                    $data['category_id'] = $this->categoryModel->getCategoryIdByName($data['category']);
                     if($this->eventModel->addEvent($data)){
                         // flash('event_message', "Event Added Successfully");
                         redirect('events');
@@ -173,6 +185,9 @@
                 'title' =>'',
                 'university' =>'',
                 'organized_by' =>'',
+                'venue'=>'',
+                'email' =>'',
+                'contact_number' =>'',
                 'venue' =>'',
                 'map_navigation' =>'',
                 'start_datetime' =>'',
@@ -185,6 +200,9 @@
                 'title_err' =>'',
                 'university_err' =>'',
                 'organized_by_err' =>'',
+                'venue_err' =>'',
+                'email_err' =>'',
+                'contact_number_err' =>'',
                 'map_navigation_err' =>'',
                 'start_datetime_err' =>'',
                 'end_datetime_err' =>'',
@@ -386,6 +404,8 @@
 
             // Sanitize post data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            // var_dump($_POST);
+            // die();
 
             // $keyword = $_POST['keyword'];
             // $date = $_POST['date'];
@@ -394,6 +414,7 @@
             $data =[
               'events' =>$events,
             ];
+            
             $this->view('events/filter-events', $data);
             
           }
