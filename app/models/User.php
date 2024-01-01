@@ -10,7 +10,7 @@ class User{
     //Register the user
     public function register($data){
 
-        $this->db->query("INSERT INTO users (email,type,password,status,verification_code,fname,lname,dob,university,contact_number,description,profile_image,cover_image) VALUES(:email,:type,:password,:status,:verification_code,:fname,:lname,:dob,:university,:contact_number,:description,:profile_image,:cover_image)");
+        $this->db->query("INSERT INTO users (email,type,password,status,verification_code,fname,lname,dob,university_id,contact_number,description,profile_image,cover_image) VALUES(:email,:type,:password,:status,:verification_code,:fname,:lname,:dob,:university_id,:contact_number,:description,:profile_image,:cover_image)");
         //Bind values
         $this->db->bind(':email' , $data['email']);
         $this->db->bind(':type' , "Undergraduate");
