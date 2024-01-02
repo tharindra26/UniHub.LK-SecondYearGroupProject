@@ -28,9 +28,258 @@ body{
 
 
 
+.main_section{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    border: 1px solid red;
+}
+
+    .cover_image{
+        width: 100%;
+        height: 320px;
+        border: 1px solid red;
+        max-width: 100%;
+        max-height: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+
+        .cover_image image{
+            min-width: 100%;
+            height: auto;
+        }
+
+        .cover_image::after{
+            position: absolute; content: ''; display: block; top: 0; left: 0; height: 100%; width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            mix-blend-mode: multiply;
+        }
+
+        .title-overlay{
+            position: absolute;
+            top: 60%;
+            left: 200px;
+            text-align: center;
+            color: white;
+            z-index: 2;
+            font-size: 20px;
+        }
+
+
+/* Search bar */
+.search-bar-container{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    height: 60px;
+    border: 1px solid red;
+}
 
 
 
+    .search-bar{
+        width: 30%;
+        max-width: 100%;
+        height: 20px;
+        /* background: rgba(127, 140, 141, 0.3); */
+        background: rgba(255, 255, 255, 1);
+        display: flex;
+        align-items: center;
+        border-radius: 60px;
+        padding: 3px 5px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        border: 2px solid #2980b9;
+    }
+
+
+        .search-bar input{
+            background: transparent;
+            flex:1; 
+            /* flex:1 get the full width */
+            border: 0;
+            outline: none;
+            font-size: 15px;
+            color: rgb(130, 130, 130);
+            text-align: center;
+
+        }
+
+
+            .search-bar input::placeholder{
+                color: rgb(130, 130, 130);
+            }
+
+
+        .search-bar button{
+            border: 0;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            background: #2980b9;
+            cursor: pointer;
+        }
+
+
+        .fa-magnifying-glass{
+            color: white;
+        }
+/* Search bar */
+
+
+
+.details_section{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    height: auto;
+    /* height: 1000px; */
+    border: 1px solid red;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    .left_section{
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+        border: 1px solid red;
+
+
+    }
+
+
+
+        .add_post_button{
+            text-align: center;
+            padding:10px;
+            background-color: #3498db;
+            color:white;
+            border-radius: 5px;
+            font-family: poppins;
+            margin-bottom: 30px;
+            font-size: 15px;
+            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+
+        .right_section{
+            display: flex;
+            flex-direction: column;
+            width: 70%;
+            border: 1px solid red;
+        }
+
+
+        .container2{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+        .post_card{
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border: 1px solid red;
+            width: 700px;
+            height: 800px;
+            margin: 20px;
+            /* border-radius: 15px; */
+            margin-left: 100px;
+        }
+
+
+            .post_details{
+                display: flex;
+                flex-direction: row;
+                border: 1px solid red;
+                /* height: 80px; */
+                height: 12%;
+            }
+
+
+                .profile_picture{
+                    display: flex;
+                    background-color: #3498db;
+                    width: 80px;
+                    height: 80px;
+                    margin-left: 20px;
+                    margin-right: 20px;
+                    margin-top: auto;
+                    margin-bottom: auto;
+                    border: 1px solid red;
+                    border-radius: 50%;
+                }
+
+                .profile{
+                    display: flex;
+                    flex-direction: column;
+                    width: 60%;
+                    border: 1px solid red;
+                }
+
+
+                    .profile_name{
+                        display: flex;
+                        height: 60%;
+                        border: 1px solid red;
+                        align-items: center;
+                    }
+
+                    .venue{
+                        display: flex;
+                        border: 1px solid red;
+                    }
+
+
+                .select_more{
+                    display: flex;
+                    width: 10%;
+                    border: 1px solid red;
+                }
+
+
+                .cross_button{
+                    display: flex;
+                    border: 1px solid red;
+                }
+
+
+            .post_caption{
+                display: flex;
+                border: 1px solid red;
+                /* height: 60px; */
+                height: 8%;
+            }
+
+
+            .post_image{
+                display: flex;
+                border: 1px solid red;
+                height: 70%;
+            }
+
+            .post_views{
+                display: flex;
+                flex-direction: row;
+                border: 1px solid red;
+                height: 4%;
+            }
+
+            .post_bottom{
+                display: flex;
+                flex-direction: row;
+                border: 1px solid red;
+                height: 6%;
+            }
 
 
 
