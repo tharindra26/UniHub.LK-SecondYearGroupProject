@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Organizations</title>
     <link rel="stylesheet" href="organizations-index-style.css">
-    <link rel="stylesheet" href="../Responsive-Format/navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
@@ -49,8 +48,8 @@
     <!-- navigation-bar -->
 
     <!-- Search-bar -->
-    <div class="container">
-        <div class="search-bar-container">
+    <div class="search-bar-container">
+        <div class="container">
             <form action="" class="search-bar">
                 <input type="text" name="" id="" placeholder="Search anything">
                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -59,49 +58,54 @@
     </div>
     <!-- Search-bar -->
 
-    <!-- title bar -->
-    <div class="container">
-        <div class="title-bar">
-            <div class="title-bar-txt">Organizations</div>
-        </div>
-    </div>
-    <!-- title bar -->
-
     <!-- Slider -->
-    <div class="container">
-        <div class="slide">
-            <div class="item" style="background-image: url(AIESEC.jpg);">
+    <div class="slider-container">
+        <div class="slider">
+            <div class="item" style="background-image: url('img/AIESEC.jpg');">
                 <div class="content">
-                    <div class="name">AIESEC in Colombo Central</div>
-                    <div class="university">University of Colombo</div>
-                    <div class="description">AIESEC is a global platform for young people to explore and develop their leadership potential.</div>
+                    <div class="text">
+                        <div class="name">AIESEC in Colombo Central</div>
+                        <div class="university">University of Colombo</div>
+                        <div class="description">AIESEC is a global platform for young people to explore and develop their leadership potential.</div>
+                    </div>
                     <button>See More</button>
                 </div>
             </div>
-            <div class="item" style="background-image: url(Art_Circle.jpg);">
+            <div class="item" style="background-image: url('img/Art_Circle.jpg');">
                 <div class="content">
-                    <div class="name">Art Circle</div>
-                    <div class="university">University of Sri Jayawardenapura</div>
-                    <div class="description">The spotlight of the Arts Circle calendar is focused on a variety performance bearing the name “Talents”.</div>
+                    <div class="text">
+                        <div class="name">Art Circle</div>
+                        <div class="university">University of Sri Jayawardenapura</div>
+                        <div class="description">The spotlight of the Arts Circle calendar is focused on a variety performance bearing the name “Talents”.</div>
+                    </div>
                     <button>See More</button>
                 </div>
             </div>
-            <div class="item" style="background-image: url(LED.jpg);">
+            <div class="item" style="background-image: url('img/Rotaract.png');">
                 <div class="content">
-                    <div class="name">LED KLN</div>
-                    <div class="university">University of Kelaniya</div>
-                    <div class="description">We lead, empower, and develop all young enthusiasts who believe that they can be their best and most passionate selves by working determinedly to achieve success.</div>
+                    <div class="text">
+                        <div class="name">Rotaract Club of UCSC</div>
+                        <div class="university">University of Colombo</div>
+                        <div class="description">At the Rotaract Club of UCSC, we are more than just a club; we are a community.</div>
+                    </div>
                     <button>See More</button>
                 </div>
             </div>
-            <div class="item" style="background-image: url(ButterflyRT.jpg);">
+            <div class="item" style="background-image: url('img/ButterflyRT.jpg');">
                 <div class="content">
-                    <div class="name">BUTTERFLY RESEARCH TEAM</div>
-                    <div class="university">University of Ruhuna</div>
-                    <div class="description">Butterflies are one of the most noticeable species of Earth's biodiversity.</div>
+                    <div class="text">
+                        <div class="name">BUTTERFLY RESEARCH TEAM</div>
+                        <div class="university">University of Ruhuna</div>
+                        <div class="description">Butterflies are one of the most noticeable species of Earth's biodiversity.</div>
+                    </div>
                     <button>See More</button>
                 </div>
             </div>
+        </div>
+
+        <div class="button">
+            <button class="prev"><i class="fa-solid fa-arrow-left"></i></button>
+            <button class="next"><i class="fa-solid fa-arrow-right"></i></button>
         </div>
     </div>
     <!-- Slider -->
@@ -143,7 +147,7 @@
                         <i class="fa-solid fa-angle-down"></i>
                     </div>
                     <div class="uni-filter-content">
-                        <div class="uni-reset-btn">Reset</div>
+                        <div class="reset-btn">Reset</div>
                         <div class="uni-filter-search">
                             <i class="fa-solid fa-magnifying-glass"></i>
                             <input type="text" placeholder="Search" id="">
@@ -155,138 +159,121 @@
                 <!-- university-filter -->
 
                 <!-- category filter -->
-                <div class="category-filter">
-                    <div class="category-select-btn">
-                        <span class="category-btn-txt">Select Category</span>
-                        <span class="arrow-dwn">
-                            <i class="fa-solid fa-angle-down"></i>
-                        </span> 
+                <!-- <div class="category-filter-content">
+                    <div class="select-btn">
+                        <span>Select Category</span>
+                        <i class="fa-solid fa-angle-down"></i>
                     </div>
-
-                    <ul class="list-items">
-                        <div class="category-reset-btn">Reset</div>
-                        <li class="item">
+                    <div class="category-filter-content"></div>
+                    <ul class="list-category">
+                        <div class="reset-btn">Reset</div>
+                        <li class="category">
                             <span class="checkbox">
                                 <i class="fa-solid fa-check check-icon"></i>
                             </span>
-                            <span class="item-text">Academic</span>
+                            <span class="category-text">Academic</span>
                         </li>
 
-                        <li class="item">
+                        <li class="category">
                             <span class="checkbox">
                                 <i class="fa-solid fa-check check-icon"></i>
                             </span>
-                            <span class="item-text">Community Service</span>
+                            <span class="category-text">Community Service</span>
                         </li>
 
-                        <li class="item">
+                        <li class="category">
                             <span class="checkbox">
                                 <i class="fa-solid fa-check check-icon"></i>
                             </span>
-                            <span class="item-text">Media</span>
+                            <span class="category-text">Media</span>
                         </li>
 
-                        <li class="item">
+                        <li class="category">
                             <span class="checkbox">
                                 <i class="fa-solid fa-check check-icon"></i>
                             </span>
-                            <span class="item-text">Multi Cutural</span>
+                            <span class="category-text">Multi Cutural</span>
                         </li>
 
-                        <li class="item">
+                        <li class="category">
                             <span class="checkbox">
                                 <i class="fa-solid fa-check check-icon"></i>
                             </span>
-                            <span class="item-text">Sports</span>
+                            <span class="category-text">Sports</span>
                         </li>
 
-                        <li class="item">
+                        <li class="category">
                             <span class="checkbox">
                                 <i class="fa-solid fa-check check-icon"></i>
                             </span>
-                            <span class="item-text">Performing Arts</span>
+                            <span class="category-text">Performing Arts</span>
                         </li>
                     </ul>
+                </div> -->
+
+
+                <div class="category-filter">
+                    <div class="select-btn">
+                        <span>Select Category</span>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                    <div class="category-filter-options">
+                        <ul class="category-checkboxes"></ul>
+                    </div>
+                    <div class="reset-btn">Reset</div>
                 </div>
                 <!-- category filter -->
             </div>
             <!-- filters-section -->
 
-            <!-- events-card-section -->
-            <div class="content-section">
-                <div class="event-card">
-                    <div class="image-section">
-                        <img src="sample-card-img.jpg" alt="">
+            <!-- organizations-card-section -->
+            <div class="organizations-section">
+                <div class="item-container">
+                    <div class="item-image-container">
+                        <img src="img/logo-1.jpg" alt="organization logo">
                     </div>
-                    <div class="details-section">
-                        <div class="date-section">
-                            <i class="fa-regular fa-calendar-days"></i> &nbsp THU NOV 16 &nbsp &nbsp
-                            <i class="fa-solid fa-clock"></i> &nbsp 06:00 PM
-                        </div>
-                        <div class="title-section">Mad-Hack 3.0</div>
-                        <div class="venue-section">UCSC-Colombo</div>
-                        <a href="#" class="view-event-button">
-                            <div class="">View Event</div>
-                        </a>
+                    <div class="item-content">
+                        <h2 class="organization-name">AIESEC in Colombo Central</h2>
+                        <div class="line"></div>
+                        <h3 class="organization-university">University of Colombo</h3>
+                    </div>
+                    <div class="membership">
+                        <div class="number">231</div>
+                        <div class=""></div>
                     </div>
                 </div>
 
-
-                <div class="event-card">
-                    <div class="image-section">
-                        <img src="sample-card-img.jpg" alt="">
+                <div class="item-container">
+                    <div class="item-image-container">
+                        <img src="img/logo-2.jpg" alt="organization logo">
                     </div>
-                    <div class="details-section">
-                        <div class="date-section">
-                            <i class="fa-regular fa-calendar-days"></i> &nbsp THU NOV 16 &nbsp &nbsp
-                            <i class="fa-solid fa-clock"></i> &nbsp 06:00 PM
-                        </div>
-                        <div class="title-section">Mad-Hack 3.0</div>
-                        <div class="venue-section">UCSC-Colombo</div>
-                        <a href="#" class="view-event-button">
-                            <div class="">View Event</div>
-                        </a>
+                    <div class="item-content">
+                        <h2 class="organization-name">IEEE Student Branch at UCSC</h2>
+                        <div class="line"></div>
+                        <h3 class="organization-university">University of Colombo</h3>
+                    </div>
+                    <div class="membership">
+                        <div class="number">400</div>
+                        <div class=""></div>
                     </div>
                 </div>
 
-
-                <div class="event-card">
-                    <div class="image-section">
-                        <img src="sample-card-img.jpg" alt="">
+                <div class="item-container">
+                    <div class="item-image-container">
+                        <img src="img/logo-3.jpg" alt="organization logo">
                     </div>
-                    <div class="details-section">
-                        <div class="date-section">
-                            <i class="fa-regular fa-calendar-days"></i> &nbsp THU NOV 16 &nbsp &nbsp
-                            <i class="fa-solid fa-clock"></i> &nbsp 06:00 PM
-                        </div>
-                        <div class="title-section">Mad-Hack 3.0</div>
-                        <div class="venue-section">UCSC-Colombo</div>
-                        <a href="#" class="view-event-button">
-                            <div class="">View Event</div>
-                        </a>
+                    <div class="item-content">
+                        <h2 class="organization-name">Pahasara Media</h2>
+                        <div class="line"></div>
+                        <h3 class="organization-university">University of Colombo</h3>
                     </div>
-                </div>
-
-
-                <div class="event-card">
-                    <div class="image-section">
-                        <img src="sample-card-img.jpg" alt="">
-                    </div>
-                    <div class="details-section">
-                        <div class="date-section">
-                            <i class="fa-regular fa-calendar-days"></i> &nbsp THU NOV 16 &nbsp &nbsp
-                            <i class="fa-solid fa-clock"></i> &nbsp 06:00 PM
-                        </div>
-                        <div class="title-section">Mad-Hack 3.0</div>
-                        <div class="venue-section">UCSC-Colombo</div>
-                        <a href="#" class="view-event-button">
-                            <div class="">View Event</div>
-                        </a>
+                    <div class="membership">
+                        <div class="number">75</div>
+                        <div class=""></div>
                     </div>
                 </div>
             </div>
             <!-- events-card-section -->
-
         </div> 
     </div>
     <!-- event-showing-section -->
