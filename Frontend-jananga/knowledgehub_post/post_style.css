@@ -244,12 +244,19 @@ body{
                     display: flex;
                     width: 10%;
                     border: 1px solid red;
+                    align-items: center;
+                    color: black;
+                    font-size: 30px;
                 }
 
 
                 .cross_button{
                     display: flex;
                     border: 1px solid red;
+                    width: 12%;
+                    align-items: center;
+                    color: black;
+                    font-size: 30px;
                 }
 
 
