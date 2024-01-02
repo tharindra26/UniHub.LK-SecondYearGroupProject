@@ -25,6 +25,8 @@ body{
     padding-top: 20px;
 }
 
+/* start css of left bar */
+
 .left-bar{
     display: flex;
     flex-direction: column;
@@ -180,11 +182,33 @@ body{
     margin: 20px;
     border-radius: 10px;
 }
-.card{
+
+.wrapper{
+    max-width: 100%;
+}
+.wrapper .carousel{
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% / 3) - 12px);
+    gap: 16px;
+    /* overflow: hidden; */
+}
+
+.carousel :where(.card, .card-image){
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.carousel .card{
    border-radius: 10px;
    background-color: white;
    width: 220px;
-   margin: 10px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+   border: 1px solid red;
 }
 
 .card-title{
@@ -235,7 +259,7 @@ body{
 }
 /* card slider css end */
 
-/* s6lide-indicator css starts */
+/* slide-indicator css starts */
 .slide-indicator{
     width: 95%;
     background-color: white;
@@ -481,6 +505,8 @@ input[type="radio"]{
     content: '-';
 }
 /* Accordion CSS Ends  */
+
+/* css of left bar ends*/
 
 /* Right bar starts  */
 
