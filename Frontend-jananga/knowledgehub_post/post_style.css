@@ -317,18 +317,33 @@ body{
                     display: flex;
                     border: 1px solid red;
                     width: 33%;
+                    align-items: center;
+
+                    /* text-align: center; */
+                    color: black;
+                    font-family: poppins;
+                    font-size: 20px;
                 }
+
 
                 .comment_section{
                     display: flex;
                     border: 1px solid red;
                     width: 33%;
+                    align-items: center;
+                    color: black;
+                    font-family: poppins;
+                    font-size: 20px;
                 }
 
                 .share_section{
                     display: flex;
                     border: 1px solid red;
                     width: 34%;
+                    align-items: center;
+                    color: black;
+                    font-family: poppins;
+                    font-size: 20px;
                 }
 
 
