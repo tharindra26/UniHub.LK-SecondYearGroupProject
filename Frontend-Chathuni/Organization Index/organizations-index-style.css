@@ -192,7 +192,7 @@ nav li:first-child {
         width: 100%;
         max-width: 100%;
         /* background: rgba(127, 140, 141, 0.3); */
-        background: transparent;
+        background: rgba(255, 255, 255, 0.5);
         display: flex;
         align-items: center;
         border-radius: 60px;
@@ -209,13 +209,13 @@ nav li:first-child {
             border: 0;
             outline: none;
             font-size: 15px;
-            color: rgb(130, 130, 130);
+            color: black;
             text-align: center;
 
         }
 
             .search-bar input::placeholder{
-                color: rgb(130, 130, 130);
+                color: black;
             }
 
         .search-bar button{
@@ -239,6 +239,7 @@ nav li:first-child {
     width: 100vw;
     height: 100vh;
     margin: 0;
+    overflow: hidden;
 }
 
 .slider{
@@ -309,7 +310,7 @@ nav li:first-child {
         padding-right: 20px;
         padding-top: 10px;
         padding-bottom: 10px;
-        text-shadow: var(--text-shadow);
+        text-shadow: 2px 2px 5px black;
         border: none;
         border-radius: 20px;
     }
@@ -333,7 +334,7 @@ nav li:first-child {
         }
 
         .content .description{
-            font-weight: 300;
+            font-weight: 400;
             margin-top: 10px;
             margin-bottom: 20px;
             opacity: 0;
@@ -392,8 +393,8 @@ nav li:first-child {
 /* Quick-shortcut-bar */
 .shortcut-bar{
     width: 100%;
-    border: 1px solid red;
-    height:50px;
+    /* border: 1px solid red; */
+    height:70px;
     display: flex;
     flex-direction: row;
 }
@@ -431,6 +432,399 @@ nav li:first-child {
         }
 /* Quick-shortcut-bar */
 
+/* main organizations showing section */
+.outer-body-container{
+    border: 1px solid red;
+    width:100%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    
+}
+    /* filter section */
+    .filters-section{
+        width:25%;
+        outline: none;
+        border: 1px solid red;
+        display: flex;
+        flex-direction: column;
+    }
+        .add-organization-button{
+            border: 1px solid red;
+            text-align: center;
+            padding:10px;
+            background-color: #3498db;
+            color:white;
+            border-radius: 5px;
+            font-family: poppins;
+            margin-bottom: 30px;
+            font-size: 15px;
+            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+            
+        }
+
+        .filters-section a{
+            text-decoration: none;
+        }
+
+        .add-organization-button:hover {
+            background: #27ae60;
+            color: white;
+            transition: 0.5s;
+            -webkit-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
+            -moz-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
+            box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
+        }
+
+
+        /* university filter */
+        .reset-btn{
+            display: flex;
+            font-size: 13px;
+            align-items: center;
+            justify-content: flex-end;
+            color: #3498db;
+            cursor: pointer;
+            padding-bottom: 7px;
+            
+        }
+
+        .select-btn, .uni-filter-options li{
+            display: flex;
+            cursor: pointer;
+            align-items:center;
+            text-decoration: none;
+            color: black;
+            font-weight: 400;
+        }
+
+        .select-btn{
+            height:35px;
+            font-size: 15px;
+            padding: 0 20px;
+            border-radius: 20px;
+            background: white;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .select-btn i{
+            font-size: 20px;
+            transition: transform 0.3s linear;
+        }
+
+        .uni-filter-active .select-btn i{
+            transform: rotate(-180deg);
+        }
+
+        .uni-filter-content{
+            padding: 15px;
+            margin-top: 5px;
+            border-radius: 7px;
+            background-color: white;
+            display: none;
+            margin-bottom: 10px;
+        }
+
+        .uni-filter-active .uni-filter-content{
+            display: block;
+        }
+
+        .uni-filter-content .uni-filter-search{
+            position: relative;
+        }
+
+        .uni-filter-search i{
+            left: 15px;
+            top: -5px;
+            line-height: 53px;
+            position: absolute;
+            color: #bdc3c7;
+        }
+
+        .uni-filter-search input{
+            height: 40px;
+            width: auto;
+            font-size: 17px;
+            padding: 0 15px 0 43px;
+            outline: none;
+            border: 1px solid #bdc3c7;
+            border-radius: 20px;
+            position: static;
+        }
+
+        .uni-filter-content, .uni-filter-options{
+            margin-top: 10px;
+            max-height: 350px;
+            overflow-y: auto;
+            padding-right: 7px;
+        }
+        .uni-filter-options::-webkit-scrollbar{
+            width: 7px;
+        }
+        .uni-filter-options::-webkit-scrollbar-track{
+           background: #f1f1f1;
+           border-radius: 25px;
+        }
+        .uni-filter-options::-webkit-scrollbar-thumb{
+            background: #ccc;
+            border-radius: 25px;
+        }
+        .uni-filter-options li{
+            height: 35px;
+            border-radius: 5px;
+            padding: 0 13px;
+            font-size: 12px;
+        }
+
+        .uni-filter-options li:hover, li.selected{
+            background: #ecf0f1;
+        }
+        /* university filter */
+
+        /* category filter */
+        /* .category-reset-btn{
+            display: flex;
+            font-size: 13px;
+            align-items: center;
+            justify-content: flex-end;
+            color: #3498db;
+            cursor: pointer;
+            padding-bottom: 7px;
+        }
+
+        .category-filter-active .fa-angle-down{
+            transform: rotate(-180deg);
+        }
+        .list-items{
+            margin-top:15px;
+            border-radius: 7px;
+            padding:20px;
+            background-color: white;
+            display: none;
+        }
+
+        .category-filter-active ~ .list-items{
+            display: block;
+        }
+        .list-items .item{
+            display: flex;
+            align-items: center;
+            list-style: none;
+            height: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            padding:8px;
+            border-radius: 7px;
+        }
+
+        .list-items .item:hover{
+            background-color: #e7edfe;
+        }
+
+        .item .checkbox{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 16px;
+            width: 16px;
+            border-radius: 4px;
+            margin-right: 12px;
+            border: 1.5px solid #c0c0c0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .checkbox .check-icon{
+            color: white;
+            font-size: 11px;
+            transform: scale(0);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .category-checked .check-icon{
+            transform: scale(1);
+        }
+
+        .category-checked .checkbox{
+            background-color: #2980b9;
+            border-color: #2980b9;
+        } */
+
+
+        .category-filter {
+            position: relative;
+        }
+        
+        .reset-btn {
+            display: flex;
+            font-size: 13px;
+            align-items: center;
+            justify-content: flex-end;
+            color: #3498db;
+            cursor: pointer;
+            padding-bottom: 7px;
+        }
+        
+        .select-btn,
+        .category-filter-options label {
+            display: flex;
+            cursor: pointer;
+            align-items: center;
+            text-decoration: none;
+            color: black;
+            font-weight: 400;
+        }
+        
+        .select-btn {
+            height: 35px;
+            font-size: 15px;
+            padding: 0 20px;
+            border-radius: 20px;
+            background: white;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .select-btn i {
+            font-size: 20px;
+            transition: transform 0.3s linear;
+        }
+        
+        .category-filter-active .select-btn i {
+            transform: rotate(-180deg);
+        }
+        
+        .category-filter-content {
+            padding: 15px;
+            margin-top: 5px;
+            border-radius: 7px;
+            background-color: white;
+            display: none;
+            margin-bottom: 10px;
+        }
+        
+        .category-filter-active .category-filter-content {
+            display: block;
+        }
+        
+        .category-filter-options {
+            margin-top: 10px;
+        }
+        
+        .category-filter-options label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .category-filter-options input {
+            margin-right: 5px;
+        }
+        /* category filter */
+    /* filter section */
+
+    /* organizations section */
+    .organizations-section{
+        padding-left: 30px;
+        padding-right: 30px;
+        width:75%;
+        border: 1px solid red;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-content: center;
+    }
+        .item-container{
+            display: flex;
+            flex-direction: row;
+            border: 1px solid red;
+            border-radius: 10px;
+            width:100%;
+            max-height: 300px;
+            background-color: white;
+            margin-bottom: 20px;
+            text-decoration: none;
+
+            box-shadow: 0px 7px 17px 5px rgba(0,0,0,0.29);
+            -webkit-box-shadow: 0px 7px 17px 5px rgba(0,0,0,0.29);
+            -moz-box-shadow: 0px 7px 17px 5px rgba(0,0,0,0.29);
+        }
+
+            .item-image-container{
+                display: flex;
+                width: 100px;
+                height: 100px;
+                max-width: 100%;
+                max-height: 100%;
+                border: 1px solid red;
+                border-radius: 100%;
+                overflow: hidden;
+                justify-content: center;
+                align-items: flex-start;
+            }
+
+            .item-image-container img{
+                    width: 100%;
+                    height: auto;
+            }
+
+            .item-content{
+                padding-left: 15px;
+                height:auto;
+                width: 700px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                border:1px solid red;
+            }
+
+                .h2{
+                    display: flex;
+                    height: 40%;
+                    border: 1px solid red;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 20px;
+                    font-weight: bold;
+                    line-height: 22px;
+                }
+                .h3{
+                    display: flex;
+                    height: 20%;
+                    border: 1px solid red;
+                    justify-content: center;
+                    font-size: 10px;
+                    align-items: center;
+                    color: #95a5a6;
+                    
+                }
+                .view-organization-button{
+                    display: flex;
+                    height: 20%;
+                    justify-content: center;
+                    align-items: center;
+                    color: white;
+                    font-size: 15px;
+                    border-bottom-left-radius: 10px;
+                    border-bottom-right-radius: 10px;
+                    text-decoration: none;
+                    background: rgb(44,62,80);
+                    background: linear-gradient(90deg, rgba(44,62,80,1) 0%, rgba(41,128,185,1) 100%);
+                }
+            .membership{
+                width:100px;
+                height:100px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                border:1px solid red;
+            }
+    /* organizations section */            
+/* main event showing section */
+
 /* footer-section */
 .footer-section{
     width: 100%;
@@ -438,8 +832,6 @@ nav li:first-child {
     background-color: #03254C;
 }
 /* footer-section */
-                
-/* main event showing section */
 
 @media(max-width: 1536px){
     .container{
