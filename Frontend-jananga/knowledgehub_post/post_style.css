@@ -189,8 +189,8 @@ body{
             flex-direction: column;
             background: white;
             border: 1px solid red;
-            width: 700px;
-            height: 800px;
+            width: 600px;
+            height: 900px;
             margin: 20px;
             /* border-radius: 15px; */
             margin-left: 100px;
@@ -202,15 +202,15 @@ body{
                 flex-direction: row;
                 border: 1px solid red;
                 /* height: 80px; */
-                height: 12%;
+                height: 8%;
             }
 
 
                 .profile_picture{
                     display: flex;
                     background-color: #3498db;
-                    width: 80px;
-                    height: 80px;
+                    width: 65px;
+                    height: 65px;
                     margin-left: 20px;
                     margin-right: 20px;
                     margin-top: auto;
@@ -256,16 +256,32 @@ body{
             .post_caption{
                 display: flex;
                 border: 1px solid red;
+                padding-left: 10px;
                 /* height: 60px; */
-                height: 8%;
+                height: 6%;
             }
 
 
-            .post_image{
+            .post_image_section{
                 display: flex;
                 border: 1px solid red;
-                height: 70%;
+                height: 76%;
+                overflow: hidden;
             }
+
+
+                .post_image{
+                    height: auto;
+                    width: auto;
+                    border: 1px solid red;
+                }
+
+
+                .post_image img{
+                    width: 100%;
+                    height: auto;
+                }
+
 
             .post_views{
                 display: flex;
@@ -274,12 +290,46 @@ body{
                 height: 4%;
             }
 
+
+                .like_count{
+                    display: flex;
+                    border: 1px solid red;
+                    width: 50%;
+
+                }
+
+                .comment_count{
+                    display: flex;
+                    border: 1px solid red;
+                    width: 50%;
+                }
+
+
             .post_bottom{
                 display: flex;
                 flex-direction: row;
                 border: 1px solid red;
-                height: 6%;
+                height:6%;
             }
+
+
+                .like_section{
+                    display: flex;
+                    border: 1px solid red;
+                    width: 33%;
+                }
+
+                .comment_section{
+                    display: flex;
+                    border: 1px solid red;
+                    width: 33%;
+                }
+
+                .share_section{
+                    display: flex;
+                    border: 1px solid red;
+                    width: 34%;
+                }
 
 
 
