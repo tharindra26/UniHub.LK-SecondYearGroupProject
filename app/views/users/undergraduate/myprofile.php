@@ -11,8 +11,8 @@
                 <div class="profile-info">
                     <div class="description">
                         <h1><?php echo $data['user']->fname , " " , $data['user']->lname ?></h1>
-                        <p class="title">Computer Science Undergraduate at University of Colombo School of Computing</p>
-                        <p class="uni"><?php echo $data['user']->university ?></p>
+                        <p class="title"><?php echo $data['user']->profile_title ?></p>
+                        <p class="uni"><?php echo $data['university']->name ?></p>
                         <a href="#" class="follow-btn">Update Profile</a>
                         <a href="#" class="msg-btn">Delete Account</a> 
                     </div>
@@ -21,8 +21,8 @@
                             <li class="option">
                                 <a href="#">
                                     <div class="list-op">
-                                        <img src="../UserProfiles/images/uni.png" alt="">
-                                        <h4>University of Colombo</h4>
+                                        <img src="<?php echo URLROOT ?>/img/universities/<?php echo $data['university']->logo ?>" alt="logo">
+                                        <h4><?php echo $data['university']->name ?></h4>
                                     </div>   
                                 </a>
                             </li>
@@ -57,9 +57,6 @@
                             $string = strip_tags($content);
                             $endString = substr($string, $endPoint);
                             echo $endString;
-                            // $startPoint = strrpos($endString, ' ');
-                            // $string = $startPoint?substr($endString, 0, $startPoint):substr($endString,0);
-                        
                         ?> 
                     </span>
                     
@@ -68,14 +65,13 @@
             </div>
             <!--Slider Starts-->
             <div class="slide-container swiper">
-                <div class="slide-content">
-                    <div class="card-wrapper swiper-wrapper">
-                        <div class="card swiper-slide">
+                <div class="wrapper">
+                    <div class="carousel">
+                        <div class="card">
                             <div class="card-title">
                                 <h3>Card Title</h3>
                             </div>
                             <div class="image-content">
-
                                 <div class="card-image">
                                     <img src="../UserProfiles/images/cover.jpg" alt="" class="card-img">
                                 </div>

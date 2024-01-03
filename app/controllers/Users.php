@@ -278,8 +278,10 @@ class Users extends Controller{
       // }
       public function show(){
         $user = $this->userModel->getUserById($_SESSION['user_id']);
+        $university = $this->universityModel->getUniversityById($user->university_id);
         $data =[
           'user' =>$user,
+          'university' => $university,
         ];
 
         if($user->type=='admin'){
