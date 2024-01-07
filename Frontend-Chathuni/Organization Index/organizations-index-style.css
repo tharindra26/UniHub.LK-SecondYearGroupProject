@@ -729,7 +729,7 @@ nav li:first-child {
         padding-left: 30px;
         padding-right: 30px;
         width:75%;
-        border: 1px solid red;
+        /* border: 1px solid red; */
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
@@ -739,13 +739,15 @@ nav li:first-child {
         .item-container{
             display: flex;
             flex-direction: row;
-            border: 1px solid red;
-            border-radius: 10px;
+            /* border: 1px solid red; */
+            border-left: 15px solid #3498db;
+            border-radius: 20px;
             width:100%;
-            max-height: 300px;
+            height: 100px;
             background-color: white;
             margin-bottom: 20px;
             text-decoration: none;
+            align-items: center;
 
             box-shadow: 0px 7px 17px 5px rgba(0,0,0,0.29);
             -webkit-box-shadow: 0px 7px 17px 5px rgba(0,0,0,0.29);
@@ -754,74 +756,95 @@ nav li:first-child {
 
             .item-image-container{
                 display: flex;
-                width: 100px;
-                height: 100px;
+                width: 75px;
+                height: 75px;
                 max-width: 100%;
                 max-height: 100%;
-                border: 1px solid red;
+                background: transparent;
+                /* border: 1px solid red; */
                 border-radius: 100%;
                 overflow: hidden;
                 justify-content: center;
-                align-items: flex-start;
+                align-items: center;
+                margin-left: 10px;
             }
 
             .item-image-container img{
-                    width: 100%;
-                    height: auto;
+                width: 100%;
+                height: auto;
             }
 
             .item-content{
                 padding-left: 15px;
                 height:auto;
-                width: 700px;
+                width: auto;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-                border:1px solid red;
+                /* border:1px solid red; */
             }
 
-                .h2{
+                .organization-name{
                     display: flex;
                     height: 40%;
-                    border: 1px solid red;
-                    justify-content: center;
+                    /* border: 1px solid red; */
+                    justify-content: left;
                     align-items: center;
                     font-size: 20px;
                     font-weight: bold;
                     line-height: 22px;
                 }
-                .h3{
+                .organization-university{
                     display: flex;
                     height: 20%;
-                    border: 1px solid red;
-                    justify-content: center;
-                    font-size: 10px;
+                    /* border: 1px solid red; */
+                    justify-content: left;
+                    font-size: 15px;
+                    font-weight: regular;
                     align-items: center;
-                    color: #95a5a6;
+                    color: #000000;
                     
                 }
-                .view-organization-button{
+                .line{
+                    width: 100px;
+                    height: 60%;
+                    background-color: #3498db;
+                    margin: 0 10px;
+                }
+            .membership{
+                position: end;
+                width:150px;
+                height:100px;
+                border-bottom-right-radius: 20px;
+                border-top-right-radius: 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                /* border:1px solid red; */
+            }
+                .membership .number{
+                    font-size: 25px;
+                }
+
+                .membership button{
                     display: flex;
                     height: 20%;
                     justify-content: center;
                     align-items: center;
                     color: white;
-                    font-size: 15px;
-                    border-bottom-left-radius: 10px;
-                    border-bottom-right-radius: 10px;
-                    text-decoration: none;
-                    background: rgb(44,62,80);
-                    background: linear-gradient(90deg, rgba(44,62,80,1) 0%, rgba(41,128,185,1) 100%);
+                    padding: 15px 20px;
+                    font-size: 12px;
+                    border: none;
+                    border-radius: 20px;
+                    background: #3498db;
                 }
-            .membership{
-                width:100px;
-                height:100px;
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: center;
-                border:1px solid red;
-            }
+
+
+                .membership button:hover{
+                    background: #ababab;
+                    color: #000;
+                }
     /* organizations section */            
 /* main event showing section */
 

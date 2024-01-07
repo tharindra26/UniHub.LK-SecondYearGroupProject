@@ -100,3 +100,24 @@ categoryResetBtn.addEventListener("click", () => {
     categoryFilter.classList.remove("category-filter-active");
 });
 //category filter
+
+//membership number
+const counts = document.querySelectorAll('.number')
+const speed = 97
+
+counts.forEach((counter) => {
+    function upData() {
+        const target = Number(counter.getAttribute('.m-number'))
+        const count = Number(counter.innerText)
+        const inc = target / speed
+        if (count < target) {
+            counter.innerText = Math.floor(inc + count)
+            setTimeout(upData,1)
+        }
+        else {
+            counter.innerText = target
+        }
+    }
+    upData()
+})
+//membership number
