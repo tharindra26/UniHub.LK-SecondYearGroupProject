@@ -14,7 +14,7 @@ function addUniversity(selectedUniversity){
         //if selected university and university value is asame then add selected class
         let isSelected = university == selectedUniversity ? "selected" : "";
         //adding each university inside li and inserting all li inside uni-filter-options
-        let li = `<li onclick="updateName(this)" class="${isSelected}" id="unii"> ${university} </li>`;
+        let li = `<li onclick="updateName(this)" class="${isSelected}" > ${university} </li>`;
         uniFilterOptions.insertAdjacentHTML("beforeend", li);
     });
 }
@@ -25,6 +25,25 @@ function updateName(selectedLi){
     addUniversity(selectedLi.innerText);
     uniFilter.classList.remove("uni-filter-active");
     selectBtn.firstElementChild.innerText = selectedLi.innerText;
+
+    var keyword = document.getElementById('search-bar-input').value;
+    var date = document.getElementById('date-input').value;
+    var university = (selectedLi.innerTex != "Select University") ? selectedLi.innerText : "";
+
+        // Send an AJAX request with the filter value
+        $.ajax({
+            url: "http://localhost/unihub/events/searchEvents",
+            method: "POST",
+            data: {
+                keyword: keyword,
+                date: date,
+                university: university
+            },
+            success: function(data) {
+                // Update the content section with the retrieved data
+                $("#content-section").html(data);
+            }
+        });
 }
 
 searchInput.addEventListener("keyup", ()=>{
@@ -52,7 +71,25 @@ uniResetBtn.addEventListener("click", () => {
     addUniversity();
     uniFilter.classList.remove("uni-filter-active");
     selectBtn.firstElementChild.innerText = `Select University`;
-    updateContent();
+    
+
+    var keyword = document.getElementById('search-bar-input').value;
+    var date = document.getElementById('date-input').value;
+    var university = "";
+
+    $.ajax({
+        url: "http://localhost/unihub/events/searchEvents",
+        method: "POST",
+        data: {
+            keyword: keyword,
+            date: date,
+            university: university
+        },
+        success: function(data) {
+            // Update the content section with the retrieved data
+            $("#content-section").html(data);
+        }
+    });
 });
 //university filter
 
@@ -64,6 +101,8 @@ function resetDate() {
 
     // Set the date input value to an empty string to reset it
     dateInput.value = '';
+    // Send an AJAX request with the filter value
+    
 }
 //date filter
 
@@ -71,6 +110,7 @@ function resetDate() {
 const categorySelectBtn = document.querySelector(".category-select-btn"),
 items = document.querySelectorAll(".item"),
 categoryResetBtn= document.querySelector(".category-reset-btn");
+const categoryCheckboxes = document.querySelectorAll(".list-items .checkbox");
 
 categorySelectBtn.addEventListener("click", () => {
     categorySelectBtn.classList.toggle("category-filter-active");
@@ -79,6 +119,7 @@ categorySelectBtn.addEventListener("click", () => {
 items.forEach(item => {
     item.addEventListener("click", () => {
         item.classList.toggle("category-checked");
+       
 
         let checked =document.querySelectorAll(".category-checked"),
         categoryBtnText = document.querySelector(".category-btn-txt");
@@ -88,6 +129,7 @@ items.forEach(item => {
         }else{
             categoryBtnText.innerText = `Select Category`;
         }
+        updateCategoryFilter();
 
     });
     
@@ -100,7 +142,36 @@ categoryResetBtn.addEventListener("click", () => {
 
     // Reset the category button text
     document.querySelector(".category-btn-txt").innerText = `Select Category`;
+
+    updateCategoryFilter();
 });
+
+function updateCategoryFilter() {
+    const checkedCategories = Array.from(items)
+        .filter(item => item.classList.contains("category-checked"))
+        .map(item => item.querySelector('.checkbox + span').innerText);
+
+        // Get other filter values
+    const keyword = document.getElementById('search-bar-input').value;
+    const date = document.getElementById('date-input').value;
+    const university = (selectBtn.firstElementChild.innerText != "Select University") ? selectBtn.firstElementChild.innerText : "";
+
+    // Send an AJAX request with the filter values
+    $.ajax({
+        url: "http://localhost/unihub/events/searchEvents",
+        method: "POST",
+        data: {
+            keyword: keyword,
+            date: date,
+            university: university,
+            categories: checkedCategories
+        },
+        success: function (data) {
+            // Update the content section with the retrieved data
+            $("#content-section").html(data);
+        }
+    });
+}
 //category filter
 
 
@@ -144,6 +215,7 @@ $(document).ready(function() {
 
         var keyword = document.getElementById('search-bar-input').value;
         var date = document.getElementById('date-input').value;
+        var university = (selectBtn.firstElementChild.innerText != "Select University") ? selectBtn.firstElementChild.innerText : "";
 
             // Send an AJAX request with the filter value
             $.ajax({
@@ -152,16 +224,14 @@ $(document).ready(function() {
                 data: {
                     keyword: keyword,
                     date: date,
+                    university: university
                 },
                 success: function(data) {
                     // Update the content section with the retrieved data
                     $("#content-section").html(data);
                 }
             });
-        
-        
-        
-        
+
     }
 
 
@@ -178,3 +248,13 @@ $(document).ready(function() {
     // Trigger the initial update when the page loads
     updateContent();
 });
+
+// slider js
+var counter = 1;
+setInterval(function(){
+    document.getElementById('radio' + counter).checked =true;
+    counter++;
+    if(counter>4){
+        counter = 1;
+    }
+}, 3000);

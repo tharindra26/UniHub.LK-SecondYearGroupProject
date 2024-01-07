@@ -59,6 +59,8 @@ class Database{
 
         $this->stmt->bindValue($param, $value, $type);
     }
+
+    
   
     // Execute the prepared statement
     public function execute(){
@@ -81,5 +83,25 @@ class Database{
     public function rowCount(){
         return $this->stmt->rowCount();
     }
+
+    public function lastInsertId() {
+        return $this->dbh->lastInsertId();
+    }
+
+    // Begin a transaction
+    public function beginTransaction() {
+        return $this->dbh->beginTransaction();
+    }
+
+    // Commit the transaction
+    public function commit() {
+        return $this->dbh->commit();
+    }
+
+    // Rollback the transaction
+    public function rollBack() {
+        return $this->dbh->rollBack();
+    }
+
     
 }

@@ -165,13 +165,13 @@ body{
             border: 3px solid red;  
             background-color: white;
             padding: 10px;
-            /* border: 1px solid red; */
+            border: 1px solid red;
         }
 
                 .profile-image{
                     height: auto;
                     width: auto;
-                    /* border: 1px solid red;          */
+                    border: 1px solid red;         
                 }
 
                 .profile-image img{
@@ -395,6 +395,7 @@ body{
     .container{
         max-width: 640px;
     }
+    
 }
 
 @media(max-width: 640px){

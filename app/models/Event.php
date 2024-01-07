@@ -12,7 +12,7 @@
                         users.id AS userId
                         FROM events
                         INNER JOIN users
-                        ON events.created_by = users.id
+                        ON events.user_id = users.id
                         ORDER BY events.created_at DESC
                     ');
         $results= $this->db->resultSet();
@@ -20,23 +20,83 @@
     }
 
     public function addEvent($data){
-        $this->db->query("INSERT INTO events (user_id, title, type, description, date, location, event_card_image, event_cover_image) VALUES(:user_id, :title, :type, :description, :date, :location, :event_card_image, :event_cover_image)");
+        $this->db->query("INSERT INTO events (user_id, 
+        title,
+        event_profile_image,
+        event_cover_image, 
+        start_datetime, 
+        end_datetime, 
+        university, 
+        venue, 
+        organized_by, 
+        email, 
+        contact_number, 
+        description, 
+        map_navigation, 
+        approval, 
+        status, 
+        main_button_action, 
+        main_button_link, 
+        countdown_text, 
+        countdown_datetime) VALUES(:user_id, :title,:event_profile_image, :event_cover_image, :start_datetime, :end_datetime, :university, :venue, :organized_by, :email, :contact_number, :description, :map_navigation, :approval, :status, :main_button_action, :main_button_link, :countdown_text, :countdown_datetime)");
         //Bind values
         $this->db->bind(':user_id' , $_SESSION['user_id']);
-        $this->db->bind(':title' ,  $data['event_title']);
-        $this->db->bind(':type' ,  $data['event_type']);
-        $this->db->bind(':description' ,  $data['description']);
-        $this->db->bind(':date' ,  $data['date']);
-        $this->db->bind(':location' ,  $data['location']);
-        $this->db->bind(':event_card_image' ,  $data['event_card_image']);
+        $this->db->bind(':title' ,  $data['title']);
+        $this->db->bind(':event_profile_image' ,  $data['event_profile_image']);
         $this->db->bind(':event_cover_image' ,  $data['event_cover_image']);
+        $this->db->bind(':start_datetime' ,  $data['start_datetime']);
+        $this->db->bind(':end_datetime' ,  $data['end_datetime']);
+        $this->db->bind(':university' ,  $data['university']);
+        $this->db->bind(':venue' ,  $data['venue']);
+        $this->db->bind(':organized_by' ,  $data['organized_by']);
+        $this->db->bind(':email' ,  $data['email']);
+        $this->db->bind(':contact_number' ,  $data['contact_number']);
+        $this->db->bind(':description' ,  $data['description']);
+        $this->db->bind(':map_navigation' ,  $data['map_navigation']);
+        $this->db->bind(':approval' ,  1);
+        $this->db->bind(':status' ,  1);
+        $this->db->bind(':main_button_action' ,  'Hang with Us');
+        $this->db->bind(':main_button_link' ,  '#');
+        $this->db->bind(':countdown_text' ,  'Get Ready! Event Begins:');
+        $this->db->bind(':countdown_datetime' ,  $data['start_datetime']);
 
-        //Execute the query
-        if($this->db->execute()){
-            return true;
-        }else{
+        // //Execute the query
+        // if($this->db->execute()){
+        //     return true;
+        // }else{
+        //     return false;
+        // }
+
+        // Begin the transaction
+        $this->db->beginTransaction();
+
+        // Execute the first query
+        if (!$this->db->execute()) {
+            // Rollback the transaction if there's an error
+            $this->db->rollBack();
             return false;
         }
+
+        // Get the last inserted event ID
+        $eventId = $this->db->lastInsertId();
+
+        // Insert into the event_categories table
+        $this->db->query("INSERT INTO events_categories (event_id, category_id) VALUES (:event_id, :category_id)");
+
+        // Bind values
+        $this->db->bind(':event_id', $eventId);
+        $this->db->bind(':category_id', $data['category_id']);
+
+        // Execute the second query
+        if (!$this->db->execute()) {
+            // Rollback the transaction if there's an error
+            $this->db->rollBack();
+            return false;
+        }
+
+        // Commit the transaction if everything is successful
+        $this->db->commit();
+        return true;
     }
 
     public function updateEvent($data){
@@ -84,26 +144,62 @@
     public function getEventsBySearch($data){
         $keyword = $data['keyword'];
         $date = $data['date'];
+        $university = trim($data['university']);
+        $categories = isset($data['categories']) ? $data['categories'] : [];
 
-        if (empty($keyword) && empty($date)) {
-            $this->db->query('SELECT * FROM events;');
-            $row= $this->db->resultSet();
-            return $row;
-        } elseif (!empty($keyword) && empty($date)) {
-            $this->db->query("SELECT * FROM events WHERE title LIKE '%$keyword%';");
-            $row= $this->db->resultSet();
-            return $row;
-        } elseif (empty($keyword) && !empty($date)) {
-            $formattedDate = date('Y-m-d H:i:s', strtotime($date));
-            $this->db->query("SELECT * FROM events WHERE start_datetime = '$formattedDate';");
-            $row= $this->db->resultSet();
-            return $row;
-        } else {
-            $formattedDate = date('Y-m-d H:i:s', strtotime($date));
-            $this->db->query("SELECT * FROM events WHERE title LIKE '%$keyword%' AND start_datetime = '$formattedDate';");
-            $row= $this->db->resultSet();
-            return $row;
-        }
+        // Create a placeholder for each category
+        $categoryPlaceholders = implode(',', array_fill(0, count($categories), '?'));
+    
+        $query = 'SELECT 
+                    e.*,
+                    GROUP_CONCAT(c.category_name) AS category_names
+                    FROM events e
+                    INNER JOIN users u ON e.user_id = u.id
+                    LEFT JOIN events_categories ec ON e.id = ec.event_id
+                    LEFT JOIN categories c ON ec.category_id = c.id
+                    WHERE 1=1';
+
+    if (!empty($keyword)) {
+        $query .= " AND e.title LIKE :keyword";
+    }
+
+    if (!empty($date)) {
+        $formattedDate = date('Y-m-d', strtotime($date));
+        $query .= " AND DATE(e.start_datetime) = :formattedDate";
+    }
+
+    if (!empty($categories)) {
+        // Add conditions for the selected categories
+        $query .= " AND c.category_name IN ($categoryPlaceholders)";
+    }
+
+    $query .= " GROUP BY e.id";
+
+    // Prepare the query
+    $this->db->query($query);
+
+    // Bind values to the placeholders
+    if (!empty($keyword)) {
+        $this->db->bind(':keyword', '%' . $keyword . '%');
+    }
+
+    if (!empty($date)) {
+        $this->db->bind(':formattedDate', $formattedDate);
+    }
+
+    foreach ($categories as $key => $category) {
+        $this->db->bind(($key + 1), $category);
+    }
+
+    // Execute the query
+    $this->db->execute();
+
+    // Fetch the results
+    $row = $this->db->resultSet();
+    return $row;
+
+        
+       
     }
     
  }
