@@ -28,14 +28,6 @@ body{
     align-items: center;
 }
 
-.right-bar{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 30%;
-    border: 1px solid black;
-}
-
 .profile_header{
     width: 95%;
     border: 1px solid green;
@@ -71,7 +63,7 @@ body{
 .profile-info{
     border: 1px solid red;
     background-color: white;
-    border-radius: 0 0 10px  10px  ;
+    border-radius: 0 0 10px  10px;
     position: relative;
     padding: 20px;
     display: flex;
@@ -237,7 +229,7 @@ body{
 }
 /* card slider css end */
 
-/* slide-indicator css starts */
+/* s6lide-indicator css starts */
 .slide-indicator{
     width: 95%;
     background-color: white;
@@ -351,7 +343,6 @@ input[type = "radio"]{
 .material-img{
     width: 300px;
     max-height: 300px;
-    
     margin: 10px;
 }
 
@@ -425,7 +416,137 @@ section .tab-content{
 }
 /* slide-indicator css end */
 
+/* Accordion CSS Starts */
+.accordion-section{
+    width: 95%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    margin-top: 20px;
+}
+
+.accordion li{
+    list-style: none;
+    background-color: white;
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    background: #ededed;
+    box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
+                -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
+}
+
+.accordion li label{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;    
+}
+
+.accordion li label::before{
+    content: '+';
+    margin-right: 10px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+input[type="radio"]{
+    display: none;
+}
+
+.accordion .accordion-content{
+    color: #95a5a6;
+    padding: 0 10px;
+    line-height: 26px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s, padding 0.4s;
+}
+
+.accordion input[type="radio"]:checked + label + .accordion-content{
+    max-height: 400px;
+    padding: 10px 10px 20px;
+}
+
+.accordion input[type="radio"]:checked + label::before{
+    content: '-';
+}
+/* Accordion CSS Ends  */
+
+/* Right bar starts  */
+
+.right-bar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    border: 1px solid black;
+}
+.portfolio{
+    width: 95%;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    padding: 20px;
+}
+
+.portfolio-content{
+    padding: 0 0 20px 0;
+}
+
+.portfolio-content h4{
+    font-size: 20px;
+    padding-bottom: 10px;
+}
 .portfolio a{
-    padding: 10px 20px 20px 10px;
-    background: linear-gradient(90deg, #0B0C10, #C5C6C7);;
+    position: relative;
+    padding:10px 20px 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: white;
+    background-color: #2980b9;
+    border: 2px solid #2980b9;
+    align-items: center;
+}
+
+.friends{
+    width: 95%;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.friends-content a{
+    display: flex;
+    text-decoration: none;
+}
+
+.friends .friend-pic img{
+    width: 80px;
+    border-radius: 50%;
+    border: 2px solid #95a5a6;
+}
+
+.friends .friend-info h4{
+    font-size: 17px;
+    color: black;
+}
+
+.view-btn{
+    padding:10px 20px 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: white;
+    background-color: #2980b9;
+    border: 2px solid #2980b9;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
 }

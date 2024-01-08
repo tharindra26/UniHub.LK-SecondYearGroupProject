@@ -1,0 +1,584 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Overpass:wght@500&family=Poppins:wght@100;300;400;500;700;800&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins'; 
+}
+
+body{
+    background-color: #ededed;
+}
+
+/* .container{
+    /* width:90%;
+    margin:0 auto;  */
+    
+    /* border: 1px solid black; 
+} */
+
+.content-profile{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    padding-top: 20px;
+}
+
+/* start css of left bar */
+
+.left-bar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 70%;
+    border: 1px solid black;
+    align-items: center;
+}
+
+.profile_header{
+    width: 95%;
+    border: 1px solid green;
+    position: relative; 
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset; */
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.photos{
+    background-color: white;
+    border: 1px solid blue;
+    border-radius: 10px  10px 0 0 ;
+    align-items: center;
+}
+
+.cover-photo{
+    width: 100%;
+    height: 250px;
+    display: block;
+    border-radius: 10px 10px 0 0;
+}
+
+.profile-photo{
+    width: 180px;
+    border-radius: 50%;
+    margin-top: -90px;
+    margin-left: 30px;
+    box-shadow: 0 0 0 5px white;
+    transition: box-shadow 0.5s;
+}
+
+.profile-info{
+    border: 1px solid red;
+    background-color: white;
+    border-radius: 0 0 10px  10px;
+    position: relative;
+    padding: 20px;
+    display: flex;
+}
+
+.profile-info .description{
+    width: 70%;
+}
+.profile-header h1{
+    margin-left: 30px; 
+}
+
+.profile-header p{
+    margin-left: 30px;
+}
+
+.profile-photo:hover{
+    box-shadow: 0 0 0 5px rgb(11, 1, 34);
+}
+
+.uni{
+    margin-bottom: 20px;
+}
+
+.follow-btn{
+    margin: 20px;
+    padding:10px 20px 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: white;
+    background-color: #2980b9;
+    border: 2px solid #2980b9;
+}
+
+.msg-btn{
+    margin: 20px;
+    padding:10px 20px 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: black;
+    border: 2px solid #2980b9;
+    color: #2980b9;
+}
+
+.report{margin: 20px;
+    padding:10px 20px 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: white;
+    background-color: #2980b9;
+    border: 2px solid #2980b9;}
+
+.current-work{
+    border: 1px solid black;
+}
+.current-work .work-list{
+    border: 1px solid blue;
+}
+
+.current-work .work-list .option{
+    list-style: none;
+    margin: 15px 0 15px 0;
+    border: 1px solid red;
+}
+.current-work .work-list .option .list-op{
+    display: flex;    
+}
+
+.current-work .work-list .option img {
+    width: 25px;
+    height: 25px;
+    margin-right: 15px;
+}
+
+.current-work .work-list .option a{
+    text-decoration: none;
+    color: black;
+}
+
+.about{
+    border-radius: 10px;
+    width: 95%;
+    border: 1px solid black;
+    background-color: white;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.see-more-btn{
+    color: #2980b9;
+}
+
+.see-more-text{
+    display: none;
+}
+
+.see-more-text--show{
+    display: inline;
+}
+
+/* card slider css start */
+.slide-container{
+    width: 95%;
+    background-color: #95a5a6;
+    padding: 20px 0;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+.wrapper{
+    max-width: 100%;
+}
+.wrapper .carousel{
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% / 3) - 12px);
+    gap: 16px;
+    /* overflow: hidden; */
+}
+
+.carousel :where(.card, .card-image){
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.carousel .card{
+   border-radius: 10px;
+   background-color: white;
+   width: 220px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+   border: 1px solid red;
+}
+
+.card-title{
+    padding: 0 0 0 10px;
+}
+
+.image-content{
+    position: relative;
+    row-gap: 5px;
+}
+
+.card-image{
+    position: relative;
+    width: 200px;
+    height: 150px;
+}
+
+.card-image .card-img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    margin: 10px;
+}
+
+
+.card-content{
+    margin-top: 20px;
+    padding: 0 0 10px 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-btn{
+    width: 220px;
+    background-color: #3498db;
+    border-radius:0 0 10px 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.card-btn a{
+    text-decoration: none;
+    color: white;
+}
+
+.card-btn:hover{
+    background-color: #95a5a6;
+}
+/* card slider css end */
+
+/* slide-indicator css starts */
+.slide-indicator{
+    width: 95%;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+.slide-indicator nav{
+    position: relative;
+    height: 50px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide-indicator nav::after{
+    content: "";
+    background: silver;
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    top: 47px;
+    filter: blur(0.5px);
+}
+
+.slide-indicator nav label{
+    position: relative;
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 600;
+    transition: all 0.3 ease;
+}
+
+#going_events:checked ~ nav label .liked_materials,
+#going_events:checked ~ nav label .going_events,
+#going_events:checked ~ nav label .interest,
+#going_events:checked ~ nav label .watch_later{
+    color: #3498db;
+}
+
+input[type = "radio"]{
+    display: none;
+}
+
+.slide-indicator nav .nav-slider{
+    position: absolute;
+    height: 4.5px; 
+    background-color: #3498db;
+    border-radius: 20px;
+    width: 25%;
+    z-index: 1;
+    left: 0;
+    bottom: 0;
+    transition: all 0.3 ease;
+    filter: blur(0.4px);
+}
+
+#going_events:checked ~ nav .nav-slider{
+    left:25%;
+}
+
+#interest:checked ~ nav .nav-slider{
+    left:50%;
+}
+
+#watch_later:checked ~ nav .nav-slider{
+    left:75%;
+}
+
+#liked_materials:checked ~ nav .liked_materials{
+    color: #3498db;
+}
+#going_events:checked ~ nav .going_events{
+    color: #3498db;
+}
+
+#interest:checked ~ nav .interest{
+    color: #3498db;
+}
+
+#watch_later:checked ~ nav .watch_later{
+    color: #3498db;
+}
+
+.tab-content{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.tab-content .material{
+    padding: 10px;
+    border-bottom: 1px solid silver;
+    
+}
+
+.tab-content .material a{
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+}
+
+.material-img{
+    width: 300px;
+    max-height: 300px;
+    margin: 10px;
+}
+
+.material-img img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.material-content{
+    margin: 10px;
+}
+
+.material-content h4{
+    padding: 10px;
+    color: black;
+    font-size: 20px;
+}
+
+.material-content p{
+    padding: 0 10px;
+    color: black;
+}
+
+.show-more-link{
+    text-align: center;
+    border-top: 1px solid silver;
+    border-radius: 0 0 10px 10px;
+    padding: 10px;
+    background-color: #ededed;
+}
+
+
+.show-more-link a{
+    padding: 10px;
+    font-size: 17px;
+    text-decoration: none;
+    color: #95a5a6;
+    transition: all 0.5s ease;
+    font-weight: 500;
+}
+
+.show-more-link a:hover{
+    color: #2980b9;
+}
+
+section{
+    filter: blur(0.3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section .tab-content{
+    display: none;
+}
+
+#liked_materials:checked ~ section .content-1{
+    display: block;
+}
+#going_events:checked ~ section .content-2{
+    display: block;
+}
+
+#interest:checked ~ section .content-3{
+    display: block;
+}
+
+#watch_later:checked ~ section .content-4{
+    display: block;
+}
+/* slide-indicator css end */
+
+/* Accordion CSS Starts */
+.accordion-section{
+    width: 95%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    margin-top: 20px;
+}
+
+.accordion li{
+    list-style: none;
+    background-color: white;
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    background: #ededed;
+    box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
+                -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
+}
+
+.accordion li label{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;    
+}
+
+.accordion li label::before{
+    content: '+';
+    margin-right: 10px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+input[type="radio"]{
+    display: none;
+}
+
+.accordion .accordion-content{
+    color: #95a5a6;
+    padding: 0 10px;
+    line-height: 26px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s, padding 0.4s;
+}
+
+.accordion input[type="radio"]:checked + label + .accordion-content{
+    max-height: 400px;
+    padding: 10px 10px 20px;
+}
+
+.accordion input[type="radio"]:checked + label::before{
+    content: '-';
+}
+/* Accordion CSS Ends  */
+
+/* css of left bar ends*/
+
+/* Right bar starts  */
+
+.right-bar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    border: 1px solid black;
+}
+.portfolio{
+    width: 95%;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    padding: 20px;
+}
+
+.portfolio-content{
+    padding: 0 0 20px 0;
+}
+
+.portfolio-content h4{
+    font-size: 20px;
+    padding-bottom: 10px;
+}
+.portfolio a{
+    position: relative;
+    padding:10px 20px 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: white;
+    background-color: #2980b9;
+    border: 2px solid #2980b9;
+    align-items: center;
+}
+
+.friends{
+    width: 95%;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.friends-content a{
+    display: flex;
+    text-decoration: none;
+}
+
+.friends .friend-pic img{
+    width: 80px;
+    border-radius: 50%;
+    border: 2px solid #95a5a6;
+}
+
+.friends .friend-info h4{
+    font-size: 17px;
+    color: black;
+}
+
+.view-btn{
+    padding:10px 20px 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: white;
+    background-color: #2980b9;
+    border: 2px solid #2980b9;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}

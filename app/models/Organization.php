@@ -7,16 +7,10 @@
     }
 
     public function getOrganizations(){
-        $this->db->query('SELECT *,
-                        organizations.id AS organizationId,
-                        users.id AS userId
-                        FROM organizations
-                        INNER JOIN users
-                        ON organizations.user_id = users.id
-                        ORDER BY organizations.created_at DESC
-                    ');
+        $this->db->query('SELECT * FROM organizations;');
         $results= $this->db->resultSet();
         // var_dump($results);
+        // die();
         return $results;
     }
 

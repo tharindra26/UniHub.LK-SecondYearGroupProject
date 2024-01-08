@@ -10,7 +10,7 @@ class User{
     //Register the user
     public function register($data){
 
-        $this->db->query("INSERT INTO users (email,type,password,status,verification_code,fname,lname,dob,university,contact_number,description,profile_image,cover_image) VALUES(:email,:type,:password,:status,:verification_code,:fname,:lname,:dob,:university,:contact_number,:description,:profile_image,:cover_image)");
+        $this->db->query("INSERT INTO users (email,type,password,status,verification_code,fname,lname,dob,university_id,contact_number,description,profile_image,cover_image) VALUES(:email,:type,:password,:status,:verification_code,:fname,:lname,:dob,:university_id,:contact_number,:description,:profile_image,:cover_image)");
         //Bind values
         $this->db->bind(':email' , $data['email']);
         $this->db->bind(':type' , "Undergraduate");
@@ -20,7 +20,7 @@ class User{
         $this->db->bind(':fname' ,  $data['fname']);
         $this->db->bind(':lname' ,  $data['lname']);
         $this->db->bind(':dob' ,  $data['dob']);
-        $this->db->bind(':university' ,  $data['university']);
+        $this->db->bind(':university_id' ,  $data['university_id']);
         $this->db->bind(':contact_number' ,  "0000000000");
         $this->db->bind(':description' ,  "default_description");
         $this->db->bind(':profile_image' ,  "default_profile_image.jpg");

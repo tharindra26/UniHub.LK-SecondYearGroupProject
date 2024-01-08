@@ -3,6 +3,8 @@ class Users extends Controller{
     public function __construct(){
         $this->userModel = $this->model('User');
         $this->organizationalModel = $this->model('Organization');
+        $this->universityModel = $this->model('University');
+
     }
 
 
@@ -88,6 +90,10 @@ class Users extends Controller{
            
             //Hash Password
             $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+
+            //Universe id
+            $data['university_id'] = $this->universityModel->getUniIdByName($data['university']);
+            
 
             //Register User
             if($this->userModel->register($data)){
@@ -249,26 +255,49 @@ class Users extends Controller{
         redirect('users/login');
       }
 
-      public function show($id){
-        $user = $this->userModel->getUserById($id);
+      // public function show($id){
+      //   $user = $this->userModel->getUserById($id);
+      //   $data =[
+      //     'user' =>$user,
+      //   ];
+
+      //   if($user->user_type=='admin'){
+      //     $this->view('users/users-show-admin', $data);
+      //   }else if($user->user_type=='org'){
+      //     $organization = $this->organizationalModel->getOrganizationByUserId($user->id);
+      //     $user = $this->userModel->getUserById($organization->user_id);
+      //     $data =[
+      //       'organization' =>$organization,
+      //       'user' =>$user,
+      //     ];
+      //     $this->view('organizations/organizations-show', $data);
+      //   }else{
+      //     $this->view('users/users-show-und', $data);
+      //   }
+        
+      // }
+      public function show(){
+        $user = $this->userModel->getUserById($_SESSION['user_id']);
+        $university = $this->universityModel->getUniversityById($user->university_id);
         $data =[
           'user' =>$user,
+          'university' => $university,
         ];
 
-        if($user->user_type=='admin'){
-          $this->view('users/users-show-admin', $data);
-        }else if($user->user_type=='org'){
-          $organization = $this->organizationalModel->getOrganizationByUserId($user->id);
-          $user = $this->userModel->getUserById($organization->user_id);
-          $data =[
-            'organization' =>$organization,
-            'user' =>$user,
-          ];
-          $this->view('organizations/organizations-show', $data);
-        }else{
-          $this->view('users/users-show-und', $data);
+        if($user->type=='admin'){
+          $this->view('users/admin/adminprofile', $data);  
         }
-        
+        else if($user->type=='unirep'){
+          $this->view('users/unirep/profile', $data);
+        }
+        else if($user->type=='orgrep'){
+          $this->view('users/orgrep/profile', $data);
+        }
+        else{
+          $this->view('users/undergraduate/myprofile', $data);
+        }
+
+
       }
 
       public function adminaccounthandling(){
