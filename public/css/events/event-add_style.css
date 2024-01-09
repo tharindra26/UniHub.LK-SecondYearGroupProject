@@ -11,16 +11,20 @@ overpass */
 .inner-container{
     width: 100%;
     display: flex;
-    flex-direction: row;
+    /* flex-direction: row; */
 }
 .add-event-form{
     position: relative;
-    width: 60%;
-    background: white;
+    width: 100%;
+    background-color: white;
     padding: 25px;
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0,0,0,0.1);
     margin: 20px 20px 20px 0;
+    /* background-image: url('../../img/events/event-add/event-add-image.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; */
     /* border: 1px solid red; */
 }
 
