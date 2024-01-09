@@ -255,7 +255,46 @@ body{
                     display: inline;
                 }
 
+                
 
+.profile_section{
+    display: flex;
+    flex-direction: row;
+    height: 250px;
+    border: 1px solid red;
+    padding: 20px;
+}
+
+    .profile_image{
+        display: flex;
+        width: 250px;
+        margin-left: 50px;
+        margin-right: 20px;
+        background-color: white;
+        border: 1px solid red;
+    }
+
+    .profile_details{
+        display: flex;
+        flex-direction: column;
+        width: 700px;
+        border: 1px solid red;
+    }
+
+        .profile_name{
+            display: flex;
+            align-items: center;
+            height: 35px;
+            border: 1px solid red;
+            padding-left: 10px;
+        }
+
+        .details{
+            display: flex;
+            background-color: white;
+            height: 200px;
+            margin: 10px;
+        }
 
 
 
