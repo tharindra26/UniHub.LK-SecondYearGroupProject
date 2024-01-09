@@ -173,6 +173,34 @@
 <script>
 
     $(document).ready(function () {
+
+        function checkEventParticipation() {
+            $.ajax({
+                url: 'http://localhost/unihub/events/checkEventParticipation',
+                type: 'POST',
+                data: {
+                    event_id: <?php echo $data['event']->id ?>,
+                    user_id: <?php echo $_SESSION['user_id'] ?>,
+                },
+                success: function (response) {
+                    // Handle the success response
+                    console.log("Check Event Participation - AJAX request successful:", response);
+
+                    var interestedBtn = $("#interested-btn-id");
+
+                    if (response === '1') {
+                        interestedBtn.addClass("new-class");
+                    } else {
+                        interestedBtn.removeClass("new-class");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // Handle the error response
+                    console.error("Check Event Participation - AJAX request failed:", status, error);
+                }
+            });
+        }
+
         // Add click event to the button
         $("#interested-btn-id").on("click", function (e) {
             console.log("Click");
@@ -185,14 +213,23 @@
             $.ajax({
                 url: 'http://localhost/unihub/events/changeEventInterest',
                 type: 'POST', // or 'GET' depending on your needs
-                data: { text: "Clicked" },
+                data: {
+                    event_id: <?php echo $data['event']->id ?>,
+                    user_id: <?php echo $_SESSION['user_id'] ?>,
+                },
                 success: function (response) {
                     // Handle the success response
                     console.log("AJAX request successful:", response);
 
                     // Update the text content on success
                     // interestedBtn.find('span').text(response);
-                    interestedBtn.addClass("new-class");
+                    if (response === '1') {
+                        interestedBtn.addClass("new-class");
+                    } else {
+                        interestedBtn.removeClass("new-class");
+                    }
+
+
                 },
                 error: function (error) {
                     // Handle the error response
@@ -200,7 +237,11 @@
                 }
             });
         });
+        // Initial check on page load
+        checkEventParticipation();
     });
+
+    
 
 </script>
 

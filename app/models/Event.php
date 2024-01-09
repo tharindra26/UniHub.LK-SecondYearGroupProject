@@ -214,4 +214,39 @@ class Event
 
     }
 
+    public function addUserInterest($data){
+        $this->db->query("INSERT INTO event_participation (user_id, event_id, participation_status) VALUES(:user_id, :event_id, :participation_status)");
+        $this->db->bind(':user_id', $data['user_id']);
+        $this->db->bind(':event_id', $data['event_id']);
+        $this->db->bind(':participation_status', 'interested');
+
+        if($this->db->execute()){
+           return true;
+        }
+    }
+
+    public function deleteUserInterest($data) {
+        $this->db->query("DELETE FROM event_participation WHERE user_id = :user_id AND event_id = :event_id");
+        $this->db->bind(':user_id', $data['user_id']);
+        $this->db->bind(':event_id', $data['event_id']);
+    
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+
+    public function checkUserInterest($data){
+        $this->db->query("SELECT * FROM event_participation WHERE user_id = :user_id AND event_id = :event_id");
+        $this->db->bind(':user_id', $data['user_id']);
+        $this->db->bind(':event_id', $data['event_id']);
+    
+        $this->db->single(); // Assuming you have a method like this to fetch a single row
+    
+        return $this->db->rowCount() > 0;
+    }
+    
+
 }

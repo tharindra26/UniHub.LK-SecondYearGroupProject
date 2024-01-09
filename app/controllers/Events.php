@@ -194,7 +194,7 @@ class Events extends Controller
         'organized_by' => '',
         'venue' => '',
         'email' => '',
-        'contact_number' => '', 
+        'contact_number' => '',
         'map_navigation' => '',
         'start_datetime' => '',
         'end_datetime' => '',
@@ -397,7 +397,7 @@ class Events extends Controller
     }
   }
 
-  public function show($id)//14
+  public function show($id) //14
   {
     $event = $this->eventModel->getEventById($id);
     $user = $this->userModel->getUserById($event->user_id);
@@ -430,10 +430,45 @@ class Events extends Controller
     }
   }
 
-  public function changeEventInterest(){
-    if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+  public function checkEventParticipation(){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-      var_dump($_POST['text']);
+      $event_id = $_POST['event_id'];
+      $user_id = $_POST['user_id'];
+      $data = [
+        'event_id' => $event_id,
+        'user_id' => $user_id
+      ];
+      if ($this->eventModel->checkUserInterest($data)) {
+        echo 1;
+      } else {
+        echo 0;
+      }
+
     }
   }
+
+  public function changeEventInterest()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $event_id = $_POST['event_id'];
+      $user_id = $_POST['user_id'];
+      $data = [
+        'event_id' => $event_id,
+        'user_id' => $user_id
+      ];
+      if (!$this->eventModel->checkUserInterest($data)) {
+        if ($status = $this->eventModel->addUserInterest($data)) {
+          echo $status;
+        }
+      } else {
+        $this->eventModel->deleteUserInterest($data);
+        echo 0;
+      }
+
+    }
+  }
+
+
 }
