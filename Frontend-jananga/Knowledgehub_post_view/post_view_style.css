@@ -209,6 +209,53 @@ body{
 
 
 
+        .post_details_section{
+            display: flex;
+            width: 50%;
+            border: 1px solid red;
+            padding: 20px;
+        }
+
+                .post_description{
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    flex-direction: column;
+                    background-color: white;
+                    padding: 20px;
+                    border: 1px solid red;
+
+
+                }
+
+                .post_title{
+                    display: flex;
+                    width: 100%;
+                    font-size: 25px;
+                    font-weight: 500;
+                    align-items: center;
+                    border: 1px solid red;
+                    padding-bottom: 10px;
+                }
+
+                .description{
+                    display: flex;
+                    flex-direction: column;
+                    font-weight: 400;
+                    border: 1px solid red;
+                    color: #2c3e50;
+                }
+                .read_more_btn{
+                    color: #3498db;
+                }
+                .read_more_text{
+                    display: none;
+                }
+                .read_more_text--show{
+                    display: inline;
+                }
+
+
 
 
 
