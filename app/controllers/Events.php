@@ -7,6 +7,8 @@ class Events extends Controller
     //     redirect('/users/login');
     // }
 
+    //test comment
+
     $this->eventModel = $this->model('Event');
     $this->userModel = $this->model('User');
     $this->categoryModel = $this->model('Category');
