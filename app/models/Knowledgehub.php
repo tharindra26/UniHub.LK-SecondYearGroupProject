@@ -7,14 +7,8 @@
     }
 
     public function getKnowledgehubs(){
-        $this->db->query('SELECT *,
-                        knowledgehubs.id AS knowledgehubId,
-                        users.id AS userId
-                        FROM knowledgehubs
-                        INNER JOIN users
-                        ON knowledgehubs.user_id = users.id
-                        ORDER BY knowledgehubs.created_at DESC
-                    ');
+        $this->db->query('SELECT * FROM Knowledgehubs;');
+                        
         $results= $this->db->resultSet();
         return $results;
     }

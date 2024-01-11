@@ -23,7 +23,7 @@
 
 
                     <div class="column">
-                        <div class="input-box">
+                        <div class="input-box">  
                             <label for="">University</label>
                             <div class="select-box">
                                 <select name="university" id="selection" >
