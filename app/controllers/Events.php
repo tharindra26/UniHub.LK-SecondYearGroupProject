@@ -27,7 +27,7 @@
 
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 //process form
-    
+                $navigation = trim($_POST['map_navigation']);
                 //Sanitize post data
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
     
@@ -37,7 +37,10 @@
                     'university' =>trim($_POST['university']),
                     'organized_by' =>trim($_POST['organized_by']),
                     'venue' =>trim($_POST['venue']),
-                    'map_navigation' =>trim($_POST['map_navigation']),
+                    //'map_navigation' =>trim($_POST['map_navigation']),
+                    'email' =>trim($_POST['email']),
+                    'contact_number' =>trim($_POST['contact_number']),
+                    'map_navigation' => $navigation,
                     'start_datetime' =>trim($_POST['start_datetime']),
                     'end_datetime' =>trim($_POST['end_datetime']),
                     'description' =>trim($_POST['description']),

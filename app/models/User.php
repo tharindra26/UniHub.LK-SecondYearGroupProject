@@ -174,5 +174,52 @@ class User{
         }
     }
 
+    public function getEducationByUserId($user_id){
+        $this->db->query('SELECT * FROM user_education WHERE user_id = :user_id');
+
+        $this->db->bind(':user_id' , $user_id);
+
+        $row = $this->db->resultSet();
+        
+        return $row;
+    }
+
+    public function getQualificationByUserId($user_id){
+        $this->db->query('SELECT * FROM user_qualifications WHERE user_id = :user_id');
+
+        $this->db->bind(':user_id' , $user_id);
+
+        $row = $this->db->resultSet();
+        
+        return $row;
+    }
+
+    public function getSkillsByUserId($user_id){
+        $this->db->query('SELECT * FROM user_skills WHERE user_id = :user_id');
+
+        $this->db->bind(':user_id' , $user_id);
+
+        $row = $this->db->resultSet();
+        
+        return $row;
+    }
+    
+    public function getFriendsByUserId($user_id){
+        $this->db->query('SELECT users.* 
+                          FROM followers
+                          JOIN users
+                          ON users.id = followers.follower_id
+                          JOIN users
+                          ON users.id = followers.following_id
+                          WHERE followers.follower_id = :user_id
+                          OR followers.following_id = :user_id');
+        
+        $this->db->bind(':user_id', $user_id);
+
+        $row = $this->db->resultSet();
+
+        return $row;
+    }
+
 
 }

@@ -170,5 +170,45 @@
         //     return $row;
         // }
     }
+
+    //Viruli
+    public function getEventByUser($user){
+        $this->db->query('SELECT * FROM events WHERE user_id = :user_id');
+        $this->db->bind(':user_id' , $user);
+
+        $row= $this->db->resultSet();
+
+        return $row;
+    }
+
+    public function getInterestEventsByUser($user){
+        $this->db->query('SELECT events.* 
+                        FROM event_participation
+                        JOIN events
+                        ON events.id = event_participation.event_id
+                        WHERE event_participation.participation_status = "interested" 
+                        AND event_participation.user_id = :user_id;
+        ');
+        $this->db->bind(':user_id' , $user);
+
+        $row= $this->db->resultSet();
+
+        return $row;
+    }
+
+    public function getGoingEventsByUser($user){
+        $this->db->query('SELECT events.* 
+                        FROM event_participation
+                        JOIN events
+                        ON events.id = event_participation.event_id
+                        WHERE event_participation.participation_status = "going" 
+                        AND event_participation.user_id = :user_id;
+        ');
+        $this->db->bind(':user_id' , $user);
+
+        $row= $this->db->resultSet();
+
+        return $row;
+    }
     
  }
