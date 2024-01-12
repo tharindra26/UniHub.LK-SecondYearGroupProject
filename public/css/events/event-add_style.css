@@ -8,171 +8,176 @@ ExtraBold 800
 lora
 overpass */
 
-.inner-container{
+.inner-container {
     width: 100%;
     display: flex;
-    flex-direction: row;
+    /* flex-direction: row; */
 }
-.add-event-form{
+
+.add-event-form {
     position: relative;
-    width: 60%;
-    background: white;
+    width: 100%;
+    background-color: white;
     padding: 25px;
     border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     margin: 20px 20px 20px 0;
+    /* background-image: url('../../img/events/event-add/event-add-image.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; */
     /* border: 1px solid red; */
 }
 
-    .add-event-form header{
-        text-align: center;
-        font-weight: 500;
-        color: #2c3e50;
-        font-size: 30px;
-    }
+.add-event-form header {
+    text-align: center;
+    font-weight: 500;
+    color: #2c3e50;
+    font-size: 30px;
+}
 
-    .add-event-form .form{
-        margin-top: 30px;
-        /* border: 1px solid red; */
-    }
+.add-event-form .form {
+    margin-top: 30px;
+    /* border: 1px solid red; */
+}
 
-    .form .input-box{
-        display: flex;
-        flex-direction: column;
-        width:100%;
-        margin-bottom: 30px;
-        /* border: 1px solid red; */
-    }
+.form .input-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 30px;
+    /* border: 1px solid red; */
+}
 
-    .input-box label{
-        color: #2c3e50;
-    }
+.input-box label {
+    color: #2c3e50;
+}
 
-    .form :where(.input-box input, .select-box) {
-        position: relative;
-        height: 50px;
-        width: auto;
-        outline: none;
-        font-size: 16px;
-        color: #7f8c8d;
-        margin-top: 8px;
-        border: 1px solid #bdc3c7;
-        border-radius: 6px;
-        padding-left: 10px;
-        /* border: 1px solid red; */
+.form :where(.input-box input, .select-box) {
+    position: relative;
+    height: 50px;
+    width: auto;
+    outline: none;
+    font-size: 16px;
+    color: #7f8c8d;
+    margin-top: 8px;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    padding-left: 10px;
+    /* border: 1px solid red; */
 
-    }
+}
 
-    .category{
-        width: 45%;
-    }
+.category {
+    width: 45%;
+}
 
-    #selection{
-        padding-left: 10px;
-    }
-    
-    #eventDescription{
-        width: 100%;
-        height: 150px;
-        padding: 10px;
-        box-sizing: border-box;
-        font-family: poppins;
-        font-size: 16px;
-        color: #7f8c8d; 
-        border: 1px solid #bdc3c7; 
-        border-radius: 6px;
-        resize: vertical;
-        outline: none; 
-    }
+#selection {
+    padding-left: 10px;
+}
 
-    .select-box{
-        border: none;
-        padding-left: 0;
-    }
+#eventDescription {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: poppins;
+    font-size: 16px;
+    color: #7f8c8d;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    resize: vertical;
+    outline: none;
+}
 
-    .add-event-form .column{
-        display: flex;
-        column-gap: 15px;
-    }
+.select-box {
+    border: none;
+    padding-left: 0;
+}
 
-    .select-box select{
-        height: 100%;
-        width: 100%;
-        outline: none;
-        border: none;
-        color: #7f8c8d;
-        font-size: 16px;
-        border-radius: 6px;
-        border: 1px solid #bdc3c7;
-    }
+.add-event-form .column {
+    display: flex;
+    column-gap: 15px;
+}
 
-    .submit-btn {
-        height: 55px;
-        width: 100%;
-        font-size: 16px;
-        border: none;
-        margin-top: 30px;
-        cursor: pointer;
-        border-radius: 6px;
-        font-weight: 500;
-        background: #3498db;
-        color: white;
-        transition: all 0.2s ease;
-    }
+.select-box select {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: none;
+    color: #7f8c8d;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #bdc3c7;
+}
 
-    .submit-btn:hover {
-        background: #2980b9;
-    }
+.submit-btn {
+    height: 55px;
+    width: 100%;
+    font-size: 16px;
+    border: none;
+    margin-top: 30px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: 500;
+    background: #3498db;
+    color: white;
+    transition: all 0.2s ease;
+}
 
-    #custom-profile-img-btn{
-        padding: 10px;
-        color: white;
-        background: #34495e;
-        outline: none;
-        border-radius: 5px;
-        cursor: pointer;
-        border: 1px solid black;
-        margin-top: 8px;
-        width: 30%;
-    }
+.submit-btn:hover {
+    background: #2980b9;
+}
 
-    #custom-profile-img-btn:hover{
-        background: #2c3e50;
-    }
+#custom-profile-img-btn {
+    padding: 10px;
+    color: white;
+    background: #34495e;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid black;
+    margin-top: 8px;
+    width: 30%;
+}
 
-    #profile-img-txt{
-        color: #7f8c8d;
-    }
+#custom-profile-img-btn:hover {
+    background: #2c3e50;
+}
 
-    #profileImageUpload{
-        display: none;
-    }
+#profile-img-txt {
+    color: #7f8c8d;
+}
 
-    #custom-cover-img-btn{
-        padding: 10px;
-        color: white;
-        background: #34495e;
-        outline: none;
-        border-radius: 5px;
-        cursor: pointer;
-        border: 1px solid black;
-        margin-top: 8px;
-        width: 30%;
-    }
+#profileImageUpload {
+    display: none;
+}
 
-    #custom-cover-img-btn:hover{
-        background: #2c3e50;
-    }
+#custom-cover-img-btn {
+    padding: 10px;
+    color: white;
+    background: #34495e;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid black;
+    margin-top: 8px;
+    width: 30%;
+}
 
-    #cover-img-txt{
-        color: #7f8c8d;
-    }
+#custom-cover-img-btn:hover {
+    background: #2c3e50;
+}
 
-    #coverImageUpload{
-        display: none;
-    }
+#cover-img-txt {
+    color: #7f8c8d;
+}
 
-.image-section{
+#coverImageUpload {
+    display: none;
+}
+
+.image-section {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -184,17 +189,18 @@ overpass */
     margin: 20px 0;
 }
 
-    .image-section img{
-        /* border: 1px solid red; */
-        width: 100%;
-        height: auto;
-    }
+.image-section img {
+    /* border: 1px solid red; */
+    width: 100%;
+    height: auto;
+}
 
 /* error message */
-.error-message{
+.error-message {
     color: red;
     /* font-style: italic; */
     font-weight: 400;
     font-size: 15px;
 }
+
 /* error message */

@@ -11,11 +11,13 @@
         public function index(){
             //get Posts
             $knowledgehubs= $this->knowledgehubModel->getKnowledgehubs();
+            // var_dump($knowledgehubs);
+            // die();
             $data=[
                 'knowledgehubs'=> $knowledgehubs
             ];
 
-            $this->view('knowledgehubs/knowledgehubs-main', $data);
+            $this->view('knowledgehubs/knowledgehubs-index', $data);
         }
 
         public function add(){
