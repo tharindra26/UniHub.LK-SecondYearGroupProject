@@ -101,6 +101,56 @@ body{
         padding: 20px;
     }
 
+
+        .post_reaction_section{
+        
+            border: 1px solid red;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            
+        }
+
+            .reaction_btn{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 180px;
+                padding: 15px 0;
+                border-radius: 15px;
+                font-size: 20px;
+                font-weight: 400;
+                
+            }
+
+            .helpfull_btn{
+                border: 2px solid black;
+                background-color: #2980b9;
+                color: white;
+                margin-bottom: 20px;
+            }
+            .interested_btn{
+                border: 2px solid black;
+                background-color: #27ae60;
+                color: white;
+                margin-bottom: 20px;
+            }
+            .report_btn{
+                border: 2px solid black;
+                background-color: red;
+                color: white;
+            }
+
+            .post_reaction_link{
+                text-decoration: none;
+            }
+
+
+
+
+
+
     .right_section{
         display: flex;
         flex-direction: column;
