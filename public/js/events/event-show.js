@@ -17,7 +17,7 @@ description.addEventListener("click", (event) => {
 });
 //Read More section
 
-var countDown = new Date("Dec 31, 2023 00:00:00").getTime();
+var countDown = new Date("Jan 31, 2024 00:00:00").getTime();
 var x = setInterval(function () {
   var now = new Date().getTime();
   var distance = countDown - now;

@@ -90,8 +90,20 @@
                 </div>
             </div>
 
+
+
+            <div class="event-announcements">
+                <a href="<?php echo URLROOT ?>/events/addAnouncement/<?php echo $data['event']->id ?>"
+                    class="event-announcements-link">
+                    <div class="event-settings-btn">
+                        <i class="fa-solid fa-bullhorn"></i> &nbsp Add Announcement
+                    </div>
+                </a>
+            </div>
+
             <div class="event-settings">
-                <a href="#" class="event-settings-link">
+                <a href="<?php echo URLROOT ?>/events/settings/<?php echo $data['event']->id ?>"
+                    class="event-settings-link">
                     <div class="event-settings-btn">
                         <i class="fa-solid fa-gear"></i> &nbsp Event Settings
                     </div>
@@ -122,8 +134,15 @@
                     </p>
                     <span class="read-more-btn">Read More</span>
                 </div>
+
             </div>
-        </div>
+            <div class="announcements-section">
+                <div class="announcement-title">Announcements</div>
+                <div class="announcement">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio amet excepturi quasi possimus molestiae consequatur. Adipisci ab quibusdam, similique voluptatibus natus facere cum dolor voluptas iste! Alias delectus aut sapiente hic odit dolor voluptatum, natus saepe velit temporibus dolore doloremque cum quia, magnam impedit, eius id rerum autem beatae provident laborum. Alias corrupti omnis quas numquam, optio architecto illum sunt odit beatae iure nobis veniam nostrum quibusdam a molestiae. Doloribus nam consequuntur suscipit ipsum porro inventore, placeat ab ducimus voluptatibus alias unde dolor natus quam molestias tempore minus id pariatur sit. Aspernatur at inventore eveniet alias quaerat eaque delectus aliquam.
+                </div>
+
+            </div>        </div>
         <!-- middle-section -->
 
         <!-- right-section -->
@@ -241,7 +260,7 @@
         checkEventParticipation();
     });
 
-    
+
 
 </script>
 
