@@ -1,10 +1,11 @@
 <?php
 class Users extends Controller{
+  public $userModel = null;
     public function __construct(){
         $this->userModel = $this->model('User');
         $this->organizationalModel = $this->model('Organization');
         $this->universityModel = $this->model('University');
-
+        $this->eventModel = $this->model('Event');
     }
 
 
@@ -279,9 +280,22 @@ class Users extends Controller{
       public function show(){
         $user = $this->userModel->getUserById($_SESSION['user_id']);
         $university = $this->universityModel->getUniversityById($user->university_id);
+        $event = $this->eventModel->getEventByUser($user->id);
+        $interestEvents = $this->eventModel->getInterestEventsByUser($user->id);
+        $goingEvents = $this->eventModel->getGoingEventsByUser($user->id);
+        $education = $this->userModel->getEducationByUserId($user->id);
+        $qualifications = $this->userModel->getQualificationByUserId($user->id);
+        $skills = $this->userModel->getSkillsByUserId($user->id);
+
         $data =[
           'user' =>$user,
           'university' => $university,
+          'event' =>$event,
+          'interestEvents' =>$interestEvents,
+          'goingEvents' =>$goingEvents,
+          'education' =>$education,
+          'qualifications' =>$qualifications,
+          'skills' =>$skills
         ];
 
         if($user->type=='admin'){

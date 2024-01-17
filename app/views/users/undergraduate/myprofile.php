@@ -26,14 +26,6 @@
                                     </div>   
                                 </a>
                             </li>
-                            <li class="option">
-                                <a href="#">
-                                    <div class="list-op">
-                                        <img src="../UserProfiles/images/uni.png" alt="">
-                                        <h4>IEEE Student Branch</h4>
-                                    </div>   
-                                </a>
-                            </li>
                         </ul>
                     </div>
                     
@@ -50,7 +42,8 @@
                             $endPoint = strrpos($stringCut, ' ');
                             $string = $endPoint?substr($stringCut, 0, $endPoint):substr($stringCut,0);
                             echo $string;
-                        endif;?>
+                        ?>
+
                     <span class="see-more-text">
                         <?php
                             $content = $data['user']->description;
@@ -59,94 +52,56 @@
                             echo $endString;
                         ?> 
                     </span>
-                    
+                    <span class="see-more-btn">See more...</span>
+                    <?php
+                        else :
+                            echo $string;
+                        endif;
+                    ?>
                 </p>
-                <span class="see-more-btn">See more...</span>
+                
             </div>
             <!--Slider Starts-->
-            <div class="slide-container swiper">
+            <div class="slide-container">
                 <div class="wrapper">
+                    <i id="left" class="fa-solid fa-chevron-left arr-head"></i>
                     <div class="carousel">
+                     <?php if (!empty($data['event'][0]->id)) : ?> 
+                        <?php foreach ($data['event'] as $event) : ?>
+                            <?php
+                                $eventStartDate = $event->start_datetime;
+                                // Convert MySQL datetime to DateTime object
+                                $dateTime = new DateTime($eventStartDate);
+                                // Format the DateTime object to extract only THU NOV 16
+                                $extractedDate = $dateTime->format('D M j');
+                                // Format the DateTime object to extract only the time (06.00PM)
+                                $extractedTime = $dateTime->format('h:i A');
+                            ?>
                         <div class="card">
                             <div class="card-title">
-                                <h3>Card Title</h3>
+                                <h3><?php echo $event->title ?></h3>
                             </div>
                             <div class="image-content">
                                 <div class="card-image">
-                                    <img src="../UserProfiles/images/cover.jpg" alt="" class="card-img">
+                                    <img src="<?php echo URLROOT ?>/img/events/events_profile_images/<?php echo $event->event_profile_image ?>" alt="" draggable="false" class="card-img">
                                 </div>
                             </div>
                             <div class="card-content">
-                                <p>
-                                    The event will be held on 20th December 2023
-                                </p>
+                            <div class="date-section">
+                                <i class="fa-regular fa-calendar-days"></i> &nbsp <?php echo $extractedDate ?> &nbsp &nbsp
+                                <i class="fa-solid fa-clock"></i> &nbsp <?php echo $extractedTime ?>
+                            </div>
+                            <div class="venue-section"><?php echo $event->venue ?></div>
                             </div>
                             <div class="card-btn">
-                                <a href="#">View More...</a>
+                                <a href="<?php echo URLROOT ?>/events/show/<?php echo $event->id ?>">View More...</a>
                             </div>
                         </div>
-                        <div class="card swiper-slide">
-                            <div class="card-title">
-                                <h3>Card Title</h3>
-                            </div>
-                            <div class="image-content">
-
-                                <div class="card-image">
-                                    <img src="../UserProfiles/images/cover.jpg" alt="" class="card-img">
-                                </div>
-                            </div>
-                            <div class="card-content">
-                                <p>
-                                    The event will be held on 20th December 2023
-                                </p>
-                            </div>
-                            <div class="card-btn">
-                                <a href="#">View More...</a>
-                            </div>
-                        </div>
-                        <div class="card swiper-slide">
-                            <div class="card-title">
-                                <h3>Card Title</h3>
-                            </div>
-                            <div class="image-content">
-
-                                <div class="card-image">
-                                    <img src="../UserProfiles/images/cover.jpg" alt="" class="card-img">
-                                </div>
-                            </div>
-                            <div class="card-content">
-                                <p>
-                                    The event will be held on 20th December 2023
-                                </p>
-                            </div>
-                            <div class="card-btn">
-                                <a href="#">View More...</a>
-                            </div>
-                        </div>
-                        <div class="card swiper-slide">
-                            <div class="card-title">
-                                <h3>Card Title</h3>
-                            </div>
-                            <div class="image-content">
-
-                                <div class="card-image">
-                                    <img src="../UserProfiles/images/cover.jpg" alt="" class="card-img">
-                                </div>
-                            </div>
-                            <div class="card-content">
-                                <p>
-                                    The event will be held on 20th December 2023
-                                </p>
-                            </div>
-                            <div class="card-btn">
-                                <a href="#">View More...</a>
-                            </div>
-                        </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                     </div>
+                    <i id="right" class="fa-solid fa-chevron-right arr-head"></i>
                 </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-pagination"></div>
             </div>
             <!--Slider Ends-->
             <!--Slide Indicator Starts-->
@@ -163,35 +118,9 @@
                     <div class="nav-slider"></div>
                 </nav>
                 <section>
+
+                    <!-- Liked Materials -->
                     <div class="tab-content content-1">
-                        <div class="material">
-                            <a href="#">
-                                <div class="material-img">
-                                    <img src="../UserProfiles/images/profile.jpg" alt="">
-                                </div>
-                                <div class="material-content">
-                                    <h4>A blogger is someone who writes regularly for an online journal or website</h4>
-                                    <p>The sun dipped below the horizon, casting a warm, golden glow over the tranquil meadow. 
-                                        The gentle rustling of leaves in the nearby forest provided a soothing backdrop to the 
-                                        symphony of chirping crickets. <span class="see-more-btn">See more...</span>
-                                    </p>
-                                </div>
-                            </a>    
-                        </div>
-                        <div class="material">
-                            <a href="#">
-                                <div class="material-img">
-                                    <img src="../UserProfiles/images/profile.jpg" alt="">
-                                </div>
-                                <div class="material-content">
-                                    <h4>A blogger is someone who writes regularly for an online journal or website</h4>
-                                    <p>The sun dipped below the horizon, casting a warm, golden glow over the tranquil meadow. 
-                                        The gentle rustling of leaves in the nearby forest provided a soothing backdrop to the 
-                                        symphony of chirping crickets. <span class="see-more-btn">See more...</span>
-                                    </p>
-                                </div>
-                            </a>    
-                        </div>
                         <div class="material">
                             <a href="#">
                                 <div class="material-img">
@@ -211,24 +140,136 @@
                             <a href="#">Show All Liked Materials <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
+
+                    <!-- Going Events -->
                     <div class="tab-content content-2">
-                        <h1>Going events content</h1>
+                    <?php if (!empty($data['goingEvents'][0]->id)) : ?> 
+                        <?php for ($i = 0; $i < 3; $i++ ) : 
+                            $goingEvents = $data['goingEvents'][$i]; 
+                            if (empty($goingEvents)):
+                                break;
+                            endif;?>
+                            
+                            <?php
+                                $eventStartDate = $goingEvents->start_datetime;
+                                // Convert MySQL datetime to DateTime object
+                                $dateTime = new DateTime($eventStartDate);
+                                // Format the DateTime object to extract only THU NOV 16
+                                $extractedDate = $dateTime->format('D M j');
+                                // Format the DateTime object to extract only the time (06.00PM)
+                                $extractedTime = $dateTime->format('h:i A');
+                            ?>
+                        <div class="material">
+                            <a href="<?php echo URLROOT ?>/events/show/<?php echo $goingEvents->id ?>">
+                                <div class="material-img">
+                                    
+                                    <img src="<?php echo URLROOT ?>/img/events/events_profile_images/<?php echo $goingEvents->event_profile_image ?>" alt="Event Profile Image">
+                                </div>
+                                <div class="material-content">
+                                    <h4><?php echo $goingEvents->title ?></h4>
+                                    <div class="date-vennue">
+                                        <div class="tab-date-section">
+                                            <i class="fa-regular fa-calendar-days"></i> &nbsp <?php echo $extractedDate ?> &nbsp &nbsp
+                                            <i class="fa-solid fa-clock"></i> &nbsp <?php echo $extractedTime ?>
+                                        </div>
+                                        <div class="tab-venue-section">
+                                            <i class="fa-solid fa-location-dot"></i> &nbsp <?php echo $goingEvents->venue ?>       
+                                        </div>
+                                    </div>
+                                    <p>
+                                        <?php 
+                                            $content = $goingEvents->description;
+                                            $string = strip_tags($content);
+                                            if(strlen($string) > 100):
+                                                $stringCut = substr($string, 0, 100);
+                                                $endPoint = strrpos($stringCut, ' ');
+                                                $string = $endPoint?substr($stringCut, 0, $endPoint):substr($stringCut,0);
+                                                echo $string;
+                                        ?>
+                                        <span class="see-more-btn">See more...</span>
+                                        <?php
+                                            else :
+                                            echo $string;
+                                            endif;
+                                        ?>
+                                    </p>
+                                </div>
+                            </a>    
+                        </div>
+                        <?php endfor; ?>
+                    <?php endif; ?>
                         <div class="show-more-link">
-                            <a href="#">Show All Liked Materials <i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="#">Show All Going Events <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
 
+                    <!-- Interested Events -->
                     <div class="tab-content content-3">
-                        <h1>Interest content</h1>
+                    <?php if (!empty($data['interestEvents'][0]->id)) : ?> 
+                        <?php for ($i = 0; $i < 3; $i++ ) : 
+                            $interestEvents = $data['interestEvents'][$i]; 
+                            if (empty($interestEvents)):
+                                break;
+                            endif;?>
+                            
+                            <?php
+                                $eventStartDate = $interestEvents->start_datetime;
+                                // Convert MySQL datetime to DateTime object
+                                $dateTime = new DateTime($eventStartDate);
+                                // Format the DateTime object to extract only THU NOV 16
+                                $extractedDate = $dateTime->format('D M j');
+                                // Format the DateTime object to extract only the time (06.00PM)
+                                $extractedTime = $dateTime->format('h:i A');
+                            ?>
+                    <div class="material">
+                            <a href="<?php echo URLROOT ?>/events/show/<?php echo $interestEvents->id ?>">
+                                <div class="material-img">
+                                    
+                                    <img src="<?php echo URLROOT ?>/img/events/events_profile_images/<?php echo $interestEvents->event_profile_image ?>" alt="Event Profile Image">
+                                </div>
+                                <div class="material-content">
+                                    <h4><?php echo $interestEvents->title ?></h4>
+                                    <div class="date-vennue">
+                                        <div class="tab-date-section">
+                                            <i class="fa-regular fa-calendar-days"></i> &nbsp <?php echo $extractedDate ?> &nbsp &nbsp
+                                            <i class="fa-solid fa-clock"></i> &nbsp <?php echo $extractedTime ?>
+                                        </div>
+                                        <div class="tab-venue-section">
+                                            <i class="fa-solid fa-location-dot"></i> &nbsp <?php echo $interestEvents->venue ?>       
+                                        </div>
+                                    </div>
+                                    <p>
+                                        <?php 
+                                            $content = $interestEvents->description;
+                                            $string = strip_tags($content);
+                                            if(strlen($string) > 100):
+                                                $stringCut = substr($string, 0, 100);
+                                                $endPoint = strrpos($stringCut, ' ');
+                                                $string = $endPoint?substr($stringCut, 0, $endPoint):substr($stringCut,0);
+                                                echo $string;
+                                        ?>
+                                        <span class="see-more-btn">See more...</span>
+                                        <?php
+                                            else :
+                                            echo $string;
+                                            endif;
+                                        ?>
+                                    </p>
+                                </div>
+                            </a>    
+                        </div>
+                        <?php endfor; ?>
+                    <?php endif; ?>
                         <div class="show-more-link">
-                            <a href="#">Show All Liked Materials <i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="#">Show All Interested Events <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
 
+                    <!-- Watch Later Materials -->
                     <div class="tab-content content-4">
                         <h1>Watch later content</h1>
                         <div class="show-more-link">
-                            <a href="#">Show All Liked Materials <i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="#">Show All Watch Later Materials <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
 
@@ -242,21 +283,41 @@
                         <input type="radio" name="accordion" id="first" checked>
                         <label for="first">Education</label>
                         <div class="accordion-content">
-                            <p>Education list</p>
+                            <?php if (!empty($data['education'][0]->education_id)) : ?> 
+                                <?php foreach ($data['education'] as $education) : ?>
+                                    <h4><?php echo $education->institution ?></h4>
+                                    <p><?php echo $education->start_year?> - <?php echo $education->end_year?></p>
+                                    <p><?php echo $education->description ?></p>
+                                    <hr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </div>
                     </li>
                     <li>
                         <input type="radio" name="accordion" id="second">
                         <label for="second">Qualifications</label>
                         <div class="accordion-content">
-                            <p>Qualification list</p>
+                        <?php if (!empty($data['qualifications'][0]->user_qualification_id)) : ?> 
+                                <?php foreach ($data['qualifications'] as $qualification) : ?>
+                                    <h4><?php echo $qualification->qualification_name ?> - <?php echo $qualification->institution ?></h4>
+                                    <p>Completed date : <?php echo $qualification->completion_date?></p>
+                                    <p><?php echo $qualification->description ?></p>
+                                    <hr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </div>
                     </li>
                     <li>
                         <input type="radio" name="accordion" id="third">
                         <label for="third">Skills</label>
                         <div class="accordion-content">
-                            <p>Skills list</p>
+                            <?php if (!empty($data['skills'][0]->user_skill_id)) : ?> 
+                                <?php foreach ($data['skills'] as $skill) : ?>
+                                    <h4><?php echo $skill->skill_name ?></h4>
+                                    <p>Proficiency Level : <?php echo $skill->proficiency_level?></p>
+                                    <hr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </div>
                     </li>
                 </ul>
@@ -275,6 +336,7 @@
             </div>
             <div class="friends">
                 <div class="friends-content">
+                    <h2>Friends</h2>
                     <a href="#">
                         <div class="friend-pic">
                             <img src="../UserProfiles/images/profile.jpg" alt="">
