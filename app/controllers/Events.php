@@ -472,5 +472,13 @@ class Events extends Controller
     }
   }
 
+  public function settings($id){
+    $data=[
+      'id' => $id,
+    ];
+    $this->view('events/settings', $data);
+
+  }
+
 
 }
