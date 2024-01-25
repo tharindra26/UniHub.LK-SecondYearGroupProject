@@ -592,6 +592,17 @@ class Users extends Controller{
   
     }
 
+    public function dashboard(){
+      $data=[
+       
+      ];
+
+      
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $this->view('users/admin/dashboard', $data);
+      }
+    }
+
       
   
 
