@@ -21,19 +21,19 @@
             </div>
             <div class="countdown">
                 <div class="days countdown-box">
-                    <p id="days">20</p>
+                    <p id="days"></p>
                     <span>DAYS</span>
                 </div>
                 <div class="hours countdown-box">
-                    <p id="hours">5</p>
+                    <p id="hours"></p>
                     <span>HOURS</span>
                 </div>
                 <div class="mins countdown-box">
-                    <p id="minutes">4</p>
+                    <p id="minutes"></p>
                     <span>MINS</span>
                 </div>
                 <div class="sec countdown-box">
-                    <p id="seconds">32</p>
+                    <p id="seconds"></p>
                     <span>SECS</span>
                 </div>
                 <a class="main-action-button-link" href="<?php echo $data['event']->main_button_link ?>">
@@ -139,10 +139,18 @@
             <div class="announcements-section">
                 <div class="announcement-title">Announcements</div>
                 <div class="announcement">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio amet excepturi quasi possimus molestiae consequatur. Adipisci ab quibusdam, similique voluptatibus natus facere cum dolor voluptas iste! Alias delectus aut sapiente hic odit dolor voluptatum, natus saepe velit temporibus dolore doloremque cum quia, magnam impedit, eius id rerum autem beatae provident laborum. Alias corrupti omnis quas numquam, optio architecto illum sunt odit beatae iure nobis veniam nostrum quibusdam a molestiae. Doloribus nam consequuntur suscipit ipsum porro inventore, placeat ab ducimus voluptatibus alias unde dolor natus quam molestias tempore minus id pariatur sit. Aspernatur at inventore eveniet alias quaerat eaque delectus aliquam.
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio amet excepturi quasi possimus
+                    molestiae consequatur. Adipisci ab quibusdam, similique voluptatibus natus facere cum dolor voluptas
+                    iste! Alias delectus aut sapiente hic odit dolor voluptatum, natus saepe velit temporibus dolore
+                    doloremque cum quia, magnam impedit, eius id rerum autem beatae provident laborum. Alias corrupti
+                    omnis quas numquam, optio architecto illum sunt odit beatae iure nobis veniam nostrum quibusdam a
+                    molestiae. Doloribus nam consequuntur suscipit ipsum porro inventore, placeat ab ducimus
+                    voluptatibus alias unde dolor natus quam molestias tempore minus id pariatur sit. Aspernatur at
+                    inventore eveniet alias quaerat eaque delectus aliquam.
                 </div>
 
-            </div>        </div>
+            </div>
+        </div>
         <!-- middle-section -->
 
         <!-- right-section -->
@@ -181,15 +189,25 @@
         </div>
         <!-- right-section -->
     </div>
+    <?php
+    $starting_datetime = $data['event']->countdown_datetime;
+    $starting_date_object = new DateTime($starting_datetime);
+    $formatted_starting_datetime = $starting_date_object->format("M d, Y H:i:s");
+    ?>
 
 </div>
 
 
 
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 <script src="<?php echo URLROOT ?>/js/events/event-show.js"></script>
+
+
+
 <script>
+
+    
 
     $(document).ready(function () {
 
@@ -241,7 +259,7 @@
                     console.log("AJAX request successful:", response);
 
                     // Update the text content on success
-                    // interestedBtn.find('span').text(response);
+                    // interestedBtn.find('span').text(response);   
                     if (response === '1') {
                         interestedBtn.addClass("new-class");
                     } else {

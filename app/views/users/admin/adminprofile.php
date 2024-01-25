@@ -19,11 +19,11 @@
         <!--end top -->
 
         <div class="option-menu">
-            <a href="#">
+            <a href="#" id="dashboard-btn">
                 <span><i class="fa-solid fa-grip"></i></span>
                 <h3>Dashboard</h3>
             </a>
-            <a href="#" class="active">
+            <a href="#" class="active" id="user-accounts-btn">
                 <span><i class="fa-solid fa-users-gear"></i></span>
                 <h3>User Accounts</h3>
             </a>
@@ -68,34 +68,34 @@
         <div class="sub-menu">
             <div class="items">
 
-                    <span><i class="fa-solid fa-user-graduate"></i></span>
-                    <span class="num" data-val="2240">0000</span>
-                    <h3>Undergraduates</h3>
+                <span><i class="fa-solid fa-user-graduate"></i></span>
+                <span class="num" data-val="2240">0000</span>
+                <h3>Undergraduates</h3>
 
             </div>
-            
+
             <div class="items">
 
-                    <span><i class="fa-solid fa-users-gear"></i></span>
-                    <span class="num" data-val="340">000</span>
-                    <h3>Uni Representors</h3>
+                <span><i class="fa-solid fa-users-gear"></i></span>
+                <span class="num" data-val="340">000</span>
+                <h3>Uni Representors</h3>
 
             </div>
-            
+
             <div class="items">
 
-                    <span><i class="fa-solid fa-users"></i></span>
-                    <span class="num" data-val="250">000</span>
-                    <h3>Org Representors</h3>
+                <span><i class="fa-solid fa-users"></i></span>
+                <span class="num" data-val="250">000</span>
+                <h3>Org Representors</h3>
 
             </div>
-            
+
             <div class="items">
-                    <span><i class="fa-solid fa-user-gear"></i></span>
-                    <span class="num" data-val="12">00</span>
-                    <h3>Administrators</h3>
+                <span><i class="fa-solid fa-user-gear"></i></span>
+                <span class="num" data-val="12">00</span>
+                <h3>Administrators</h3>
             </div>
-            
+
         </div>
 
         <div class="user-info">
@@ -115,7 +115,7 @@
                         <td>viruliweerasinghe@gmail.com</td>
                         <td>Active</td>
                         <td>
-                        <a href="#" class="view">View</a>
+                            <a href="#" class="view">View</a>
                             <a href="#" class="update">Update</a>
                             <a href="#" class="delete">Delete</a>
                         </td>
@@ -125,7 +125,7 @@
                         <td>viruliweerasinghe@gmail.com</td>
                         <td>Active</td>
                         <td>
-                        <a href="#" class="view">View</a>
+                            <a href="#" class="view">View</a>
                             <a href="#" class="update">Update</a>
                             <a href="#" class="delete">Delete</a>
                         </td>
@@ -140,7 +140,41 @@
 
 
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="<?php echo URLROOT ?>/js/users/admin/adminprofile.js"></script>
 
-<script src="<?php echo URLROOT?>/js/users/admin/adminprofile.js"></script>
+<script>
+    $(document).ready(function () {
+
+        // Add click event to the button
+        $("#dashboard-btn").on("click", function (e) {
+            console.log("Click");
+            e.preventDefault(); // Prevent the default link behavior
+
+            // // Your AJAX function here
+            $.ajax({
+                url: 'http://localhost/unihub/users/dashboard',
+                type: 'POST', // or 'GET' depending on your needs
+                data: {
+                    
+                },
+                success: function (response) { //echo 1
+                   
+                    console.log("AJAX request successful:", response);
+                    $("#main-id").html(response);
+
+                },
+                error: function (error) {
+                    
+                    // console.error("AJAX request failed:", error);
+                }
+            });
+        });
+
+        // checkEventParticipation();
+    });
+
+
+
+</script>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
-
