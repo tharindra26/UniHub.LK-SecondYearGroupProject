@@ -13,7 +13,7 @@
                         <h1><?php echo $data['user']->fname , " " , $data['user']->lname ?></h1>
                         <p class="title"><?php echo $data['user']->profile_title ?></p>
                         <p class="uni"><?php echo $data['university']->name ?></p>
-                        <a href="#" class="follow-btn">Update Profile</a>
+                        <a href="<?php echo URLROOT ?>/users/updatemyprofile/<?php echo $data['user']->id ?>" class="follow-btn">Update Profile</a>
                         <a href="#" class="msg-btn">Delete Account</a> 
                     </div>
                     <div class="current-work">
