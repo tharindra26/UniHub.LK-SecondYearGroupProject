@@ -584,6 +584,14 @@ class Users extends Controller{
       }
     }
 
+    public function updatemyprofile($id){
+      $data=[
+        'id' => $id,
+      ];
+      $this->view('users/undergraduate/updatemyprofile', $data);
+  
+    }
+
       
   
 

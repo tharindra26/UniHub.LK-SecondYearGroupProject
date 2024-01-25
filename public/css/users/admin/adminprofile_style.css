@@ -1,0 +1,176 @@
+.admin-section{
+    display: flex;
+    gap: 30px;
+    justify-content: space-between;
+}
+
+menu{
+    height: 90vh;
+    border: 1px solid black;
+    width: 20%;
+}
+
+menu .top{
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+menu .top .admin-logo{
+    display: flex;
+    font-size: 20px;
+}
+
+menu .top .profile-heading{
+    font-size: 20px;
+}
+
+menu .top .close{
+    font-size: 20px;
+    display: none;
+}
+
+/* option-menu starts */
+menu .option-menu{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    height: 89%;
+    position: relative;
+    top: 10px;
+}
+
+menu .option-menu h3{
+    font-weight: 500;
+    font-size: 17px;
+}
+
+menu .option-menu a{
+    display: flex;
+    color: #95A5A6;
+    margin-left: 30px;
+    gap: 15px;
+    height: 55px;
+    align-items: center;
+    transition: all 0.1s ease-in;
+    text-decoration: none;
+}
+
+menu .option-menu a i{
+    font-size: 20px;
+    transition: all 0.1s ease-in;
+}
+
+
+menu .option-menu .rq_count{
+    background-color: rgb(223, 63, 63);
+    color: white;
+    padding: 2px 5px;
+    font-size: 11px;
+    border-radius: 4px;
+    justify-content: center;
+    align-items: center;
+}
+menu .option-menu a.active{
+    background-color: #ededed;
+    color: #3498DB;
+    margin-left: 0;
+    /* border-left: 5px solid #3498DB; */
+}
+
+menu .option-menu a.active::before{
+    content: '';
+    width: 6px;
+    height: 100%;
+    background-color: #3498DB;
+}
+
+menu .option-menu a:hover{
+    color: #3498DB;
+}
+
+menu .option-menu a:hover span{
+    margin-left: 15px;
+    transition: 0.4s ease;
+}
+/* option-menu ends */
+
+/* main section starts */
+main{
+    border: 1px solid black;
+    width: 80%;
+}
+
+main .sub-menu{
+    display: flex;
+    justify-content: space-between;
+}
+
+main .sub-menu .items{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    border-radius: 10px;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+    border-bottom: 10px solid #3498DB;
+}
+
+
+main .sub-menu .items i{
+    font-size: 30px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    padding: 20px;
+    border-radius: 50%;
+    background-color: #3498DB;
+    color: white;
+}
+
+.num{
+    padding: 5px;
+    font-weight: 600;
+    font-size: 25px;
+}
+
+main .sub-menu .items h3{
+    font-weight: 500;
+    font-size: 15px;
+    color: #95A5A6;
+    padding: 4px;
+}
+
+main .user-info{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    border: 1px solid red;
+}
+
+main .user-info h2{
+    padding: 10px;
+}
+
+main .user-info .user-table{
+    background-color: white;
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    transition: al 0.3s ease;
+
+}
+
+main .user-info .user-table tbody tr td{
+    font-size: 15px;
+    padding: 10px 10px 0 10px ;
+}
+
+
+
