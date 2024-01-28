@@ -1,6 +1,6 @@
 // Counter starts
     let value = document.querySelectorAll(".num");
-    let timeinterval = 5000;
+    let timeinterval = 1000;
     
     value.forEach((valueDisplay) => {
         let startValue = 0;
