@@ -589,7 +589,6 @@ class Users extends Controller{
         'id' => $id,
       ];
       $this->view('users/undergraduate/updatemyprofile', $data);
-  
     }
 
     public function dashboard(){
@@ -597,9 +596,91 @@ class Users extends Controller{
        
       ];
 
-      
       if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $this->view('users/admin/dashboard', $data);
+      }
+    }
+
+    public function useraccounts(){
+      $user = $this->userModel->getUsers();
+      $data=[
+        'user' =>$user
+      ];
+
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $this->view('users/admin/useraccounts', $data);
+      }
+
+    }
+
+    public function events(){
+      $event = $this->eventModel->getAllEvents();
+      $data=[
+        'events'=> $event
+      ];
+
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $this->view('users/admin/events', $data);
+      }
+    }
+
+    public function organizations(){
+      $data=[
+       
+      ];
+
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $this->view('users/admin/organizations', $data);
+      }
+    }
+
+    public function knowledgehub(){
+      $data=[
+       
+      ];
+
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $this->view('users/admin/knowledgehub', $data);
+      }
+    }
+
+    public function opportunities(){
+      $data=[
+       
+      ];
+
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $this->view('users/admin/opportunities', $data);
+      }
+    }
+
+    public function requests(){
+      $data=[
+       
+      ];
+
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $this->view('users/admin/requests', $data);
+      }
+    }
+
+    public function reports(){
+      $data=[
+       
+      ];
+
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $this->view('users/admin/reports', $data);
+      }
+    }
+
+    public function settings(){
+      $data=[
+       
+      ];
+
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $this->view('users/admin/settings', $data);
       }
     }
 

@@ -1,19 +1,18 @@
-//counter starts
-let valueDisplays = document.querySelectorAll(".num");
-let interval = 5000;
+// Option menu active class
+const optionMenuItems = document.querySelectorAll('.option-menu a');
 
-valueDisplays.forEach((valueDisplay) => {
-    let startValue = 0;
-    let endValue = parseInt(valueDisplay.getAttribute("data-val"));
-    let duration = Math.floor(interval / endValue);
-    let counter = setInterval( function() {
-        startValue += 1;
-        valueDisplay.textContent = startValue;
-        if (startValue == endValue) {
-            clearInterval(counter);
-        }
-    }, duration );
+optionMenuItems.forEach(item => {
+    item.addEventListener("click", function(event) {
+        console.log("Click");
+        // Prevent the default behavior of the link (e.g., preventing page reload)
+        event.preventDefault();
+
+        // Remove "active" class from all items
+        optionMenuItems.forEach(menuItem => {
+            menuItem.classList.remove('active');
+        });
+
+        // Add "active" class to the clicked item
+        this.classList.add('active');
+    });
 });
-
-//counter ends
-

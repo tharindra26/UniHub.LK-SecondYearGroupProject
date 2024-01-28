@@ -19,41 +19,41 @@
         <!--end top -->
 
         <div class="option-menu">
-            <a href="#" id="dashboard-btn">
+            <a href="#" id="dashboard-btn" class="active">
                 <span><i class="fa-solid fa-grip"></i></span>
                 <h3>Dashboard</h3>
             </a>
-            <a href="#" class="active" id="user-accounts-btn">
+            <a href="#" id="user-accounts-btn">
                 <span><i class="fa-solid fa-users-gear"></i></span>
                 <h3>User Accounts</h3>
             </a>
-            <a href="#">
+            <a href="#" id="events-btn" >
                 <span><i class="fa-solid fa-grip"></i></span>
                 <h3>Events</h3>
             </a>
-            <a href="#">
+            <a href="#" id="organizations-btn" >
                 <span><i class="fa-solid fa-grip"></i></span>
                 <h3>Organizations</h3>
             </a>
-            <a href="#">
+            <a href="#" id="knowledge-hub-btn" >
                 <span><i class="fa-solid fa-grip"></i></span>
                 <h3>Knowledge Hub</h3>
             </a>
-            <a href="#">
+            <a href="#" id="opportunities-btn" >
                 <span><i class="fa-solid fa-grip"></i></span>
-                <h3>Oppurtunities</h3>
+                <h3>Opportunities</h3>
             </a>
-            <a href="#">
+            <a href="#" id="rquests-btn" >
                 <span><i class="fa-solid fa-grip"></i></span>
                 <h3>Requests</h3>
                 <span class="rq_count">14</span>
             </a>
-            <a href="#">
+            <a href="#" id="reports-btn" >
                 <span><i class="fa-solid fa-circle-exclamation"></i></span>
                 <h3>Reports</h3>
                 <span class="rq_count">20</span>
             </a>
-            <a href="#">
+            <a href="#" id="settings-btn" >
                 <span><i class="fa-solid fa-gear"></i></span>
                 <h3>Settings</h3>
             </a>
@@ -63,76 +63,7 @@
 
     <!--main section start-->
     <main id="main-id">
-        <h1>User Accounts</h1>
-
-        <div class="sub-menu">
-            <div class="items">
-
-                <span><i class="fa-solid fa-user-graduate"></i></span>
-                <span class="num" data-val="2240">0000</span>
-                <h3>Undergraduates</h3>
-
-            </div>
-
-            <div class="items">
-
-                <span><i class="fa-solid fa-users-gear"></i></span>
-                <span class="num" data-val="340">000</span>
-                <h3>Uni Representors</h3>
-
-            </div>
-
-            <div class="items">
-
-                <span><i class="fa-solid fa-users"></i></span>
-                <span class="num" data-val="250">000</span>
-                <h3>Org Representors</h3>
-
-            </div>
-
-            <div class="items">
-                <span><i class="fa-solid fa-user-gear"></i></span>
-                <span class="num" data-val="12">00</span>
-                <h3>Administrators</h3>
-            </div>
-
-        </div>
-
-        <div class="user-info">
-            <h2>All Users</h2>
-            <table class="user-table">
-                <thead>
-                    <tr>
-                        <th>User Name</th>
-                        <th>User Email</th>
-                        <th>Account Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Viruli Weerasinghe</td>
-                        <td>viruliweerasinghe@gmail.com</td>
-                        <td>Active</td>
-                        <td>
-                            <a href="#" class="view">View</a>
-                            <a href="#" class="update">Update</a>
-                            <a href="#" class="delete">Delete</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Viruli Weerasinghe</td>
-                        <td>viruliweerasinghe@gmail.com</td>
-                        <td>Active</td>
-                        <td>
-                            <a href="#" class="view">View</a>
-                            <a href="#" class="update">Update</a>
-                            <a href="#" class="delete">Delete</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <?php require APPROOT . '/views/users/admin/dashboard.php'; ?> 
     </main>
     <!--main section start-->
 
@@ -141,16 +72,15 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="<?php echo URLROOT ?>/js/users/admin/adminprofile.js"></script>
 
 <script>
     $(document).ready(function () {
-
         // Add click event to the button
         $("#dashboard-btn").on("click", function (e) {
             console.log("Click");
             e.preventDefault(); // Prevent the default link behavior
-
             // // Your AJAX function here
             $.ajax({
                 url: 'http://localhost/unihub/users/dashboard',
@@ -158,23 +88,215 @@
                 data: {
                     
                 },
-                success: function (response) { //echo 1
-                   
+                success: function (response) { //echo 1   
                     console.log("AJAX request successful:", response);
                     $("#main-id").html(response);
-
                 },
-                error: function (error) {
-                    
+                error: function (error) {    
                     // console.error("AJAX request failed:", error);
                 }
             });
         });
+        // checkEventParticipation();
+    });
 
+    $(document).ready(function () {
+        // Add click event to the button
+        $("#user-accounts-btn").on("click", function (e) {
+            console.log("Click");
+            e.preventDefault(); // Prevent the default link behavior
+            // // Your AJAX function here
+            $.ajax({
+                url: 'http://localhost/unihub/users/useraccounts',
+                type: 'POST', // or 'GET' depending on your needs
+                data: {
+            
+                },
+                success: function (response) { //echo 1
+                    console.log("AJAX request successful:", response);
+                    $("#main-id").html(response);
+                },
+                error: function (error) {
+                    // console.error("AJAX request failed:", error);
+                }
+            });
+        });
         // checkEventParticipation();
     });
 
 
+    $(document).ready(function () {
+        // Add click event to the button
+        $("#events-btn").on("click", function (e) {
+            console.log("Click");
+            e.preventDefault(); // Prevent the default link behavior
+            // // Your AJAX function here
+            $.ajax({
+                url: 'http://localhost/unihub/users/events',
+                type: 'POST', // or 'GET' depending on your needs
+                data: {
+            
+                },
+                success: function (response) { //echo 1
+                    console.log("AJAX request successful:", response);
+                    $("#main-id").html(response);
+                },
+                error: function (error) {
+                    // console.error("AJAX request failed:", error);
+                }
+            });
+        });
+        // checkEventParticipation();
+    });
 
+
+    $(document).ready(function () {
+        // Add click event to the button
+        $("#organizations-btn").on("click", function (e) {
+            console.log("Click");
+            e.preventDefault(); // Prevent the default link behavior
+            // // Your AJAX function here
+            $.ajax({
+                url: 'http://localhost/unihub/users/organizations',
+                type: 'POST', // or 'GET' depending on your needs
+                data: {
+            
+                },
+                success: function (response) { //echo 1
+                    console.log("AJAX request successful:", response);
+                    $("#main-id").html(response);
+                },
+                error: function (error) {
+                    // console.error("AJAX request failed:", error);
+                }
+            });
+        });
+        // checkEventParticipation();
+    });
+
+
+    $(document).ready(function () {
+        // Add click event to the button
+        $("#knowledge-hub-btn").on("click", function (e) {
+            console.log("Click");
+            e.preventDefault(); // Prevent the default link behavior
+            // // Your AJAX function here
+            $.ajax({
+                url: 'http://localhost/unihub/users/knowledgehub',
+                type: 'POST', // or 'GET' depending on your needs
+                data: {
+            
+                },
+                success: function (response) { //echo 1
+                    console.log("AJAX request successful:", response);
+                    $("#main-id").html(response);
+                },
+                error: function (error) {
+                    // console.error("AJAX request failed:", error);
+                }
+            });
+        });
+        // checkEventParticipation();
+    });
+
+
+    $(document).ready(function () {
+        // Add click event to the button
+        $("#opportunities-btn").on("click", function (e) {
+            console.log("Click");
+            e.preventDefault(); // Prevent the default link behavior
+            // // Your AJAX function here
+            $.ajax({
+                url: 'http://localhost/unihub/users/opportunities',
+                type: 'POST', // or 'GET' depending on your needs
+                data: {
+            
+                },
+                success: function (response) { //echo 1
+                    console.log("AJAX request successful:", response);
+                    $("#main-id").html(response);
+                },
+                error: function (error) {
+                    // console.error("AJAX request failed:", error);
+                }
+            });
+        });
+        // checkEventParticipation();
+    });
+
+
+    $(document).ready(function () {
+        // Add click event to the button
+        $("#rquests-btn").on("click", function (e) {
+            console.log("Click");
+            e.preventDefault(); // Prevent the default link behavior
+            // // Your AJAX function here
+            $.ajax({
+                url: 'http://localhost/unihub/users/requests',
+                type: 'POST', // or 'GET' depending on your needs
+                data: {
+            
+                },
+                success: function (response) { //echo 1
+                    console.log("AJAX request successful:", response);
+                    $("#main-id").html(response);
+                },
+                error: function (error) {
+                    // console.error("AJAX request failed:", error);
+                }
+            });
+        });
+        // checkEventParticipation();
+    });
+
+
+    $(document).ready(function () {
+        // Add click event to the button
+        $("#reports-btn").on("click", function (e) {
+            console.log("Click");
+            e.preventDefault(); // Prevent the default link behavior
+            // // Your AJAX function here
+            $.ajax({
+                url: 'http://localhost/unihub/users/reports',
+                type: 'POST', // or 'GET' depending on your needs
+                data: {
+            
+                },
+                success: function (response) { //echo 1
+                    console.log("AJAX request successful:", response);
+                    $("#main-id").html(response);
+                },
+                error: function (error) {
+                    // console.error("AJAX request failed:", error);
+                }
+            });
+        });
+        // checkEventParticipation();
+    });
+
+
+    $(document).ready(function () {
+        // Add click event to the button
+        $("#settings-btn").on("click", function (e) {
+            console.log("Click");
+            e.preventDefault(); // Prevent the default link behavior
+            // // Your AJAX function here
+            $.ajax({
+                url: 'http://localhost/unihub/users/settings',
+                type: 'POST', // or 'GET' depending on your needs
+                data: {
+            
+                },
+                success: function (response) { //echo 1
+                    console.log("AJAX request successful:", response);
+                    $("#main-id").html(response);
+                },
+                error: function (error) {
+                    // console.error("AJAX request failed:", error);
+                }
+            });
+        });
+        // checkEventParticipation();
+    });
 </script>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
