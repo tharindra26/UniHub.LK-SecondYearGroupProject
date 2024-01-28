@@ -43,10 +43,9 @@
     height: 150px;
     display: flex;
     flex-direction: column;
-    /* border:1px solid red; */
+    border:1px solid red;
     margin: 20px;
     border-radius: 10px;
-    background-color: rgba(230, 126, 34,1.0);
 }
 
 .option-icon{
@@ -54,11 +53,10 @@
     justify-content: center;
     align-items: center;
     height: 60%;
-    /* border: 1px solid red; */
+    border: 1px solid red;
     margin: 10px;
     border-radius: 8px;
     font-size: 25px;
-    background-color: white;
 }
 .option-text{
     display: flex;
@@ -68,7 +66,6 @@
     /* border: 1px solid red; */
     line-height: 18px;
     text-align: center;
-    color: white;
 }
 .option-1{
     background-color: #2ecc71;

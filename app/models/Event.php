@@ -8,6 +8,18 @@ class Event
         $this->db = new Database;
     }
 
+    public function getAllEvents(){
+        $this->db->query('SELECT * FROM events
+                        INNER JOIN events_categories
+                        ON events_categories.event_id = events.id
+                        INNER JOIN categories 
+                        ON categories.id = events_categories.category_id
+                        ORDER BY events.created_at DESC
+                        ');
+        $results = $this->db->resultSet();
+        return $results;
+    }
+
     public function getEvents()
     {
         $this->db->query('SELECT *,

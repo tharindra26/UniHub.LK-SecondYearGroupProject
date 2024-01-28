@@ -55,4 +55,4 @@ carousel.addEventListener("mousedown", dragStart);
 carousel.addEventListener("mousemove", dragging);
 document.addEventListener("mouseup", dragStop);
 
-//Added event slider js starts
+//Added event slider js ends

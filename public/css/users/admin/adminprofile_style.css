@@ -1,0 +1,371 @@
+.admin-section{
+    display: flex;
+    gap: 30px;
+    justify-content: space-between;
+}
+
+menu{
+    height: 90vh;
+    width: 22%;
+}
+
+menu .top{
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+menu .top .admin-logo{
+    display: flex;
+    font-size: 20px;
+}
+
+menu .top .profile-head .heading{
+    font-size: 20px;
+    font-weight: 700;
+    font-family: Overpass;
+}
+
+menu .top .close{
+    font-size: 20px;
+    /* display: none; */
+}
+
+/* option-menu starts */
+menu .option-menu{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    height: 89%;
+    position: relative;
+    top: 10px;
+}
+
+menu .option-menu h3{
+    font-weight: 500;
+    font-size: 17px;
+}
+
+menu .option-menu a{
+    display: flex;
+    color: #95A5A6;
+    margin-left: 30px;
+    gap: 15px;
+    height: 55px;
+    align-items: center;
+    transition: all 0.1s ease-in;
+    text-decoration: none;
+}
+
+menu .option-menu a i{
+    font-size: 20px;
+    transition: all 0.1s ease-in;
+}
+
+
+menu .option-menu .rq_count{
+    background-color: rgb(223, 63, 63);
+    color: white;
+    padding: 2px 5px;
+    font-size: 11px;
+    border-radius: 4px;
+    justify-content: center;
+    align-items: center;
+}
+.option-menu a.active{
+    background-color: #ededed;
+    color: #3498DB;
+    margin-left: 0;
+    /* border-left: 5px solid #3498DB; */
+}
+
+.option-menu a.active::before{
+    content: '';
+    width: 6px;
+    height: 100%;
+    background-color: #3498DB;
+}
+
+menu .option-menu a:hover{
+    color: #3498DB;
+}
+
+menu .option-menu a:hover span{
+    margin-left: 15px;
+    transition: 0.4s ease;
+}
+/* option-menu ends */
+
+/* main section starts */
+main{
+    width: 78%;
+}
+
+main .section-title{
+    margin:  20px 20px  20px  0 ;
+    font-weight: 700;
+    font-family: Overpass;
+}
+
+/* main section ends */
+
+/* dashboard css starts */
+.dashbord-area{
+    border: 1px solid red;
+}
+.dashbord-area .chart-row{
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+}
+.dashbord-area .chart-row .chart-section{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 50%;
+    margin: 10px;
+    border: 1px solid red;
+    padding: 10px;
+    height: 80vh/2;
+    background-color: white;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+}
+/* dashboard css ends */
+
+/* user accounts css starts */
+main .sub-menu{
+    display: flex;
+    justify-content: space-between;
+}
+
+main .sub-menu .items{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    border-radius: 10px;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+main .sub-menu .items .icons{
+    display: flex;
+    border-radius: 50%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    height: 80px;
+    width: 80px;
+    align-items: center;
+    justify-content: center;
+}
+
+#und{
+    border-bottom: 10px solid #ff6b81;
+}
+
+#und .icons{
+    background-color: #ff6b81;
+}
+
+#uni-rep{
+    border-bottom: 10px solid #1B1464;
+}
+
+#uni-rep .icons{
+    background-color: #1B1464;
+}
+
+#org-rep{
+    border-bottom: 10px solid #FFC312;
+}
+
+#org-rep .icons{
+    background-color: #FFC312;
+}
+
+#admin{
+    border-bottom: 10px solid #3498DB;
+}
+
+#admin .icons{
+    background-color: #3498DB;
+}
+
+main .sub-menu .items i{
+    font-size: 40px;
+    color: white;
+}
+
+.num{
+    padding: 5px;
+    font-weight: 600;
+    font-size: 25px;
+}
+
+main .sub-menu .items h3{
+    font-weight: 500;
+    font-size: 15px;
+    color: #95A5A6;
+    padding: 4px;
+}
+
+main .user-info{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+main .user-info .user-head{
+    display: flex;
+    justify-content: space-between;
+}
+
+main .user-info .user-head h2{
+    padding: 10px;
+    margin:  20px 20px  0  0 ;
+    font-weight: 700;
+    font-family: Overpass;
+}
+
+/* Search bar */
+.search-bar-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    /* border: 1px solid red; */
+}
+
+.search-bar {
+    width: 100%;
+    max-width: 100%;
+    /* background: rgba(127, 140, 141, 0.3); */
+    background: rgba(255, 255, 255, 1);
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: 3px 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #2980b9;
+}
+
+.search-bar input {
+    background: transparent;
+    flex: 1;
+    /* flex:1 get the full width */
+    border: 0;
+    outline: none;
+    font-size: 15px;
+    color: rgb(130, 130, 130);
+    text-align: center;
+
+}
+
+.search-bar input::placeholder {
+    color: rgb(130, 130, 130);
+}
+
+.search-bar button {
+    border: 0;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    background: #2980b9;
+    cursor: pointer;
+}
+
+.fa-magnifying-glass {
+    color: white;
+}
+
+/* Search bar */
+
+main .user-info .user-head .view-all-button{
+    text-align: center;
+    margin:  20px 0;
+    padding: 10px 30px ;
+    background: linear-gradient(90deg, rgba(44, 62, 80, 1) 0%, rgba(52, 152, 219, 1) 50%, rgba(44, 62, 80, 1) 100%);
+    color: white;
+    border-radius: 5px;
+    font-family: poppins;
+    font-size: 15px;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+main a{
+    text-decoration: none;
+}
+
+main .user-info .user-table{
+    background-color: white;
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    transition: al 0.3s ease;
+}
+
+main .user-info .user-table thead tr{
+    height: 40px;
+}
+
+main .user-info .user-table tbody tr {
+    height: 40px;
+}
+
+main .user-info .user-table tbody tr td{
+    font-size: 15px;
+    padding: 10px 10px 0 10px ;
+}
+
+main .user-info .user-table tbody tr td i{
+    font-size: 17px;
+    padding: 10px;
+    color: black;
+}
+
+/* user accounts css ends */
+
+/* Events css starts */
+.summary{
+    display: flex;
+    width: 100%;
+}
+
+.summary .total{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    background-color: #1B1464;
+    height: 200px;
+    margin: 20px;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-left: 5px solid white;
+}
+
+.summary .total h1{
+    color: white;
+    margin: 20px;
+    font-family: Overpass;
+}
+
+.summary .total .tot{
+    color: white;
+    font-size: 30px;
+    font-weight: 500;
+}
+/* Events css ends */
