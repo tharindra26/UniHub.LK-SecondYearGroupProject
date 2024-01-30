@@ -209,7 +209,7 @@ body{
             }
     
             .add_item_button:hover {
-                background: #27ae60;
+                background: rgb(0, 0, 255);
                 color: white;
                 transition: .5s;
                 -webkit-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
@@ -508,8 +508,8 @@ body{
                 /* width: 90%; */
                 height: 300px;
                 border: 3px solid rgb(53, 51, 51);
-                margin-top: 10px;
-                margin-left: 20px;
+                /* margin-top: 10px; */
+                margin-left: 50px;
                 margin-bottom: 30px;
                 cursor: pointer;
                 border-radius: 10px;

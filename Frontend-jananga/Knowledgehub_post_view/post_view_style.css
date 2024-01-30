@@ -78,7 +78,7 @@ body{
 .shortcut-bar{
     width: 100%;
     /* border: 1px solid red; */
-    height:50px;
+    height:70px;
     display: flex;
     flex-direction: row;
 }

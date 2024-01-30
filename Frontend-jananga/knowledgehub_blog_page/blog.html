@@ -65,101 +65,171 @@
         </div>
 
         
+        <div class="container">
             <div class="search-bar-container">
                 <form action="" class="search-bar">
                     <input type="text" name="" id="" placeholder="Search anything">
                     <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
             </div>
+        </div>
 
-        <div class="details_section">
 
-            <div class="left_section">
+<!-- Quick-shortcut-bar -->
+        <div class="container">
+            <div class="shortcut-bar">
+                <div class="section-name">KnowledgeHub</div>
+                <div class="shortcut-options">
+                    <div class="option">Blogs</div>
+                    <div class="option">Kuppi</div>
+                    <div class="option">Posts</div>
+                </div>
+            </div>
+        </div>
+<!-- Quick-shortcut-bar -->
+            
 
-                <div class="filter_section">
+        <div class="container">
+            <div class="details_section">
+
+                <div class="left_section">
+    
                     <a href="#">
                         <div class="add_blog_button">
                             <i class="fa-solid fa-plus"></i>
-                            <span>Add Blog</span>
+                          <span>Add Here</span>
                         </div>
                     </a>
+
+                    <!-- university-filter -->
+                    <div class="uni-filter ">
+                        <div class="select-btn">
+                            <span>Select University</span>
+                            <i class="fa-solid fa-angle-down"></i>
+                        </div>
+                        <div class="uni-filter-content">
+                            <div class="uni-reset-btn">Reset</div>
+                            <div class="uni-filter-search">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="text" placeholder="Search" id="">
+                            </div>
+                            <ul class="uni-filter-options">
+                            </ul>
+                        </div>     
+                    </div>
+                    <!-- university-filter -->
+
+                    <!-- date filter -->
+                    <div class="date-filter">
+                        <input type="date" name="" id="date-input">
+                        <span class="date-reset-btn"  onclick="resetDate()">Reset Date</span>
+                    </div>
+                    <!-- date filter -->
+
+                    <!-- category filter -->
+                    <div class="category-filter">
+                        <div class="category-select-btn">
+                            <span class="category-btn-txt">Select Category</span>
+                            <span class="arrow-dwn">
+                                <i class="fa-solid fa-angle-down"></i>
+                            </span> 
+                        </div>
+
+                        <ul class="list-items">
+                            <div class="category-reset-btn">Reset</div>
+                            <li class="item">
+                                <span class="checkbox">
+                                    <i class="fa-solid fa-check check-icon"></i>
+                                </span>
+                                <span class="item-text">category-1</span>
+                            </li>
+
+                            <li class="item">
+                                <span class="checkbox">
+                                    <i class="fa-solid fa-check check-icon"></i>
+                                </span>
+                                <span class="item-text">category-2</span>
+                            </li>
+                        </ul>
+                    </div>
+                <!-- category filter -->
+    
                 </div>
-
-            </div>
-
-            <div class="right_section">
-                <section class="container1">
-                    <div class="card">
-                        <img class="card-image" src="image/image1.jpg" alt="">
-                        <div class="date_and_time">
-                            <i class="fa-regular fa-calendar-days"></i> &nbsp MON SEP 21 &nbsp &nbsp
-                            <i class="fa-solid fa-clock"></i> &nbsp 11:20 PM
+    
+                <div class="right_section">
+                    <section class="container1">
+                        <div class="card">
+                            <img class="card-image" src="image/image1.jpg" alt="">
+                            <div class="date_and_time">
+                                <i class="fa-regular fa-calendar-days"></i> &nbsp MON SEP 21 &nbsp &nbsp
+                                <i class="fa-solid fa-clock"></i> &nbsp 11:20 PM
+                            </div>
+                            <div class="title">Title</div>
+                            <div class="uni_name">UCSC</div>
+    
+                            <a href="#" class="view_blog_button">
+                                <div class="">View Blog</div>
+                            </a>
                         </div>
-                        <div class="title">Title</div>
-                        <div class="uni_name">UCSC</div>
-
-                        <a href="#" class="view_blog_button">
-                            <div class="">View Blog</div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <img class="card-image" src="image/image2.jpg" alt="">
-                        <div class="date_and_time">
-                            <i class="fa-regular fa-calendar-days"></i> &nbsp MON SEP 21 &nbsp &nbsp
-                            <i class="fa-solid fa-clock"></i> &nbsp 11:20 PM
+                        <div class="card">
+                            <img class="card-image" src="image/image2.jpg" alt="">
+                            <div class="date_and_time">
+                                <i class="fa-regular fa-calendar-days"></i> &nbsp MON SEP 21 &nbsp &nbsp
+                                <i class="fa-solid fa-clock"></i> &nbsp 11:20 PM
+                            </div>
+                            <div class="title">Title</div>
+                            <div class="uni_name">UCSC</div>
+    
+                            <a href="#" class="view_blog_button">
+                                <div class="">View Blog</div>
+                            </a>
                         </div>
-                        <div class="title">Title</div>
-                        <div class="uni_name">UCSC</div>
-
-                        <a href="#" class="view_blog_button">
-                            <div class="">View Blog</div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <img class="card-image" src="image/image3.jpg" alt="">
-                        <div class="date_and_time">
-                            <i class="fa-regular fa-calendar-days"></i> &nbsp MON SEP 21 &nbsp &nbsp
-                            <i class="fa-solid fa-clock"></i> &nbsp 11:20 PM
+                        <div class="card">
+                            <img class="card-image" src="image/image3.jpg" alt="">
+                            <div class="date_and_time">
+                                <i class="fa-regular fa-calendar-days"></i> &nbsp MON SEP 21 &nbsp &nbsp
+                                <i class="fa-solid fa-clock"></i> &nbsp 11:20 PM
+                            </div>
+                            <div class="title">Title</div>
+                            <div class="uni_name">UCSC</div>
+    
+                            <a href="#" class="view_blog_button">
+                                <div class="">View Blog</div>
+                            </a>
                         </div>
-                        <div class="title">Title</div>
-                        <div class="uni_name">UCSC</div>
-
-                        <a href="#" class="view_blog_button">
-                            <div class="">View Blog</div>
-                        </a>
-                    </div>
-
-                    <div class="card">
-                        <img class="card-image" src="image/image4.jpg" alt="">
-                        <div class="date_and_time">
-                            <i class="fa-regular fa-calendar-days"></i> &nbsp MON SEP 21 &nbsp &nbsp
-                            <i class="fa-solid fa-clock"></i> &nbsp 11:20 PM
+    
+                        <div class="card">
+                            <img class="card-image" src="image/image4.jpg" alt="">
+                            <div class="date_and_time">
+                                <i class="fa-regular fa-calendar-days"></i> &nbsp MON SEP 21 &nbsp &nbsp
+                                <i class="fa-solid fa-clock"></i> &nbsp 11:20 PM
+                            </div>
+                            <div class="title">Title</div>
+                            <div class="uni_name">UCSC</div>
+    
+                            <a href="#" class="view_blog_button">
+                                <div class="">View Blog</div>
+                            </a>
                         </div>
-                        <div class="title">Title</div>
-                        <div class="uni_name">UCSC</div>
-
-                        <a href="#" class="view_blog_button">
-                            <div class="">View Blog</div>
-                        </a>
-                    </div>
-
-                    <div class="card">
-                        <img class="card-image" src="image/image2.jpg" alt="">
-                        <div class="date_and_time">
-                            <i class="fa-regular fa-calendar-days"></i> &nbsp MON SEP 21 &nbsp &nbsp
-                            <i class="fa-solid fa-clock"></i> &nbsp 11:20 PM
+    
+                        <div class="card">
+                            <img class="card-image" src="image/image2.jpg" alt="">
+                            <div class="date_and_time">
+                                <i class="fa-regular fa-calendar-days"></i> &nbsp MON SEP 21 &nbsp &nbsp
+                                <i class="fa-solid fa-clock"></i> &nbsp 11:20 PM
+                            </div>
+                            <div class="title">Title</div>
+                            <div class="uni_name">UCSC</div>
+    
+                            <a href="#" class="view_blog_button">
+                                <div class="">View Blog</div>
+                            </a>
                         </div>
-                        <div class="title">Title</div>
-                        <div class="uni_name">UCSC</div>
-
-                        <a href="#" class="view_blog_button">
-                            <div class="">View Blog</div>
-                        </a>
-                    </div>
-                    
-                    
-
-                </section>
+                        
+                        
+    
+                    </section>
+                </div>
             </div>
         </div>
         
