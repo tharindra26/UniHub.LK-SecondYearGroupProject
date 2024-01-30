@@ -480,5 +480,35 @@ class Events extends Controller
 
   }
 
+  public function addAnouncement($id){
+    $data=[
+      'id' => $id,
+    ];
+    $this->view('events/add-announcement', $data);
+  }
+
+  public function changeContactDetails($id){
+    $data=[
+      'id' => $id,
+    ];
+    $this->view('events/change-contact-details', $data);
+  }
+
+  public function quickShortcut(){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      // echo $_POST['value'];
+
+      $events = $this->eventModel->getEventsByShortcut($_POST);
+
+      $data = [
+        'events' => $events,
+      ];
+
+      $this->view('events/filter-events', $data);
+
+    }
+  }
+
 
 }

@@ -259,6 +259,7 @@ $(document).ready(function () {
         $("#content-section").html(data);
       },
     });
+    
   }
 
   // Attach keyup event listener to the search bar input
@@ -270,7 +271,7 @@ $(document).ready(function () {
   document
     .getElementById("date-input")
     .addEventListener("change", updateContent);
-  
+
   document
     .getElementById("date-reset-btn")
     .addEventListener("click", updateContent);
@@ -288,3 +289,25 @@ setInterval(function () {
     counter = 1;
   }
 }, 3000);
+
+function quickShortcut(category) {
+  // console.log(category);
+
+  $.ajax({
+    url: "http://localhost/unihub/events/quickShortcut",
+    type: "POST", 
+    data: {
+
+      value: category,
+
+    },
+    success: function (response) {
+     
+      $("#content-section").html(response);
+    },
+    error: function (error) {
+
+      console.error("Error:", error);
+    },
+  });
+}
