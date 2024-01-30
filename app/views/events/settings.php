@@ -11,7 +11,7 @@
             <div class="options-box">
 
 
-                <a href="<?php echo URLROOT ?>/events/contactDetails/<?php echo $data['id'] ?>" class="option-link">
+                <a href="<?php echo URLROOT ?>/events/changeContactDetails/<?php echo $data['id'] ?>" class="option-link">
                     <div class="option">
                         <div class="option-icon">
                             <i class="fa-solid fa-address-card"></i>
@@ -21,7 +21,7 @@
                 </a>
 
 
-                <a href="<?php echo URLROOT ?>/events/placement/<?php echo $data['id'] ?>" class="option-link">
+                <a href="<?php echo URLROOT ?>/events/changePlacement/<?php echo $data['id'] ?>" class="option-link">
                     <div class="option">
                         <div class="option-icon">
                             <i class="fa-solid fa-map-location-dot"></i>
@@ -30,7 +30,7 @@
                     </div>
                 </a>
 
-                <a href="<?php echo URLROOT ?>/events/description/<?php echo $data['id'] ?>" class="option-link">
+                <a href="<?php echo URLROOT ?>/events/changeDescription/<?php echo $data['id'] ?>" class="option-link">
                     <div class="option">
                         <div class="option-icon">
                             <i class="fa-solid fa-align-right"></i>
@@ -40,7 +40,7 @@
                 </a>
 
 
-                <a href="<?php echo URLROOT ?>/events/categories/<?php echo $data['id'] ?>" class="option-link">
+                <a href="<?php echo URLROOT ?>/events/changeCategories/<?php echo $data['id'] ?>" class="option-link">
                     <div class="option">
                         <div class="option-icon">
                             <i class="fa-solid fa-table-list"></i>
@@ -49,7 +49,7 @@
                     </div>
                 </a>
 
-                <a href="<?php echo URLROOT ?>/events/profileImage/<?php echo $data['id'] ?>" class="option-link">
+                <a href="<?php echo URLROOT ?>/events/changeProfileImage/<?php echo $data['id'] ?>" class="option-link">
                     <div class="option">
                         <div class="option-icon">
                             <i class="fa-solid fa-table-list"></i>
@@ -58,7 +58,7 @@
                     </div>
                 </a>
 
-                <a href="<?php echo URLROOT ?>/events/coverImage/<?php echo $data['id'] ?>" class="option-link">
+                <a href="<?php echo URLROOT ?>/events/changeCoverImage/<?php echo $data['id'] ?>" class="option-link">
                     <div class="option">
                         <div class="option-icon">
                             <i class="fa-solid fa-table-list"></i>
@@ -67,7 +67,7 @@
                     </div>
                 </a>
 
-                <a href="<?php echo URLROOT ?>/events/announcements/<?php echo $data['id'] ?>" class="option-link">
+                <a href="<?php echo URLROOT ?>/events/changeAnnouncements/<?php echo $data['id'] ?>" class="option-link">
                     <div class="option">
                         <div class="option-icon">
                             <i class="fa-solid fa-bullhorn"></i>
