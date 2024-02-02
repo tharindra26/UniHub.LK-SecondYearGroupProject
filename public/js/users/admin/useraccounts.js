@@ -14,3 +14,39 @@
             }
         }, duration);
     });
+
+//Type filter
+
+function typefilter(type) {
+    // console.log(type);
+  
+    $.ajax({
+      url: "http://localhost/unihub/users/typefilter",
+      type: "POST", 
+      data: {
+  
+        value: type,
+  
+      },
+      success: function (response) {
+       
+        $("#main-id").html(response);
+      },
+      error: function (error) {
+  
+        console.error("Error:", error);
+      },
+    });
+  }
+
+//popup
+  function openPopup(popupId){
+    let popup = document.getElementById(popupId);
+    if (popup) popup.classList.add("open-popup");
+}
+
+function closePopup(popupId){
+    let popup = document.getElementById(popupId);
+    if (popup) popup.classList.remove("open-popup");
+}
+

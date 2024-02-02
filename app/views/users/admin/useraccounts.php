@@ -3,25 +3,25 @@
 <h1 class="section-title">User Accounts</h1>
 
         <div class="sub-menu">
-            <div class="items" id="und" >
+            <div class="items" id="und" onclick="typefilter('Undergraduate');" >
                 <div class="icons" ><i class="fa-solid fa-user-graduate"></i></div>
                 <span class="num" data-val="2240">0000</span>
                 <h3>Undergraduates</h3>
             </div>
 
-            <div class="items" id="uni-rep">
+            <div class="items" id="uni-rep"  onclick="typefilter('uni-rep');" >
                 <div class="icons" ><i class="fa-solid fa-users-gear"></i></div>
                 <span class="num" data-val="340">000</span>
                 <h3>Uni Representors</h3>
             </div>
 
-            <div class="items" id="org-rep" >
+            <div class="items" id="org-rep" onclick="typefilter('org-rep');" >
                 <div class="icons" ><i class="fa-solid fa-users"></i></div>
                 <span class="num" data-val="250">000</span>
                 <h3>Org Representors</h3>
             </div>
 
-            <div class="items" id="admin" >
+            <div class="items" id="admin" onclick="typefilter('admin');" >
                 <div class="icons" ><i class="fa-solid fa-user-gear"></i></div>
                 <span class="num" data-val="12">00</span>
                 <h3>Administrators</h3>
@@ -31,8 +31,8 @@
         <div class="user-info">
             
             <div class="user-head">
-                <a href="#">
-                    <div class="view-all-button">
+                <a href="#" onclick="typefilter('all');">
+                    <div class="view-all-button" >
                         <i class="fa-solid fa-eye"></i>
                         <span>View All Users</span>
                     </div>
@@ -73,7 +73,8 @@
                             $user = $data['user'][$i]; 
                             if (empty($user)):
                                 break;
-                            endif;?>
+                            endif;
+                            $popupId = "popup" . $user->id; ?>
                             <tr>
                                 <td><?php echo $user->fname , " " , $user->lname ?></td>
                                 <td><?php echo $user->email ?></td>
@@ -88,7 +89,16 @@
                                 <td>
                                     <a href="#" class="view"><i class="fa-solid fa-eye"></i></a>
                                     <a href="#" class="update"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <a href="#" class="delete"><i class="fa-solid fa-trash-can"></i></a>
+                                    <div class="deactivate">
+                                        <a href="#" class="delete" onclick="openPopup('<?php echo $popupId; ?>')" ><i class="fa-solid fa-trash-can"></i></a>
+                                        <div class="del-popup" id="<?php echo $popupId; ?>" >
+                                            <h2>Confirm Deletion</h2>
+                                            <p>Are you sure you want to deactivate the accout. UserId: <?php echo $user->id; ?></p>
+                                            <button onclick="closePopup('<?php echo $popupId; ?>')">Yes</button>
+                                            <button onclick="closePopup('<?php echo $popupId; ?>')">Cancel</button>
+                                        </div>
+                                    
+                                    </div>
                                 </td>
                             </tr>
 

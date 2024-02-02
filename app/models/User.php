@@ -221,5 +221,23 @@ class User{
         return $row;
     }
 
+    public function getUsersByType($data){
+        $type = $data['value'];
+
+        if ($type == 'all') {
+            $this->db->query('SELECT *
+                            FROM users');
+        } else {
+            $this->db->query('SELECT *
+                            FROM users
+                            WHERE type = :type');
+            $this->db->bind(':type', $type);
+        }
+
+        $this->db->execute();
+        $rows = $this->db->resultSet();
+        return $rows;
+    }
+
 
 }
