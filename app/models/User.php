@@ -50,6 +50,26 @@ class User{
         }
     }
 
+    public function addLoginRecord($id) {
+        // Get the user's IP address
+        $userIP = $_SERVER['REMOTE_ADDR'];
+    
+        // Prepare and execute the SQL query
+        $this->db->query("INSERT INTO login_details (user_id, login_ip) VALUES (:user_id, :login_ip)");
+        
+        // Bind values
+        $this->db->bind(':user_id', $id);
+        $this->db->bind(':login_ip', $userIP);
+      
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+
     public function addUser($data){
         $this->db->query("INSERT INTO users (name, user_type, email, password) VALUES(:name, :user_type, :email, :password)");
         //Bind values

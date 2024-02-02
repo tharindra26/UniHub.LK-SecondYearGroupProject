@@ -23,6 +23,7 @@
 
 /* slider */
 .slider {
+    position: relative;
     width: 100%;
     height: 400px;
     overflow: hidden;
@@ -32,7 +33,19 @@
     width: 500%;
     height: 500px;
     display: flex;
+    z-index: 1;
 
+}
+
+.dark-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Adjust the last value for opacity */
+    z-index: 2; /* Place the overlay above the slides */
+    pointer-events: none; /* Allow interaction with the slides beneath the overlay */
 }
 
 .slides input {
@@ -562,6 +575,13 @@ li.selected {
     animation: fadeIn ease-out 0.5s forwards;
 }
 
+/* event ended black and white css */
+.event-card.event-ended {
+    filter: grayscale(100%);
+    /* Other black and white styling */
+}
+
+
 .event-card:hover {
     transform: translateY(-10px);
 }
@@ -676,3 +696,4 @@ li.selected {
     background: rgb(44, 62, 80);
     background: linear-gradient(90deg, rgba(44, 62, 80, 1) 0%, rgba(41, 128, 185, 1) 100%);
 }
+
