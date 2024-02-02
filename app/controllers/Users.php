@@ -614,6 +614,22 @@ class Users extends Controller{
 
     }
 
+    public function typefilter(){
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        // echo $_POST['value'];
+  
+        $users = $this->userModel->getUsersByType($_POST);
+  
+        $data = [
+          'users' => $users,
+        ];
+  
+        $this->view('users/admin/typefilter', $data);
+  
+      }
+    }
+
     public function events(){
       $event = $this->eventModel->getAllEvents();
       $data=[
