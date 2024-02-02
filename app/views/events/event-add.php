@@ -102,8 +102,13 @@
                 
                 <div class="column">
                     <div class="input-box">
-                        <label for="">Start date-time</label>
-                        <input type="datetime-local" name="start_datetime" value="<?php echo $data['start_datetime'] ?>" id="" >
+                    <?php
+                        // Get the current date and time in the format required by datetime-local input
+                        $currentDateTime = date('Y-m-d\TH:i', time());
+                    ?>
+                        <label for="">Start date-time<?php echo $currentDateTime; ?></label>
+
+                        <input type="datetime-local" name="start_datetime" value="<?php echo $data['start_datetime'] ?>" id="start_datetime" min="<?php echo $currentDateTime; ?>">
                         <?php if (!empty($data['start_datetime_err'])): ?>
                             <span class="error-message"><?php echo $data['start_datetime_err']; ?></span>
                         <?php endif; ?>

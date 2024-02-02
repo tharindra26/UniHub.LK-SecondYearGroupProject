@@ -10,7 +10,17 @@
         $extractedTime = $dateTime->format('h:i A');
         ?>
 
-        <div class="event-card">
+        <?php
+        // Check if the event has ended
+        if (strtotime($event->end_datetime) < time()) {
+            // Apply a class for black and white
+            $bwClass = 'event-ended';
+        } else {
+            $bwClass = '';
+        }
+        ?>
+
+        <div class="event-card <?php echo $bwClass; ?>">
             <div class="image-section">
                 <img src="<?php echo URLROOT ?>/img/events/events_profile_images/<?php echo $event->event_profile_image ?>"
                     alt="event-profile-image">

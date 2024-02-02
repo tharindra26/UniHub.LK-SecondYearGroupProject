@@ -212,6 +212,7 @@ class Users extends Controller{
             if($loggedInUser){
               // Create Session
               $this->createUserSession($loggedInUser);
+              $this->userModel->addLoginRecord($_SESSION['user_id']);
             } else {
               $data['password_err'] = 'Password incorrect';
               $this->view('signin', $data);
