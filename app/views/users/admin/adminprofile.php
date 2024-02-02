@@ -2,7 +2,7 @@
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/admin/adminprofile_style.css">
 
-<div class="container admin-section">
+<div class=" admin-section">
     <!--menu section start-->
     <menu>
         <div class="top">
