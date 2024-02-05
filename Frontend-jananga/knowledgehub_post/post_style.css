@@ -535,14 +535,14 @@ body{
 
                         .profile_section{
                             display: flex;
-                            width: 30%;
+                            width: 25%;
                             border: 1px solid red;
                         }
 
                         .profile_details_section{
                             display: flex;
                             flex-direction: column;
-                            width: 60%;
+                            width: 65%;
                             border: 1px solid red;
                         }
 
