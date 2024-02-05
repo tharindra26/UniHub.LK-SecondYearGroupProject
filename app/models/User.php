@@ -50,6 +50,26 @@ class User{
         }
     }
 
+    public function addLoginRecord($id) {
+        // Get the user's IP address
+        $userIP = $_SERVER['REMOTE_ADDR'];
+    
+        // Prepare and execute the SQL query
+        $this->db->query("INSERT INTO login_details (user_id, login_ip) VALUES (:user_id, :login_ip)");
+        
+        // Bind values
+        $this->db->bind(':user_id', $id);
+        $this->db->bind(':login_ip', $userIP);
+      
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+
     public function addUser($data){
         $this->db->query("INSERT INTO users (name, user_type, email, password) VALUES(:name, :user_type, :email, :password)");
         //Bind values
@@ -219,6 +239,24 @@ class User{
         $row = $this->db->resultSet();
 
         return $row;
+    }
+
+    public function getUsersByType($data){
+        $type = $data['value'];
+
+        if ($type == 'all') {
+            $this->db->query('SELECT *
+                            FROM users');
+        } else {
+            $this->db->query('SELECT *
+                            FROM users
+                            WHERE type = :type');
+            $this->db->bind(':type', $type);
+        }
+
+        $this->db->execute();
+        $rows = $this->db->resultSet();
+        return $rows;
     }
 
 

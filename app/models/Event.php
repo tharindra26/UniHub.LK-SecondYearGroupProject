@@ -8,7 +8,8 @@ class Event
         $this->db = new Database;
     }
 
-    public function getAllEvents(){
+    public function getAllEvents()
+    {
         $this->db->query('SELECT * FROM events
                         INNER JOIN events_categories
                         ON events_categories.event_id = events.id
@@ -144,7 +145,7 @@ class Event
         }
     }
 
-    public function getEventById($id)//14
+    public function getEventById($id) //14
     {
         $this->db->query('SELECT * FROM events WHERE id = :id');
         $this->db->bind(':id', $id);
@@ -226,22 +227,52 @@ class Event
 
     }
 
-    public function addUserInterest($data){
+    public function getEventsByShortcut($data) //$_POST
+    {
+        $shortcut = $data['value'];
+
+        if ($shortcut == 'all') {
+            $this->db->query('SELECT events.*,
+            GROUP_CONCAT(categories.category_name) AS category_names 
+            FROM events
+            JOIN events_categories ON events.id = events_categories.event_id
+            JOIN categories ON events_categories.category_id = categories.id
+            GROUP BY events.id');
+        } else {
+            $this->db->query('SELECT events.*,
+                        GROUP_CONCAT(categories.category_name) AS category_names
+                         FROM events
+                         JOIN events_categories ON events.id = events_categories.event_id
+                         JOIN categories ON events_categories.category_id = categories.id
+                         WHERE categories.category_name = :category
+                         GROUP BY events.id');
+            $this->db->bind(':category', $shortcut);
+        }
+
+        $this->db->execute();
+        $rows = $this->db->resultSet();
+        return $rows;
+    }
+
+
+    public function addUserInterest($data)
+    {
         $this->db->query("INSERT INTO event_participation (user_id, event_id, participation_status) VALUES(:user_id, :event_id, :participation_status)");
         $this->db->bind(':user_id', $data['user_id']);
         $this->db->bind(':event_id', $data['event_id']);
         $this->db->bind(':participation_status', 'interested');
 
-        if($this->db->execute()){
-           return true;
+        if ($this->db->execute()) {
+            return true;
         }
     }
 
-    public function deleteUserInterest($data) {
+    public function deleteUserInterest($data)
+    {
         $this->db->query("DELETE FROM event_participation WHERE user_id = :user_id AND event_id = :event_id");
         $this->db->bind(':user_id', $data['user_id']);
         $this->db->bind(':event_id', $data['event_id']);
-    
+
         if ($this->db->execute()) {
             return true;
         } else {
@@ -250,16 +281,18 @@ class Event
     }
 
     //Viruli
-    public function getEventByUser($user){
+    public function getEventByUser($user)
+    {
         $this->db->query('SELECT * FROM events WHERE user_id = :user_id');
-        $this->db->bind(':user_id' , $user);
+        $this->db->bind(':user_id', $user);
 
-        $row= $this->db->resultSet();
+        $row = $this->db->resultSet();
 
         return $row;
     }
 
-    public function getInterestEventsByUser($user){
+    public function getInterestEventsByUser($user)
+    {
         $this->db->query('SELECT events.* 
                         FROM event_participation
                         JOIN events
@@ -267,14 +300,15 @@ class Event
                         WHERE event_participation.participation_status = "interested" 
                         AND event_participation.user_id = :user_id;
         ');
-        $this->db->bind(':user_id' , $user);
+        $this->db->bind(':user_id', $user);
 
-        $row= $this->db->resultSet();
+        $row = $this->db->resultSet();
 
         return $row;
     }
 
-    public function getGoingEventsByUser($user){
+    public function getGoingEventsByUser($user)
+    {
         $this->db->query('SELECT events.* 
                         FROM event_participation
                         JOIN events
@@ -282,23 +316,24 @@ class Event
                         WHERE event_participation.participation_status = "going" 
                         AND event_participation.user_id = :user_id;
         ');
-        $this->db->bind(':user_id' , $user);
+        $this->db->bind(':user_id', $user);
 
-        $row= $this->db->resultSet();
+        $row = $this->db->resultSet();
 
         return $row;
     }
-    
 
-    public function checkUserInterest($data){
+
+    public function checkUserInterest($data)
+    {
         $this->db->query("SELECT * FROM event_participation WHERE user_id = :user_id AND event_id = :event_id");
         $this->db->bind(':user_id', $data['user_id']);
         $this->db->bind(':event_id', $data['event_id']);
-    
+
         $this->db->single(); // Assuming you have a method like this to fetch a single row
-    
+
         return $this->db->rowCount() > 0;
     }
-    
+
 
 }

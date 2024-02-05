@@ -1,8 +1,8 @@
 // Counter starts
-let value = document.querySelectorAll(".tot");
-let timeinterval = 5000;
+totalValue = document.querySelectorAll(".tot");
+let timeinterval = 1000;
 
-value.forEach((valueDisplay) => {
+totalValue.forEach((valueDisplay) => {
     let startValue = 0;
     let endValue = parseInt(valueDisplay.getAttribute("data-val"));
     let duration = Math.floor(timeinterval / endValue);
@@ -14,3 +14,5 @@ value.forEach((valueDisplay) => {
         }
     }, duration);
 });
+
+

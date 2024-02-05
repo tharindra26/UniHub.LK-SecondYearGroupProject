@@ -17,21 +17,41 @@ description.addEventListener("click", (event) => {
 });
 //Read More section
 
-var countDown = new Date("Jan 31, 2024 00:00:00").getTime();
-    var x = setInterval(function () {
-        var now = new Date().getTime();
-        var distance = countDown - now;
-
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        document.getElementById("days").innerHTML = days;
-        document.getElementById("hours").innerHTML = hours;
-        document.getElementById("minutes").innerHTML = minutes;
-        document.getElementById("seconds").innerHTML = seconds;
-    }, 1000);
 
 
+
+    $(document).ready(function () {
+      function checkEventParticipation() {
+        $.ajax({
+            url: 'http://localhost/unihub/events/checkEventParticipation',
+            type: 'POST',
+            data: {
+                
+            },
+            success: function (response) {
+                // Handle the success response
+                console.log("Check Event Participation - AJAX request successful:", response);
+
+                var interestedBtn = $("#interested-btn-id");
+
+                if (response === '1') {
+                    interestedBtn.addClass("new-class");
+                } else {
+                    interestedBtn.removeClass("new-class");
+                }
+            },
+            error: function (xhr, status, error) {
+                // Handle the error response
+                console.error("Check Event Participation - AJAX request failed:", status, error);
+            }
+        });
+    }
+    });
+
+
+    
+
+    
+    
+    
 

@@ -138,15 +138,27 @@
             </div>
             <div class="announcements-section">
                 <div class="announcement-title">Announcements</div>
+
                 <div class="announcement">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio amet excepturi quasi possimus
-                    molestiae consequatur. Adipisci ab quibusdam, similique voluptatibus natus facere cum dolor voluptas
-                    iste! Alias delectus aut sapiente hic odit dolor voluptatum, natus saepe velit temporibus dolore
-                    doloremque cum quia, magnam impedit, eius id rerum autem beatae provident laborum. Alias corrupti
-                    omnis quas numquam, optio architecto illum sunt odit beatae iure nobis veniam nostrum quibusdam a
-                    molestiae. Doloribus nam consequuntur suscipit ipsum porro inventore, placeat ab ducimus
-                    voluptatibus alias unde dolor natus quam molestias tempore minus id pariatur sit. Aspernatur at
-                    inventore eveniet alias quaerat eaque delectus aliquam.
+                    <div class="ann-date-section">
+                        2024/01/28
+                    </div>
+                    <div class="ann-content-section">
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio amet excepturi quasi
+                        possimus
+                        molestiae consequatur. Adipisci ab quibusdam, similique voluptatibus natus facere cum dolor
+                        voluptas
+                        iste! Alias delectus aut sapiente hic odit dolor voluptatum, natus saepe velit temporibus dolore
+                        doloremque cum quia, magnam impedit, eius id rerum autem beatae provident laborum. Alias
+                        corrupti
+                        omnis quas numquam, optio architecto illum sunt odit beatae iure nobis veniam nostrum quibusdam
+                        a
+                        molestiae. Doloribus nam consequuntur suscipit ipsum porro inventore, placeat ab ducimus
+                        voluptatibus alias unde dolor natus quam molestias tempore minus id pariatur sit. Aspernatur at
+                        inventore eveniet alias quaerat eaque delectus aliquam.
+                    </div>
+
+
                 </div>
 
             </div>
@@ -198,16 +210,15 @@
 </div>
 
 
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-<script src="<?php echo URLROOT ?>/js/events/event-show.js"></script>
+
 
 
 
 <script>
 
-    
+    var countDownDate = new Date("<?php echo $formatted_starting_datetime ?>").getTime();
 
     $(document).ready(function () {
 
@@ -240,7 +251,7 @@
 
         // Add click event to the button
         $("#interested-btn-id").on("click", function (e) {
-            console.log("Click");
+            // console.log("Click");
             e.preventDefault(); // Prevent the default link behavior
 
             // // Store reference to the button element
@@ -278,8 +289,44 @@
         checkEventParticipation();
     });
 
+</script>
+<script src="<?php echo URLROOT ?>/js/events/event-show.js"></script>
+<script>
 
+    <?php
+    // Your MySQL datetime value
+    $mysqlDateTime = $data['event']->start_datetime;
 
+    // Parse MySQL datetime string using DateTime
+    $dateTime = new DateTime($mysqlDateTime);
+
+    // Format the datetime value
+    $formattedDateTime = $dateTime->format('F j, Y H:i:s');
+
+   
+    ?>
+    var countDownDate = new Date('<?php echo $formattedDateTime ?>').getTime();
+    var x = setInterval(function () {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerHTML = days;
+        document.getElementById("hours").innerHTML = hours;
+        document.getElementById("minutes").innerHTML = minutes;
+        document.getElementById("seconds").innerHTML = seconds;
+
+        // If the countdown is over, clearInterval and display a message or take some action
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("countdown").innerHTML = "EXPIRED";
+            // You may want to display a message or take some action when the countdown expires
+        }
+    }, 1000);
 </script>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

@@ -3,20 +3,32 @@
 <h1 class="section-title">Events</h1>
 
 <div class="summary">
-    <div class="total">
+    <div class="box total">
         <h1>Total Events</h1>
         <span class="tot" data-val="2240">0000</span>
     </div>
-</div>
-
-<div class="user-info">
-            <div class="user-head">
+    <div class="box btn">
+        <div class="row">
                 <a href="#">
                     <div class="view-all-button">
                         <i class="fa-solid fa-eye"></i>
                         <span>View All Events</span>
                     </div>
                 </a>
+
+                <a href="#">
+                    <div class="view-all-button">
+                    <i class="fa-solid fa-plus"></i>
+                        <span>Add New Event</span>
+                    </div>
+                </a>
+                </div>
+    </div>
+</div>
+
+<div class="user-info">
+            <div class="user-head">
+                
                 <div class="search-bar-container">
                     <form action="" class="search-bar">
                         <input type="text" name="searchInput" placeholder="Search Event" id="search-bar-input">
@@ -24,12 +36,6 @@
                     </form>
                 </div>
                 
-                <a href="#">
-                    <div class="view-all-button">
-                    <i class="fa-solid fa-plus"></i>
-                        <span>Add New Event</span>
-                    </div>
-                </a>
             </div>
 
             <div class="user-head">
@@ -88,6 +94,8 @@
                 </tbody>
             </table>
         </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="<?php echo URLROOT ?>/js/users/admin/events.js"></script>
 </body>
 </html>
