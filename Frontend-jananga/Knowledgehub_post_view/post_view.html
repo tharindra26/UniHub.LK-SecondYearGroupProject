@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post_view</title>
+
+    <link rel="stylesheet" href="post_view_style.css">
+    <link rel="stylesheet" href="../../Frontend-Tharindra/Responsive-Format/navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="post_view_js.js"></script>
+
+</head>
+<body>
+    
+    <!-- navigation-bar -->
+    <div class="nav-outer-container">
+        <div class="container">
+            <div class="navigation-bar-container">
+                <nav>
+                    <!-- vertical navbar -->
+                    <ul class="sidebar">
+                        <!-- <li><a href="#"><img src="unihub-logo.png" alt="" class="navbar-logo"></a></li> -->
+                        <li onclick=hideSideBar()><a href="#" ><svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a></li>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Events</a></li>
+                        <li><a href="#">Organizations</a></li>
+                        <li><a href="#">KnowledgeHub</a></li>
+                        <li><a href="#">Opportunties</a></li>
+                        <li><a href="#">Login</a></li>
+                        <li><a href="#">Register</a></li>
+                    </ul>
+
+
+                    <!-- horizontal-navbar -->
+                    <ul>
+                        <!-- <li><a href="#"><img src="unihub-logo.png" alt="" class="navbar-logo"></a></li> -->
+                        <li>
+                            <a href="#" class="unihub-logo-text">UniHub.lk</a>
+                        </li>
+                        <li class="hideOnMobile"><a href="#">Events</a></li>
+                        <li class="hideOnMobile"><a href="#">Organizations</a></li>
+                        <li class="hideOnMobile"><a href="#">KnowledgeHub</a></li>
+                        <li class="hideOnMobile"><a href="#">Opportunities</a></li>
+                        <li class="hideOnMobile"><a href="#">Login</a></li>
+                        <li class="hideOnMobile"><a href="#">Register</a></li>
+                        <li class="menu-button" onclick=showSideBar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- navigation-bar -->
+
+    <div class="main_section">
+
+        <div class="cover_image">
+            <img class="image" src="image/newsppr7.jpg" alt="">
+
+            <div class="title-overlay">
+                <h1>Trend Post</h1>
+                <h3>Your source of greate content</h3>
+            </div>
+        </div>
+
+
+<!-- Quick-shortcut-bar -->
+        <div class="container">
+            <div class="shortcut-bar">
+                <div class="section-name">KnowledgeHub</div>
+                <div class="shortcut-options">
+                    <div class="option">Blogs</div>
+                    <div class="option">Kuppi</div>
+                    <div class="option">Posts</div>
+                </div>
+            </div>
+        </div>
+<!-- Quick-shortcut-bar -->
+
+        <!-- <div class="empty_bar"></div> -->
+
+
+        <div class="container">
+            <div class="details_section">
+
+                <div class="left_section">
+    
+                    <div class="post_reaction_section">
+    
+                        <a href="#" class="post_reaction_link"> 
+                            <div class="helpfull_btn reaction_btn">
+                                <i class="fa-regular fa-thumbs-up"></i>
+                                <span>&nbsp Helpful</span>
+                            </div>
+                        </a>
+                        <a href="#" class="post_reaction_link"> 
+                            <div class="interested_btn reaction_btn">
+                                <i class="fa-regular fa-face-grin-hearts"></i>
+                                <span>&nbsp Interested</span>
+                            </div>
+                        </a>
+                        <a href="#" class="post_reaction_link"> 
+                            <div class="report_btn reaction_btn">
+                                <i class="fa-regular fa-thumbs-down"></i>
+                                <span>&nbsp Report</span>
+                            </div>
+                        </a>
+    
+    
+                    </div>
+    
+                    <div class="social_media">
+                        <div class="social_media_title">
+                            Follow us on
+                        </div>
+                        <div class="icons">
+                            <div class="icon">
+                                <i class="fa-solid fa-globe"></i>
+                            </div>
+                            <div class="icon">
+                                <i class="fa-brands fa-facebook"></i>
+                            </div>
+                            <div class="icon">
+                                <i class="fa-brands fa-instagram"></i>
+                            </div>
+                            <div class="icon">
+                                <i class="fa-brands fa-linkedin"></i>
+                            </div>  
+                        </div>    
+                    </div>
+    
+    
+                    <div class="post_settings">
+                        <a href="#" class="post_settings_link">
+                            <div class="post_settings_btn">
+                                <i class="fa-solid fa-gear"></i> &nbsp Post Settings
+                            </div>
+                        </a>
+                    </div>
+    
+                </div>
+    
+                <div class="right_section">
+    
+    <!-- post_section -->
+                    <div class="post_section">
+    
+                        <div class="image_section">
+    
+                            <div class="post_image_section">
+                                <div class="post_image">
+                                    <img src="image/mermit.webp" alt="">
+                                </div>
+                            </div>
+    
+                            <div class="image_section_bottom">
+    
+                                <div class="like_btn">
+                                    <i class="fa-solid fa-thumbs-up"></i>
+                                    <span>&nbsp Like</span>
+                                </div>
+                                <div class="comment_btn">
+                                    <i class="fa-solid fa-comment"></i>
+                                    <span>&nbsp Comment</span>
+                                </div>
+                                <div class="share_btn">
+                                    <i class="fa-solid fa-share"></i>
+                                    <span>&nbsp Share</span>
+                                </div>
+    
+                            </div>
+    
+                        </div>
+    
+    
+                        <div class="post_details_section">
+    
+                            <div class="post_description">
+                                <div class="post_title"> Post Title</div>
+    
+                                <div class="description">
+                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit, quisquam? At debitis voluptate nihil? Molestias quidem ea reiciendis id vel tenetur saepe Asperiores ipsa et quam ducimus porro labore earum odit deserunt unc quisquam eius amet consectetur adipisicing. 
+                                        <span class="read_more_text">
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. At debitis voluptate nihil? Molestias quidem ea reiciendis id vel tenetur saepe, obcaecati voluptatibus quis earum nostrum adipisci inventore consequatur laborum tempore in similique? Fugit quod ab corrupti vero accusantium tempora repellendus blanditiis eos hic, ipsa a adipisci! Vitae, aliquid assumenda quasi adipisci, illo necessitatibus labore illum numquam accusantium asperiores quo ea nisi sed! Eligendi, quibusdam. 
+                                        </span>
+                                    </p>
+                                    <span class="read_more_btn">Read More</span>
+                                </div>
+                            </div>
+    
+                        </div>
+    
+                    </div>
+    
+    <!-- post_section -->
+    
+    
+    <!-- Profile_section -->
+                    <div class="profile_section">
+    
+                        <div class="profile_image_section">
+                            <div class="profile_image">
+                                <img src="image/pro5.jpg" alt="">
+                            </div>
+                        </div>
+                        
+                        <div class="profile_details">
+    
+                            <div class="profile_name">Jananga Wijewardhana</div>
+    
+                            <div class="details">
+                                <div class="date-time">
+                                    <i class="fa-solid placement-icons fa-calendar-days"></i> &nbsp 2024-01-14 &nbsp 19:00:00
+                                </div>
+                                <div class="venue">
+                                    <i class="fa-solid placement-icons fa-location-dot"></i> &nbsp University Of Colombo Schoole Of Computing
+                                </div>
+                                <div class="organization">
+                                    <i class="fa-solid placement-icons fa-medal"></i> &nbsp 2nd Year Student @UCSC
+                                </div>
+                            </div>
+    
+                        </div>
+                        
+                    </div>
+    <!-- Profile_section -->
+    
+    
+                </div>
+    
+    
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+</body>
+</html>
