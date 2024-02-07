@@ -64,3 +64,4 @@ coverImageUpload.addEventListener("change", function () {
     coverImgTxt.innerHTML = "File chosen: " + fileInput.files[0].name;
   }
 });
+

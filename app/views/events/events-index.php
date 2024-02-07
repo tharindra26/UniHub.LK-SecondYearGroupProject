@@ -9,6 +9,7 @@
         <div class="title-bar-txt">Events</div>
     </div> -->
 <div class="slider">
+    <div class="dark-overlay"></div>
     <div class="slides">
         <!-- radio buttons -->
         <input type="radio" name="radio-btn" id="radio1">
@@ -75,9 +76,10 @@
     <div class="shortcut-bar">
         <div class="section-name">Events</div>
         <div class="shortcut-options">
-            <div class="option">Hackathons</div>
-            <div class="option">Entertainment</div>
-            <div class="option">Workshops</div>
+            <div class="option" onclick="quickShortcut('all')">All</div>
+            <div class="option" onclick="quickShortcut('hackathon')">Hackathons</div>
+            <div class="option" onclick="quickShortcut('entertainment')">Entertainment</div>
+            <div class="option" onclick="quickShortcut('workshops')">Workshops</div>
         </div>
     </div>
 </div>
@@ -132,6 +134,12 @@
 
                 <ul class="list-items">
                     <div class="category-reset-btn">Reset</div>
+                    <li class="item">
+                        <span class="checkbox">
+                            <i class="fa-solid fa-check check-icon"></i>
+                        </span>
+                        <span class="item-text">Concert</span>
+                    </li>
                     <li class="item">
                         <span class="checkbox">
                             <i class="fa-solid fa-check check-icon"></i>
