@@ -132,7 +132,7 @@
                     </span>
                 </div>
 
-                <ul class="list-items">
+                <ul class="list-items" id="category-list">
                     <div class="category-reset-btn">Reset</div>
                     <li class="item">
                         <span class="checkbox">

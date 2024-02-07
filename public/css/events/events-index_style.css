@@ -268,7 +268,7 @@
     text-align: center;
     padding: 10px;
     /* background: linear-gradient(90deg, rgba(44, 62, 80, 1) 0%, rgba(52, 152, 219, 1) 50%, rgba(44, 62, 80, 1) 100%); */
-    background-color: #27ae5fc5;
+    background-color: #2980b9;
     color: white;
     border-radius: 5px;
     font-family: poppins;
@@ -283,7 +283,7 @@
 }
 
 .add-event-button:hover {
-    background: #27ae60;
+    background: #1C5981;
     color: white;
     transition: .5s;
     -webkit-box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.75);
