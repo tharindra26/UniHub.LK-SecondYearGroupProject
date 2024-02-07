@@ -37,6 +37,8 @@ class Event
 
     public function addEvent($data)
     {
+        // var_dump($data['category_ids']);
+        // die();
         $this->db->query("INSERT INTO events (
         user_id, 
         title,
@@ -92,19 +94,23 @@ class Event
         // Get the last inserted event ID
         $eventId = $this->db->lastInsertId();
 
-        // Insert into the event_categories table
-        $this->db->query("INSERT INTO events_categories (event_id, category_id) VALUES (:event_id, :category_id)");
+        // Loop through each category ID and insert into the events_categories table
+        foreach ($data['category_ids'] as $category_id) {
+            // Insert into the event_categories table
+            $this->db->query("INSERT INTO events_categories (event_id, category_id) VALUES (:event_id, :category_id)");
 
-        // Bind values
-        $this->db->bind(':event_id', $eventId);
-        $this->db->bind(':category_id', $data['category_id']);
+            // Bind values
+            $this->db->bind(':event_id', $eventId);
+            $this->db->bind(':category_id', $category_id);
 
-        // Execute the second query
-        if (!$this->db->execute()) {
-            // Rollback the transaction if there's an error
-            $this->db->rollBack();
-            return false;
+            // Execute the query
+            if (!$this->db->execute()) {
+                // Rollback the transaction if there's an error
+                $this->db->rollBack();
+                return false;
+            }
         }
+
 
         // Commit the transaction if everything is successful
         $this->db->commit();
@@ -154,6 +160,16 @@ class Event
 
         return $row;
 
+    }
+
+    public function getAnnouncementsByEventId($event_id)
+    {
+        $this->db->query('SELECT * FROM event_announcements WHERE event_id = :event_id');
+        $this->db->bind(':event_id', $event_id);
+
+        $announcements = $this->db->resultSet();
+
+        return $announcements;
     }
 
     public function getEventsBySearch($data)
@@ -333,6 +349,31 @@ class Event
         $this->db->single(); // Assuming you have a method like this to fetch a single row
 
         return $this->db->rowCount() > 0;
+    }
+
+    public function addAnnouncement($data)
+    {
+
+        $this->db->query('INSERT INTO event_announcements (user_id, event_id, announcement_text, announcement_date,sharingOption, status) 
+                          VALUES (:user_id, :event_id, :announcement_text, current_timestamp(),:sharingOption, :status)');
+        $this->db->bind(':user_id', $data['user_id']);
+        $this->db->bind(':event_id', $data['event_id']);
+        $this->db->bind(':announcement_text', $data['announcement']);
+        $this->db->bind(':sharingOption', $data['sharingOption']);
+        $this->db->bind(':status', 1);
+
+
+        return $this->db->execute();
+
+    }
+
+    public function getEventCategories()
+    {
+        $this->db->query('SELECT * FROM categories');
+
+        $rows = $this->db->resultSet();
+
+        return $rows;
     }
 
 

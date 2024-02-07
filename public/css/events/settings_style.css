@@ -22,15 +22,16 @@
 .bottom-part{
     display: flex;
     flex-direction: row;
-    height: 500px;
+    height: auto;
 }
 
 .options-box{
-    width: 70%;
+    width: 60%;
     display: flex;
     flex-wrap: wrap; 
     padding: 0 10px;
-    justify-content: space-around;
+    justify-content: flex-start;
+    border: 1px solid red;
 }
 
 .option-link{
@@ -39,35 +40,48 @@
 }
 
 .option{
-    width:150px;
-    height: 150px;
+    width:180px;
+    height: 80px;
     display: flex;
     flex-direction: column;
     /* border:1px solid red; */
     margin: 20px;
     border-radius: 10px;
-    background-color: rgba(230, 126, 34,1.0);
+    background-color: #2980b9;
+    padding-left: 10px;
 }
+
+.option {
+    transition: transform 0.3s ease-in-out;
+}
+
+.option:hover {
+    transform: scale(1.2);
+}
+
+
+
 
 .option-icon{
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    height: 60%;
+    height: 40%;
     /* border: 1px solid red; */
-    margin: 10px;
     border-radius: 8px;
-    font-size: 25px;
-    background-color: white;
+    font-size: 20px;
+    color: white;
+    /* background-color: white; */
 }
 .option-text{
+    height: 60%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center; 
     font-size: 16px;   
     /* border: 1px solid red; */
     line-height: 18px;
-    text-align: center;
+    text-align: left;
     color: white;
 }
 .option-1{
@@ -91,14 +105,16 @@
 }
 
 .image-box {
-    max-width: 30%;
+    max-width: 40%;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 1px solid red;
 }
 
 .image-box img {
-    width: 100%;
+    width: 80%;
     height: auto;
     display: block;
 }
+

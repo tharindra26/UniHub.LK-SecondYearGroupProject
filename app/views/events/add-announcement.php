@@ -11,14 +11,14 @@
             <div class="announcement-box">
                 <div class="add-announcement-form">
                 
-                    <form class="form" action="<?php echo URLROOT; ?>/events/add" method="post" enctype="multipart/form-data">
+                    <form class="form" action="<?php echo URLROOT; ?>/events/addAnnouncement/<?php echo $data['event_id']; ?>" method="post">
                         <div class="column">
                             <div class="input-box">
                                 <label for="">Announcement</label>
-                                <textarea  id="eventAnnouncement" name="announcement" value="" placeholder="Enter the announcement"></textarea>
-                                <!-- <?php if (!empty($data['description_err'])): ?>
-                                    <span class="error-message"><?php echo $data['description_err']; ?></span>
-                                <?php endif; ?> -->
+                                <textarea  id="eventAnnouncement" name="announcement" value="<?php $data['announcement'] ?>" placeholder="Enter the announcement"><?php echo $data['announcement']; ?></textarea>
+                                <?php if (!empty($data['announcement_err'])): ?>
+                                    <span class="error-message"><?php echo $data['announcement_err']; ?></span>
+                                <?php endif; ?>
                             </div>
                         </div>
                         
@@ -27,15 +27,15 @@
                         <div class="input-box">  
                                 <label for="">Notify for event followers via email?</label>
                                 <div class="select-box">
-                                    <select name="university" id="selection" >
-                                        <option hidden <?php if (empty($data['university'])) echo 'selected'; ?>>Select the option</option>
-                                        <option value="yes" <?php if ($data['notify'] == 'yes') echo 'selected'; ?>>Yes, notify them</option>    
-                                        <option value="no" <?php if ($data['notify'] == 'no') echo 'selected'; ?>>No, don't notify them</option>    
+                                    <select name="sharingOption" id="selection" >
+                                        <option hidden <?php if (empty($data['sharingOption'])) echo 'selected'; ?>>Select the option</option>
+                                        <option value="1" <?php if ($data['sharingOption'] == 1) echo 'selected'; ?>>Yes, notify them</option>    
+                                        <option value="0" <?php if ($data['sharingOption'] == 0) echo 'selected'; ?>>No, don't notify them</option>    
                                     </select>
                                 </div>
-                                <!-- <?php if (!empty($data['notify_err'])): ?>
-                                    <span class="error-message"><?php echo $data['notify_err']; ?></span>
-                                <?php endif; ?> -->
+                                <?php if (!empty($data['sharingOption_err'])): ?>
+                                    <span class="error-message"><?php echo $data['sharingOption_err']; ?></span>
+                                <?php endif; ?>
                             </div>
                        </div>
                         

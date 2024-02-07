@@ -57,10 +57,10 @@
                 <i class="fa-regular fa-face-grin-hearts"></i>
                 <span>&nbsp Interested</span>
             </a>
-            <a href="#" id="going-btn-id" class="going-btn">
+            <!-- <a href="#" id="going-btn-id" class="going-btn">
                 <i class="fa-regular fa-face-grin-hearts"></i>
                 <span>&nbsp Going</span>
-            </a>
+            </a> -->
         </div>
     </div>
 </div>
@@ -70,30 +70,49 @@
 
         <!-- left-section -->
         <div class="left-section">
-            <div class="social-media">
-                <div class="social-media-title">
-                    Follow us on
+            <?php if (!empty($data['event']->web) || !empty($data['event']->linkedin) || !empty($data['event']->facebook) || !empty($data['event']->instagram)): ?>
+                <div class="social-media">
+                    <div class="social-media-title">
+                        Follow us on
+                    </div>
+                    <div class="icons">
+                        <?php if (!empty($data['event']->web)): ?>
+                            <a href="#">
+                                <div class="social-icon">
+                                    <i class="fa-solid fa-globe"></i>
+                                </div>
+                            </a>
+                        <?php endif; ?>
+                        <?php if (!empty($data['event']->linkedin)): ?>
+                            <a href="#">
+                                <div class="social-icon">
+                                    <i class="fa-brands fa-linkedin"></i>
+                                </div>
+                            </a>
+                        <?php endif; ?>
+                        <?php if (!empty($data['event']->facebook)): ?>
+                            <a href="#">
+                                <div class="social-icon">
+                                    <i class="fa-brands fa-facebook"></i>
+                                </div>
+                            </a>
+                        <?php endif; ?>
+                        <?php if (!empty($data['event']->instagram)): ?>
+                            <a href="#">
+                                <div class="social-icon">
+                                    <i class="fa-brands fa-instagram"></i>
+                                </div>
+                            </a>
+                        <?php endif; ?>
+
+                    </div>
                 </div>
-                <div class="icons">
-                    <div class="social-icon">
-                        <i class="fa-solid fa-globe"></i>
-                    </div>
-                    <div class="social-icon">
-                        <i class="fa-brands fa-facebook"></i>
-                    </div>
-                    <div class="social-icon">
-                        <i class="fa-brands fa-instagram"></i>
-                    </div>
-                    <div class="social-icon">
-                        <i class="fa-brands fa-linkedin"></i>
-                    </div>
-                </div>
-            </div>
+            <?php endif; ?>
 
 
 
             <div class="event-announcements">
-                <a href="<?php echo URLROOT ?>/events/addAnouncement/<?php echo $data['event']->id ?>"
+                <a href="<?php echo URLROOT ?>/events/addAnnouncement/<?php echo $data['event']->id ?>"
                     class="event-announcements-link">
                     <div class="event-settings-btn">
                         <i class="fa-solid fa-bullhorn"></i> &nbsp Add Announcement
@@ -136,32 +155,31 @@
                 </div>
 
             </div>
-            <div class="announcements-section">
-                <div class="announcement-title">Announcements</div>
 
-                <div class="announcement">
-                    <div class="ann-date-section">
-                        2024/01/28
-                    </div>
-                    <div class="ann-content-section">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio amet excepturi quasi
-                        possimus
-                        molestiae consequatur. Adipisci ab quibusdam, similique voluptatibus natus facere cum dolor
-                        voluptas
-                        iste! Alias delectus aut sapiente hic odit dolor voluptatum, natus saepe velit temporibus dolore
-                        doloremque cum quia, magnam impedit, eius id rerum autem beatae provident laborum. Alias
-                        corrupti
-                        omnis quas numquam, optio architecto illum sunt odit beatae iure nobis veniam nostrum quibusdam
-                        a
-                        molestiae. Doloribus nam consequuntur suscipit ipsum porro inventore, placeat ab ducimus
-                        voluptatibus alias unde dolor natus quam molestias tempore minus id pariatur sit. Aspernatur at
-                        inventore eveniet alias quaerat eaque delectus aliquam.
-                    </div>
+            <?php if (!empty($data['announcements'])): ?>
+                <div class="announcements-section">
+                    <div class="announcement-title">Announcements</div>
 
+
+                    <?php foreach ($data['announcements'] as $announcement): ?>
+                        <div class="announcement">
+                            <div class="ann-date-section">
+                                <?php
+                                // Assuming $announcement['announcement_date'] contains the date in Y-m-d H:i:s format
+                                $formattedDate = date('F j, Y g:i A', strtotime($announcement->announcement_date));
+                                echo $formattedDate;
+                                ?>
+                            </div>
+                            <div class="ann-content-section">
+                                <?php echo $announcement->announcement_text; ?>
+                            </div>
+
+
+                        </div>
+                    <?php endforeach; ?>
 
                 </div>
-
-            </div>
+            <?php endif; ?>
         </div>
         <!-- middle-section -->
 
@@ -303,7 +321,7 @@
     // Format the datetime value
     $formattedDateTime = $dateTime->format('F j, Y H:i:s');
 
-   
+
     ?>
     var countDownDate = new Date('<?php echo $formattedDateTime ?>').getTime();
     var x = setInterval(function () {

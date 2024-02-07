@@ -10,8 +10,18 @@
         <div class="bottom-part">
             <div class="options-box">
 
+                <a href="<?php echo URLROOT ?>/events/changeProfileImage/<?php echo $data['id'] ?>" class="option-link">
+                    <div class="option">
+                        <div class="option-icon">
+                            <i class="fa-regular fa-images"></i>
+                        </div>
+                        <div class="option-text">Profile Image & Cover Image</div>
+                    </div>
+                </a>
 
-                <a href="<?php echo URLROOT ?>/events/changeContactDetails/<?php echo $data['id'] ?>" class="option-link">
+
+                <a href="<?php echo URLROOT ?>/events/changeContactDetails/<?php echo $data['id'] ?>"
+                    class="option-link">
                     <div class="option">
                         <div class="option-icon">
                             <i class="fa-solid fa-address-card"></i>
@@ -45,29 +55,22 @@
                         <div class="option-icon">
                             <i class="fa-solid fa-table-list"></i>
                         </div>
-                        <div class="option-text">Change Categories</div>
+                        <div class="option-text">Event Categories</div>
                     </div>
                 </a>
 
-                <a href="<?php echo URLROOT ?>/events/changeProfileImage/<?php echo $data['id'] ?>" class="option-link">
+
+                <a href="<?php echo URLROOT ?>/events/changeCountdown/<?php echo $data['id'] ?>" class="option-link">
                     <div class="option">
                         <div class="option-icon">
-                            <i class="fa-solid fa-table-list"></i>
+                            <i class="fa-solid fa-hourglass-half"></i>
                         </div>
-                        <div class="option-text">Profile Image</div>
+                        <div class="option-text">Countdown</div>
                     </div>
                 </a>
 
-                <a href="<?php echo URLROOT ?>/events/changeCoverImage/<?php echo $data['id'] ?>" class="option-link">
-                    <div class="option">
-                        <div class="option-icon">
-                            <i class="fa-solid fa-table-list"></i>
-                        </div>
-                        <div class="option-text">Cover Image</div>
-                    </div>
-                </a>
-
-                <a href="<?php echo URLROOT ?>/events/changeAnnouncements/<?php echo $data['id'] ?>" class="option-link">
+                <a href="<?php echo URLROOT ?>/events/changeAnnouncements/<?php echo $data['id'] ?>"
+                    class="option-link">
                     <div class="option">
                         <div class="option-icon">
                             <i class="fa-solid fa-bullhorn"></i>
