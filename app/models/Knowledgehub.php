@@ -7,7 +7,7 @@
     }
 
     public function getKnowledgehubs(){
-        $this->db->query('SELECT * FROM Knowledgehubs;');
+        $this->db->query('SELECT * FROM knowledgehubs;');
                         
         $results= $this->db->resultSet();
         return $results;
