@@ -51,7 +51,7 @@ class Events extends Controller
         'start_datetime' => trim($_POST['start_datetime']),
         'end_datetime' => trim($_POST['end_datetime']),
         'description' => trim($_POST['description']),
-        'category' => trim($_POST['category']),
+        'categories' => isset($_POST['categories']) ? $_POST['categories'] : [],
         'event_profile_image' => '',
         'event_cover_image' => '',
 
@@ -103,8 +103,9 @@ class Events extends Controller
       if (empty($data['description'])) {
         $data['description_err'] = 'Pleae enter the description';
       }
-      if (empty($data['category'])) {
-        $data['category_err'] = 'Pleae enter the event category';
+      // Check if categories are empty
+      if (empty($data['categories'])) {
+        $data['category_err'] = 'Please select at least one category';
       }
 
 
@@ -174,7 +175,18 @@ class Events extends Controller
         }
 
 
-        $data['category_id'] = $this->categoryModel->getCategoryIdByName($data['category']);
+        // $data['category_id'] = $this->categoryModel->getCategoryIdByName($data['category']);
+        if (!empty($data['categories'])) {
+          // Convert array of category names to category IDs
+          $category_ids = [];
+          foreach ($data['categories'] as $category_name) {
+              $category_id = $this->categoryModel->getCategoryIdByName($category_name);
+              if ($category_id !== false) {
+                  $category_ids[] = $category_id;
+              }
+          }
+          $data['category_ids'] = $category_ids;
+        }
         $data['university_id'] = $this->universityModel->getUniIdByName($data['university']);
 
         if ($this->eventModel->addEvent($data)) {
@@ -201,7 +213,7 @@ class Events extends Controller
         'start_datetime' => '',
         'end_datetime' => '',
         'description' => '',
-        'category' => '',
+        'categories' => [],
         'event_profile_image' => '',
         'event_cover_image' => '',
 
@@ -399,13 +411,16 @@ class Events extends Controller
     }
   }
 
+
   public function show($id) //14
   {
     $event = $this->eventModel->getEventById($id);
+    $announcements = $this->eventModel->getAnnouncementsByEventId($id);
     $user = $this->userModel->getUserById($event->user_id);
     $data = [
       'event' => $event,
       'user' => $user,
+      'announcements' => $announcements
     ];
     $this->view('events/event-show', $data);
   }
@@ -432,7 +447,8 @@ class Events extends Controller
     }
   }
 
-  public function checkEventParticipation(){
+  public function checkEventParticipation()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
       $event_id = $_POST['event_id'];
@@ -472,29 +488,104 @@ class Events extends Controller
     }
   }
 
-  public function settings($id){
-    $data=[
+  public function settings($id)
+  {
+    $data = [
       'id' => $id,
     ];
     $this->view('events/settings', $data);
 
   }
 
-  public function addAnouncement($id){
-    $data=[
-      'id' => $id,
-    ];
-    $this->view('events/add-announcement', $data);
+  public function addAnnouncement($id)
+  {
+
+    //check the user is a registered user
+    // if (!isLoggedIn()) {
+    //   redirect('/users/login');
+    // }
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      //process form
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+
+      //Init data
+      $data = [
+        'announcement' => trim($_POST['announcement']),
+        'sharingOption' => (trim($_POST['sharingOption']) == 'Select the option' ? '' : trim($_POST['sharingOption'])),
+        'announcement_err' => '',
+        'sharingOption_err' => '',
+        'user_id' => $_SESSION['user_id'],
+        'event_id' => $id,
+
+      ];
+
+
+
+
+      if (empty($data['announcement'])) {
+        $data['announcement_err'] = 'Pleae enter the announcement';
+      }
+      if (empty($data['sharingOption'])) {
+        $data['sharingOption_err'] = 'Pleae select a option';
+      }
+
+
+
+      // Make sure errors are empty
+      if (empty($data['announcement_err']) && empty($data['sharingOption_err'])) {
+
+        //Validated
+
+
+        if ($this->eventModel->addAnnouncement($data)) {
+          // flash('event_message', "Event Added Successfully");
+          redirect('events/settings/' . $id);
+        }
+      } else {
+        //load view with error
+        $this->view('events/add-announcement', $data);
+
+      }
+
+
+
+    } else {
+      // Init data
+      $data = [
+        'announcement' => '',
+        'sharingOption' => '',
+        'announcement_err' => '',
+        'sharingOption_err' => '',
+        'event_id' => $id,
+      ];
+
+      // Load view
+      $this->view('events/add-announcement', $data);
+    }
+
   }
 
-  public function changeContactDetails($id){
-    $data=[
+
+  public function changeContactDetails($id)
+  {
+    $data = [
       'id' => $id,
     ];
     $this->view('events/change-contact-details', $data);
   }
 
-  public function quickShortcut(){
+  public function changePlacement($id)
+  {
+    $data = [
+      'id' => $id,
+    ];
+    $this->view('events/change-placement', $data);
+  }
+
+  public function quickShortcut()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
       // echo $_POST['value'];
@@ -508,6 +599,12 @@ class Events extends Controller
       $this->view('events/filter-events', $data);
 
     }
+  }
+
+  public function getEventCategories()
+  {
+    $eventCategories = $this->eventModel->getEventCategories();
+    echo json_encode($eventCategories);
   }
 
 

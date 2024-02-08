@@ -68,9 +68,7 @@ overpass */
 
 }
 
-.category {
-    width: 45%;
-}
+
 
 #selection {
     padding-left: 10px;
@@ -93,6 +91,11 @@ overpass */
 .select-box {
     border: none;
     padding-left: 0;
+    /* border: 1px solid red; */
+}
+.category {
+    width: 45%;
+    height: 150px;
 }
 
 .add-event-form .column {

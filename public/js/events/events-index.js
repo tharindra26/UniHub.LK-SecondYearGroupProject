@@ -1,3 +1,82 @@
+$(document).ready(function () {
+  function updateContent() {
+    var keyword = document.getElementById("search-bar-input").value;
+    var date = document.getElementById("date-input").value;
+    var university =
+      selectBtn.firstElementChild.innerText != "Select University"
+        ? selectBtn.firstElementChild.innerText
+        : "";
+    const checkedCategories = Array.from(items)
+      .filter((item) => item.classList.contains("category-checked"))
+      .map((item) => item.querySelector(".checkbox + span").innerText);
+
+    // Send an AJAX request with the filter value
+    $.ajax({
+      url: "http://localhost/unihub/events/searchEvents",
+      method: "POST",
+      data: {
+        keyword: keyword,
+        date: date,
+        university: university,
+        categories: checkedCategories,
+      },
+      success: function (data) {
+        // Update the content section with the retrieved data
+        $("#content-section").html(data);
+      },
+    });
+  }
+
+  // Attach keyup event listener to the search bar input
+  document
+    .getElementById("search-bar-input")
+    .addEventListener("keyup", updateContent);
+
+  // Attach change event listener to date input
+  document
+    .getElementById("date-input")
+    .addEventListener("change", updateContent);
+
+  document
+    .getElementById("date-reset-btn")
+    .addEventListener("click", updateContent);
+
+  // Trigger the initial update when the page loads
+  updateContent();
+
+  // function fetchEventCategories() {
+  //   $.ajax({
+  //     url: "http://localhost/unihub/events/getEventCategories", // Replace 'fetch_categories.php' with your server endpoint
+  //     type: "GET",
+  //     dataType: "json",
+  //     success: function (response) {
+  //       // Iterate over the categories and populate the list
+  //       console.log(response);
+  //       response.forEach(function (category) {
+  //         var listItem =
+  //           '<li class="item">' +
+  //           '<span class="checkbox">' +
+  //           '<i class="fa-solid fa-check check-icon"></i>' +
+  //           "</span>" +
+  //           '<span class="item-text">' +
+  //           category.category_name +
+  //           "</span>" +
+  //           "</li>";
+  //         $("#category-list").append(listItem);
+  //       });
+  //     },
+  //     error: function (xhr, status, error) {
+  //       console.error("Error fetching categories:", error);
+  //     },
+  //   });
+  // }
+
+  // // Call the function to fetch and populate categories
+  // fetchEventCategories();
+});
+
+
+
 //university filter
 const uniFilter = document.querySelector(".uni-filter"),
   selectBtn = uniFilter.querySelector(".select-btn"),
@@ -199,86 +278,8 @@ function updateCategoryFilter() {
     },
   });
 }
-//category filter
 
-//live search
-// $(document).ready(function() {
-//     // Attach a keyup event listener to the search input
-//     $('#searchInput').keyup(function() {
-//         // Get the value entered in the search input
-//         var searchKey = $(this).val();
 
-//         if (searchKey != "") {
-//             $.ajax({
-//                 url: "http://localhost/unihub/search/eventSearchByKey",
-//                 method: "POST", // Corrected typo: "mathos" to "method"
-//                 data: { input: searchKey }, // Corrected: "input" instead of "searchKey"
-
-//                 success: function(data) {
-//                     $("#content-section").html(data);
-//                 }
-//             });
-//         } else {
-//             $.ajax({
-//                 url: "http://localhost/unihub/search/eventSearchDefault",
-//                 method: "POST", // Corrected typo: "mathos" to "method"
-//                 data: { input: "" }, // Corrected: "input" instead of "searchKey"
-
-//                 success: function(data) {
-//                     $("#content-section").html(data);
-//                 }
-//             });
-//         }
-//     });
-// });
-
-$(document).ready(function () {
-  function updateContent() {
-    var keyword = document.getElementById("search-bar-input").value;
-    var date = document.getElementById("date-input").value;
-    var university =
-      selectBtn.firstElementChild.innerText != "Select University"
-        ? selectBtn.firstElementChild.innerText
-        : "";
-    const checkedCategories = Array.from(items)
-      .filter((item) => item.classList.contains("category-checked"))
-      .map((item) => item.querySelector(".checkbox + span").innerText);
-
-    // Send an AJAX request with the filter value
-    $.ajax({
-      url: "http://localhost/unihub/events/searchEvents",
-      method: "POST",
-      data: {
-        keyword: keyword,
-        date: date,
-        university: university,
-        categories: checkedCategories,
-      },
-      success: function (data) {
-        // Update the content section with the retrieved data
-        $("#content-section").html(data);
-      },
-    });
-    
-  }
-
-  // Attach keyup event listener to the search bar input
-  document
-    .getElementById("search-bar-input")
-    .addEventListener("keyup", updateContent);
-
-  // Attach change event listener to date input
-  document
-    .getElementById("date-input")
-    .addEventListener("change", updateContent);
-
-  document
-    .getElementById("date-reset-btn")
-    .addEventListener("click", updateContent);
-
-  // Trigger the initial update when the page loads
-  updateContent();
-});
 
 // slider js
 var counter = 1;
@@ -295,21 +296,15 @@ function quickShortcut(category) {
 
   $.ajax({
     url: "http://localhost/unihub/events/quickShortcut",
-    type: "POST", 
+    type: "POST",
     data: {
-
       value: category,
-
     },
     success: function (response) {
-     
       $("#content-section").html(response);
     },
     error: function (error) {
-
       console.error("Error:", error);
     },
   });
 }
-
-

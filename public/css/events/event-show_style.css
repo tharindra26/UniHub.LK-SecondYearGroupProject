@@ -243,9 +243,13 @@
             .icons{
                 display: flex;
                 font-size: 40px;
-                justify-content: space-between;
+                justify-content: flex-start;
                 /* border: 1px solid red; */
                 flex-wrap: wrap;
+            }
+
+            .icons a{
+                text-decoration: none;
             }
                 .social-icon{
                     display: flex;
@@ -253,6 +257,8 @@
                     height: 40px;
                     justify-content: center;
                     align-items: center;
+                    margin-right: 5px;
+                    color: #34495e;
                     /* border: 1px solid red; */
                 }
 

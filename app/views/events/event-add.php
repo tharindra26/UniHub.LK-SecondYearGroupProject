@@ -80,33 +80,36 @@
                             <?php endif; ?>
                         </div>
                     </div>
+                </div>
 
-                    <div class="column">
-                        <div class="input-box">
-                            <label for="">Venue</label>
-                            <input type="text" name="venue" value="<?php echo $data['venue'] ?>" id="" placeholder="Enter event venue">
-                            <?php if (!empty($data['venue_err'])): ?>
-                                <span class="error-message"><?php echo $data['venue_err']; ?></span>
-                            <?php endif; ?>
-                        </div>
 
-                        <div class="input-box">
-                            <label for="">Embed Google map link</label>
-                            <input type="text" name="map_navigation" value="<?php echo $data['map_navigation'] ?>" id="" placeholder="Enter embed Google map link">
-                            <?php if (!empty($data['map_navigation_err'])): ?>
-                                <span class="error-message"><?php echo $data['map_navigation_err']; ?></span>
-                            <?php endif; ?>
-                        </div>
+
+                <h3>Placement</h3>
+                <div class="column">
+                    <div class="input-box">
+                        <label for="">Venue</label>
+                        <input type="text" name="venue" value="<?php echo $data['venue'] ?>" id="" placeholder="Enter event venue">
+                        <?php if (!empty($data['venue_err'])): ?>
+                            <span class="error-message"><?php echo $data['venue_err']; ?></span>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="input-box">
+                        <label for="">Embed Google map link</label>
+                        <input type="text" name="map_navigation" value="<?php echo $data['map_navigation'] ?>" id="" placeholder="Enter embed Google map link">
+                        <?php if (!empty($data['map_navigation_err'])): ?>
+                            <span class="error-message"><?php echo $data['map_navigation_err']; ?></span>
+                        <?php endif; ?>
                     </div>
                 </div>
-                
+
                 <div class="column">
                     <div class="input-box">
                     <?php
                         // Get the current date and time in the format required by datetime-local input
                         $currentDateTime = date('Y-m-d\TH:i', time());
                     ?>
-                        <label for="">Start date-time<?php echo $currentDateTime; ?></label>
+                        <label for="">Start date-time</label>
 
                         <input type="datetime-local" name="start_datetime" value="<?php echo $data['start_datetime'] ?>" id="start_datetime" min="<?php echo $currentDateTime; ?>">
                         <?php if (!empty($data['start_datetime_err'])): ?>
@@ -135,16 +138,17 @@
                     <H3>Choose Categories</H3>
                     <div class="column">
                         <div class="input-box ">
-                            <label for="">Category #1</label>
+                            <label for="">Press ctrl to select multiple categories.</label>
                             <div class="select-box category">
                                 
-                                <select name="category" value="<?php echo $data['category'] ?>" id="selection">
-                                    <option hidden>Category #1</option>
-                                    <option value="***Set Later" <?php if ($data['category'] == '***Set Later') echo 'selected'; ?>>Set Later</option>
-                                    <option value="Concert" <?php if ($data['category'] == 'Concert') echo 'selected'; ?>>Concert</option>
-                                    <option value="Hackathon" <?php if ($data['category'] == 'Hackathon') echo 'selected'; ?>>Hackathon</option>
-                                    <option value="Workshop" <?php if ($data['category'] == 'Workshop') echo 'selected'; ?>>Workshop</option>
-                                </select>
+                            <select name="categories[]" id="selection" multiple>
+                                <option hidden>Select Category</option>
+                                <option value="Concert" <?php if (is_array($data['categories']) && in_array('Concert', $data['categories'])) echo 'selected'; ?>>Concert</option>
+                                <option value="Hackathon" <?php if (is_array($data['categories']) && in_array('Hackathon', $data['categories'])) echo 'selected'; ?>>Hackathon</option>
+                                <option value="Workshop" <?php if (is_array($data['categories']) && in_array('Workshop', $data['categories'])) echo 'selected'; ?>>Workshop</option>
+                            </select>
+
+
                             </div>
                             <?php if (!empty($data['category_err'])): ?>
                                 <span class="error-message"><?php echo $data['category_err']; ?></span>

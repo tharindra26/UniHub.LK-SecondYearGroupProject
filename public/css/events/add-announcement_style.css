@@ -23,7 +23,6 @@
 .bottom-part{
     display: flex;
     flex-direction: row;
-    height: 600px;
     /* border: 1px solid red; */
 }
 
@@ -33,6 +32,7 @@
     flex-wrap: wrap; 
     padding: 0 10px;
     justify-content: space-around;
+    height: auto;
     /* border: 1px solid red; */
 }
 
@@ -60,10 +60,6 @@
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     margin: 20px 20px 20px 0;
-    /* background-image: url('../../img/events/event-add/event-add-image.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center; */
     /* border: 1px solid red; */
 }
 
@@ -163,6 +159,7 @@
     background: #3498db;
     color: white;
     transition: all 0.2s ease;
+    border:1px solid red;
 }
 
 .submit-btn:hover {
