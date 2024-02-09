@@ -126,6 +126,8 @@
                     </div>
                 </div>
 
+
+
                 <div class="input-box">
                     <label for="">Event Description</label>
                     <textarea  id="eventDescription" name="description" value="<?php echo $data['description'] ?>" placeholder="Enter event description"><?php echo $data['description'] ?></textarea>
