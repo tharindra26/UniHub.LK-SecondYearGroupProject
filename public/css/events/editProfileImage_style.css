@@ -8,13 +8,59 @@ ExtraBold 800
 lora
 overpass */
 
-.inner-container {
-    width: 100%;
+.inner-container{
+    margin: 10px 0;
     display: flex;
-    /* flex-direction: row; */
+    flex-direction: column;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid red;
+
 }
 
-.add-event-form {
+.title-text{
+    width: 70%;
+    height: 100px;
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-size: 30px;
+    letter-spacing: 3px;
+}
+.bottom-part{
+    display: flex;
+    flex-direction: row;
+    min-height: 500px;
+}
+
+.left-box{
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap; 
+    padding: 0 10px;
+    justify-content: space-around;
+    border: 1px solid red;
+}
+
+.image-box {
+    max-width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-box img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+
+.form-outer-box{
     position: relative;
     width: 100%;
     background-color: white;
@@ -29,14 +75,14 @@ overpass */
     /* border: 1px solid red; */
 }
 
-.add-event-form header {
+.form-outer-box header {
     text-align: center;
     font-weight: 500;
     color: #2c3e50;
     font-size: 30px;
 }
 
-.add-event-form .form {
+.form-outer-box .form {
     margin-top: 30px;
     /* border: 1px solid red; */
 }
@@ -69,50 +115,12 @@ overpass */
 }
 
 
-
-#selection {
-    padding-left: 10px;
-}
-
-#eventDescription {
-    width: 100%;
-    height: 150px;
-    padding: 10px;
-    box-sizing: border-box;
-    font-family: poppins;
-    font-size: 16px;
-    color: #7f8c8d;
-    border: 1px solid #bdc3c7;
-    border-radius: 6px;
-    resize: vertical;
-    outline: none;
-}
-
-.select-box {
-    border: none;
-    padding-left: 0;
-    /* border: 1px solid red; */
-}
-.category {
-    width: 45%;
-    height: 150px;
-}
-
-.add-event-form .column {
+.form-outer-box .column {
     display: flex;
     column-gap: 15px;
+    /* border:1px solid red */
 }
 
-.select-box select {
-    height: 100%;
-    width: 100%;
-    outline: none;
-    border: none;
-    color: #7f8c8d;
-    font-size: 16px;
-    border-radius: 6px;
-    border: 1px solid #bdc3c7;
-}
 
 .submit-btn {
     height: 55px;
@@ -198,6 +206,30 @@ overpass */
     height: auto;
 }
 
+
+
+
+/* profile image and cover image css */
+.profile-img-box img,
+.cover-img-box img {
+  width: 100%; /* Make images responsive */
+  max-width: 100%;
+  height: auto;
+  display: flex;
+}
+
+.profile-img-box {
+  width: 200px; /* Set width for profile image */
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.cover-img-box {
+  width: 75%; /* Set width for cover image */
+  height: auto;
+  margin-bottom: 20px;
+}
+
 /* error message */
 .error-message {
     color: red;
@@ -207,10 +239,3 @@ overpass */
 }
 
 /* error message */
-
-
-@media screen and (max-width: 500px){
-    .form .column{
-        flex-wrap: wrap;
-    }
-}
