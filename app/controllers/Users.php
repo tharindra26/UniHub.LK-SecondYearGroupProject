@@ -630,6 +630,22 @@ class Users extends Controller{
       }
     }
 
+    public function deactivateUser(){
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $user_id = $_POST['user_id'];
+        $data = [
+          'user_id' => $user_id
+        ];
+        if ($this->userModel->updateAccountStatus($data)) {
+          echo 1;
+        } else {
+          echo 0;
+        }
+  
+      }
+    }
+
     public function events(){
       $event = $this->eventModel->getAllEvents();
       $data=[

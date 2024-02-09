@@ -69,12 +69,14 @@
                 </thead>
                 <tbody>
                 <?php if (!empty($data['user'][0]->id)) : ?> 
-                        <?php for ($i = 0; $i < 2; $i++ ) : 
+                        <?php for ($i = 0; $i < 4; $i++ ) : 
                             $user = $data['user'][$i]; 
                             if (empty($user)):
                                 break;
                             endif;
-                            $popupId = "popup" . $user->id; ?>
+                            // $popupId = "popup" . $user->id; 
+                            $confirm = $user->id; ?>
+                        
                             <tr>
                                 <td><?php echo $user->fname , " " , $user->lname ?></td>
                                 <td><?php echo $user->email ?></td>
@@ -85,18 +87,19 @@
                                     else:
                                         echo "Deactivated";
                                     endif;
-                                ?></td>
-                                <td>
+                                ?>
+                                </td>
+                                <td id="action">
                                     <a href="#" class="view"><i class="fa-solid fa-eye"></i></a>
                                     <a href="#" class="update"><i class="fa-solid fa-pen-to-square"></i></a>
                                     <div class="deactivate">
-                                        <a href="#" class="delete" onclick="openPopup('<?php echo $popupId; ?>')" ><i class="fa-solid fa-trash-can"></i></a>
-                                        <div class="del-popup" id="<?php echo $popupId; ?>" >
+                                        <a href="#" class="delete" onclick="openPopup('<?php echo $confirm; ?>')" ><i class="fa-solid fa-trash-can"></i></a>
+                                        <div class="del-popup" id="<?php echo $confirm; ?>" >
                                             <h2>Confirm Deletion</h2>
                                             <p>Are you sure you want to deactivate the accout. UserId: <?php echo $user->id; ?></p>
-                                            <button onclick="closePopup('<?php echo $popupId; ?>')">Yes</button>
-                                            <button onclick="closePopup('<?php echo $popupId; ?>')">Cancel</button>
-                                        </div>
+                                            <button  onclick="confirmDeactivate('<?php echo $confirm; ?>')" >Yes</button>
+                                            <button onclick="closePopup('<?php echo $confirm; ?>')">Cancel</button>
+                                    </div>
                                     
                                     </div>
                                 </td>
@@ -111,5 +114,45 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="<?php echo URLROOT ?>/js/users/admin/useraccounts.js"></script>
-</body>
-</html>
+<script>
+//     $(document).ready(function() {
+//         // Add click event to the button
+//         $("#confirm").on("click", function (e) {
+//             // console.log("Click");
+//             e.preventDefault(); // Prevent the default link behavior
+
+//             // // Store reference to the button element
+//             var confirmBtn = $("#confirm");
+
+//             // // Your AJAX function here
+//             $.ajax({
+//                 url: 'http://localhost/unihub/users/deactivateUser',
+//                 type: 'POST', // or 'GET' depending on your needs
+//                 data: {
+//                     user_id: <?php echo $user->id ?>,
+//                 },
+//                 success: function (response) {
+//                     // Handle the success response
+//                     console.log("AJAX request successful:", response);
+
+//                     // Update the text content on success
+//                     // interestedBtn.find('span').text(response);   
+//                     if (response === '1') {
+//                         confirmBtn.removeClass("open-popup");
+//                     } else {
+//                         confirmBtn.addClass("new-class");
+//                     }
+
+
+//                 },
+//                 error: function (error) {
+//                     // Handle the error response
+//                     console.error("AJAX request failed:", error);
+//                 }
+//             });
+//         });
+//     });
+</script>
+
+
+

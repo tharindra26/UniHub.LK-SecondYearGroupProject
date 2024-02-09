@@ -1,15 +1,15 @@
 
 .admin-section{
     display: flex;
-    gap: 30px;
-    /* justify-content: space-between; */
+    gap: 20px;
+    justify-content: space-between;
     margin: 20px;
-    border: 1px solid black;
 }
 
 menu{
     height: 90vh;
-    width: 22%;
+    width: 21%;   
+    position: fixed;
 }
 
 menu .top{
@@ -19,6 +19,8 @@ menu .top{
     align-items: center;
     margin-top: 10px;
     padding: 5px;
+    
+    
 }
 
 menu .top .admin-logo{
@@ -43,7 +45,6 @@ menu .option-menu{
     display: flex;
     flex-direction: column;
     height: 89%;
-    position: relative;
     top: 10px;
 }
 
@@ -104,11 +105,12 @@ menu .option-menu a:hover span{
 
 /* main section starts */
 main{
-    width: 75%;
+    width: 73%;
     background-color: white;
-    border: 1px solid red;
     margin-top: 10px;
     padding: 20px;
+    margin-left: 23%;
+    position: relative;
 }
 
 main .section-title{
@@ -120,9 +122,6 @@ main .section-title{
 /* main section ends */
 
 /* dashboard css starts */
-.dashbord-area{
-    border: 1px solid red;
-}
 .dashbord-area .chart-row{
     width: 100%;
     position: relative;
@@ -135,7 +134,6 @@ main .section-title{
     position: relative;
     width: 50%;
     margin: 10px;
-    border: 1px solid red;
     padding: 10px;
     height: 80vh/2;
     background-color: white;
@@ -335,6 +333,12 @@ main a{
 .user-table tbody tr td{
     font-size: 15px;
     padding: 10px 10px 0 10px ;
+}
+
+#action{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .user-table tbody tr td i{

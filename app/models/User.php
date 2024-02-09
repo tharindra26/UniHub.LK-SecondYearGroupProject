@@ -259,5 +259,28 @@ class User{
         return $rows;
     }
 
+    public function updateAccountStatus($data){
+        $this->db->query("UPDATE users SET status = :status  WHERE id= :id");
+            //Bind values
+            $this->db->bind(':id', $data['user_id']);
+            $this->db->bind('status', 0);
+    
+            //Execute the query
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+    }
+
+    public function checkStatusByID($data){
+        $this->db->query('SELECT status FROM users WHERE id = :di');
+        $this->db->bind(':id', $data['user_id']);
+        $this->db->execute();
+        $row = $this->db->single();
+        return $row;
+    }
+    
+
 
 }
