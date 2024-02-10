@@ -31,18 +31,19 @@
         <div class="user-info">
             
             <div class="user-head">
-                <a href="#" onclick="typefilter('all');">
-                    <div class="view-all-button" >
-                        <i class="fa-solid fa-eye"></i>
-                        <span>View All Users</span>
-                    </div>
-                </a>
                 <div class="search-bar-container">
                     <form action="" class="search-bar">
                         <input type="text" name="searchInput" placeholder="Search Users" id="search-bar-input">
                         <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </form>
                 </div>
+
+                <a href="#" onclick="typefilter('all');">
+                    <div class="view-all-button" >
+                        <i class="fa-solid fa-eye"></i>
+                        <span>View All Users</span>
+                    </div>
+                </a>
                 
                 <a href="#">
                     <div class="view-all-button">
@@ -69,8 +70,7 @@
                 </thead>
                 <tbody>
                 <?php if (!empty($data['user'][0]->id)) : ?> 
-                        <?php for ($i = 0; $i < 4; $i++ ) : 
-                            $user = $data['user'][$i]; 
+                        <?php foreach($data['user'] as $user) :  
                             if (empty($user)):
                                 break;
                             endif;
@@ -90,22 +90,41 @@
                                 ?>
                                 </td>
                                 <td id="action">
+                                <?php if ($user->type != 'admin'):?>
                                     <a href="#" class="view"><i class="fa-solid fa-eye"></i></a>
+                                <?php endif; ?>
                                     <a href="#" class="update"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <?php
+                                    if ($user->status == 0):?>
+                                    <div class="activate">
+                                        <a href="#" class="delete" onclick="openPopup('<?php echo $confirm; ?>')" ><i class="fa-solid fa-bell"></i></a>
+                                        <div class="del-popup" id="<?php echo $confirm; ?>" >
+                                            <div class="del-img"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                                            <h2>Confirm Activation</h2>
+                                            <p>Are you sure you want to active the accout. UserId: <?php echo $user->id; ?></p>
+                                            <button class="confirm-btn" onclick="confirmActivate('<?php echo $confirm; ?>')" >Activate</button>
+                                            <button class="confirm-btn" onclick="closePopup('<?php echo $confirm; ?>')">Cancel</button>
+                                        </div>
+                                    
+                                    </div>
+                                        
+                                    <?php else: ?> 
                                     <div class="deactivate">
                                         <a href="#" class="delete" onclick="openPopup('<?php echo $confirm; ?>')" ><i class="fa-solid fa-trash-can"></i></a>
                                         <div class="del-popup" id="<?php echo $confirm; ?>" >
-                                            <h2>Confirm Deletion</h2>
+                                            <div class="del-img"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                                            <h2>Confirm Deactivation</h2>
                                             <p>Are you sure you want to deactivate the accout. UserId: <?php echo $user->id; ?></p>
-                                            <button  onclick="confirmDeactivate('<?php echo $confirm; ?>')" >Yes</button>
-                                            <button onclick="closePopup('<?php echo $confirm; ?>')">Cancel</button>
-                                    </div>
+                                            <button class="confirm-btn" onclick="confirmDeactivate('<?php echo $confirm; ?>')" >Deactivate</button>
+                                            <button class="confirm-btn" onclick="closePopup('<?php echo $confirm; ?>')">Cancel</button>
+                                        </div>
                                     
                                     </div>
+                                    <?php endif; ?>    
                                 </td>
                             </tr>
 
-                        <?php endfor; ?>
+                        <?php endforeach; ?>
                     <?php endif; ?>
                    
                 </tbody>

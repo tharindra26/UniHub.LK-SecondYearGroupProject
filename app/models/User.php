@@ -259,11 +259,40 @@ class User{
         return $rows;
     }
 
-    public function updateAccountStatus($data){
+    public function getRecentlyLoggedInUsers(){
+        $this->db->query('SELECT * FROM users
+                        JOIN (
+                        SELECT user_id, MAX(login_time) AS last_login_time
+                        FROM login_details
+                        GROUP BY user_id
+                        ) AS latest_logins
+                        ON users.id = latest_logins.user_id
+                        ORDER BY latest_logins.last_login_time DESC
+                        LIMIT 10');
+        $this->db->execute();
+        $rows = $this->db->resultSet();
+        return $rows;
+    }
+
+    public function DeactivateAccount($data){
         $this->db->query("UPDATE users SET status = :status  WHERE id= :id");
             //Bind values
             $this->db->bind(':id', $data['user_id']);
             $this->db->bind('status', 0);
+    
+            //Execute the query
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+    }
+
+    public function ActivateAccount($data){
+        $this->db->query("UPDATE users SET status = :status  WHERE id= :id");
+            //Bind values
+            $this->db->bind(':id', $data['user_id']);
+            $this->db->bind('status', 1);
     
             //Execute the query
             if ($this->db->execute()) {
