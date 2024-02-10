@@ -36,6 +36,10 @@ class Events extends Controller
       //process form
 
       $navigation = trim($_POST['map_navigation']);
+      $web = trim($_POST['web']);
+      $linkedin = trim($_POST['linkedin']);
+      $facebook = trim($_POST['facebook']);
+      $instagram = trim($_POST['instagram']);
       //Sanitize post data
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
@@ -47,6 +51,10 @@ class Events extends Controller
         'venue' => trim($_POST['venue']),
         'email' => trim($_POST['email']),
         'contact_number' => trim($_POST['contact_number']),
+        'web' => $web,
+        'linkedin' => $linkedin,
+        'facebook' => $facebook,
+        'instagram' => $instagram,
         'map_navigation' => $navigation,
         'start_datetime' => trim($_POST['start_datetime']),
         'end_datetime' => trim($_POST['end_datetime']),
@@ -61,6 +69,10 @@ class Events extends Controller
         'venue_err' => '',
         'email_err' => '',
         'contact_number_err' => '',
+        'web_err' => '',
+        'linkedin_err' => '',
+        'facebook_err' => '',
+        'instagram_err' => '',
         'map_navigation_err' => '',
         'start_datetime_err' => '',
         'end_datetime_err' => '',
@@ -209,6 +221,10 @@ class Events extends Controller
         'venue' => '',
         'email' => '',
         'contact_number' => '',
+        'web' => '',
+        'linkedin' => '',
+        'facebook' => '',
+        'instagram' => '',
         'map_navigation' => '',
         'start_datetime' => '',
         'end_datetime' => '',
@@ -569,10 +585,99 @@ class Events extends Controller
 
   public function editContactDetails($id)
   {
-    $data = [
-      'id' => $id,
-    ];
-    $this->view('events/editContactDetails', $data);
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      //process form
+        $web = trim($_POST['web']);
+        $email = trim($_POST['email']);
+        $linkedin = trim($_POST['linkedin']);
+        $facebook = trim($_POST['facebook']);
+        $instagram = trim($_POST['instagram']);
+
+      //Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      //Init data
+      $data = [
+
+        'id' => $id,
+        'organized_by' => trim($_POST['organized_by']),
+        'contact_number' => trim($_POST['contact_number']),
+        'web' => $web,
+        'email' => $email,
+        'linkedin' => $linkedin,
+        'facebook' => $facebook,
+        'instagram' => $instagram,
+
+        'organized_by_err' => '',
+        'web_err' => '',
+        'email_err' => '',
+        'linkedin_err' => '',
+        'facebook_err' =>'',
+        'instagram_err' => '',
+
+      ];
+
+      
+
+
+      if (empty($data['organized_by'])) {
+        $data['organized_by_err'] = 'Pleae enter the organization entity';
+      }
+
+      if (empty($data['email'])) {
+        $data['email_err'] = 'Pleae enter the email';
+      }
+      if (empty($data['contact_number'])) {
+        $data['contact_number_err'] = 'Pleae enter the contact number';
+      }
+
+
+
+      // Make sure errors are empty
+      if (empty($data['organized_by_err']) && empty($data['contact_number_err']) && empty($data['email_err']) ) {
+        //Validated
+        if ($this->eventModel->updateContactDetails($data)) {
+          redirect('events');
+        }
+
+        
+      } else {
+
+        //load view with errors
+        $this->view('events/editContactDetails', $data);
+
+      }
+
+
+    } else {
+      //get existing post from model
+      $event = $this->eventModel->getEventById($id);
+
+      // Init data
+      $data = [
+        'id' => $id,
+        'organized_by' => $event->organized_by,
+        'email' => $event->email,
+        'contact_number' => $event->contact_number,
+        'web' => $event->web,
+        'linkedin' => $event->linkedin,
+        'facebook' => $event->facebook,
+        'instagram' => $event->instagram,
+
+        'organized_by_err' => '',
+        'email_err' => '',
+        'contact_number_err' => '',
+        'web_err' => '',
+        'linkedin_err' => '',
+        'facebook_err' => '',
+        'instagram_err' => '',
+
+      ];
+
+      // Load view
+      $this->view('events/editContactDetails', $data);
+    }
   }
 
   public function editPlacement($id)

@@ -441,7 +441,7 @@ class Users extends Controller{
 
             //Sanitize post data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
+  
             //Init data
             $data =[
                 'id' => $id,

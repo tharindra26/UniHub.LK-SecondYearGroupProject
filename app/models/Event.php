@@ -51,6 +51,10 @@ class Event
         organized_by, 
         email, 
         contact_number, 
+        web,
+        linkedin,
+        facebook,
+        instagram,
         description, 
         map_navigation, 
         approval, 
@@ -58,7 +62,7 @@ class Event
         main_button_action, 
         main_button_link, 
         countdown_text, 
-        countdown_datetime) VALUES(:user_id, :title,:event_profile_image, :event_cover_image, :start_datetime, :end_datetime, :university_id, :venue, :organized_by, :email, :contact_number, :description, :map_navigation, :approval, :status, :main_button_action, :main_button_link, :countdown_text, :countdown_datetime)");
+        countdown_datetime) VALUES(:user_id, :title,:event_profile_image, :event_cover_image, :start_datetime, :end_datetime, :university_id, :venue, :organized_by, :email, :contact_number, :web, :linkedin, :facebook, :instagram, :description, :map_navigation, :approval, :status, :main_button_action, :main_button_link, :countdown_text, :countdown_datetime)");
         //Bind values
         $this->db->bind(':user_id', $_SESSION['user_id']);
         $this->db->bind(':title', $data['title']);
@@ -71,6 +75,10 @@ class Event
         $this->db->bind(':organized_by', $data['organized_by']);
         $this->db->bind(':email', $data['email']);
         $this->db->bind(':contact_number', $data['contact_number']);
+        $this->db->bind(':web', $data['web']);
+        $this->db->bind(':linkedin', $data['linkedin']);
+        $this->db->bind(':facebook', $data['facebook']);
+        $this->db->bind(':instagram', $data['instagram']);
         $this->db->bind(':description', $data['description']);
         $this->db->bind(':map_navigation', $data['map_navigation']);
         $this->db->bind(':approval', 1);
@@ -374,6 +382,34 @@ class Event
         $rows = $this->db->resultSet();
 
         return $rows;
+    }
+
+    public function updateContactDetails($data){
+        $this->db->query("UPDATE events SET
+                    organized_by = :organized_by,
+                    contact_number = :contact_number,
+                    web = :web,
+                    linkedin = :linkedin,
+                    facebook = :facebook,
+                    instagram = :instagram
+                    WHERE id = :id");
+
+        //Bind values
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':organized_by', $data['organized_by']);
+        $this->db->bind(':contact_number', $data['contact_number']);
+        $this->db->bind(':web', $data['web']);
+        $this->db->bind(':linkedin', $data['linkedin']);
+        $this->db->bind(':facebook', $data['facebook']);
+        $this->db->bind(':instagram', $data['instagram']);
+
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
    
