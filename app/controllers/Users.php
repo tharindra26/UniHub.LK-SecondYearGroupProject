@@ -603,7 +603,7 @@ class Users extends Controller{
     }
 
     public function useraccounts(){
-      $user = $this->userModel->getUsers();
+      $user = $this->userModel->getRecentlyLoggedInUsers();
       $data=[
         'user' =>$user
       ];
@@ -637,7 +637,7 @@ class Users extends Controller{
         $data = [
           'user_id' => $user_id
         ];
-        if ($this->userModel->updateAccountStatus($data)) {
+        if ($this->userModel->DeactivateAccount($data)) {
           echo 1;
         } else {
           echo 0;
@@ -645,6 +645,23 @@ class Users extends Controller{
   
       }
     }
+
+    public function activateUser(){
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $user_id = $_POST['user_id'];
+        $data = [
+          'user_id' => $user_id
+        ];
+        if ($this->userModel->ActivateAccount($data)) {
+          echo 1;
+        } else {
+          echo 0;
+        }
+  
+      }
+    }
+
 
     public function events(){
       $event = $this->eventModel->getAllEvents();
