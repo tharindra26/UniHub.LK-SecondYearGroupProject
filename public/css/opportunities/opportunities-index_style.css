@@ -23,23 +23,24 @@
 .search-bar-container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     width: 100%;
     /* border: 1px solid red; */
 }
 
 .search-bar {
-    width: 100%;
-    max-width: 100%;
+    width: 73%;
     /* background: rgba(127, 140, 141, 0.3); */
+    position: relative;
+    right: 0;
     background: rgba(255, 255, 255, 1);
     display: flex;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 3px 5px;
     margin-top: 10px;
     margin-bottom: 10px;
-    border: 2px solid #2980b9;
+    border: 0.5px solid #2980b9;
 }
 
 .search-bar input {
@@ -50,7 +51,7 @@
     outline: none;
     font-size: 15px;
     color: rgb(130, 130, 130);
-    text-align: center;
+    text-align: left;
 
 }
 
@@ -60,15 +61,14 @@
 
 .search-bar button {
     border: 0;
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    background: #2980b9;
+    padding: 10px;
     cursor: pointer;
+    background-color: white;
+    font-size: 20px;
 }
 
 .fa-magnifying-glass {
-    color: white;
+    color: black;
 }
 
 /* Search bar */
@@ -80,6 +80,7 @@
     height: 50px;
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
 }
 
 .section-name {
@@ -104,20 +105,66 @@
     font-weight: 500;
 }
 
-.option {
-    background-color: #e67e22;
-    color: white;
-    margin-left: 30px;
-    padding: 10px;
-    /* border: 1px solid black; */
-    border-radius: 10px;
-    cursor: pointer;
+.shortcut-options h3 {
+    font-weight: 400;
+    color: black;
 }
 
-.option:hover {
+.shortcut-options-outer-box {
+    display: flex;
+    border: 0.5px solid #34495e;
+    padding-left: 10px;
+    margin-left: 10px;
+}
+
+.option {
+    /* background-color: #e67e22; */
+    color: #2980b9;
+    margin-left: 30px;
+    padding: 10px;
+    font-weight: 300;
+    /* border: 1px solid black; */
+    /* border-radius: 10px; */
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-bottom: 0;
+}
+
+/*.option hr{
+    height: 5px;
+    background-color: #1C5981;
+    border-style: none;
+}*/
+
+.option hr {
+    position: absolute;
+    bottom: -0px;
+    /* Adjust this value as needed */
+    left: 0;
+    width: 0;
+    height: 2px;
+    /* Thickness of the line */
+    background-color: #EDEDED;
+    /* Color of the line */
+    transition: width 0.5s ease;
+    /* Transition effect */
+    pointer-events: none;
+    /* Prevents the line from blocking clicks */
+    border-style: none;
+}
+
+.option:hover hr {
+    width: 100%;
+    /* Set width to 100% on hover */
+    background-color: black;
+}
+
+/*.option:hover {
     color: white;
     background-color: #2980b9;
-}
+}*/
 
 /* Quick-shortcut-bar */
 
@@ -442,56 +489,116 @@ li.selected {
     margin-bottom: 20px;
     text-decoration: none;
     transition: transform 0.5s, opacity 0.5s;
+    
 }
 
 
-.opportunity-card:hover {
+/* .opportunity-card:hover {
     transform: translateX(10px);
-}
+} */
 
-.opportunity-card .left-color-bar{
+.opportunity-card .left-color-bar {
     width: 0.5%;
     height: 100%;
-    background-color: #16a085;
+    background-color: #2980b9;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
 
-.opportunity-card .image-section{
+.opportunity-card .image-section {
+    width: 15%;
+    /* border: 1px solid red; */
+    /* Center the image */
+    text-align: center;
+    /* Center the image horizontally */
+}
+
+.opportunity-card .image-section img {
+    width: 90%;
+    /* Ensure the image takes full width */
+    height: auto;
+    margin-top: 10px;
+    /* Automatically adjust height according to width */
+}
+
+.opportunity-card .title-section {
+    width: 55%;
+    height: 100%;
+    /* border: 1px solid red; */
+    
+}
+
+.title-section .title-text{
+    font-size: 25px;
+    font-weight: 400;
+    color: black;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    /* border:1px solid red; */
+}
+.title-section .days-left{
+    /* border:1px solid red; */
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.day-count-box{
+    display: flex;
+    width: 40%;
+}
+
+.title-section .days-left .day-count{
+    font-size: 12px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: white;
+    background-color: #2980b9;
+    width: max-content;
+}
+
+.day-count .fa-circle{
+    font-size: 10px;
+    margin-right: 10px;
+
+}
+
+.title-section .days-left .working-mod{
+    color: #2c3e50;
+    font-size: 15px;
+}
+
+.working-mod .fa-building{
+    margin-right: 10px;
+}
+
+.opportunity-card .details-section {
     width: 20%;
     height: 100%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
-.opportunity-card .title-section{
-    width: 50%;
-    height: 100%;
-    border: 1px solid red;
-}
-
-.opportunity-card .details-section{
-    width: 20%;
-    height: 100%;
-    border: 1px solid red;
-}
-
-.opportunity-card .right-color-bar{
+.opportunity-card .right-color-bar {
     width: 3%;
     height: 100%;
-    display: flex;
+    display: none;
     /* border: 1px solid red; */
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    background-color: #16a085;
+    background-color: #2980b9;
     color: white;
     justify-content: center;
     align-items: center;
 }
 
+.opportunity-card:hover{
+    border: 0.5px solid #2980b9;
+}
 
-
-
-
-
-
-
+.opportunity-card:hover .right-color-bar {
+    display: flex;
+}
+.opportunity-card:hover .left-color-bar {
+    width: 1%; /* New width upon hover */
+}

@@ -147,4 +147,18 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <?php if($_SESSION['login_status']=='invalid'){
+        echo '<script> Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+          }); </script>';
+        unset($_SESSION['login_status']);
+
+    } ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <?php require APPROOT . '/views/inc/footer.php'; ?>
