@@ -348,6 +348,7 @@ main a{
 }
 
 .del-popup{
+    display: flex;
     width: 600px;
     background: white;
     border-radius: 6px;
@@ -371,18 +372,16 @@ main a{
     font-weight: 500;
     margin: 10px;
 }
-
+.del-popup .del-content{
+    width: 50%;
+}
 .del-popup .del-img{
-    margin-top: -11%;
+    width: 50%;
+    border: 1px solid red;
 }
 
-.del-popup .del-img i{
-    background-color: white;
-    color: red;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    padding: 20px;
-    border-radius: 50%;
-    font-size: 40px;
+.del-popup .del-img img{
+    width: 250px;
 }
 
 .del-popup .confirm-btn{

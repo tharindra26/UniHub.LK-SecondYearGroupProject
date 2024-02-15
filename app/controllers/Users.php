@@ -630,6 +630,24 @@ class Users extends Controller{
       }
     }
 
+    public function updateUser(){
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        //echo $_POST['value'];
+  
+        $user = $this->userModel->getUserById($_POST['user_id']);
+  
+        $data = [
+          'users' => $user,
+        ];
+  
+        $this->view('users/admin/updateuser', $data);
+  
+      }
+    }
+
+
+
     public function deactivateUser(){
       if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
