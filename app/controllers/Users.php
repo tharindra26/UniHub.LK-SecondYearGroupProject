@@ -211,6 +211,8 @@ class Users extends Controller{
   
             if($loggedInUser){
               // Create Session
+              // Print JavaScript code for SweetAlert2
+
               $this->createUserSession($loggedInUser);
               $this->userModel->addLoginRecord($_SESSION['user_id']);
             } else {
@@ -219,6 +221,7 @@ class Users extends Controller{
             }
           } else {
             // Load view with errors
+            $_SESSION['login_status']='invalid';
             $this->view('signin', $data);
           }
   

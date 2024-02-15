@@ -14,8 +14,9 @@
 <div class="container">
     <div class="search-bar-container">
         <form action="" class="search-bar">
-            <input type="text" name="searchInput" placeholder="Explore Opportunities" id="search-bar-input">
             <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <input type="text" name="searchInput" placeholder="Explore Opportunities" id="search-bar-input">
+
         </form>
     </div>
 </div>
@@ -24,13 +25,25 @@
 <!-- Quick-shortcut-bar -->
 <div class="container">
     <div class="shortcut-bar">
-        <div class="section-name">Opportunities</div>
+        <!-- <div class="section-name">Opportunities</div> -->
         <div class="shortcut-options">
-            <div class="option" onclick="quickShortcut('all')">All</div>
-            <div class="option" onclick="quickShortcut('hackathon')">Interns</div>
-            <div class="option" onclick="quickShortcut('entertainment')">Jobs</div>
-            <div class="option" onclick="quickShortcut('workshops')">New Initiatives</div>
+            <h3>Sort:</h3>
+            <div class="shortcut-options-outer-box">
+                <div class="option" onclick="quickShortcut('all')">All
+                    <hr>
+                </div>
+                <div class="option" onclick="quickShortcut('hackathon')">Interns
+                    <hr>
+                </div>
+                <div class="option" onclick="quickShortcut('entertainment')">Jobs
+                    <hr>
+                </div>
+                <div class="option" onclick="quickShortcut('workshops')">New Initiatives
+                    <hr>
+                </div>
+            </div>
         </div>
+
     </div>
 </div>
 <!-- Quick-shortcut-bar -->
@@ -120,8 +133,24 @@
         <div class="content-section" id="content-section">
             <div class="opportunity-card">
                 <div class="left-color-bar"></div>
-                <div class="image-section"></div>
-                <div class="title-section"></div>
+                <div class="image-section">
+                    <img src="<?php echo URLROOT ?>/img/opportunities/card-images/medium_square.png" alt="">
+                </div>
+                <div class="title-section">
+                    <div class="title-text">GitLab Innovation Pitch</div>
+                    <div class="days-left">
+                        <div class="day-count-box">
+                            <div class="day-count"><i class="fa-solid fa-circle"></i>21 days left</div>
+                        </div>
+                        <div class="working-mod-box">
+                            <div class="working-mod"><i class="fa-solid fa-building"></i> Physical</div>
+                        </div>
+
+
+                    </div>
+                    <div class="options-tab"></div>
+
+                </div>
                 <div class="details-section"></div>
                 <div class="right-color-bar">
                     <i class="fa-solid fa-chevron-right"></i>
