@@ -93,17 +93,19 @@
                                 <?php if ($user->type != 'admin'):?>
                                     <a href="#" class="view"><i class="fa-solid fa-eye"></i></a>
                                 <?php endif; ?>
-                                    <a href="#" class="update"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a href="#" class="update" onclick="updateUser('<?php echo $confirm; ?>')"><i class="fa-solid fa-pen-to-square"></i></a>
                                     <?php
                                     if ($user->status == 0):?>
                                     <div class="activate">
                                         <a href="#" class="delete" onclick="openPopup('<?php echo $confirm; ?>')" ><i class="fa-solid fa-bell"></i></a>
                                         <div class="del-popup" id="<?php echo $confirm; ?>" >
-                                            <div class="del-img"><i class="fa-solid fa-triangle-exclamation"></i></div>
-                                            <h2>Confirm Activation</h2>
-                                            <p>Are you sure you want to active the accout. UserId: <?php echo $user->id; ?></p>
-                                            <button class="confirm-btn" onclick="confirmActivate('<?php echo $confirm; ?>')" >Activate</button>
-                                            <button class="confirm-btn" onclick="closePopup('<?php echo $confirm; ?>')">Cancel</button>
+                                            <div class="del-img"><img src="<?php echo URLROOT ?>/img/users/admin/activate.jpg" alt=""></div>
+                                            <div class="del-content">
+                                                <h2>Confirm Activation</h2>
+                                                <p>Are you sure you want to active the accout. UserId: <?php echo $user->id; ?></p>
+                                                <button class="confirm-btn" onclick="confirmActivate('<?php echo $confirm; ?>')" >Activate</button>
+                                                <button class="confirm-btn" onclick="closePopup('<?php echo $confirm; ?>')">Cancel</button>
+                                            </div>
                                         </div>
                                     
                                     </div>
@@ -112,11 +114,12 @@
                                     <div class="deactivate">
                                         <a href="#" class="delete" onclick="openPopup('<?php echo $confirm; ?>')" ><i class="fa-solid fa-trash-can"></i></a>
                                         <div class="del-popup" id="<?php echo $confirm; ?>" >
-                                            <div class="del-img"><i class="fa-solid fa-triangle-exclamation"></i></div>
-                                            <h2>Confirm Deactivation</h2>
-                                            <p>Are you sure you want to deactivate the accout. UserId: <?php echo $user->id; ?></p>
-                                            <button class="confirm-btn" onclick="confirmDeactivate('<?php echo $confirm; ?>')" >Deactivate</button>
-                                            <button class="confirm-btn" onclick="closePopup('<?php echo $confirm; ?>')">Cancel</button>
+                                            <div class="del-img"><img src="<?php echo URLROOT ?>/img/users/admin/delete.jpg" alt=""></div>
+                                            <div class="del-content">
+                                                <h2>Confirm Deactivation</h2>
+                                                <p>Are you sure you want to deactivate the accout. UserId: <?php echo $user->id; ?></p>
+                                                <button class="confirm-btn" onclick="confirmDeactivate('<?php echo $confirm; ?>')" >Deactivate</button>
+                                                <button class="confirm-btn" onclick="closePopup('<?php echo $confirm; ?>')">Cancel</button>
                                         </div>
                                     
                                     </div>
@@ -134,43 +137,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="<?php echo URLROOT ?>/js/users/admin/useraccounts.js"></script>
 <script>
-//     $(document).ready(function() {
-//         // Add click event to the button
-//         $("#confirm").on("click", function (e) {
-//             // console.log("Click");
-//             e.preventDefault(); // Prevent the default link behavior
-
-//             // // Store reference to the button element
-//             var confirmBtn = $("#confirm");
-
-//             // // Your AJAX function here
-//             $.ajax({
-//                 url: 'http://localhost/unihub/users/deactivateUser',
-//                 type: 'POST', // or 'GET' depending on your needs
-//                 data: {
-//                     user_id: <?php echo $user->id ?>,
-//                 },
-//                 success: function (response) {
-//                     // Handle the success response
-//                     console.log("AJAX request successful:", response);
-
-//                     // Update the text content on success
-//                     // interestedBtn.find('span').text(response);   
-//                     if (response === '1') {
-//                         confirmBtn.removeClass("open-popup");
-//                     } else {
-//                         confirmBtn.addClass("new-class");
-//                     }
 
 
-//                 },
-//                 error: function (error) {
-//                     // Handle the error response
-//                     console.error("AJAX request failed:", error);
-//                 }
-//             });
-//         });
-//     });
 </script>
 
 
