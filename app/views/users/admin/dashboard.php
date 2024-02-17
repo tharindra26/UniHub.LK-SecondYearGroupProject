@@ -4,7 +4,7 @@
 
 <h1 class="section-title">Dashboard</h1>
 
-<div class="dashbord-area">
+<div class="dashboard-area">
     <div class="summary">
         <div class="box" >
             <div class="summary-content">
@@ -46,16 +46,32 @@
             <div class="icons" ><i class="fa-solid fa-school"></i></div> 
          </div>
     </div>
-    <!-- <div class="chart-row">
-        <div class="chart-section">
-            <h3>Organizations</h3>
-            <canvas id="chart1"></canvas>
-        </div>
-        <div class="chart-section"><canvas id="chart2"></canvas></div>
-    </div> -->
     <div class="chart-row">
         <div class="chart-section"><canvas id="chart1"></canvas></div>
         <div class="chart-section"><canvas id="chart2"></canvas></div>
+    </div>
+
+    <div class="activity">
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>User Name</th>
+                    <th>User Email</th>
+                    <th>Account Type</th>
+                    <th>Account Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Viruli Weerasinghe</td>
+                    <td>viruliweerasinghe@gmail.com</td>
+                    <td>Undergraduate</td>
+                    <td>Active</td>
+                    <td>Update Profile</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
 </div>

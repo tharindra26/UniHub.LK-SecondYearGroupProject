@@ -349,10 +349,12 @@ main a{
 
 .user-table thead tr{
     height: 40px;
+    white-space: nowrap;
 }
 
 .user-table tbody tr {
     height: 40px;
+    white-space: nowrap;
 }
 
 .user-table tbody tr td{
@@ -475,14 +477,29 @@ main a{
         width: 73px;
     }
 
+    menu.close{
+        width: 250px;
+    }
+
     menu .top .admin-logo{
         opacity: 0;
         pointer-events: none;
     }
 
+    menu.close .top .admin-logo{
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+
     menu .top .profile-head .heading{
         opacity: 0;
         pointer-events: none;
+    }
+
+    menu.close .top .profile-head .heading{
+        opacity: 1;
+        pointer-events: auto;
     }
 
     menu .option-menu a h3{
@@ -490,8 +507,43 @@ main a{
         pointer-events: none;
     }
 
+    menu.close .option-menu a h3{
+        opacity: 1;
+        pointer-events: auto;
+    }
+
     menu .option-menu .rq_count{
         opacity: 0;
         pointer-events: none;
+    }
+
+    menu.close .option-menu .rq_count{
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    menu .top .sidebar-action .sidebar-toggle{
+        display: block;
+    }
+
+    menu.close .top .sidebar-action .sidebar-toggle{
+        display: none;
+    }
+    menu .top .sidebar-action .sidebar-close{
+        display: none;
+    }
+
+    menu.close .top .sidebar-action .sidebar-close{
+        display: block;
+    }
+
+    menu ~ main{
+        margin-left: 100px;
+        width: 90%;
+    }
+
+    menu.close ~ main{
+        margin-left: 250px;
+        width: 80%;
     }
 }
