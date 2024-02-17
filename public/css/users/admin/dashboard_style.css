@@ -1,0 +1,82 @@
+/* dashboard css starts */
+
+.dashbord-area .summary{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.dashbord-area .summary .box{
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+    justify-content: space-evenly;
+    margin: 10px;
+    background-color: white;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-left: 6px solid #3498db;
+}
+
+.dashbord-area .summary .box .summary-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.summary-content h3{
+    font-size: 18px;
+    font-weight: 500;
+    color: #95A5A6;
+}
+
+.summary-content span{
+    font-size: 23px;
+}
+
+.dashbord-area .summary .box .icons{
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+
+.dashbord-area .summary .box .icons i{
+    font-size: 30px;
+}
+
+.dashbord-area .summary .box:hover{
+    background-color: #3498db;
+    color: white;  
+    border-left: 6px solid white; 
+}
+
+
+.dashbord-area .summary .box:hover .summary-content h3{
+    color: white;   
+}
+
+.dashbord-area .chart-row{
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+.dashbord-area .chart-row .chart-section{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 50%;
+    margin: 10px;
+    padding: 10px;
+    height: 80vh/2;
+    background-color: white;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+/* dashboard css ends */

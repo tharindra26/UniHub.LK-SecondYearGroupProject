@@ -10,6 +10,11 @@ menu{
     height: 90vh;
     width: 21%;   
     position: fixed;
+    transition: all 0.5s ease;
+}
+
+menu.close{
+    width: 73px;
 }
 
 menu .top{
@@ -19,13 +24,16 @@ menu .top{
     align-items: center;
     margin-top: 10px;
     padding: 5px;
-    
-    
 }
 
 menu .top .admin-logo{
     display: flex;
     font-size: 20px;
+}
+
+menu.close .top .admin-logo{
+    opacity: 0;
+    pointer-events: none;
 }
 
 menu .top .profile-head .heading{
@@ -34,9 +42,26 @@ menu .top .profile-head .heading{
     /* font-family: Overpass; */
 }
 
-menu .top .close{
+menu.close .top .profile-head .heading{
+    opacity: 0;
+    pointer-events: none;
+}
+
+menu .top .sidebar-action{
     font-size: 20px;
-    /* display: none; */
+    cursor: pointer;
+    
+}
+
+menu .top .sidebar-action .sidebar-toggle{
+    display: none;
+}
+
+menu.close .top .sidebar-action .sidebar-toggle{
+    display: block;
+}
+menu.close .top .sidebar-action .sidebar-close{
+    display: none;
 }
 
 /* option-menu starts */
@@ -64,6 +89,17 @@ menu .option-menu a{
     text-decoration: none;
 }
 
+menu .option-menu a h3{
+    font-weight: 500;
+    font-size: 17px;
+    transition: all 0.5s ease;
+}
+
+menu.close .option-menu a h3{
+    opacity: 0;
+    pointer-events: none;
+}
+
 menu .option-menu a i{
     font-size: 20px;
     transition: all 0.1s ease-in;
@@ -78,6 +114,11 @@ menu .option-menu .rq_count{
     border-radius: 4px;
     justify-content: center;
     align-items: center;
+}
+
+menu.close .option-menu .rq_count{
+    opacity: 0;
+    pointer-events: none;
 }
 .option-menu a.active{
     background-color: #ededed;
@@ -106,43 +147,27 @@ menu .option-menu a:hover span{
 /* main section starts */
 main{
     width: 73%;
-    background-color: white;
+    /* background-color: white; */
     margin-top: 10px;
     padding: 20px;
     margin-left: 23%;
     position: relative;
+    transition: all 0.5s ease;
+    
+}
+
+menu.close ~ main{
+    margin-left: 100px;
+    width: 90%;
 }
 
 main .section-title{
-    margin:  0 20px  20px  0 ;
     font-weight: 500;
     /* font-family: Overpass; */
 }
 
 /* main section ends */
 
-/* dashboard css starts */
-.dashbord-area .chart-row{
-    width: 100%;
-    position: relative;
-    display: flex;
-    justify-content: space-evenly;
-}
-.dashbord-area .chart-row .chart-section{
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    width: 50%;
-    margin: 10px;
-    padding: 10px;
-    height: 80vh/2;
-    background-color: white;
-    border-radius: 10px;
-    align-items: center;
-    justify-content: center;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-/* dashboard css ends */
 
 /* user accounts css starts */
 main .sub-menu{
@@ -443,3 +468,30 @@ main a{
 
 }
 /* Events css ends */
+
+/* Responsive */
+@media (max-width: 1200px){
+    menu{
+        width: 73px;
+    }
+
+    menu .top .admin-logo{
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    menu .top .profile-head .heading{
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    menu .option-menu a h3{
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    menu .option-menu .rq_count{
+        opacity: 0;
+        pointer-events: none;
+    }
+}

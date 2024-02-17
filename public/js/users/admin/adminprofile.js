@@ -1,5 +1,9 @@
 // Option menu active class
-const optionMenuItems = document.querySelectorAll('.option-menu a');
+const body = document.querySelector("body"),
+    optionMenuItems = body.querySelectorAll('.option-menu a');
+    sidebar = body.querySelector("menu");
+    sidebarToggle = body.querySelector(".sidebar-toggle");
+    sidebarClose = body.querySelector(".sidebar-close");
 
 optionMenuItems.forEach(item => {
     item.addEventListener("click", function(event) {
@@ -16,3 +20,12 @@ optionMenuItems.forEach(item => {
         this.classList.add('active');
     });
 });
+
+//side bar toggle
+sidebarToggle.addEventListener("click", () => {
+    sidebar.classList.toggle("close");
+})
+
+sidebarClose.addEventListener("click", () => {
+    sidebar.classList.toggle("close");
+})
