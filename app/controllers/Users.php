@@ -196,6 +196,7 @@ class Users extends Controller{
 
               if ($status == 0) {
                   $data['email_err'] = 'Account is not activated.';
+                  $_SESSION['login_status']='invalid';
                   $this->view('signin', $data);
                   return; // Add this return statement to stop further execution
               }
@@ -217,6 +218,7 @@ class Users extends Controller{
               $this->userModel->addLoginRecord($_SESSION['user_id']);
             } else {
               $data['password_err'] = 'Password incorrect';
+              $_SESSION['login_status']='invalid';
               $this->view('signin', $data);
             }
           } else {
