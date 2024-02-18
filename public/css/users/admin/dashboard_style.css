@@ -1,24 +1,31 @@
 /* dashboard css starts */
 
-.dashbord-area .summary{
-    display: flex;
-    justify-content: space-between;
-    padding: 5px;
-}
-
-.dashbord-area .summary .box{
+.dashboard-area .summary{
     display: flex;
     flex-direction: row;
-    border-radius: 10px;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    border: 1px solid red;
+    width: 100%;
+    flex-flow: wrap;
+}
+
+.dashboard-area .summary .box{
+    position: relative;
+    display: flex;
+    flex-direction: row;
     justify-content: space-evenly;
-    margin: 10px;
+    border-radius: 10px;
+    width: calc(100% / 5 - 20px);
+    margin:10px 0;
     background-color: white;
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-left: 6px solid #3498db;
 }
 
-.dashbord-area .summary .box .summary-content{
+.dashboard-area .summary .box .summary-content{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -35,43 +42,43 @@
     font-size: 23px;
 }
 
-.dashbord-area .summary .box .icons{
+.dashboard-area .summary .box .icons{
     justify-content: center;
     align-items: center;
     padding: 5px;
 }
 
-.dashbord-area .summary .box .icons i{
+.dashboard-area .summary .box .icons i{
     font-size: 30px;
 }
 
-.dashbord-area .summary .box:hover{
+.dashboard-area .summary .box:hover{
     background-color: #3498db;
     color: white;  
     border-left: 6px solid white; 
 }
 
 
-.dashbord-area .summary .box:hover .summary-content h3{
+.dashboard-area .summary .box:hover .summary-content h3{
     color: white;   
 }
 
-.dashbord-area .chart-row{
-    width: 100%;
+.dashboard-area .chart-row{
     position: relative;
     display: flex;
     justify-content: space-evenly;
+    /* flex-wrap: wrap; */
 }
 
 
-.dashbord-area .chart-row .chart-section{
+.dashboard-area .chart-row .chart-section{
     display: flex;
     flex-direction: column;
     position: relative;
-    width: 50%;
+    width: calc(100% / 2 - 15px);
+    overflow: hidden;
     margin: 10px;
     padding: 10px;
-    height: 80vh/2;
     background-color: white;
     border-radius: 10px;
     align-items: center;
@@ -79,4 +86,53 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+
+.activity{
+    border: 1px solid red;
+}
+
 /* dashboard css ends */
+
+/* Dashboard Responsive */
+
+@media (max-width: 1200px){
+    .activity{
+        overflow-y: scroll;
+    }
+
+    .dashboard-area .summary .box{
+        width: calc(100% / 4 -15px);
+        margin-top: 15px;
+    }
+}
+
+
+@media (max-width: 900px){
+    .dashboard-area .summary .box{
+        width: calc(100% / 3 -15px);
+        margin-top: 15px;
+    }
+
+    .dashboard-area .chart-row .chart-section{
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px){
+    .dashboard-area .summary .box{
+        width: calc(100% / 2 -15px);
+        margin-top: 15px;
+    }
+
+    .dashboard-area .chart-row .chart-section{
+        width: 100%;
+    }
+} 
+
+/* @media screen and (max-width: 900px) {
+    .dashboard-area .summary .box {
+        position: relative;
+        width: calc(100% / 3 -15px);
+    }
+} */
+
