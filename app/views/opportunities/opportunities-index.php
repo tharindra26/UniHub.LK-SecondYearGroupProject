@@ -32,13 +32,13 @@
                 <div class="option" onclick="quickShortcut('all')">All
                     <hr>
                 </div>
-                <div class="option" onclick="quickShortcut('hackathon')">Interns
+                <div class="option" onclick="quickShortcut('hackathon')">Intern
                     <hr>
                 </div>
-                <div class="option" onclick="quickShortcut('entertainment')">Jobs
+                <div class="option" onclick="quickShortcut('entertainment')">Job
                     <hr>
                 </div>
-                <div class="option" onclick="quickShortcut('workshops')">New Initiatives
+                <div class="option" onclick="quickShortcut('workshops')">New Initiative
                     <hr>
                 </div>
             </div>
@@ -54,112 +54,87 @@
 
         <!-- filters-section -->
         <div class="filters-section">
-            <a href="<?php echo URLROOT ?>/events/add">
-                <div class="add-event-button">
-                    <i class="fa-solid fa-plus"></i>
-                    <span>Add Event</span>
+            <div class="opportunities-adding">
+                <div class="opportunity-adding-image">
+                    <img src="<?php echo URLROOT ?>/img/opportunities/index-page/job_hiring.jpg" alt="">
                 </div>
-            </a>
+                <p class="opportunity-adding-text">Share your opportunity with our vibrant undergraduate community and
+                    connect with tomorrow's leaders.
+                    Post your job openings, internships, and exciting initiatives directly to our platform.</p>
 
-            <!-- university-filter -->
-            <div class="uni-filter ">
-                <div class="select-btn">
-                    <span id="universitySpan">Select University</span>
-                    <i class="fa-solid fa-angle-down"></i>
-                </div>
-                <div class="uni-filter-content">
-                    <div class="uni-reset-btn">Reset</div>
-                    <div class="uni-filter-search">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" placeholder="Search" id="">
+                <a href="<?php echo URLROOT ?>/events/add">
+                    <div class="add-opportunity-button">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Post Opportunity</span>
                     </div>
-                    <ul class="uni-filter-options"></ul>
-                </div>
+                </a>
             </div>
-            <!-- university-filter -->
 
-            <!-- date filter -->
 
-            <div class="date-filter">
-                <input type="date" name="" id="date-input">
-                <span id="date-reset-btn" class="date-reset-btn" onclick="resetDate()">Reset Date</span>
-            </div>
-            <!-- date filter -->
-
-            <!-- category filter -->
-            <div class="category-filter">
-                <div class="category-select-btn">
-                    <span class="category-btn-txt">Select Category</span>
-                    <span class="arrow-dwn">
-                        <i class="fa-solid fa-angle-down"></i>
-                    </span>
-                </div>
-
-                <ul class="list-items" id="category-list">
-                    <div class="category-reset-btn">Reset</div>
-                    <li class="item">
-                        <span class="checkbox">
-                            <i class="fa-solid fa-check check-icon"></i>
-                        </span>
-                        <span class="item-text">Concert</span>
-                    </li>
-                    <li class="item">
-                        <span class="checkbox">
-                            <i class="fa-solid fa-check check-icon"></i>
-                        </span>
-                        <span class="item-text">Hackathon</span>
-                    </li>
-
-                    <li class="item">
-                        <span class="checkbox">
-                            <i class="fa-solid fa-check check-icon"></i>
-                        </span>
-                        <span class="item-text">Musical Show</span>
-                    </li>
-
-                    <li class="item">
-                        <span class="checkbox">
-                            <i class="fa-solid fa-check check-icon"></i>
-                        </span>
-                        <span class="item-text">Workshop</span>
-                    </li>
-                </ul>
-            </div>
-            <!-- category filter -->
         </div>
         <!-- filters-section -->
 
         <!-- events-card-section -->
         <div class="content-section" id="content-section">
-            <div class="opportunity-card">
-                <div class="left-color-bar"></div>
-                <div class="image-section">
-                    <img src="<?php echo URLROOT ?>/img/opportunities/card-images/medium_square.png" alt="">
-                </div>
-                <div class="title-section">
-                    <div class="title-text">GitLab Innovation Pitch</div>
-                    <div class="days-left">
-                        <div class="day-count-box">
-                            <div class="day-count"><i class="fa-solid fa-circle"></i>21 days left</div>
+            <a class="opportunity-card-link" href="<?php echo URLROOT ?>/opportunities/show/1">
+                <div class="opportunity-card">
+                    <div class="left-color-bar"></div>
+                    <div class="image-section">
+                        <img src="<?php echo URLROOT ?>/img/opportunities/card-images/medium_square.png" alt="">
+                    </div>
+                    <div class="title-section">
+                        <div class="title-text">GitLab Innovation Pitch</div>
+                        <div class="days-left">
+                            <div class="day-count-box">
+                                <div class="day-count"><i class="fa-solid fa-circle"></i>21 days left</div>
+                            </div>
+                            <div class="working-mod-box">
+                                <div class="working-mod"><i class="fa-solid fa-building"></i> Physical</div>
+                            </div>
                         </div>
-                        <div class="working-mod-box">
-                            <div class="working-mod"><i class="fa-solid fa-building"></i> Physical</div>
+                        <div class="interesting-count">
+                            <div class="interesting-box">
+                                <p><span>253</span> Interesting </p>
+                            </div>
+                            <div class="bookmark"><i class="fa-solid fa-bookmark"></i>
+                                <p>Add Bookmark</p>
+                            </div>
                         </div>
+                        <!-- <div class="options-tab">
 
+                        </div> -->
 
                     </div>
-                    <div class="options-tab"></div>
-
+                    <div class="details-section">
+                        <div class="posted-by">
+                            <i class="fa-solid fa-flag"></i>
+                            <p>WSO2</p>
+                        </div>
+                        <div class="duration">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <p>10 Feb-15 Mar, 2024</p>
+                        </div>
+                        <div class="tags">
+                            <i class="fa-solid fa-tags"></i>
+                            <div class="tag">Intern</div>
+                            <div class="tag">Machine Learning</div>
+                            <div class="tag">AI</div>
+                            <div class="tag">Python</div>
+                        </div>
+                    </div>
+                    <div class="right-color-bar">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
                 </div>
-                <div class="details-section"></div>
-                <div class="right-color-bar">
-                    <i class="fa-solid fa-chevron-right"></i>
-                </div>
-            </div>
-            <div class="opportunity-card"></div>
-            <div class="opportunity-card"></div>
-
+            </a>
         </div>
+
+
+
+
+
+
+
         <!-- events-card-section -->
 
     </div>

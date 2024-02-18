@@ -2,6 +2,10 @@
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/events/change-contact-details_style.css">
 
+<!-- Loading Spinner -->
+<div class="spinner" id="spinner"></div>
+
+
 <div class="container">
     <div class="inner-container">
         <div class="title-text">
@@ -91,5 +95,5 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="<?php echo URLROOT ?>/js/events/add-announcement.js"></script>
+<script src="<?php echo URLROOT ?>/js/events/changeContactDetails.js"></script>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
