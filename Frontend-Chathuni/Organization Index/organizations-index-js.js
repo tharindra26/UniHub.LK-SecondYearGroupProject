@@ -15,7 +15,7 @@ prev.addEventListener('click', function () {
 const uniFilter =document.querySelector(".uni-filter"),
 selectBtn = uniFilter.querySelector(".select-btn"),
 searchInput = uniFilter.querySelector("input"),
-uniResetBtn = uniFilter.querySelector(".uni-reset-btn");
+uniResetBtn = uniFilter.querySelector(".uni-reset-btnuni-reset-btn");
 uniFilterOptions= uniFilter.querySelector(".uni-filter-options");
 
 
@@ -68,36 +68,38 @@ uniResetBtn.addEventListener("click", () => {
 //university filter
 
 //category filter
-const categoryFilter = document.querySelector(".category-filter"),
-    selectBtnCategory = categoryFilter.querySelector(".select-btn"),
-    categoryResetBtn = categoryFilter.querySelector(".reset-btn"),
-    categoryFilterOptions = categoryFilter.querySelector(".category-filter-options");
+const categorySelectBtn = document.querySelector(".category-select-btn"),
+items = document.querySelectorAll(".item"),
+categoryResetBtn= document.querySelector(".category-reset-btn");
 
-let categories = ["Academics", "Community Service", "Media", "Multi Cultural", "Sports", "Performing Arts", "Religious", "Other"];
+categorySelectBtn.addEventListener("click", () => {
+    categorySelectBtn.classList.toggle("category-filter-active");
+});
 
-function addCategories() {
-    const categoryCheckboxes = categoryFilterOptions.querySelector(".category-checkboxes");
-    categories.forEach(category => {
-        let listItem = `<li><label><input type="checkbox" value="${category}" onclick="updateCategories()">${category}</label></li>`;
-        categoryCheckboxes.insertAdjacentHTML("beforeend", listItem);
+items.forEach(item => {
+    item.addEventListener("click", () => {
+        item.classList.toggle("category-checked");
+
+        let checked =document.querySelectorAll(".category-checked"),
+        categoryBtnText = document.querySelector(".category-btn-txt");
+
+        if(checked && checked.length > 0) {
+            categoryBtnText.innerText = `${checked.length} Categories Selected`;
+        }else{
+            categoryBtnText.innerText = `Select Category`;
+        }
+
     });
-}
-
-addCategories();
-
-function updateCategories() {
-    let selectedCategories = Array.from(categoryFilterOptions.querySelectorAll('input:checked')).map(checkbox => checkbox.value);
-    selectBtnCategory.firstElementChild.innerText = selectedCategories.length > 0 ? selectedCategories.join(", ") : "Select Category";
-}
-
-selectBtnCategory.addEventListener("click", () => {
-    categoryFilter.classList.toggle("category-filter-active");
+    
 });
 
 categoryResetBtn.addEventListener("click", () => {
-    categoryFilterOptions.querySelectorAll('input:checked').forEach(checkbox => checkbox.checked = false);
-    selectBtnCategory.firstElementChild.innerText = "Select Category";
-    categoryFilter.classList.remove("category-filter-active");
+    items.forEach(item => {
+        item.classList.remove("category-checked");
+    });
+
+    // Reset the category button text
+    document.querySelector(".category-btn-txt").innerText = `Select Category`;
 });
 //category filter
 
