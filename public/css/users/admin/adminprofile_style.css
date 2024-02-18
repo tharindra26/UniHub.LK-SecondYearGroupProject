@@ -422,54 +422,7 @@ main a{
 }
 /* user accounts css ends */
 
-/* Events css starts */
-.summary{
-    display: flex;
-    width: 100%;
-}
 
-.summary .box{
-    display: flex;
-    flex-direction: column;
-    width: 25%;
-    height: 150px;
-    justify-content: center;
-    align-items: center;  
-}
-
-.summary .total{
-    background-color: #1B1464;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border-left: 10px solid white;
-    margin: 20px;
-    border-radius: 10px;
-}
-
-.summary .total h1{
-    color: white;
-    margin: 20px;
-    /* font-family: Overpass; */
-}
-
-.summary .total .tot{
-    color: white;
-    font-size: 30px;
-    font-weight: 500;
-}
-
-.summary .box .row .view-all-button{
-    text-align: center;
-    margin:  20px 0;
-    padding: 10px 30px ;
-    background: linear-gradient(90deg, rgba(44, 62, 80, 1) 0%, rgba(52, 152, 219, 1) 50%, rgba(44, 62, 80, 1) 100%);
-    color: white;
-    border-radius: 5px;
-    font-family: poppins;
-    font-size: 15px;
-    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
-
-}
-/* Events css ends */
 
 /* Responsive */
 @media (max-width: 1200px){
@@ -545,5 +498,67 @@ main a{
     menu.close ~ main{
         margin-left: 250px;
         width: 80%;
+    }
+}
+
+@media (max-width: 600px){
+    menu{
+        width: 73px;
+    }
+
+    menu.close{
+        width: 73px;
+    }
+
+    menu .top .admin-logo{
+        opacity: 1;
+        pointer-events: none;
+    }
+
+    menu .top .profile-head .heading{
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    menu.close .top .profile-head .heading{
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    menu .option-menu a h3{
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    menu.close .option-menu a h3{
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    menu .option-menu .rq_count{
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    menu.close .option-menu .rq_count{
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    menu .top .sidebar-action .sidebar-toggle{
+        display: none;
+    }
+    menu .top .sidebar-action .sidebar-close{
+        display: none;
+    }
+
+    menu ~ main{
+        margin-left: 90px;
+        width: 90%;
+    }
+
+    menu.close ~ main{
+        margin-left: 90px;
+        width: 90%;
     }
 }

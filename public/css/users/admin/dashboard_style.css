@@ -1,24 +1,30 @@
 /* dashboard css starts */
+.dashboard-area{
+    border: 1px solid red;
+}
 
 .dashboard-area .summary{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     position: relative;
-    border: 1px solid red;
     width: 100%;
     flex-flow: wrap;
+    margin: 15px 0;
+    border: 1px solid red;
+    overflow: hidden;
 }
 
 .dashboard-area .summary .box{
     position: relative;
     display: flex;
     flex-direction: row;
+    height: 150px;
     justify-content: space-evenly;
+    align-items: center;
     border-radius: 10px;
-    width: calc(100% / 5 - 20px);
-    margin:10px 0;
+    width: calc(100% / 5 - 20px );
     background-color: white;
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -66,8 +72,9 @@
 .dashboard-area .chart-row{
     position: relative;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     /* flex-wrap: wrap; */
+    border: 1px solid red;
 }
 
 
@@ -75,10 +82,9 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    width: calc(100% / 2 - 15px);
-    overflow: hidden;
+    width: calc(100% / 2 - 20px);
     margin: 10px;
-    padding: 10px;
+    overflow: hidden;
     background-color: white;
     border-radius: 10px;
     align-items: center;
@@ -89,7 +95,13 @@
 
 .activity{
     border: 1px solid red;
+    padding: 10px;
 }
+
+.activity .user-table{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
 
 /* dashboard css ends */
 
