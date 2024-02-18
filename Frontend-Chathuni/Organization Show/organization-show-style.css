@@ -1,106 +1,104 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora&family=Overpass:wght@500&family=Poppins:wght@100;200;500;600&display=swap');
-*{
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-:root{
-    --primary: hsla(228, 19%, 5%, 0.90)  ;
-    --secondary:  hsla(177, 40%, 45%, 0.50) ;
-    
+:root {
+    --primary: hsla(228, 19%, 5%, 0.90);
+    --secondary: hsla(177, 40%, 45%, 0.50);
 }
 
-.container{
-    width:90%;
-    margin:0 auto;
-    /* border: 1px solid red; */
+.container {
+    width: 90%;
+    margin: 0 auto;
 }
 
-body{
+body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     max-width: 100vw;
-    background: #EDEDED;
+    background: #ededed;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    font-family: poppins;
+    font-family: Poppins, sans-serif; /* Fixed typo in font name */
 }
 
-/* navbar  */
-.nav-outer-container{
+/* navbar */
+.nav-outer-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000 ;
+    z-index: 1000;
     background-color: white;
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1);
     display: flex;
 }
 
-nav{
+nav {
     background-color: transparent;
     border-radius: 10px;
 }
 
-nav ul{
+nav ul {
     width: 100%;
     list-style: none;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-
 }
 
-nav li{
+nav li {
     display: flex;
     height: 80px;
     align-items: center;
     justify-content: center;
 }
 
-nav a{
+nav a {
     padding: 10px 20px;
     text-decoration: none;
     display: flex;
     align-items: center;
-    font-family: poppins;
+    font-family: Poppins, sans-serif; /* Fixed typo in font name */
     font-weight: 400;
     color: black;
     font-size: 15px;
 }
 
-.unihub-logo-text{
-    font-family: overpass;
-    color:#3498db;
+.unihub-logo-text {
+    font-family: Overpass, sans-serif;
+    color: #3498db;
     font-size: 50px;
     font-weight: bold;
-    padding:10px 0;
+    padding: 10px 0;
 }
 
-nav a:hover{
+nav a:hover {
     padding: 5px 20px;
     border-radius: 100px;
     color: black;
     background-color: #2880b9;
-    color:white
+    color: white;
 }
 
 nav li:first-child {
     margin-right: auto;
 }
 
-.unihub-logo-text:hover{
+.unihub-logo-text:hover {
     padding: 0;
     color: #3498db;
     background-color: rgba(255, 0, 0, 0);
 }
 
 /* Verticle mobile navbar */
-.sidebar{
+.sidebar {
     position: fixed;
     top: 0;
     right: 0;
@@ -109,386 +107,443 @@ nav li:first-child {
     z-index: 999;
     background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
-    box-shadow: -10px 0 10px rgba(0,0,0,0.1);
+    box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
     display: none;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
     border-top-right-radius: 10px;
-
 }
+
 /* Verticle mobile navbar */
 
-.sidebar li{
+.sidebar li {
     width: 100%;
 }
 
-.sidebar a{
+.sidebar a {
     width: auto;
 }
 
-.menu-button{
+.menu-button {
     display: none;
     color: white;
 }
 
-@media(max-width: 1536px){
-    .container{
+@media (max-width: 1536px) {
+    .container {
         max-width: 1280px;
     }
 }
 
-@media(max-width: 1280px){
-    .container{
+@media (max-width: 1280px) {
+    .container {
         max-width: 1024px;
     }
 }
 
-@media(max-width: 1024px){
-    .container{
+@media (max-width: 1024px) {
+    .container {
         max-width: 768px;
     }
-    .hideOnMobile{
+
+    .hideOnMobile {
         display: none;
     }
-    .menu-button{
+
+    .menu-button {
         display: block;
     }
 }
 
-@media(max-width: 768px){
-    .container{
+@media (max-width: 768px) {
+    .container {
         max-width: 640px;
     }
 }
 
-@media(max-width: 640px){
-    .container{
+@media (max-width: 640px) {
+    .container {
         max-width: 475px;
     }
 }
 
-@media(max-width: 475px){
-    .container{
+@media (max-width: 475px) {
+    .container {
         max-width: 100%;
     }
 }
-/* navbar  */
+
+/* navbar */
 
 /* Search bar */
-.search-bar-container{
-    position: absolute;
-    top: 75px;
-    left: 0;
+.search-bar-container {
+    position: relative;
     align-items: center;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 80px;
     width: 100%;
     z-index: 100;
-    /* border: 1px solid red; */
+    border: 1px solid red;
 }
 
-    .search-bar{
-        width: 100%;
-        max-width: 100%;
-        /* background: rgba(127, 140, 141, 0.3); */
-        background: rgba(255, 255, 255, 0.5);
-        display: flex;
-        align-items: center;
-        border-radius: 60px;
-        padding: 3px 5px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        border: 2px solid #2980b9;
-    }
+.search-bar {
+    width: 100%;
+    max-width: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    border-radius: 60px;
+    padding: 3px 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #2980b9;
+    z-index: 1;
+}
 
-        .search-bar input{
-            background: transparent;
-            flex:1; 
-            /* flex:1 get the full width */
-            border: 0;
-            outline: none;
-            font-size: 15px;
-            color: black;
-            text-align: center;
+.search-bar input {
+    background: transparent;
+    flex: 1;
+    border: 0;
+    outline: none;
+    font-size: 15px;
+    color: black;
+}
 
-        }
+.search-bar input::placeholder {
+    color: black;
+}
 
-            .search-bar input::placeholder{
-                color: black;
-            }
+.search-bar button {
+    border: 0;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    background: #2980b9;
+    cursor: pointer;
+}
 
-        .search-bar button{
-            border: 0;
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            background: #2980b9;
-            cursor: pointer;
-        }
+.fa-magnifying-glass {
+    color: white;
+}
 
-        .fa-magnifying-glass{
-            color: white;
-        }
 /* Search bar */
 
 /* main organizations showing section */
-.outer-body-container{
+.outer-body-container {
     border: 1px solid red;
-    width:100%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     margin-top: 10px;
-    
+    position: relative;
+    z-index: 2;
 }
-    /* filter section */
-    .filters-section{
-        width:25%;
-        outline: none;
-        border: 1px solid red;
-        display: flex;
-        flex-direction: column;
-    }
-        .add-organization-button{
-            border: 1px solid red;
-            text-align: center;
-            padding:10px;
-            background-color: #3498db;
-            color:white;
-            border-radius: 5px;
-            font-family: poppins;
-            margin-bottom: 30px;
-            font-size: 15px;
-            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
-            
-        }
 
-        .filters-section a{
-            text-decoration: none;
-        }
+/* filter section */
+.filters-section {
+    width: 25%;
+    outline: none;
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+}
 
-        .add-organization-button:hover {
-            background: #27ae60;
-            color: white;
-            transition: 0.5s;
-            -webkit-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
-            -moz-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
-            box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
-        }
+.add-organization-button {
+    border: 1px solid red;
+    text-align: center;
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    font-family: Poppins, sans-serif; /* Fixed typo in font name */
+    margin-bottom: 30px;
+    font-size: 15px;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+}
 
+.filters-section a {
+    text-decoration: none;
+}
 
-        /* university filter */
-        .reset-btn{
-            display: flex;
-            font-size: 13px;
-            align-items: center;
-            justify-content: flex-end;
-            color: #3498db;
-            cursor: pointer;
-            padding-bottom: 7px;
-            
-        }
+.add-organization-button:hover {
+    background: #27ae60;
+    color: white;
+    transition: 0.5s;
+    -webkit-box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.75);
+}
 
-        .select-btn, .uni-filter-options li{
-            display: flex;
-            cursor: pointer;
-            align-items:center;
-            text-decoration: none;
-            color: black;
-            font-weight: 400;
-        }
+/* university filter */
+.reset-btn {
+    display: flex;
+    font-size: 13px;
+    align-items: center;
+    justify-content: flex-end;
+    color: #3498db;
+    cursor: pointer;
+    padding-bottom: 7px;
+}
 
-        .select-btn{
-            height:35px;
-            font-size: 15px;
-            padding: 0 20px;
-            border-radius: 20px;
-            background: white;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
-        }
+.select-btn,
+.uni-filter-options li {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    font-weight: 400;
+}
 
-        .select-btn i{
-            font-size: 20px;
-            transition: transform 0.3s linear;
-        }
+.select-btn {
+    height: 35px;
+    font-size: 15px;
+    padding: 0 20px;
+    border-radius: 20px;
+    background: white;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+}
 
-        .uni-filter-active .select-btn i{
-            transform: rotate(-180deg);
-        }
+.select-btn i {
+    font-size: 20px;
+    transition: transform 0.3s linear;
+}
 
-        .uni-filter-content{
-            padding: 15px;
-            margin-top: 5px;
-            border-radius: 7px;
-            background-color: white;
-            display: none;
-            margin-bottom: 10px;
-        }
+.uni-filter-active .select-btn i {
+    transform: rotate(-180deg);
+}
 
-        .uni-filter-active .uni-filter-content{
-            display: block;
-        }
+.uni-filter-content {
+    padding: 15px;
+    margin-top: 5px;
+    border-radius: 7px;
+    background-color: white;
+    display: none;
+    margin-bottom: 10px;
+}
 
-        .uni-filter-content .uni-filter-search{
-            position: relative;
-        }
+.uni-filter-active .uni-filter-content {
+    display: block;
+}
 
-        .uni-filter-search i{
-            left: 15px;
-            top: -5px;
-            line-height: 53px;
-            position: absolute;
-            color: #bdc3c7;
-        }
+.uni-filter-content .uni-filter-search {
+    position: relative;
+}
 
-        .uni-filter-search input{
-            height: 40px;
-            width: auto;
-            font-size: 17px;
-            padding: 0 15px 0 43px;
-            outline: none;
-            border: 1px solid #bdc3c7;
-            border-radius: 20px;
-            position: static;
-        }
+.uni-filter-search i {
+    left: 15px;
+    top: -5px;
+    line-height: 53px;
+    position: absolute;
+    color: #bdc3c7;
+}
 
-        .uni-filter-content, .uni-filter-options{
-            margin-top: 10px;
-            max-height: 350px;
-            overflow-y: auto;
-            padding-right: 7px;
-        }
-        .uni-filter-options::-webkit-scrollbar{
-            width: 7px;
-        }
-        .uni-filter-options::-webkit-scrollbar-track{
-           background: #f1f1f1;
-           border-radius: 25px;
-        }
-        .uni-filter-options::-webkit-scrollbar-thumb{
-            background: #ccc;
-            border-radius: 25px;
-        }
-        .uni-filter-options li{
-            height: 35px;
-            border-radius: 5px;
-            padding: 0 13px;
-            font-size: 12px;
-        }
+.uni-filter-search input {
+    height: 40px;
+    width: auto;
+    font-size: 17px;
+    padding: 0 15px 0 43px;
+    outline: none;
+    border: 1px solid #bdc3c7;
+    border-radius: 20px;
+    position: static;
+}
 
-        .uni-filter-options li:hover, li.selected{
-            background: #ecf0f1;
-        }
-        /* university filter */
+.uni-filter-content,
+.uni-filter-options {
+    margin-top: 10px;
+    max-height: 350px;
+    overflow-y: auto;
+    padding-right: 7px;
+}
 
-        /* category filter */
-        .category-select-btn{
-            display: flex;
-            height:45px;
-            align-items: center;
-            padding: 0 20px;
-            border-radius: 15px;
-            background-color: white;
-            justify-content: space-between;
-            cursor: pointer;
-            margin-bottom: 30px;
-            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
-            
-        }
+.uni-filter-options::-webkit-scrollbar {
+    width: 7px;
+}
 
-        .category-reset-btn{
-            display: flex;
-            font-size: 13px;
-            align-items: center;
-            justify-content: flex-end;
-            color: #3498db;
-            cursor: pointer;
-            padding-bottom: 7px;
-        }
+.uni-filter-options::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 25px;
+}
 
-        .category-select-btn .btn-txt{
-            font-size: 15px;
-            color: black;
-            font-weight: 400;
-        }
+.uni-filter-options::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 25px;
+}
 
-        .category-select-btn .fa-angle-down{
-            transition: transform 0.3s linear;
-            font-size: 20px;
-        }
+.uni-filter-options li {
+    height: 35px;
+    border-radius: 5px;
+    padding: 0 13px;
+    font-size: 12px;
+}
 
-        .category-filter-active .fa-angle-down{
-            transform: rotate(-180deg);
-        }
-        .list-items{
-            margin-top:15px;
-            border-radius: 15px;
-            padding:20px;
-            background-color: white;
-            display: none;
-        }
+.uni-filter-options li:hover,
+li.selected {
+    background: #ecf0f1;
+}
+/* university filter */
 
-        .category-filter-active ~ .list-items{
-            display: block;
-        }
-        .list-items .item{
-            display: flex;
-            align-items: center;
-            list-style: none;
-            height: 50px;
-            cursor: pointer;
-            transition: 0.3s;
-            padding:8px;
-            border-radius: 15px;
-        }
+/* category filter */
+.category-select-btn {
+    display: flex;
+    height: 45px;
+    align-items: center;
+    padding: 0 20px;
+    border-radius: 15px;
+    background-color: white;
+    justify-content: space-between;
+    cursor: pointer;
+    margin-bottom: 30px;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+}
 
-        .list-items .item:hover{
-            background-color: #e7edfe;
-        }
+.category-reset-btn {
+    display: flex;
+    font-size: 13px;
+    align-items: center;
+    justify-content: flex-end;
+    color: #3498db;
+    cursor: pointer;
+    padding-bottom: 7px;
+}
 
-        .item .checkbox{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 16px;
-            width: 16px;
-            border-radius: 4px;
-            margin-right: 12px;
-            border: 1.5px solid #c0c0c0;
-            transition: all 0.3s ease-in-out;
-        }
+.category-select-btn .btn-txt {
+    font-size: 15px;
+    color: black;
+    font-weight: 400;
+}
 
-        .checkbox .check-icon{
-            color: white;
-            font-size: 11px;
-            transform: scale(0);
-            transition: all 0.3s ease-in-out;
-        }
+.category-select-btn .fa-angle-down {
+    transition: transform 0.3s linear;
+    font-size: 20px;
+}
 
-        .category-checked .check-icon{
-            transform: scale(1);
-        }
+.category-filter-active .fa-angle-down {
+    transform: rotate(-180deg);
+}
 
-        .category-checked .checkbox{
-            background-color: #2980b9;
-            border-color: #2980b9;
-        }
-        /* category filter */
-    /* filter section */
+.category-filter-content {
+    margin-top: 15px;
+    border-radius: 15px;
+    padding: 20px;
+    background-color: white;
+    display: none;
+}
 
-    /* organizations section */
-                
-/* main event showing section */
+.category-filter-active > .category-filter-content {
+    display: block;
+}
+
+.list-items {
+    margin-top: 15px;
+    border-radius: 15px;
+    padding: 20px;
+    background-color: white;
+    display: none;
+}
+
+.category-filter-active > .list-items {
+    display: block;
+}
+
+.list-items .item {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    height: 50px;
+    cursor: pointer;
+    transition: 0.3s;
+    padding: 8px;
+    border-radius: 15px;
+}
+
+.list-items .item:hover {
+    background-color: #e7edfe;
+}
+
+.item .checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    width: 16px;
+    border-radius: 4px;
+    margin-right: 12px;
+    border: 1.5px solid #c0c0c0;
+    transition: all 0.3s ease-in-out;
+}
+
+.checkbox .check-icon {
+    color: white;
+    font-size: 11px;
+    transform: scale(0);
+    transition: all 0.3s ease-in-out;
+}
+
+.category-checked .check-icon {
+    transform: scale(1);
+}
+
+.category-checked .checkbox {
+    background-color: #2980b9;
+    border-color: #2980b9;
+}
+/* category filter */
+/* filter section */
+
+/* organizations section */
+.organizations-section {
+    width: 75%;
+    border: 1px solid red;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.title {
+    border: 1px solid red;
+    position: relative;
+    overflow: hidden;
+    height: 400px;
+    background-image: url('img/AIESEC.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.org-name {
+    font-size: 50px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.org-des {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+/* organizations section */
 
 /* main event showing section */
 
 /* footer-section */
-.footer-section{
+.footer-section {
     width: 100%;
     height: 400px;
-    background-color: #03254C;
+    background-color: #03254c;
 }
 /* footer-section */
 
