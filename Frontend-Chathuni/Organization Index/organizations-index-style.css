@@ -691,9 +691,10 @@ nav li:first-child {
         align-content: center;
     }
         .item-container{
+            position: relative;
             display: flex;
             flex-direction: row;
-            /* border: 1px solid red; */
+            border: 1px solid red;
             border-left: 15px solid #3498db;
             border-radius: 20px;
             width:100%;
@@ -766,7 +767,8 @@ nav li:first-child {
                     margin: 0 10px;
                 }
             .membership{
-                position: end;
+                position: absolute;
+                right: 0px;
                 width:150px;
                 height:100px;
                 border-bottom-right-radius: 20px;
@@ -775,7 +777,7 @@ nav li:first-child {
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                /* border:1px solid red; */
+                border:1px solid red;
             }
                 .membership .number{
                     font-size: 25px;

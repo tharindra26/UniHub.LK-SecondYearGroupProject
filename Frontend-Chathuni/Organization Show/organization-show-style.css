@@ -287,7 +287,8 @@ nav li:first-child {
 }
 
 .select-btn,
-.uni-filter-options li {
+.uni-filter-options li,
+.category-select-btn {
     display: flex;
     cursor: pointer;
     align-items: center;
@@ -296,7 +297,8 @@ nav li:first-child {
     font-weight: 400;
 }
 
-.select-btn {
+.select-btn,
+.category-select-btn {
     height: 35px;
     font-size: 15px;
     padding: 0 20px;
@@ -307,12 +309,21 @@ nav li:first-child {
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
 }
 
-.select-btn i {
+.select-btn .btn-txt,
+.category-select-btn .btn-txt {
+    font-size: 15px;
+    color: black;
+    font-weight: 400;
+}
+
+.select-btn i,
+.category-select-btn .fa-angle-down {
     font-size: 20px;
     transition: transform 0.3s linear;
 }
 
-.uni-filter-active .select-btn i {
+.uni-filter-active .select-btn i,
+.category-filter-active .fa-angle-down {
     transform: rotate(-180deg);
 }
 
@@ -388,19 +399,6 @@ li.selected {
 /* university filter */
 
 /* category filter */
-.category-select-btn {
-    display: flex;
-    height: 45px;
-    align-items: center;
-    padding: 0 20px;
-    border-radius: 15px;
-    background-color: white;
-    justify-content: space-between;
-    cursor: pointer;
-    margin-bottom: 30px;
-    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
-}
-
 .category-reset-btn {
     display: flex;
     font-size: 13px;
@@ -412,7 +410,7 @@ li.selected {
 }
 
 .category-select-btn .btn-txt {
-    font-size: 15px;
+    font-size: 13px;
     color: black;
     font-weight: 400;
 }
@@ -427,11 +425,12 @@ li.selected {
 }
 
 .category-filter-content {
-    margin-top: 15px;
-    border-radius: 15px;
-    padding: 20px;
+    padding: 15px;
+    margin-top: 5px;
+    border-radius: 7px;
     background-color: white;
     display: none;
+    margin-bottom: 10px;
 }
 
 .category-filter-active > .category-filter-content {
@@ -500,40 +499,57 @@ li.selected {
     width: 75%;
     border: 1px solid red;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-content: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .title {
     border: 1px solid red;
     position: relative;
     overflow: hidden;
-    height: 400px;
+    height: 500px;
+    width: 100%;
     background-image: url('img/AIESEC.jpg');
     background-size: cover;
     background-position: center;
+    filter: brightness(50%);
+}
+
+.org-info {
+    border: 1px solid red;
+    position: absolute;
+    bottom: 0px;
+    height: auto;
+    width: fit-content;
 }
 
 .org-name {
+    padding-left: 30px;
+    text-align: centlefter;
     font-size: 50px;
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    padding: 10px;
     font-weight: bold;
+    color: white;
 }
 
 .org-des {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    padding: 10px;
     font-size: 16px;
     line-height: 1.6;
     color: white;
-    background-color: rgba(0, 0, 0, 0.5);
+    padding: 30px;
+}
+
+.logo {
+    border: 1px solid red;
+    height: 150px;
+    width: 150px;
+    position:absolute;
+    right: 50px;
+    top: 50px;
+    background-image: url('img/logo-1.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 75px;
 }
 /* organizations section */
 
