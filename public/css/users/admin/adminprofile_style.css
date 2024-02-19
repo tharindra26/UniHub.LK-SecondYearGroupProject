@@ -3,12 +3,11 @@
     display: flex;
     gap: 20px;
     justify-content: space-between;
-    margin: 20px;
 }
 
 menu{
-    height: 90vh;
-    width: 21%;   
+    height: 92vh;
+    width: 18%;   
     position: fixed;
     transition: all 0.5s ease;
 }
@@ -18,17 +17,18 @@ menu.close{
 }
 
 menu .top{
-    background-color: white;
+    background-color: #3498DB;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    margin-top: 10px;
     padding: 5px;
+    height: 50px;
 }
 
 menu .top .admin-logo{
     display: flex;
     font-size: 20px;
+    color: white;
 }
 
 menu.close .top .admin-logo{
@@ -39,6 +39,7 @@ menu.close .top .admin-logo{
 menu .top .profile-head .heading{
     font-size: 20px;
     font-weight: 500;
+    color: white;
     /* font-family: Overpass; */
 }
 
@@ -50,6 +51,7 @@ menu.close .top .profile-head .heading{
 menu .top .sidebar-action{
     font-size: 20px;
     cursor: pointer;
+    color: white;
     
 }
 
@@ -66,7 +68,7 @@ menu.close .top .sidebar-action .sidebar-close{
 
 /* option-menu starts */
 menu .option-menu{
-    background-color: white;
+    background-color: #3498DB;
     display: flex;
     flex-direction: column;
     height: 89%;
@@ -75,18 +77,22 @@ menu .option-menu{
 
 menu .option-menu h3{
     font-weight: 500;
-    font-size: 17px;
+    font-size: 15px;
 }
 
 menu .option-menu a{
     display: flex;
-    color: #95A5A6;
+    color: white;
     margin-left: 30px;
     gap: 15px;
-    height: 55px;
+    height: 50px;
     align-items: center;
     transition: all 0.1s ease-in;
     text-decoration: none;
+}
+
+menu.close .option-menu a{
+    margin-left: 20px;
 }
 
 menu .option-menu a h3{
@@ -99,6 +105,8 @@ menu.close .option-menu a h3{
     opacity: 0;
     pointer-events: none;
 }
+
+
 
 menu .option-menu a i{
     font-size: 20px;
@@ -124,7 +132,8 @@ menu.close .option-menu .rq_count{
     background-color: #ededed;
     color: #3498DB;
     margin-left: 0;
-    /* border-left: 5px solid #3498DB; */
+    border-left: 5px solid #3498DB;
+    border-radius: 10px;
 }
 
 .option-menu a.active::before{
@@ -135,10 +144,22 @@ menu.close .option-menu .rq_count{
 }
 
 menu .option-menu a:hover{
-    color: #3498DB;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.3);
+    margin: 6px 20px;
+    border-radius: 10px;
+}
+
+menu.close .option-menu a:hover{
+   margin: 10px ;
 }
 
 menu .option-menu a:hover span{
+    margin-left: 15px;
+    transition: 0.4s ease;
+}
+
+menu.close .option-menu a:hover span{
     margin-left: 15px;
     transition: 0.4s ease;
 }
@@ -146,11 +167,11 @@ menu .option-menu a:hover span{
 
 /* main section starts */
 main{
-    width: 73%;
+    width: 80%;
     /* background-color: white; */
     margin-top: 10px;
     padding: 20px;
-    margin-left: 23%;
+    margin-left: 19%;
     position: relative;
     transition: all 0.5s ease;
     
@@ -163,6 +184,7 @@ menu.close ~ main{
 
 main .section-title{
     font-weight: 500;
+    font-size: 25px;
     /* font-family: Overpass; */
 }
 
