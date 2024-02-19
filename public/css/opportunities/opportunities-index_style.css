@@ -122,7 +122,7 @@
     color: #2980b9;
     margin-left: 30px;
     padding: 10px;
-    font-weight: 300;
+    font-weight: 400;
     /* border: 1px solid black; */
     /* border-radius: 10px; */
     cursor: pointer;
@@ -431,8 +431,8 @@
     margin-right: 5px;
     margin-bottom: 5px;
     border-radius: 5px;
-    background-color: rgba(52, 152, 219, 0.2);
-    color: rgba(52, 152, 219, 1.0);
+    background-color: rgba(41, 127, 185, 0.2);
+    color: rgba(41, 127, 185, 1.0);
 }
 
 .details-section .posted-by{

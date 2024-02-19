@@ -64,8 +64,9 @@
 <div class="container">
     <div class="search-bar-container">
         <form action="" class="search-bar">
-            <input type="text" name="searchInput" placeholder="Search Events" id="search-bar-input">
             <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <input type="text" name="searchInput" placeholder="Explore Opportunities" id="search-bar-input">
+
         </form>
     </div>
 </div>
@@ -74,13 +75,25 @@
 <!-- Quick-shortcut-bar -->
 <div class="container">
     <div class="shortcut-bar">
-        <div class="section-name">Events</div>
+        <!-- <div class="section-name">Opportunities</div> -->
         <div class="shortcut-options">
-            <div class="option" onclick="quickShortcut('all')">All</div>
-            <div class="option" onclick="quickShortcut('hackathon')">Hackathons</div>
-            <div class="option" onclick="quickShortcut('entertainment')">Entertainment</div>
-            <div class="option" onclick="quickShortcut('workshops')">Workshops</div>
+            <h3>Sort:</h3>
+            <div class="shortcut-options-outer-box">
+                <div class="option" onclick="quickShortcut('all')">All
+                    <hr>
+                </div>
+                <div class="option" onclick="quickShortcut('hackathon')">Hackathons
+                    <hr>
+                </div>
+                <div class="option" onclick="quickShortcut('entertainment')">Entertainment
+                    <hr>
+                </div>
+                <div class="option" onclick="quickShortcut('workshops')">Workshops
+                    <hr>
+                </div>
+            </div>
         </div>
+
     </div>
 </div>
 <!-- Quick-shortcut-bar -->
