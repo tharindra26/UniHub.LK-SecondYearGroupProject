@@ -6,17 +6,17 @@
     <!--menu section start-->
     <menu>
         <div class="top">
-            
-            <div class="admin-logo">
-                <span><i class="fa-solid fa-user-gear"></i></span>
-            </div>
-            <div class="profile-head">
-                <h2><span class="heading">ADMIN PROFILE</span></h2>
-            </div>
             <div class="sidebar-action">
                 <span><i class="fa-solid fa-xmark sidebar-close"></i></span>
                 <span><i class="fa-solid fa-bars sidebar-toggle"></i></span>
             </div>
+             <!-- <div class="admin-logo">
+                <span><i class="fa-solid fa-user-gear"></i></span>
+            </div> 
+            <div class="profile-head">
+                <h2><span class="heading">ADMIN PROFILE</span></h2>
+            </div>
+             -->
             
         </div>
         <!--end top -->
