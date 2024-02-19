@@ -149,23 +149,24 @@
 .search-bar-container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     width: 100%;
     /* border: 1px solid red; */
 }
 
 .search-bar {
-    width: 100%;
-    max-width: 100%;
+    width: 73%;
     /* background: rgba(127, 140, 141, 0.3); */
+    position: relative;
+    right: 0;
     background: rgba(255, 255, 255, 1);
     display: flex;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 3px 5px;
     margin-top: 10px;
     margin-bottom: 10px;
-    border: 2px solid #2980b9;
+    border: 0.5px solid #2980b9;
 }
 
 .search-bar input {
@@ -176,7 +177,7 @@
     outline: none;
     font-size: 15px;
     color: rgb(130, 130, 130);
-    text-align: center;
+    text-align: left;
 
 }
 
@@ -186,15 +187,14 @@
 
 .search-bar button {
     border: 0;
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    background: #2980b9;
+    padding: 10px;
     cursor: pointer;
+    background-color: white;
+    font-size: 20px;
 }
 
 .fa-magnifying-glass {
-    color: white;
+    color: black;
 }
 
 /* Search bar */
@@ -206,6 +206,7 @@
     height: 50px;
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
 }
 
 .section-name {
@@ -230,19 +231,66 @@
     font-weight: 500;
 }
 
+.shortcut-options h3 {
+    font-weight: 400;
+    color: black;
+}
+
+.shortcut-options-outer-box {
+    display: flex;
+    border: 0.5px solid #34495e;
+    padding-left: 10px;
+    margin-left: 10px;
+}
+
 .option {
+    /* background-color: #e67e22; */
     color: #2980b9;
     margin-left: 30px;
     padding: 10px;
-    /* border: 1px solid white; */
-    border-radius: 50px;
+    font-weight: 400;
+    /* border: 1px solid black; */
+    /* border-radius: 10px; */
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-bottom: 0;
 }
 
-.option:hover {
-    color: black;
-    background-color: #bdc3c7;
+/*.option hr{
+    height: 5px;
+    background-color: #1C5981;
+    border-style: none;
+}*/
+
+.option hr {
+    position: absolute;
+    bottom: -0px;
+    /* Adjust this value as needed */
+    left: 0;
+    width: 0;
+    height: 2px;
+    /* Thickness of the line */
+    background-color: #EDEDED;
+    /* Color of the line */
+    transition: width 0.5s ease;
+    /* Transition effect */
+    pointer-events: none;
+    /* Prevents the line from blocking clicks */
+    border-style: none;
 }
+
+.option:hover hr {
+    width: 100%;
+    /* Set width to 100% on hover */
+    background-color: black;
+}
+
+/*.option:hover {
+    color: white;
+    background-color: #2980b9;
+}*/
 
 /* Quick-shortcut-bar */
 
