@@ -56,7 +56,7 @@
                 <h2>Recent Users</h2>
             </div>
         
-
+<!-- user table -->
         <div class="users" id="filter-table">    
             <table class="user-table">
                 <thead>
@@ -122,6 +122,7 @@
                                                 <button class="confirm-btn" onclick="closePopup('<?php echo $confirm; ?>')">Cancel</button>
                                             </div>
                                     
+                                        </div>
                                     </div>
                                     <?php endif; ?>    
                                 </td>
