@@ -32,7 +32,7 @@ function typefilter(type) {
       },
       success: function (response) {
        
-        $("#main-id").html(response);
+        $("#filter-table").html(response);
       },
       error: function (error) {
   
