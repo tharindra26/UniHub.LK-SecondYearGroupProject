@@ -121,7 +121,6 @@
                                                 onclick="closePopup('<?php echo $confirm; ?>')">Cancel</button>
                                         </div>
                                     </div>
-
                                 </div>
 
                             <?php else: ?>
@@ -143,10 +142,10 @@
                                         </div>
 
                                     </div>
-                                <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
                         </td>
                     </tr>
-
                 <?php endforeach; ?>
             <?php endif; ?>
 
