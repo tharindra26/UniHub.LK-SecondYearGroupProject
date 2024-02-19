@@ -49,7 +49,8 @@ uniResetBtn.addEventListener("click", () => {
 
 // category filter
 const categorySelectBtn = document.querySelector(".category-select-btn"),
-    items = document.querySelectorAll(".item"),
+    listItems = document.querySelector(".list-items"),
+    items = listItems.querySelectorAll(".item"),
     categoryResetBtn = document.querySelector(".category-reset-btn");
 
 categorySelectBtn.addEventListener("click", () => {
