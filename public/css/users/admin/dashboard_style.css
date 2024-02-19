@@ -109,7 +109,7 @@
 
 @media (max-width: 1200px){
     .activity{
-        overflow-y: scroll;
+        overflow-x: scroll;
     }
 
     .dashboard-area .summary .box{

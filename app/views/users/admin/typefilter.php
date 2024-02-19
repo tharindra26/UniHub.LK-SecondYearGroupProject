@@ -2,49 +2,6 @@
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/admin/typefilter_style.css">
 <h1 class="section-title"></h1>
 
-<div class="container">
-    <div class="search-bar-container">
-        <form action="" class="search-bar">
-            <input type="text" name="searchInput" placeholder="Search User" id="search-bar-input">
-            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </form>
-    </div>
-</div>
-
-<div class="filters">
-
-<!-- university-filter -->
-    <div class="uni-filter ">
-        <div class="select-btn">
-            <span id="universitySpan">Select University</span>
-            <i class="fa-solid fa-angle-down"></i>
-        </div>
-        <div class="uni-filter-content">
-            <div class="uni-reset-btn">Reset</div>
-            <div class="uni-filter-search">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search" id="">
-            </div>
-                <ul class="uni-filter-options"></ul>
-        </div>
-    </div>
-<!-- university-filter -->
-
-<!-- status-filter -->
-<div class="status-filter ">
-        <div class="select-btn">
-            <span id="statusSpan">Select Status</span>
-            <i class="fa-solid fa-angle-down"></i>
-        </div>
-        <div class="status-filter-content">
-            <div class="status-reset-btn">Reset</div>
-            <ul class="status-filter-options"></ul>
-        </div>
-    </div>
-<!-- -filter -->
-
-</div>
-
 <div class="table" id="filter-section" >
 <table class="user-table">
                 <thead>

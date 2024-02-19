@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <div class="user-info">
+        <!-- <div class="user-info"> -->
             
             <div class="user-head">
                 <div class="search-bar-container">
@@ -52,12 +52,12 @@
                     </div>
                 </a>
             </div>
-
             <div class="user-head">
                 <h2>Recent Users</h2>
             </div>
+        
 
-            
+        <div class="users" id="filter-table">    
             <table class="user-table">
                 <thead>
                     <tr>
@@ -120,7 +120,7 @@
                                                 <p>Are you sure you want to deactivate the accout. UserId: <?php echo $user->id; ?></p>
                                                 <button class="confirm-btn" onclick="confirmDeactivate('<?php echo $confirm; ?>')" >Deactivate</button>
                                                 <button class="confirm-btn" onclick="closePopup('<?php echo $confirm; ?>')">Cancel</button>
-                                        </div> -->
+                                            </div> -->
                                     
                                     </div>
                                     <?php endif; ?>    
