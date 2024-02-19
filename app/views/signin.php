@@ -207,6 +207,7 @@
 
 </script>
 
+
 <?php if($_SESSION['login_status'] =='invalid'): ?>
     <script>
         openPopup('login-fail');
