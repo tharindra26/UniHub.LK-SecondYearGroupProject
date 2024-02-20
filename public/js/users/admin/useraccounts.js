@@ -18,24 +18,7 @@ function initializeCount() {
 }
 
 initializeCount();
-//Type filter
-function typefilter(type) {
-  // console.log(type);
 
-  $.ajax({
-    url: "http://localhost/unihub/users/typefilter",
-    type: "POST",
-    data: {
-      value: type,
-    },
-    success: function (response) {
-      $("#filter-table").html(response);
-    },
-    error: function (error) {
-      console.error("Error:", error);
-    },
-  });
-}
 
 //popup
 
@@ -132,52 +115,71 @@ function updateUser(confirm) {
 }
 
 // filters======================================================================
-$(document).ready(function () {
-  function updateContent() {
-    var keyword = document.getElementById("search-bar-input").value;
-    // var date = document.getElementById("date-input").value;
-    // var university =
-    //   selectBtn.firstElementChild.innerText != "Select University"
-    //     ? selectBtn.firstElementChild.innerText
-    //     : "";
-    // const checkedCategories = Array.from(items)
-    //   .filter((item) => item.classList.contains("category-checked"))
-    //   .map((item) => item.querySelector(".checkbox + span").innerText);
+// $(document).ready(function () {
+//   function updateContent() {
+//     var keyword = document.getElementById("search-bar-input").value;
+//     // var date = document.getElementById("date-input").value;
+//     // var university =
+//     //   selectBtn.firstElementChild.innerText != "Select University"
+//     //     ? selectBtn.firstElementChild.innerText
+//     //     : "";
+//     // const checkedCategories = Array.from(items)
+//     //   .filter((item) => item.classList.contains("category-checked"))
+//     //   .map((item) => item.querySelector(".checkbox + span").innerText);
 
-    // Send an AJAX request with the filter value
-    $.ajax({
-      url: "http://localhost/unihub/users/filterUsers",
-      method: "POST",
-      data: {
-        keyword: keyword,
-        // date: date,
-        // university: university,
-        // categories: checkedCategories,
-      },
-      success: function (response) {
-        $("#filter-table").html(response);
-      },
-      error: function (error) {
-        console.error("Error:", error);
-      },
-    });
-  }
+//     // Send an AJAX request with the filter value
+//     $.ajax({
+//       url: "http://localhost/unihub/users/filterUsers",
+//       method: "POST",
+//       data: {
+//         keyword: keyword,
+//         // date: date,
+//         // university: university,
+//         // categories: checkedCategories,
+//       },
+//       success: function (response) {
+//         $("#filter-table").html(response);
+//       },
+//       error: function (error) {
+//         console.error("Error:", error);
+//       },
+//     });
+//   }
 
-  // Attach keyup event listener to the search bar input
-  document
-    .getElementById("search-bar-input")
-    .addEventListener("keyup", updateContent);
+//   // Attach keyup event listener to the search bar input
+//   document
+//     .getElementById("search-bar-input")
+//     .addEventListener("keyup", updateContent);
 
-  // Attach change event listener to date input
-  // document
-  //   .getElementById("date-input")
-  //   .addEventListener("change", updateContent);
+//   // Attach change event listener to date input
+//   // document
+//   //   .getElementById("date-input")
+//   //   .addEventListener("change", updateContent);
 
-  // document
-  //   .getElementById("date-reset-btn")
-  //   .addEventListener("click", updateContent);
+//   // document
+//   //   .getElementById("date-reset-btn")
+//   //   .addEventListener("click", updateContent);
 
-  // Trigger the initial update when the page loads
-  updateContent();
-});
+//   // Trigger the initial update when the page loads
+//   updateContent();
+// });
 // filters-end==================================================================
+
+//Type filter
+function typefilter(type) {
+  // console.log(type);
+
+  $.ajax({
+    url: "http://localhost/unihub/users/typefilter",
+    type: "POST",
+    data: {
+      value: type,
+    },
+    success: function (response) {
+      $("#filter-table").html(response);
+    },
+    error: function (error) {
+      console.error("Error:", error);
+    },
+  });
+}
