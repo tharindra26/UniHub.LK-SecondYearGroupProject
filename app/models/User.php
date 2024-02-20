@@ -309,6 +309,25 @@ class User{
         $row = $this->db->single();
         return $row;
     }
+
+    public function filterUsers($data) {
+        $keyword = '%' . $data['keyword'] . '%'; // Preparing the keyword for a partial match
+    
+        $query = 'SELECT *
+                  FROM users
+                  WHERE email LIKE :keyword
+                     OR type LIKE :keyword
+                     OR fname LIKE :keyword
+                     OR lname LIKE :keyword';
+    
+        $this->db->query($query);
+        $this->db->bind(':keyword', $keyword);
+        $this->db->execute();
+        $rows = $this->db->resultSet();
+    
+        return $rows;
+    }
+    
     
 
 

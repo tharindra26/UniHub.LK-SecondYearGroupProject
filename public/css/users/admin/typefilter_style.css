@@ -27,3 +27,10 @@
     padding: 10px;
     color: black;
 }
+
+.no-users-found {
+    text-align: center;
+    color: #e74c3c;
+    font-weight: 500;
+}
+
