@@ -2,8 +2,6 @@
 <link rel="stylesheet" href="<?php echo URLROOT?>/css/navbar_style.css">
 <!-- navigation-bar -->
 <div class="nav-outer-container">
-    <div class="container">
-        <div class="navigation-bar-container">
             <nav>
                 <!-- vertical navbar -->
                 <ul class="sidebar">
@@ -77,8 +75,7 @@
                     <li class="menu-button" onclick=showSideBar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a></li>
                 </ul>
             </nav>
-        </div>
-    </div>
+    
 </div>
 <!-- navigation-bar -->
 
