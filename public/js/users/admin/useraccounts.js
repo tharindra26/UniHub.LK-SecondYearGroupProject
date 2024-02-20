@@ -132,18 +132,6 @@ function updateUser(confirm) {
 }
 
 // filters======================================================================
-function highlightKeywords(response, keyword) {
-  // Create a regular expression with the keyword for case-insensitive search
-  var regex = new RegExp("(" + keyword + ")", "gi");
-
-  // Replace all occurrences of the keyword with its highlighted version
-  var highlightedResponse = response.replace(
-    regex,
-    '<span class="highlighted">$1</span>'
-  );
-
-  return highlightedResponse;
-}
 $(document).ready(function () {
   function updateContent() {
     var keyword = document.getElementById("search-bar-input").value;

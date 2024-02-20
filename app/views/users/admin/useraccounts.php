@@ -33,7 +33,7 @@
 
 <div class="user-head">
     <!-- Search-bar -->
-    <div class="container">
+    
         <div class="search-bar-container">
             <form action="" class="search-bar">
                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -41,22 +41,10 @@
 
             </form>
         </div>
-    </div>
+    
     <!-- Search-bar -->
 
-    <a href="#" onclick="typefilter('all');">
-        <div class="view-all-button">
-            <i class="fa-solid fa-eye"></i>
-            <span>View All Users</span>
-        </div>
-    </a>
-
-    <a href="#">
-        <div class="view-all-button">
-            <i class="fa-solid fa-plus"></i>
-            <span>Add New Users</span>
-        </div>
-    </a>
+    
 </div>
 <div class="user-head">
     <h2>Recent Users</h2>
