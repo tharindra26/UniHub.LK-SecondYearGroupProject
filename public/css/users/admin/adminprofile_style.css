@@ -292,23 +292,24 @@ main .user-info .user-head h2{
 .search-bar-container {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 50%;
+    justify-content: flex-end;
+    width: 100%;
     /* border: 1px solid red; */
 }
 
 .search-bar {
-    width: 100%;
-    max-width: 100%;
+    width: 73%;
     /* background: rgba(127, 140, 141, 0.3); */
-    background: #ffffff;
+    position: relative;
+    right: 0;
+    background: rgba(255, 255, 255, 1);
     display: flex;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 3px 5px;
     margin-top: 10px;
     margin-bottom: 10px;
-    border: 2px solid #2980b9;
+    border: 0.5px solid #2980b9;
 }
 
 .search-bar input {
@@ -319,7 +320,7 @@ main .user-info .user-head h2{
     outline: none;
     font-size: 15px;
     color: rgb(130, 130, 130);
-    text-align: center;
+    text-align: left;
 
 }
 
@@ -329,15 +330,14 @@ main .user-info .user-head h2{
 
 .search-bar button {
     border: 0;
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    background: #2980b9;
+    padding: 10px;
     cursor: pointer;
+    background-color: white;
+    font-size: 20px;
 }
 
 .fa-magnifying-glass {
-    color: white;
+    color: black;
 }
 
 /* Search bar */
