@@ -1,85 +1,70 @@
-// university filter
-const uniFilter = document.querySelector(".uni-filter"),
-    selectBtn = uniFilter.querySelector(".select-btn"),
-    searchInput = uniFilter.querySelector("input"),
-    uniResetBtn = uniFilter.querySelector(".reset-btn"),
-    uniFilterOptions = uniFilter.querySelector(".uni-filter-options");
+//social media section
 
-let universities = ["University of Colombo", "University of Moratuwa", "University of Sri Jayawardenapura", "University of Ruhuna", "University of Jaffna", "SLIIT", "IIT", "KDU"];
+// social media section
 
-function addUniversity(selectedUniversity) {
-    uniFilterOptions.innerHTML = "";
-    universities.forEach(university => {
-        let isSelected = university == selectedUniversity ? "selected" : "";
-        let li = `<li onclick="updateName(this)" class="${isSelected}"> ${university} </li>`;
-        uniFilterOptions.insertAdjacentHTML("beforeend", li);
-    });
-}
-addUniversity();
+//recent events slider//
+const initSlider = () => {
+    const imageList = document.querySelector(".slider-wrapper .image-list");
+    const slideButton = document.querySelectorAll(".slider-wrapper .slide-button");
+    const sliderScrollbar = document.querySelector(".recent-events .slider-scrollbar");
+    const scrollbarThumb = document.querySelector(".scrollbar-thumb");
+    const maxScrollLeft = imageList.scrollWidth - imageList.clientWidth;
 
-function updateName(selectedLi) {
-    searchInput.value = "";
-    addUniversity(selectedLi.innerText);
-    uniFilter.classList.remove("uni-filter-active");
-    selectBtn.firstElementChild.innerText = selectedLi.innerText;
-}
+    //handle scrollbar thumb drag
+    scrollbarThumb.addEventListener("mousedown", (e) => {
+        const startX = e.clientX;
+        const thumbPosition = scrollbarThumb.offsetLeft;
 
-searchInput.addEventListener("keyup", () => {
-    let arr = [];
-    let searchedVal = searchInput.value.toLowerCase();
-    arr = universities.filter(data => {
-        return data.toLowerCase().startsWith(searchedVal);
-    }).map(data =>
-        `<li onclick="updateName(this)" > ${data} </li>`
-    ).join("");
-    uniFilterOptions.innerHTML = arr ? arr : `<p>Oops! University not found</p>`;
-});
+        //updtae the thumb position on mouse move
+        const handleMouseMove = (e) => {
+            const deltaX = e.clientX - startX;
+            const newThumbPosition = thumbPosition + deltaX;
+            const maxThumbposition = sliderScrollbar.getBoundingClientRect().width - scrollbarThumb.offsetWidth;
 
-selectBtn.addEventListener("click", () => {
-    uniFilter.classList.toggle("uni-filter-active");
-});
+            const boudedPosition = Math.max(0, Math.min(maxThumbposition, newThumbPosition));
+            const scrollPosition = (boudedPosition / maxThumbposition) * maxScrollLeft;
 
-uniResetBtn.addEventListener("click", () => {
-    searchInput.value = "";
-    addUniversity();
-    uniFilter.classList.remove("uni-filter-active");
-    selectBtn.firstElementChild.innerText = `Select University`;
-});
-// university filter
-
-// category filter
-const categorySelectBtn = document.querySelector(".category-select-btn"),
-    listItems = document.querySelector(".list-items"),
-    items = listItems.querySelectorAll(".item"),
-    categoryResetBtn = document.querySelector(".category-reset-btn");
-
-categorySelectBtn.addEventListener("click", () => {
-    categorySelectBtn.classList.toggle("category-filter-active");
-});
-
-items.forEach(item => {
-    item.addEventListener("click", () => {
-        item.classList.toggle("category-checked");
-
-        let checked = document.querySelectorAll(".category-checked"),
-            categoryBtnText = categorySelectBtn.querySelector(".btn-txt");
-
-        if (checked && checked.length > 0) {
-            categoryBtnText.innerText = `${checked.length} Categories Selected`;
-        } else {
-            categoryBtnText.innerText = `Select Category`;
+            scrollbarThumb.style.left = `${boudedPosition}px`;
+            imageList.scrollLeft = scrollPosition;
         }
 
+        //remove event listenerson the mouse up
+        const handleMouseUp = () => {
+            document.removeEventListener("mousemove", handleMouseMove);
+            document.removeEventListener("mouseup", handleMouseUp);
+        }
+
+        //add event listeners for drag interaction
+        document.addEventListener("mousemove", handleMouseMove);
+        document.addEventListener("mouseup", handleMouseUp);
     });
 
-});
-
-categoryResetBtn.addEventListener("click", () => {
-    items.forEach(item => {
-        item.classList.remove("category-checked");
+    //slide images according to the slide button clicks
+    slideButton.forEach(button => {
+        button.addEventListener("click", () => {
+            const direction = button.id === "prev-slide" ? -1 : 1;
+            const scrollAmount = imageList.clientWidth * direction;
+            imageList.scrollBy({ left: scrollAmount, behavior: "smooth" });
+        });
     });
 
-    // Reset the category button text
-    categorySelectBtn.querySelector(".btn-txt").innerText = `Select Category`;
-});
-// category filter
+    const handleSlideButtons = () => {
+        slideButton[0].style.display = imageList.scrollLeft <= 0 ? "none" : "block";
+        slideButton[1].style.display = imageList.scrollLeft >= maxScrollLeft ? "none" : "block";
+    }
+
+    //update scrollbar thumb position based on image scroll
+    const updateScrollThumbPosition = () => {
+        const scrollPosition = imageList.scrollLeft;
+        const thumbPosition = (scrollPosition / maxScrollLeft) * (sliderScrollbar.clientWidth - scrollbarThumb.offsetWidth);
+        scrollbarThumb.style.left = `${thumbPosition}px`;
+    }
+
+    imageList.addEventListener("scroll", () => {
+        handleSlideButtons();
+        updateScrollThumbPosition();
+    });
+}
+
+window.addEventListener("load", initSlider);
+//recent events slider//

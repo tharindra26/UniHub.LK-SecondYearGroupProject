@@ -200,13 +200,14 @@ main .sub-menu{
 main .sub-menu .items{
     display: flex;
     flex-direction: column;
-    width: 20%;
+    width: calc(100% / 4 - 30px);
     border-radius: 10px;
     background-color: white;
     justify-content: center;
     align-items: center;
     padding: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    cursor: pointer;
 
 }
 
@@ -270,35 +271,35 @@ main .sub-menu .items h3{
     padding: 4px;
 }
 
-main .user-info{
+/* main .user-info{
     display: flex;
-    flex-direction: column;
     margin-top: 10px;
-}
+} */
 
-main .user-info .user-head{
+main  .user-head{
     display: flex;
+    width: 100%;
     justify-content: space-between;
 }
 
-main .user-info .user-head h2{
+main .user-head h2{
     padding: 10px;
     margin:  20px 20px  0  0 ;
     font-weight: 500;
     /* font-family: Overpass; */
 }
 
+
 /* Search bar */
 .search-bar-container {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    width: 100%;
-    /* border: 1px solid red; */
+    width: calc(100% / 2 - 10px);
+    border: 1px solid red;
 }
 
 .search-bar {
-    width: 73%;
+    width: 100%;
     /* background: rgba(127, 140, 141, 0.3); */
     position: relative;
     right: 0;
@@ -341,6 +342,11 @@ main .user-info .user-head h2{
 }
 
 /* Search bar */
+main .user-head .btn{
+    border: 1px solid red;
+    width: calc(100% / 4 - 10px);
+}
+
 
 main .user-head .view-all-button{
     text-align: center;
