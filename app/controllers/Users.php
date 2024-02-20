@@ -649,24 +649,23 @@ class Users extends Controller
   }
 
 
-
   //filter-users-function==============================================================
-  public function filterUsers()
-  {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-      // echo $_POST['value'];
+  // public function filterUsers()
+  // {
+  //   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  //     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+  //     // echo $_POST['value'];
 
-      $users = $this->userModel->filterUsers($_POST);
+  //     $users = $this->userModel->filterUsers($_POST);
 
-      $data = [
-        'users' => $users,
-      ];
+  //     $data = [
+  //       'users' => $users,
+  //     ];
 
-      $this->view('users/admin/typefilter', $data);
+  //     $this->view('users/admin/typefilter', $data);
 
-    }
-  }
+  //   }
+  // }
   //filter-users-function==============================================================
 
 

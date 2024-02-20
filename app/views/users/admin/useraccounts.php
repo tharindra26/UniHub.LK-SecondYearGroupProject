@@ -34,13 +34,29 @@
 <div class="user-head">
     <!-- Search-bar -->
     
-        <div class="search-bar-container">
+        <div class="option search-bar-container">
             <form action="" class="search-bar">
                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 <input type="text" name="searchInput" placeholder="Search users" id="search-bar-input">
 
             </form>
         </div>
+        <div class="option btn">
+        <a href="#">
+            <div class="view-all-button" id="all" onclick="typefilter('all');">
+                <i class="fa-solid fa-eye"></i>
+                <span>View All Users</span>
+            </div>
+        </a>        
+    </div>
+    <div class="option btn">
+        <a href="#">
+            <div class="view-all-button">
+                <i class="fa-solid fa-calendar-plus"></i>
+                <span>Add New User</span>
+            </div>
+        </a>                    
+    </div>
     
     <!-- Search-bar -->
 
