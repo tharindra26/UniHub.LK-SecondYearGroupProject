@@ -95,7 +95,7 @@
     <div class="outer-body-container">
         <!-- filters-section -->
         <div class="filters-section">
-                <a href="#">
+                <a href="<?php echo URLROOT ?>/organizations/add">
                     <div class="add-organization-button">
                         <i class="fa-solid fa-plus"></i>
                     <span>Add Organization</span>
