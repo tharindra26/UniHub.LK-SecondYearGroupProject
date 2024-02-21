@@ -10,13 +10,13 @@ class Post
 
     public function addPost($data)
     {
-        var_dump($data);
-        die();
+        // var_dump($data);
+        // die();
         $this->db->query("INSERT INTO posts ( 
         user_id,
         title,
         description, 
-        material_link, ) VALUES(:user_id, :title, :description, :material_link)");
+        material_link ) VALUES(:user_id, :title, :description, :material_link)");
         //Bind values
         $this->db->bind(':user_id', $_SESSION['user_id']);
         $this->db->bind(':title', $data['title']);
