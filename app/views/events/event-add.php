@@ -7,7 +7,11 @@
         <div class="add-event-form">
             <header>Add Event</header>
             <form class="form" action="<?php echo URLROOT; ?>/events/add" method="post" enctype="multipart/form-data">
-                <div class="input-box">
+                
+            
+            
+            
+            <div class="input-box">
                     <label for="">Event Title</label>
                     <input type="text" name="title" id="" value="<?php echo $data['title'] ?>" placeholder="Enter full name">
                     <?php if (!empty($data['title_err'])): ?>
