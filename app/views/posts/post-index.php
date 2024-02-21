@@ -13,9 +13,12 @@
                     <p>Start reading</p>
                 </div>
 
-                <div class="add-post-btn">
-                    <p><i class="fa-solid fa-bullhorn"></i> Publish Your Work</p>
-                </div>
+                <a href="<?php echo URLROOT ?>/posts/add">
+                    <div class="add-post-btn">
+                        <p><i class="fa-solid fa-bullhorn"></i> Publish Your Work</p>
+                    </div>
+                </a>
+
             </div>
 
     </div>
@@ -98,7 +101,7 @@
                 </div>
             </a>
 
-            
+
         </div>
         <hr>
     </div>
