@@ -723,6 +723,54 @@ class Users extends Controller
     }
   }
 
+  public function updateContactDetails($id)
+  {
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      //process form
+        $web = trim($_POST['web']);
+        $email = trim($_POST['email']);
+        $linkedin = trim($_POST['linkedin']);
+
+      //Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      //Init data
+      $data = [
+
+        'id' => $id,
+        'contact_number' => trim($_POST['contact_number']),
+        'web' => $web,
+        'email' => $email,
+        'linkedin' => $linkedin,
+
+        'web_err' => '',
+        'email_err' => '',
+        'linkedin_err' => '',
+
+      ];
+
+      if (empty($data['email'])) {
+        $data['email_err'] = 'Pleae enter the email';
+      }
+
+      // Make sure errors are empty
+      if (empty($data['email_err']) ) {
+        //Validated
+        if ($this->userModel->updateContactDetails($data)) {
+          redirect('users/admin/useraccounts');
+        }
+
+        
+      } else {
+
+        //load view with errors
+        $this->view('users/admin/updateuser/update-contact-details', $data);
+
+      }
+    }
+  }
+
 
   public function events()
   {

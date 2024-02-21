@@ -92,13 +92,13 @@ function confirmActivate(confirm) {
   // if (popup) popup.classList.remove("open-popup");
 }
 
-function updateUser(confirm) {
+function updateUser(userId) {
   // // Your AJAX function here
   $.ajax({
     url: "http://localhost/unihub/users/updateUser",
     type: "POST", // or 'GET' depending on your needs
     data: {
-      user_id: confirm,
+      user_id: userId,
     },
     success: function (response) {
       // Handle the success response

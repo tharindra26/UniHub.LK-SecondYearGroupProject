@@ -3,6 +3,7 @@
         <div class="settings-text">
             <p>Manage User</p>
         </div>
+        <!-- <?php var_dump($data['users']); ?> -->
         <div class="bottom-part">
             <div class="options-box">
 
@@ -15,16 +16,14 @@
                     </div>
                 </a>
 
-
-                <a href="#"
-                    class="option-link">
-                    <div class="option">
+            <!-- <a href="#" class="option-link" id="contact" > -->
+                    <div class="option" id="contact">
                         <div class="option-icon">
                             <i class="fa-solid fa-address-card"></i>
                         </div>
                         <div class="option-text">Contact Details</div>
                     </div>
-                </a>
+                <!-- </a> -->
 
 
                 <a href="#" class="option-link">
@@ -76,22 +75,23 @@
 <script>
         $(document).ready(function () {
         // Add click event to the button
-        $("#profile_image").on("click", function (e) {
+        $("#contact").on("click", function (e) {
             console.log("Click");
             e.preventDefault(); // Prevent the default link behavior
             // // Your AJAX function here
             $.ajax({
-                url: 'http://localhost/unihub/users/useraccounts',
+                url: 'http://localhost/unihub/users/updateContactDetails',
                 type: 'POST', // or 'GET' depending on your needs
                 data: {
-            
+                    user_id : <?php echo $data['users']->id ?>
                 },
-                success: function (response) { //echo 1
+                success: function (response) { 
+                    echo 1
                     console.log("AJAX request successful:", response);
                     $("#main-id").html(response);
                 },
                 error: function (error) {
-                    // console.error("AJAX request failed:", error);
+                     console.error("AJAX request failed:", error);
                 }
             });
         });

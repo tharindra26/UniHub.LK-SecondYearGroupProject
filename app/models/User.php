@@ -382,5 +382,27 @@ class User{
     
     //     return $rows;
     // }
+
+    public function updateContactDetails($data){
+        $this->db->query("UPDATE users SET
+                    contact_number = :contact_number,
+                    web = :web,
+                    linkedin = :linkedin,
+                    WHERE id = :id");
+
+        //Bind values
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':contact_number', $data['contact_number']);
+        $this->db->bind(':web', $data['web']);
+        $this->db->bind(':linkedin', $data['linkedin']);
+
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
     
 }
