@@ -18,7 +18,8 @@
                             <div class="input-box">
 
                                 <label for="">Title</label>
-                                <input type="text" name="title" id="" placeholder="Enter your title " value="<?php echo $data['title'] ?>">
+                                <input type="text" name="title" id="" placeholder="Enter your title "
+                                    value="<?php echo $data['title'] ?>">
                                 <?php if (!empty($data['title_err'])): ?>
                                     <span class="error-message">
                                         <?php echo $data['title_err']; ?>
@@ -31,7 +32,8 @@
                         <div class="column">
                             <div class="input-box">
                                 <label for="">Event Description</label>
-                                <textarea id="eventDescription" name="description"  placeholder="Enter event description"><?php echo $data['description'] ?></textarea>
+                                <textarea id="eventDescription" name="description"
+                                    placeholder="Enter event description"><?php echo $data['description'] ?></textarea>
                                 <?php if (!empty($data['description_err'])): ?>
                                     <span class="error-message">
                                         <?php echo $data['description_err']; ?>
@@ -41,12 +43,63 @@
                         </div>
 
                         <div class="column">
-                        <div class="input-box">
+                            <div class="input-box">
                                 <label for="">Material links</label>
                                 <input type="text" name="material_link" id="" placeholder="Enter the material link"
                                     value="<?php echo $data['material_link'] ?>">
                                 <?php if (!empty($data['material_link_err'])): ?>
-                                    <span class="error-message"><?php echo $data['material_link_err']; ?></span>
+                                    <span class="error-message">
+                                        <?php echo $data['material_link_err']; ?>
+                                    </span>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+
+                        <div class="categories-section">
+                            <H3>Choose Categories</H3>
+                            <div class="column">
+                                <div class="input-box ">
+                                    <label for="">Press ctrl to select multiple categories.</label>
+                                    <div class="select-box category">
+
+                                        <select name="categories[]" id="selection" multiple>
+                                            <option hidden>Select Category</option>
+                                            <option value="Blogs" <?php if (is_array($data['categories']) && in_array('Blogs', $data['categories']))
+                                                echo 'selected'; ?>>Blogs
+                                            </option>
+                                            <option value="Research" <?php if (is_array($data['categories']) && in_array('Research', $data['categories']))
+                                                echo 'selected'; ?>>Research
+                                            </option>
+                                            <option value="Kuppi" <?php if (is_array($data['categories']) && in_array('Kuppi', $data['categories']))
+                                                echo 'selected'; ?>>Kuppi
+                                            </option>
+                                        </select>
+
+
+                                    </div>
+                                    <?php if (!empty($data['category_err'])): ?>
+                                        <span class="error-message">
+                                            <?php echo $data['category_err']; ?>
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="column">
+                            <div class="input-box">
+                                <H3>Profile Image</H3>
+                                <label for="">Upload a 600x600 pixels image. Accepted formats: JPG, PNG.</label>
+                                <input type="file" id="profileImageUpload" name="post_profile_image"
+                                    value="<?php echo $data['post_profile_image'] ?>" accept="image/*">
+                                <button type="button" id="custom-profile-img-btn"><i
+                                        class="fa-regular fa-file-image"></i> &nbsp Choose a image</button>
+                                <span id="profile-img-txt">No file chosen, yet.</span>
+                                <?php if (!empty($data['post_profile_image_err'])): ?>
+                                    <span class="error-message">
+                                        <?php echo $data['post_profile_image_err']; ?>
+                                    </span>
                                 <?php endif; ?>
                             </div>
                         </div>
