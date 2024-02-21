@@ -301,6 +301,7 @@
     flex-direction: row;
     margin-top: 10px;
     /* border: 1px solid red; */
+    position:sticky;
 
 }
 
@@ -310,6 +311,8 @@
     /* border: 1px solid red; */
     display: flex;
     flex-direction: column;
+
+
 }
 
 .add-event-button {

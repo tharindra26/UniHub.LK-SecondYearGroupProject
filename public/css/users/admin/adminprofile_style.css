@@ -755,3 +755,119 @@ body.active .modal-box{
 }
 
 /* popup-modal css */
+
+
+
+/* university filter */
+.uni-reset-btn {
+    display: flex;
+    font-size: 13px;
+    align-items: center;
+    justify-content: flex-end;
+    color: #3498db;
+    cursor: pointer;
+    padding-bottom: 7px;
+
+}
+
+.select-btn,
+.uni-filter-options li {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    font-weight: 400;
+}
+
+.select-btn {
+    height: 45px;
+    font-size: 15px;
+    padding: 0 20px;
+    border-radius: 7px;
+    background: white;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.select-btn i {
+    font-size: 20px;
+    transition: transform 0.3s linear;
+}
+
+.uni-filter-active .select-btn i {
+    transform: rotate(-180deg);
+}
+
+.uni-filter-content {
+    padding: 20px;
+    margin-top: 15px;
+    border-radius: 7px;
+    background-color: white;
+    display: none;
+    margin-bottom: 10px;
+}
+
+.uni-filter-active .uni-filter-content {
+    display: block;
+}
+
+.uni-filter-content .uni-filter-search {
+    position: relative;
+}
+
+.uni-filter-search i {
+    left: 15px;
+    line-height: 53px;
+    position: absolute;
+    color: #bdc3c7;
+}
+
+.uni-filter-search input {
+    height: 40px;
+    width: auto;
+    font-size: 17px;
+    padding: 0 15px 0 43px;
+    outline: none;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    position: static;
+}
+
+.uni-filter-content,
+.uni-filter-options {
+    margin-top: 10px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 7px;
+    width: 85%;
+}
+
+.uni-filter-options::-webkit-scrollbar {
+    width: 7px;
+}
+
+.uni-filter-options::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 25px;
+}
+
+.uni-filter-options::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 25px;
+}
+
+.uni-filter-options li {
+    height: 35px;
+    border-radius: 5px;
+    padding: 0 13px;
+    font-size: 15px;
+}
+
+.uni-filter-options li:hover,
+li.selected {
+    background: #ecf0f1;
+}
+
+/* university filter */
