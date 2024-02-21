@@ -1,4 +1,4 @@
-.header-block{
+.header-block {
     width: auto;
     /* border: 1px solid black; */
     background-color: white;
@@ -12,7 +12,7 @@
     flex-wrap: wrap;
 }
 
-.header-block-text{
+.header-block-text {
     width: auto;
     max-height: 100%;
     display: flex;
@@ -23,35 +23,35 @@
     justify-content: center;
 }
 
-.header-block-text h2{
+.header-block-text h2 {
     font-family: lora;
     font-size: 60px;
 
 }
 
-.header-block-text h3{
+.header-block-text h3 {
     /* margin-left: 30px; */
     font-size: 25px;
     font-weight: 400;
 
 }
 
-.header-block-image{
+.header-block-image {
     width: 30wv;
 }
 
-.header-block-image img{
+.header-block-image img {
     width: 100%;
     height: auto;
 }
 
-.header-buttons{
+.header-buttons {
     margin-top: 20px;
     display: flex;
     flex-direction: row;
 }
 
-.start-reading-btn{
+.start-reading-btn {
     display: flex;
     width: fit-content;
     justify-content: center;
@@ -63,8 +63,9 @@
     margin-right: 30px;
     font-size: 20px;
     font-weight: 400;
-   
+
 }
+
 
 
 .header-buttons a{
@@ -80,7 +81,7 @@
     padding: 5px 30px;
     border-radius: 30px;
     background-color: white;
-    color: #e67e22; 
+    color: #e67e22;
     border: 1px solid #e67e22;
     font-size: 20px;
     font-weight: 400;
@@ -88,22 +89,23 @@
 }
 
 
-.trending-post-section{
+.trending-post-section {
     display: flex;
     flex-direction: column;
     width: 100%;
 
 }
 
-.trending-post-title{
+.trending-post-title {
     font-size: 20px;
     border: 1px solid red;
 }
 
-.trending-post-title i{
+.trending-post-title i {
     color: #27ae60;
 }
-.trending-posts{
+
+.trending-posts {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -111,12 +113,13 @@
     justify-content: center;
     border: 1px solid red;
 }
-.trending-post-section a{
+
+.trending-post-section a {
     text-decoration: none;
-    color: inherit;  
+    color: inherit;
 }
 
-.trending-post{
+.trending-post {
     display: flex;
     flex-direction: column;
     /* border: 1px solid red; */
@@ -128,13 +131,13 @@
 
 }
 
-.author-details{
+.author-details {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.author-details .author-image{
+.author-details .author-image {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -147,29 +150,29 @@
 }
 
 .author-image img {
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.author-details .author-name{
+.author-details .author-name {
     font-size: 15px;
     font-weight: 400;
 }
 
-.trending-post .post-topic{
+.trending-post .post-topic {
     display: flex;
     align-items: center;
     font-weight: 700;
 }
 
-.trending-post .post-date{
+.trending-post .post-date {
     font-size: 13px;
     color: #7f8c8d;
     align-items: center;
 }
 
-.trending-post-section hr{
+.trending-post-section hr {
     border: 0;
     height: 1px;
     width: 100%;
@@ -231,7 +234,7 @@
 
 /* Search bar */
 
-.left-main-section{
+.left-main-section {
     width: 60%;
     /* border: 1px solid red; */
     display: flex;
@@ -240,7 +243,7 @@
 
 }
 
-.post-card{
+.post-card {
     width: auto;
     padding: 20px;
     background-color: white;
@@ -250,13 +253,13 @@
     margin-bottom: 10px;
 }
 
-.publisher-details{
+.publisher-details {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.publisher-details .publisher-image-box{
+.publisher-details .publisher-image-box {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -268,39 +271,39 @@
     margin-right: 10px;
 }
 
-.publisher-details .publisher-image-box img{
-    width: 100%; 
-    height: 100%; 
+.publisher-details .publisher-image-box img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 
-.publisher-details .publisher-name{
+.publisher-details .publisher-name {
     margin-right: 10px;
 }
 
-.publisher-details .published-date{
+.publisher-details .published-date {
     color: #7f8c8d;
     font-size: 14px;
 }
 
-.post-card .post-title{
+.post-card .post-title {
     font-size: 25px;
     font-weight: 700;
     /* font-family: lora; */
 }
 
-.post-card .post-short-description{
+.post-card .post-short-description {
     font-family: lora;
 }
 
-.post-tags{
+.post-tags {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     margin-top: 10px;
 }
 
-.tag{
+.tag {
     display: flex;
     justify-content: center;
     align-items: center;
