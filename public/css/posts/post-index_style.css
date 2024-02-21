@@ -66,6 +66,12 @@
    
 }
 
+
+.header-buttons a{
+    text-decoration: none;
+    color: inherit;
+}
+
 .add-post-btn{
     display: flex;
     width: fit-content;
@@ -78,6 +84,7 @@
     border: 1px solid #e67e22;
     font-size: 20px;
     font-weight: 400;
+    
 }
 
 
