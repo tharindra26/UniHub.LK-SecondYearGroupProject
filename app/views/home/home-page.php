@@ -39,7 +39,7 @@
                         <li><a href="<?php echo URLROOT ?>/pages/index">Home</a></li>
                         <li><a href="<?php echo URLROOT ?>/events/index">Events</a></li>
                         <li><a href="<?php echo URLROOT ?>/organizations/index">Organizations</a></li>
-                        <li><a href="<?php echo URLROOT ?>/knowledgehubs/index">KnowledgeHub</a></li>
+                        <li><a href="<?php echo URLROOT ?>/posts/index">Posts</a></li>
                         <li><a href="<?php echo URLROOT ?>/opportunities/index">Opportunties</a></li>
 
                         <?php if (!isset($_SESSION["user_id"])): ?>
@@ -63,7 +63,7 @@
                         <li class="hideOnMobile"><a href="<?php echo URLROOT ?>/events/index">Events</a></li>
                         <li class="hideOnMobile"><a href="<?php echo URLROOT ?>/organizations/index">Organizations</a>
                         </li>
-                        <li class="hideOnMobile"><a href="<?php echo URLROOT ?>/knowledgehubs/index">KnowledgeHub</a>
+                        <li class="hideOnMobile"><a href="<?php echo URLROOT ?>/posts/index">Posts</a>
                         </li>
                         <li class="hideOnMobile"><a href="<?php echo URLROOT ?>/opportunities/index">Opportunities</a>
                         </li>

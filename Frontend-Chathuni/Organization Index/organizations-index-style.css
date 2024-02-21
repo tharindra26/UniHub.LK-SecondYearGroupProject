@@ -434,7 +434,7 @@ nav li:first-child {
 
 /* main organizations showing section */
 .outer-body-container{
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width:100%;
     display: flex;
     flex-direction: row;
@@ -445,12 +445,12 @@ nav li:first-child {
     .filters-section{
         width:25%;
         outline: none;
-        border: 1px solid red;
+        /* border: 1px solid red; */
         display: flex;
         flex-direction: column;
     }
         .add-organization-button{
-            border: 1px solid red;
+            /* border: 1px solid red; */
             text-align: center;
             padding:10px;
             background-color: #3498db;
@@ -478,7 +478,7 @@ nav li:first-child {
 
 
         /* university filter */
-        .reset-btn{
+        .uni-reset-btn{
             display: flex;
             font-size: 13px;
             align-items: center;
@@ -584,7 +584,21 @@ nav li:first-child {
         /* university filter */
 
         /* category filter */
-        /* .category-reset-btn{
+        .category-select-btn{
+            display: flex;
+            height:45px;
+            align-items: center;
+            padding: 0 20px;
+            border-radius: 15px;
+            background-color: white;
+            justify-content: space-between;
+            cursor: pointer;
+            margin-bottom: 30px;
+            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+            
+        }
+
+        .category-reset-btn{
             display: flex;
             font-size: 13px;
             align-items: center;
@@ -594,12 +608,23 @@ nav li:first-child {
             padding-bottom: 7px;
         }
 
+        .category-select-btn .btn-txt{
+            font-size: 15px;
+            color: black;
+            font-weight: 400;
+        }
+
+        .category-select-btn .fa-angle-down{
+            transition: transform 0.3s linear;
+            font-size: 20px;
+        }
+
         .category-filter-active .fa-angle-down{
             transform: rotate(-180deg);
         }
         .list-items{
             margin-top:15px;
-            border-radius: 7px;
+            border-radius: 15px;
             padding:20px;
             background-color: white;
             display: none;
@@ -616,7 +641,7 @@ nav li:first-child {
             cursor: pointer;
             transition: 0.3s;
             padding:8px;
-            border-radius: 7px;
+            border-radius: 15px;
         }
 
         .list-items .item:hover{
@@ -649,77 +674,6 @@ nav li:first-child {
         .category-checked .checkbox{
             background-color: #2980b9;
             border-color: #2980b9;
-        } */
-
-
-        .category-filter {
-            position: relative;
-        }
-        
-        .reset-btn {
-            display: flex;
-            font-size: 13px;
-            align-items: center;
-            justify-content: flex-end;
-            color: #3498db;
-            cursor: pointer;
-            padding-bottom: 7px;
-        }
-        
-        .select-btn,
-        .category-filter-options label {
-            display: flex;
-            cursor: pointer;
-            align-items: center;
-            text-decoration: none;
-            color: black;
-            font-weight: 400;
-        }
-        
-        .select-btn {
-            height: 35px;
-            font-size: 15px;
-            padding: 0 20px;
-            border-radius: 20px;
-            background: white;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
-        }
-        
-        .select-btn i {
-            font-size: 20px;
-            transition: transform 0.3s linear;
-        }
-        
-        .category-filter-active .select-btn i {
-            transform: rotate(-180deg);
-        }
-        
-        .category-filter-content {
-            padding: 15px;
-            margin-top: 5px;
-            border-radius: 7px;
-            background-color: white;
-            display: none;
-            margin-bottom: 10px;
-        }
-        
-        .category-filter-active .category-filter-content {
-            display: block;
-        }
-        
-        .category-filter-options {
-            margin-top: 10px;
-        }
-        
-        .category-filter-options label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        
-        .category-filter-options input {
-            margin-right: 5px;
         }
         /* category filter */
     /* filter section */
@@ -737,9 +691,10 @@ nav li:first-child {
         align-content: center;
     }
         .item-container{
+            position: relative;
             display: flex;
             flex-direction: row;
-            /* border: 1px solid red; */
+            border: 1px solid red;
             border-left: 15px solid #3498db;
             border-radius: 20px;
             width:100%;
@@ -812,7 +767,8 @@ nav li:first-child {
                     margin: 0 10px;
                 }
             .membership{
-                position: end;
+                position: absolute;
+                right: 0px;
                 width:150px;
                 height:100px;
                 border-bottom-right-radius: 20px;
@@ -821,7 +777,7 @@ nav li:first-child {
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                /* border:1px solid red; */
+                border:1px solid red;
             }
                 .membership .number{
                     font-size: 25px;

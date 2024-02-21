@@ -61,12 +61,13 @@
                 <i class="fa-regular fa-face-grin-hearts"></i>
                 <span>&nbsp Going</span>
             </a> -->
+            
         </div>
     </div>
 </div>
 
-<div class="container">
-    <div class="bottom-main-section">
+<div class="container" id="#contentToPrint">
+    <div id="bottom-main-section" class="bottom-main-section">
 
         <!-- left-section -->
         <div class="left-section">
@@ -230,11 +231,9 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-
-
-
-
 <script>
+
+    
 
     var countDownDate = new Date("<?php echo $formatted_starting_datetime ?>").getTime();
 
@@ -306,6 +305,31 @@
         // Initial check on page load
         checkEventParticipation();
     });
+
+
+    
+// Convert HTML content to PDF
+function Convert_HTML_To_PDF() {
+    window.jsPDF = window.jspdf.jsPDF;
+
+    var doc = new jsPDF();
+	
+    // Source HTMLElement or a string containing HTML.
+    var elementHTML = document.querySelector("body");
+
+    doc.html(elementHTML, {
+        callback: function(doc) {
+            // Save the PDF
+            doc.save('document-html.pdf');
+        },
+        margin: [10, 10, 10, 10],
+        autoPaging: 'text',
+        x: 0,
+        y: 0,
+        width: 190, //target width in the PDF document
+        windowWidth: 675 //window width in CSS pixels
+    });
+}
 
 </script>
 <script src="<?php echo URLROOT ?>/js/events/event-show.js"></script>

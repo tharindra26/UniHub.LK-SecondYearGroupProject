@@ -1,44 +1,93 @@
-//university filter
-const uniFilter = document.querySelector(".uni-filter"),
-  selectBtn = uniFilter.querySelector(".select-btn"),
-  searchInput = uniFilter.querySelector("input"),
-  uniResetBtn = uniFilter.querySelector(".uni-reset-btn");
-uniFilterOptions = uniFilter.querySelector(".uni-filter-options");
-var searchBarInput = document.getElementById("search-bar-input").value;
+//popup
 
-let universities = [
-  "University of Colombo",
-  "University of Peradeniya",
-  "University of Moratuwa",
-  "University of Kelaniya",
-  "University of Sri Jayewardenepura",
-  "University of Ruhuna",
-  "University of Jaffna",
-  "University of Sabaragamuwa",
-  "Eastern University, Sri Lanka",
-  "South Eastern University of Sri Lanka",
-  "Rajarata University of Sri Lanka",
-  "Wayamba University of Sri Lanka",
-  "Uva Wellassa University",
-  "University of the Visual and Performing Arts",
-  "Sabaragamuwa University of Sri Lanka",
-  "Open University of Sri Lanka",
-  "General Sir John Kotelawala Defence University",
-  "Sri Lanka Institute of Information Technology (SLIIT)",
-  "Informatics Institute of Technology (IIT)",
-  "General Sir John Kotelawala Defence University - Southern Campus",
-];
-
-function addUniversity(selectedUniversity) {
-    uniFilterOptions.innerHTML = "";
-    universities.forEach((university) => {
-      //if selected university and university value is asame then add selected class
-      let isSelected = university == selectedUniversity ? "selected" : "";
-      //adding each university inside li and inserting all li inside uni-filter-options
-      let li = `<li onclick="updateName(this)" class="${isSelected}" > ${university} </li>`;
-      uniFilterOptions.insertAdjacentHTML("beforeend", li);
-    });
+function openPopup(confirm) {
+    let popup = document.getElementById(confirm);
+    if (popup) popup.classList.add("open-popup");
   }
-  addUniversity();
-
   
+  function closePopup(confirm) {
+    let popup = document.getElementById(confirm);
+    if (popup) popup.classList.remove("open-popup");
+  }
+  
+  function confirmDeactivate(confirm) {
+    let confirmBtn = document.getElementById(confirm);
+    // // Your AJAX function here
+    $.ajax({
+      url: "http://localhost/unihub/users/deactivateUser",
+      type: "POST", // or 'GET' depending on your needs
+      data: {
+        user_id: confirm,
+      },
+      success: function (response) {
+        // Handle the success response
+        console.log("AJAX request successful:", response);
+  
+        // Update the text content on success
+        // interestedBtn.find('span').text(response);
+        if (response === "1") {
+          confirmBtn.classList.remove("open-popup");
+        }
+        //else {
+        //     confirmBtn.addClass("new-class");
+        // }
+      },
+      error: function (error) {
+        // Handle the error response
+        console.error("AJAX request failed:", error);
+      },
+    });
+    // if (popup) popup.classList.remove("open-popup");
+  }
+  
+  function confirmActivate(confirm) {
+    let confirmBtn = document.getElementById(confirm);
+    // // Your AJAX function here
+    $.ajax({
+      url: "http://localhost/unihub/users/activateUser",
+      type: "POST", // or 'GET' depending on your needs
+      data: {
+        user_id: confirm,
+      },
+      success: function (response) {
+        // Handle the success response
+        console.log("AJAX request successful:", response);
+  
+        // Update the text content on success
+        // interestedBtn.find('span').text(response);
+        if (response === "1") {
+          confirmBtn.classList.remove("open-popup");
+        }
+        //else {
+        //     confirmBtn.addClass("new-class");
+        // }
+      },
+      error: function (error) {
+        // Handle the error response
+        console.error("AJAX request failed:", error);
+      },
+    });
+    // if (popup) popup.classList.remove("open-popup");
+  }
+  
+  function updateUser(confirm) {
+    // // Your AJAX function here
+    $.ajax({
+      url: "http://localhost/unihub/users/updateUser",
+      type: "POST", // or 'GET' depending on your needs
+      data: {
+        user_id: confirm,
+      },
+      success: function (response) {
+        // Handle the success response
+        console.log("AJAX request successful:", response);
+  
+        $("#main-id").html(response);
+      },
+      error: function (error) {
+        // Handle the error response
+        console.error("AJAX request failed:", error);
+      },
+    });
+    // if (popup) popup.classList.remove("open-popup");
+  }

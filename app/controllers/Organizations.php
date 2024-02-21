@@ -22,7 +22,6 @@ class Organizations extends Controller
 
     $this->view('organizations/organizations-index', $data);
   }
-
   public function add()
   {
 
@@ -34,60 +33,128 @@ class Organizations extends Controller
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       //process form
 
+      $navigation = trim($_POST['map_navigation']);
       //Sanitize post data
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
       //Init data
       $data = [
-        'user_id' => trim($_POST['user_id']),
-        'name' => trim($_POST['name']),
-        'university' => trim($_POST['university']),
+        'title' => trim($_POST['title']),
+        'university' => (trim($_POST['university']) == 'Select University' ? '' : trim($_POST['university'])),
+        'organized_by' => trim($_POST['organized_by']),
+        'venue' => trim($_POST['venue']),
+        'email' => trim($_POST['email']),
+        'contact_number' => trim($_POST['contact_number']),
+        'map_navigation' => $navigation,
+        'start_datetime' => trim($_POST['start_datetime']),
+        'end_datetime' => trim($_POST['end_datetime']),
         'description' => trim($_POST['description']),
-        'link' => trim($_POST['link']),
-        'organization_card_image' => '',
-        'organization_cover_image' => '',
-        'user_id_err' => '',
-        'name_err' => '',
+        'category' => trim($_POST['category']),
+        'event_profile_image' => '',
+        'event_cover_image' => '',
+
+        'title_err' => '',
         'university_err' => '',
+        'organized_by_err' => '',
+        'venue_err' => '',
+        'email_err' => '',
+        'contact_number_err' => '',
+        'map_navigation_err' => '',
+        'start_datetime_err' => '',
+        'end_datetime_err' => '',
         'description_err' => '',
-        'link_err' => '',
-        'organization_card_image_err' => '',
-        'organization_cover_image_err' => '',
+        'category_err' => '',
+        'event_profile_image_err' => '',
+        'event_cover_image_err' => '',
 
       ];
 
 
-      if (empty($data['user_id'])) {
-        $data['user_id_err'] = 'Pleae enter user id';
-      }
 
-      if (empty($data['name'])) {
-        $data['name_err'] = 'Pleae enter organization name';
+      if (empty($data['title'])) {
+        $data['title_err'] = 'Pleae enter event title';
       }
-
       if (empty($data['university'])) {
-        $data['university_err'] = 'Pleae enter university';
+        $data['university_err'] = 'Pleae select the university';
       }
-
+      if (empty($data['organized_by'])) {
+        $data['organized_by_err'] = 'Pleae enter the organization entity';
+      }
+      if (empty($data['venue'])) {
+        $data['venue_err'] = 'Pleae enter the venue';
+      }
+      if (empty($data['email'])) {
+        $data['email_err'] = 'Pleae enter the email';
+      }
+      if (empty($data['contact_number'])) {
+        $data['contact_number_err'] = 'Pleae enter the contact number';
+      }
+      if (empty($data['map_navigation'])) {
+        $data['map_navigation_err'] = 'Pleae enter the embed Google map link';
+      }
+      if (empty($data['start_datetime'])) {
+        $data['start_datetime_err'] = 'Pleae enter the starting date & time';
+      }
+      if (empty($data['end_datetime'])) {
+        $data['end_datetime_err'] = 'Pleae enter the ending date & time';
+      }
       if (empty($data['description'])) {
-        $data['description_err'] = 'Pleae enter organization description';
+        $data['description_err'] = 'Pleae enter the description';
       }
-
-      if (empty($data['link'])) {
-        $data['link_err'] = 'Pleae enter link';
+      if (empty($data['category'])) {
+        $data['category_err'] = 'Pleae enter the event category';
       }
 
 
 
       // Make sure errors are empty
-      if (empty($data['user_id_err']) && empty($data['name_err']) && empty($data['university_err']) && empty($data['description_err']) && empty($data['link_err'])) {
+      if (empty($data['title_err']) && empty($data['university_err']) && empty($data['organized_by_err']) && empty($data['map_navigation_err']) && empty($data['start_datetime_err']) && empty($data['end_datetime_err']) && empty($data['description_datetime_err']) && empty($data['category_err'])) {
         //Validated
-        if (isset($_FILES['organization_card_image']['name']) and !empty($_FILES['organization_card_image']['name'])) {
+
+        //event-card image adding
+        if (isset($_FILES['event_profile_image']['name']) and !empty($_FILES['event_profile_image']['name'])) {
 
 
-          $img_name = $_FILES['organization_card_image']['name'];
-          $tmp_name = $_FILES['organization_card_image']['tmp_name'];
-          $error = $_FILES['organization_card_image']['error'];
+          $img_name = $_FILES['event_profile_image']['name'];
+          $tmp_name = $_FILES['event_profile_image']['tmp_name'];
+          $error = $_FILES['event_profile_image']['error'];
+
+          // if($error === 0){
+          //    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+          //    $img_ex_to_lc = strtolower($img_ex);
+
+          //    $allowed_exs = array('jpg', 'jpeg', 'png');
+          //    if(in_array($img_ex_to_lc, $allowed_exs)){
+          //       $new_img_name = $data['event_title'] . '-event-card-image.' . $img_ex_to_lc;
+          //       $img_upload_path = "../public/img/event-card-images/".$new_img_name;
+          //       move_uploaded_file($tmp_name, $img_upload_path);
+
+          //       $data['event_card_image']=$new_img_name;
+          //    }
+          // }
+          if ($error === 0) {
+            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+            $img_ex_to_lc = strtolower($img_ex);
+
+            $allowed_exs = array('jpg', 'jpeg', 'png');
+            if (in_array($img_ex_to_lc, $allowed_exs)) {
+              $new_img_name = $data['title'] . '_event_profile_' . time() . '.' . $img_ex_to_lc;
+              $img_upload_path = "../public/img/events/events_profile_images/" . $new_img_name;
+              move_uploaded_file($tmp_name, $img_upload_path);
+
+              $data['event_profile_image'] = $new_img_name;
+            }
+          }
+        }
+
+
+        //event-cover image adding
+        if (isset($_FILES['event_cover_image']['name']) and !empty($_FILES['event_cover_image']['name'])) {
+
+
+          $img_name = $_FILES['event_cover_image']['name'];
+          $tmp_name = $_FILES['event_cover_image']['tmp_name'];
+          $error = $_FILES['event_cover_image']['error'];
 
           if ($error === 0) {
             $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
@@ -95,46 +162,26 @@ class Organizations extends Controller
 
             $allowed_exs = array('jpg', 'jpeg', 'png');
             if (in_array($img_ex_to_lc, $allowed_exs)) {
-              $new_img_name = $data['organization_title'] . '-organization-card-image.' . $img_ex_to_lc;
-              $img_upload_path = "../public/img/organization-card-images/" . $new_img_name;
+              $new_img_name = $data['title'] . '_event_cover_' . time() . '.' . $img_ex_to_lc;
+              $img_upload_path = "../public/img/events/events_cover_images/" . $new_img_name;
               move_uploaded_file($tmp_name, $img_upload_path);
 
-              $data['organization_card_image'] = $new_img_name;
-            }
-          }
-        }
-
-        if (isset($_FILES['organization_cover_image']['name']) and !empty($_FILES['organization_cover_image']['name'])) {
-
-
-          $img_name = $_FILES['organization_cover_image']['name'];
-          $tmp_name = $_FILES['organization_cover_image']['tmp_name'];
-          $error = $_FILES['organization_cover_image']['error'];
-
-          if ($error === 0) {
-            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-            $img_ex_to_lc = strtolower($img_ex);
-
-            $allowed_exs = array('jpg', 'jpeg', 'png');
-            if (in_array($img_ex_to_lc, $allowed_exs)) {
-              $new_img_name = $data['organization_title'] . '-organization-cover-image.' . $img_ex_to_lc;
-              $img_upload_path = "../public/img/organization-cover-images/" . $new_img_name;
-              move_uploaded_file($tmp_name, $img_upload_path);
-
-              $data['organization_cover_image'] = $new_img_name;
+              $data['event_cover_image'] = $new_img_name;
             }
           }
         }
 
 
+        $data['category_id'] = $this->categoryModel->getCategoryIdByName($data['category']);
+        $data['university_id'] = $this->universityModel->getUniIdByName($data['university']);
 
-        if ($this->organizationModel->addOrganization($data)) {
-          flash('event_message', "Organization Added Successfully");
-          redirect('organizations');
+        if ($this->eventModel->addEvent($data)) {
+          // flash('event_message', "Event Added Successfully");
+          redirect('events');
         }
       } else {
         //load view with error
-        $this->view('organizations/organizations-add', $data);
+        $this->view('events/event-add', $data);
 
       }
 
@@ -142,230 +189,38 @@ class Organizations extends Controller
     } else {
       // Init data
       $data = [
-        'user_id' => '',
-        'name' => '',
+        'title' => '',
         'university' => '',
+        'organized_by' => '',
+        'venue' => '',
+        'email' => '',
+        'contact_number' => '',
+        'map_navigation' => '',
+        'start_datetime' => '',
+        'end_datetime' => '',
         'description' => '',
-        'link' => '',
-        'organization_card_image' => '',
-        'organization_cover_image' => '',
-        'user_id_err' => '',
-        'name_err' => '',
+        'category' => '',
+        'event_profile_image' => '',
+        'event_cover_image' => '',
+
+        'title_err' => '',
         'university_err' => '',
+        'organized_by_err' => '',
+        'venue_err' => '',
+        'email_err' => '',
+        'contact_number_err' => '',
+        'map_navigation_err' => '',
+        'start_datetime_err' => '',
+        'end_datetime_err' => '',
         'description_err' => '',
-        'link_err' => '',
-        'organization_card_image_err' => '',
-        'organization_cover_image_err' => '',
+        'category_err' => '',
+        'event_profile_image_err' => '',
+        'event_cover_image_err' => '',
 
       ];
 
       // Load view
-      $this->view('organizations/organizations-add', $data);
+      $this->view('events/event-add', $data);
     }
-  }
-
-
-  public function edit($id)
-  {
-
-    //check the user is a registered user
-    if (!isLoggedIn()) {
-      redirect('/users/login');
-    }
-
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      //process form
-
-      //Sanitize post data
-      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-      //Init data
-      var_dump($_POST);
-      $data = [
-        'id' => $id,
-        'name' => trim($_POST['name']),
-        'university' => trim($_POST['university']),
-        'description' => trim($_POST['description']),
-        'link' => trim($_POST['link']),
-        'organization_card_image' => trim($_POST['organization_card_image']),
-        'organization_cover_image' => trim($_POST['organization_cover_image']),
-        'user_id_err' => '',
-        'name_err' => '',
-        'university_err' => '',
-        'description_err' => '',
-        'link_err' => '',
-        'organization_card_image_err' => '',
-        'organization_cover_image_err' => '',
-
-      ];
-
-
-      if (empty($data['user_id'])) {
-        $data['user_id_err'] = 'Pleae enter user id';
-      }
-
-      if (empty($data['name'])) {
-        $data['name_err'] = 'Pleae enter organization name';
-      }
-
-      if (empty($data['university'])) {
-        $data['university_err'] = 'Pleae enter university';
-      }
-
-      if (empty($data['description'])) {
-        $data['description_err'] = 'Pleae enter organization description';
-      }
-
-      if (empty($data['link'])) {
-        $data['link_err'] = 'Pleae enter link';
-      }
-
-
-
-      // Make sure errors are empty
-      if (empty($data['user_id_err']) && empty($data['name_err']) && empty($data['university_err']) && empty($data['description_err']) && empty($data['link_err'])) {
-        //Validated
-        if (isset($_FILES['organization_card_image']['name']) and !empty($_FILES['organization_card_image']['name'])) {
-
-
-          $img_name = $_FILES['organization_card_image']['name'];
-          $tmp_name = $_FILES['organization_card_image']['tmp_name'];
-          $error = $_FILES['organization_card_image']['error'];
-
-          if ($error === 0) {
-            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-            $img_ex_to_lc = strtolower($img_ex);
-
-            $allowed_exs = array('jpg', 'jpeg', 'png');
-            if (in_array($img_ex_to_lc, $allowed_exs)) {
-              $new_img_name = $data['organization_title'] . '-organization-card-image.' . $img_ex_to_lc;
-              $img_upload_path = "../public/img/organization-card-images/" . $new_img_name;
-              move_uploaded_file($tmp_name, $img_upload_path);
-
-              $data['organization_card_image'] = $new_img_name;
-            }
-          }
-        }
-
-        if (isset($_FILES['organization_cover_image']['name']) and !empty($_FILES['organization_cover_image']['name'])) {
-
-
-          $img_name = $_FILES['organization_cover_image']['name'];
-          $tmp_name = $_FILES['organization_cover_image']['tmp_name'];
-          $error = $_FILES['organization_cover_image']['error'];
-
-          if ($error === 0) {
-            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-            $img_ex_to_lc = strtolower($img_ex);
-
-            $allowed_exs = array('jpg', 'jpeg', 'png');
-            if (in_array($img_ex_to_lc, $allowed_exs)) {
-              $new_img_name = $data['organization_title'] . '-organization-cover-image.' . $img_ex_to_lc;
-              $img_upload_path = "../public/img/organization-cover-images/" . $new_img_name;
-              move_uploaded_file($tmp_name, $img_upload_path);
-
-              $data['organization_cover_image'] = $new_img_name;
-            }
-          }
-        }
-
-        if (isset($_FILES['organization_cover_image']['name']) and !empty($_FILES['organization_cover_image']['name'])) {
-
-
-          $img_name = $_FILES['organization_cover_image']['name'];
-          $tmp_name = $_FILES['organization_cover_image']['tmp_name'];
-          $error = $_FILES['organization_cover_image']['error'];
-
-          if ($error === 0) {
-            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-            $img_ex_to_lc = strtolower($img_ex);
-
-            $allowed_exs = array('jpg', 'jpeg', 'png');
-            if (in_array($img_ex_to_lc, $allowed_exs)) {
-              $new_img_name = $data['organization_title'] . '-organization-cover-image.' . $img_ex_to_lc;
-              $img_upload_path = "../public/img/organization-cover-images/" . $new_img_name;
-              move_uploaded_file($tmp_name, $img_upload_path);
-
-              $data['organization_cover_image'] = $new_img_name;
-            }
-          }
-        }
-
-        if ($this->organizationModel->updateOrganization($data)) {
-          flash('event_message', "Organization Updated Successfully");
-          redirect('organizations');
-        }
-      } else {
-
-        //load view with error
-        $this->view('organizations/organizations-edit', $data);
-
-      }
-
-
-    } else {
-      //get existing post from model
-      $organization = $this->organizationModel->getOrganizationById($id);
-
-      // //check for owner
-      // if($organization->user_id != $_SESSION['user_id']){
-      //   redirect('organizations');
-      // }
-      // Init data
-
-      $data = [
-        'id' => $organization->id,
-        'user_id' => $organization->user_id,
-        'name' => $organization->name,
-        'university' => $organization->university,
-        'description' => $organization->description,
-        'link' => $organization->link,
-        'organization_card_image' => $organization->organization_card_image,
-        'organization_cover_image' => $organization->organization_cover_image,
-        'user_id_err' => '',
-        'name_err' => '',
-        'university_err' => '',
-        'description_err' => '',
-        'link_err' => '',
-        'organization_card_image_err' => '',
-        'organization_cover_image_err' => '',
-
-      ];
-
-      // Load view
-      $this->view('organizations/organizations-edit', $data);
-    }
-  }
-
-  public function delete($id)
-  {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-      // Get existing post from model
-      $organization = $this->organizationModel->getOrganizationById($id);
-
-      //   // Check for owner
-      //   if($event->user_id != $_SESSION['user_id']){
-      //     redirect('events');
-      //   }
-
-      if ($this->organizationModel->deleteOrganization($id)) {
-        flash('event_message', 'Organization Removed');
-        redirect('organizations');
-      } else {
-        die('Something went wrong');
-      }
-    } else {
-      redirect('organizations');
-    }
-  }
-
-  public function show($id)
-  {
-    $organization = $this->organizationModel->getOrganizationById($id);
-    $data = [
-      'organization' => $organization,
-    ];
-    $this->view('organizations/organization-show', $data);
   }
 }

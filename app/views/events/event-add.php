@@ -80,6 +80,40 @@
                             <?php endif; ?>
                         </div>
                     </div>
+
+                    <div class="column">
+                        <div class="input-box">
+                            <label for="">web</label>
+                            <input type="text" name="web" value="<?php echo $data['web'] ?>" id="" placeholder="Enter the web">
+                            <?php if (!empty($data['web_err'])): ?>
+                                <span class="error-message"><?php echo $data['web_err']; ?></span>
+                            <?php endif; ?>
+                        </div>
+                        <div class="input-box">
+                            <label for="">Linkedin</label>
+                            <input type="tel" name="linkedin" value="<?php echo $data['linkedin'] ?>" id="" placeholder="Enter the linkedin">
+                            <?php if (!empty($data['linkedin_err'])): ?>
+                                <span class="error-message"><?php echo $data['linkedin_err']; ?></span>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="input-box">
+                            <label for="">Facebook</label>
+                            <input type="text" name="facebook" value="<?php echo $data['facebook'] ?>" id="" placeholder="Enter the facebook">
+                            <?php if (!empty($data['facebook_err'])): ?>
+                                <span class="error-message"><?php echo $data['facebook_err']; ?></span>
+                            <?php endif; ?>
+                        </div>
+                        <div class="input-box">
+                            <label for="">Instagram</label>
+                            <input type="tel" name="instagram" value="<?php echo $data['instagram'] ?>" id="" placeholder="Enter the instagram">
+                            <?php if (!empty($data['linkedin_err'])): ?>
+                                <span class="error-message"><?php echo $data['instagram_err']; ?></span>
+                            <?php endif; ?>
+                        </div>
+                    </div>
                 </div>
 
 
@@ -125,6 +159,8 @@
                         <?php endif; ?>
                     </div>
                 </div>
+
+
 
                 <div class="input-box">
                     <label for="">Event Description</label>

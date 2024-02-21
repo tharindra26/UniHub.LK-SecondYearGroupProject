@@ -147,6 +147,30 @@
     border: 1px solid #bdc3c7;
 }
 
+.form .radio-option-box{
+    margin-top: 20px;
+}
+
+.radio-option-box h3{
+    font-weight: 400;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+
+.form :where(.radio-options, .radio-option){
+    display: flex;
+    align-items: center;
+    column-gap: 50px;
+}
+
+.form .radio-option{
+    column-gap: 5px;
+}
+
+.form :where(.radio-option input, .radio-option label){
+    cursor: pointer;
+}
 .submit-btn {
     height: 55px;
     width: 100%;
@@ -159,7 +183,7 @@
     background: #3498db;
     color: white;
     transition: all 0.2s ease;
-    border:1px solid red;
+    /* border:1px solid red; */
 }
 
 .submit-btn:hover {
@@ -178,3 +202,13 @@
 /* error message */
 
 /* form css */
+
+@media screen and (max-width: 500px){
+    .form .column{
+        flex-wrap: wrap;
+    }
+
+    .form :where(.radio-options .radio-option){
+        row-gap: 15px;
+    }
+}

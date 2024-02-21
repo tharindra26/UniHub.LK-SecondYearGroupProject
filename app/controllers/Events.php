@@ -36,6 +36,10 @@ class Events extends Controller
       //process form
 
       $navigation = trim($_POST['map_navigation']);
+      $web = trim($_POST['web']);
+      $linkedin = trim($_POST['linkedin']);
+      $facebook = trim($_POST['facebook']);
+      $instagram = trim($_POST['instagram']);
       //Sanitize post data
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
@@ -47,6 +51,10 @@ class Events extends Controller
         'venue' => trim($_POST['venue']),
         'email' => trim($_POST['email']),
         'contact_number' => trim($_POST['contact_number']),
+        'web' => $web,
+        'linkedin' => $linkedin,
+        'facebook' => $facebook,
+        'instagram' => $instagram,
         'map_navigation' => $navigation,
         'start_datetime' => trim($_POST['start_datetime']),
         'end_datetime' => trim($_POST['end_datetime']),
@@ -61,6 +69,10 @@ class Events extends Controller
         'venue_err' => '',
         'email_err' => '',
         'contact_number_err' => '',
+        'web_err' => '',
+        'linkedin_err' => '',
+        'facebook_err' => '',
+        'instagram_err' => '',
         'map_navigation_err' => '',
         'start_datetime_err' => '',
         'end_datetime_err' => '',
@@ -180,10 +192,10 @@ class Events extends Controller
           // Convert array of category names to category IDs
           $category_ids = [];
           foreach ($data['categories'] as $category_name) {
-              $category_id = $this->categoryModel->getCategoryIdByName($category_name);
-              if ($category_id !== false) {
-                  $category_ids[] = $category_id;
-              }
+            $category_id = $this->categoryModel->getCategoryIdByName($category_name);
+            if ($category_id !== false) {
+              $category_ids[] = $category_id;
+            }
           }
           $data['category_ids'] = $category_ids;
         }
@@ -209,6 +221,10 @@ class Events extends Controller
         'venue' => '',
         'email' => '',
         'contact_number' => '',
+        'web' => '',
+        'linkedin' => '',
+        'facebook' => '',
+        'instagram' => '',
         'map_navigation' => '',
         'start_datetime' => '',
         'end_datetime' => '',
@@ -509,11 +525,10 @@ class Events extends Controller
       //process form
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-
       //Init data
       $data = [
         'announcement' => trim($_POST['announcement']),
-        'sharingOption' => (trim($_POST['sharingOption']) == 'Select the option' ? '' : trim($_POST['sharingOption'])),
+        'sharingOption' => trim($_POST['sharingOption']),
         'announcement_err' => '',
         'sharingOption_err' => '',
         'user_id' => $_SESSION['user_id'],
@@ -568,20 +583,109 @@ class Events extends Controller
   }
 
 
-  public function changeContactDetails($id)
+  public function editContactDetails($id)
   {
-    $data = [
-      'id' => $id,
-    ];
-    $this->view('events/change-contact-details', $data);
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      //process form
+        $web = trim($_POST['web']);
+        $email = trim($_POST['email']);
+        $linkedin = trim($_POST['linkedin']);
+        $facebook = trim($_POST['facebook']);
+        $instagram = trim($_POST['instagram']);
+
+      //Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      //Init data
+      $data = [
+
+        'id' => $id,
+        'organized_by' => trim($_POST['organized_by']),
+        'contact_number' => trim($_POST['contact_number']),
+        'web' => $web,
+        'email' => $email,
+        'linkedin' => $linkedin,
+        'facebook' => $facebook,
+        'instagram' => $instagram,
+
+        'organized_by_err' => '',
+        'web_err' => '',
+        'email_err' => '',
+        'linkedin_err' => '',
+        'facebook_err' =>'',
+        'instagram_err' => '',
+
+      ];
+
+      
+
+
+      if (empty($data['organized_by'])) {
+        $data['organized_by_err'] = 'Pleae enter the organization entity';
+      }
+
+      if (empty($data['email'])) {
+        $data['email_err'] = 'Pleae enter the email';
+      }
+      if (empty($data['contact_number'])) {
+        $data['contact_number_err'] = 'Pleae enter the contact number';
+      }
+
+
+
+      // Make sure errors are empty
+      if (empty($data['organized_by_err']) && empty($data['contact_number_err']) && empty($data['email_err']) ) {
+        //Validated
+        if ($this->eventModel->updateContactDetails($data)) {
+          redirect('events');
+        }
+
+        
+      } else {
+
+        //load view with errors
+        $this->view('events/editContactDetails', $data);
+
+      }
+
+
+    } else {
+      //get existing post from model
+      $event = $this->eventModel->getEventById($id);
+
+      // Init data
+      $data = [
+        'id' => $id,
+        'organized_by' => $event->organized_by,
+        'email' => $event->email,
+        'contact_number' => $event->contact_number,
+        'web' => $event->web,
+        'linkedin' => $event->linkedin,
+        'facebook' => $event->facebook,
+        'instagram' => $event->instagram,
+
+        'organized_by_err' => '',
+        'email_err' => '',
+        'contact_number_err' => '',
+        'web_err' => '',
+        'linkedin_err' => '',
+        'facebook_err' => '',
+        'instagram_err' => '',
+
+      ];
+
+      // Load view
+      $this->view('events/editContactDetails', $data);
+    }
   }
 
-  public function changePlacement($id)
+  public function editPlacement($id)
   {
     $data = [
       'id' => $id,
     ];
-    $this->view('events/change-placement', $data);
+    $this->view('events/editplacement', $data);
   }
 
   public function quickShortcut()
@@ -605,6 +709,133 @@ class Events extends Controller
   {
     $eventCategories = $this->eventModel->getEventCategories();
     echo json_encode($eventCategories);
+  }
+
+
+
+  //change profile images
+
+  public function editProfileImage($id)
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      //process form
+
+      //Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      //Init data
+      $data = [
+        'id' => $id,
+        'event_card_image' => trim($_POST['event_card_image']),
+        'event_cover_image' => trim($_POST['event_cover_image']),
+        'event_card_image_err' => '',
+        'event_cover_image_err' => '',
+
+      ];
+
+
+      // if (empty($data['event_title'])) {
+      //   $data['event_title_err'] = 'Pleae enter event title';
+      // }
+
+      // if (empty($data['event_type'])) {
+      //   $data['event_type_err'] = 'Pleae enter event type';
+      // }
+
+      // if (empty($data['description'])) {
+      //   $data['description_err'] = 'Pleae enter event description';
+      // }
+
+      // if (empty($data['date'])) {
+      //   $data['date_err'] = 'Pleae enter date';
+      // }
+
+      // if (empty($data['location'])) {
+      //   $data['location_err'] = 'Pleae enter location';
+      // }
+
+
+
+      // Make sure errors are empty
+      if (empty($data['event_title_err']) && empty($data['event_type_err']) && empty($data['description_err']) && empty($data['date_err']) && empty($data['location_err'])) {
+        //Validated
+        if (isset($_FILES['event_card_image']['name']) and !empty($_FILES['event_card_image']['name'])) {
+
+
+          $img_name = $_FILES['event_card_image']['name'];
+          $tmp_name = $_FILES['event_card_image']['tmp_name'];
+          $error = $_FILES['event_card_image']['error'];
+
+          if ($error === 0) {
+            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+            $img_ex_to_lc = strtolower($img_ex);
+
+            $allowed_exs = array('jpg', 'jpeg', 'png');
+            if (in_array($img_ex_to_lc, $allowed_exs)) {
+              $new_img_name = $data['event_title'] . '-event-card-image.' . $img_ex_to_lc;
+              $img_upload_path = "../public/img/event-card-images/" . $new_img_name;
+              move_uploaded_file($tmp_name, $img_upload_path);
+
+              $data['event_card_image'] = $new_img_name;
+            }
+          }
+        }
+
+        if (isset($_FILES['event_cover_image']['name']) and !empty($_FILES['event_cover_image']['name'])) {
+
+
+          $img_name = $_FILES['event_cover_image']['name'];
+          $tmp_name = $_FILES['event_cover_image']['tmp_name'];
+          $error = $_FILES['event_cover_image']['error'];
+
+          if ($error === 0) {
+            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+            $img_ex_to_lc = strtolower($img_ex);
+
+            $allowed_exs = array('jpg', 'jpeg', 'png');
+            if (in_array($img_ex_to_lc, $allowed_exs)) {
+              $new_img_name = $data['event_title'] . '-event-cover-image.' . $img_ex_to_lc;
+              $img_upload_path = "../public/img/event-cover-images/" . $new_img_name;
+              move_uploaded_file($tmp_name, $img_upload_path);
+
+              $data['event_cover_image'] = $new_img_name;
+            }
+          }
+        }
+
+        if ($this->eventModel->updateEvent($data)) {
+          flash('event_message', "Event Updated Successfully");
+          redirect('events');
+        }
+      } else {
+
+        //load view with error
+        $this->view('events/events-edit', $data);
+
+      }
+
+
+    } else {
+      //get existing post from model
+      $event = $this->eventModel->getEventById($id);
+
+      //check for owner
+      // if ($event->user_id != $_SESSION['user_id']) {
+      //   redirect('events');
+      // }
+      // Init data
+      $data = [
+        'id' => $id,
+        'event_profile_image' => $event->event_profile_image,
+        'event_cover_image' => $event->event_cover_image,
+        'event_card_image_err' => '',
+        'event_cover_image_err' => '',
+
+      ];
+
+      // Load view
+      $this->view('events/editProfileImage', $data);
+    }
   }
 
 

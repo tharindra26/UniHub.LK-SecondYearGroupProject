@@ -93,101 +93,62 @@
 <!-- organizations-showing-section -->
 <div class="container">
     <div class="outer-body-container">
-
         <!-- filters-section -->
         <div class="filters-section">
-            <a href="#">
-                <div class="add-organization-button">
-                    <i class="fa-solid fa-plus"></i>
+                <a href="<?php echo URLROOT ?>/organizations/add">
+                    <div class="add-organization-button">
+                        <i class="fa-solid fa-plus"></i>
                     <span>Add Organization</span>
-                </div>
-            </a>
-
-            <!-- university-filter -->
-            <div class="uni-filter ">
-                <div class="select-btn">
-                    <span>Select University</span>
-                    <i class="fa-solid fa-angle-down"></i>
-                </div>
-                <div class="uni-filter-content">
-                    <div class="reset-btn">Reset</div>
-                    <div class="uni-filter-search">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" placeholder="Search" id="">
                     </div>
-                    <ul class="uni-filter-options">
-                    </ul>
-                </div>
-            </div>
-            <!-- university-filter -->
+                </a>
 
-            <!-- category filter -->
-            <!-- <div class="category-filter-content">
+                <!-- university-filter -->
+                <div class="uni-filter">
                     <div class="select-btn">
-                        <span>Select Category</span>
+                        <span>Select University</span>
                         <i class="fa-solid fa-angle-down"></i>
                     </div>
-                    <div class="category-filter-content"></div>
-                    <ul class="list-category">
+                    <div class="uni-filter-content">
                         <div class="reset-btn">Reset</div>
-                        <li class="category">
+                        <div class="uni-filter-search">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" placeholder="Search" id="">
+                        </div>
+                        <ul class="uni-filter-options">
+                        </ul>
+                    </div>     
+                </div>
+                <!-- university-filter -->
+
+                <!-- category filter -->
+                <div class="category-filter">
+                    <div class="category-select-btn">
+                        <span class="category-btn-txt">Select Category</span>
+                        <span class="arrow-dwn">
+                            <i class="fa-solid fa-angle-down"></i>
+                        </span> 
+                    </div>
+
+                    <ul class="list-items">
+                        <div class="category-reset-btn">Reset</div>
+                        <li class="item">
                             <span class="checkbox">
                                 <i class="fa-solid fa-check check-icon"></i>
                             </span>
-                            <span class="category-text">Academic</span>
+                            <span class="item-text">Hackathon</span>
                         </li>
 
-                        <li class="category">
+                        <li class="item">
                             <span class="checkbox">
                                 <i class="fa-solid fa-check check-icon"></i>
                             </span>
-                            <span class="category-text">Community Service</span>
-                        </li>
-
-                        <li class="category">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="category-text">Media</span>
-                        </li>
-
-                        <li class="category">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="category-text">Multi Cutural</span>
-                        </li>
-
-                        <li class="category">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="category-text">Sports</span>
-                        </li>
-
-                        <li class="category">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="category-text">Performing Arts</span>
+                            <span class="item-text">Musical Show</span>
                         </li>
                     </ul>
-                </div> -->
-
-
-            <div class="category-filter">
-                <div class="select-btn">
-                    <span>Select Category</span>
-                    <i class="fa-solid fa-angle-down"></i>
                 </div>
-                <div class="category-filter-options">
-                    <ul class="category-checkboxes"></ul>
-                </div>
-                <div class="reset-btn">Reset</div>
+                <!-- category filter -->
             </div>
-            <!-- category filter -->
-        </div>
-        <!-- filters-section -->
+            <!-- filters-section -->
 
         <!-- organizations-card-section -->
         <div class="organizations-section">
@@ -209,7 +170,7 @@
                         </div>
                         <div class="membership">
                             <div class="number" m-number="<?php echo $organization->member_count ?>">0</div>
-                            <a href="<?php echo URLROOT ?>/organizations/show/<?php echo $organization->id ?>" class = "view-org-btn">View Organization</a>
+                            <a href="<?php echo URLROOT ?>/organizations/show/<?php echo $organization->id ?>" class ="view-org-btn">View Organization</a>
                         </div>
                     </div>
                 <?php endforeach; ?>

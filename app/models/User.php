@@ -259,5 +259,128 @@ class User{
         return $rows;
     }
 
+    
+//     public function filterUsers($data)
+//     {
+//         $keyword = $data['keyword'];
+//         //$date = $data['date'];
+//         //$university = trim($data['university']);
 
+//         $query = 'SELECT *
+//                     FROM users 
+//                     WHERE 1=1';
+
+//         if (!empty($keyword)) {
+//             $query .= " AND email LIKE :keyword
+//                         OR type LIKE :keyword
+//                         OR fname LIKE :keyword
+//                         OR lname LIKE :keyword";
+
+//         }
+
+//         // if (!empty($date)) {
+//         //     $formattedDate = date('Y-m-d', strtotime($date));
+//         //     $query .= " AND DATE(e.start_datetime) = :formattedDate";
+//         // }
+
+//         // if (!empty($university)) {
+//         //     $query .= " AND u_table.name = :university";
+//         // }
+
+
+//         // Prepare the query
+//         $this->db->query($query);
+
+//         // Bind values to the placeholders
+//         if (!empty($keyword)) {
+//             $this->db->bind(':keyword', '%' . $keyword . '%');
+//         }
+
+//         // if (!empty($date)) {
+//         //     $this->db->bind(':formattedDate', $formattedDate);
+//         // }
+
+//         // if (!empty($university)) {
+//         //     $this->db->bind(':university', $university);
+//         // }
+
+
+//         // Execute the query
+//         $this->db->execute();
+
+//         // Fetch the results
+//         $row = $this->db->resultSet();
+//         return $row;
+
+// }
+
+    public function getRecentlyLoggedInUsers(){
+        $this->db->query('SELECT * FROM users
+                        JOIN (
+                        SELECT user_id, MAX(login_time) AS last_login_time
+                        FROM login_details
+                        GROUP BY user_id
+                        ) AS latest_logins
+                        ON users.id = latest_logins.user_id
+                        ORDER BY latest_logins.last_login_time DESC
+                        LIMIT 10');
+        $this->db->execute();
+        $rows = $this->db->resultSet();
+        return $rows;
+    }
+
+    public function DeactivateAccount($data){
+        $this->db->query("UPDATE users SET status = :status  WHERE id= :id");
+            //Bind values
+            $this->db->bind(':id', $data['user_id']);
+            $this->db->bind('status', 0);
+    
+            //Execute the query
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+    }
+
+    public function ActivateAccount($data){
+        $this->db->query("UPDATE users SET status = :status  WHERE id= :id");
+            //Bind values
+            $this->db->bind(':id', $data['user_id']);
+            $this->db->bind('status', 1);
+    
+            //Execute the query
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+    }
+
+    public function checkStatusByID($data){
+        $this->db->query('SELECT status FROM users WHERE id = :di');
+        $this->db->bind(':id', $data['user_id']);
+        $this->db->execute();
+        $row = $this->db->single();
+        return $row;
+    }
+
+    // public function filterUsers($data) {
+    //     $keyword = '%' . $data['keyword'] . '%'; // Preparing the keyword for a partial match
+    
+    //     $query = 'SELECT *
+    //               FROM users
+    //               WHERE email LIKE :keyword
+    //                  OR type LIKE :keyword
+    //                  OR fname LIKE :keyword
+    //                  OR lname LIKE :keyword';
+    
+    //     $this->db->query($query);
+    //     $this->db->bind(':keyword', $keyword);
+    //     $this->db->execute();
+    //     $rows = $this->db->resultSet();
+    
+    //     return $rows;
+    // }
+    
 }

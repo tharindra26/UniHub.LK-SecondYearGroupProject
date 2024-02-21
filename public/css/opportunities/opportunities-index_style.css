@@ -1,0 +1,480 @@
+/* title bar */
+.title-bar {
+    height: 150px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #14405C;
+}
+
+.title-bar h3 {
+    color: white;
+    font-size: 40px;
+    letter-spacing: 3px;
+    font-weight: 400;
+}
+
+/* title bar */
+
+
+
+/* Search bar */
+.search-bar-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    /* border: 1px solid red; */
+}
+
+.search-bar {
+    width: 73%;
+    /* background: rgba(127, 140, 141, 0.3); */
+    position: relative;
+    right: 0;
+    background: rgba(255, 255, 255, 1);
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding: 3px 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 0.5px solid #2980b9;
+}
+
+.search-bar input {
+    background: transparent;
+    flex: 1;
+    /* flex:1 get the full width */
+    border: 0;
+    outline: none;
+    font-size: 15px;
+    color: rgb(130, 130, 130);
+    text-align: left;
+
+}
+
+.search-bar input::placeholder {
+    color: rgb(130, 130, 130);
+}
+
+.search-bar button {
+    border: 0;
+    padding: 10px;
+    cursor: pointer;
+    background-color: white;
+    font-size: 20px;
+}
+
+.fa-magnifying-glass {
+    color: black;
+}
+
+/* Search bar */
+
+/* Quick-shortcut-bar */
+.shortcut-bar {
+    width: 100%;
+    /* border: 1px solid red; */
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.section-name {
+    width: 25%;
+    /* border: 1px solid white; */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: black;
+    font-family: poppins;
+    font-size: 30px;
+
+}
+
+.shortcut-options {
+    width: 75%;
+    /* border:1px solid white; */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    font-weight: 500;
+}
+
+.shortcut-options h3 {
+    font-weight: 400;
+    color: black;
+}
+
+.shortcut-options-outer-box {
+    display: flex;
+    border: 0.5px solid #34495e;
+    padding-left: 10px;
+    margin-left: 10px;
+}
+
+.option {
+    /* background-color: #e67e22; */
+    color: #2980b9;
+    margin-left: 30px;
+    padding: 10px;
+    font-weight: 400;
+    /* border: 1px solid black; */
+    /* border-radius: 10px; */
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-bottom: 0;
+}
+
+/*.option hr{
+    height: 5px;
+    background-color: #1C5981;
+    border-style: none;
+}*/
+
+.option hr {
+    position: absolute;
+    bottom: -0px;
+    /* Adjust this value as needed */
+    left: 0;
+    width: 0;
+    height: 2px;
+    /* Thickness of the line */
+    background-color: #EDEDED;
+    /* Color of the line */
+    transition: width 0.5s ease;
+    /* Transition effect */
+    pointer-events: none;
+    /* Prevents the line from blocking clicks */
+    border-style: none;
+}
+
+.option:hover hr {
+    width: 100%;
+    /* Set width to 100% on hover */
+    background-color: black;
+}
+
+/*.option:hover {
+    color: white;
+    background-color: #2980b9;
+}*/
+
+/* Quick-shortcut-bar */
+
+/* main event showing section */
+.outer-body-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    /* border: 1px solid red; */
+
+}
+
+.filters-section {
+    width: 25%;
+    outline: none;
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+}
+
+.opportunities-adding{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 30px;
+    width: auto;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin-bottom: 20px;
+}
+
+.opportunity-adding-image{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.opportunity-adding-text{
+    text-align: justify;
+    font-size: 15px;
+    font-style: italic;
+}
+
+.opportunities-adding img{
+    width: 80%;
+    height: auto;
+    /* border: 1px solid red; */
+}
+
+.add-opportunity-button {
+    text-align: center;
+    padding: 10px;
+    /* background: linear-gradient(90deg, rgba(44, 62, 80, 1) 0%, rgba(52, 152, 219, 1) 50%, rgba(44, 62, 80, 1) 100%); */
+    background-color: white;
+    border:1px solid rgba(41, 127, 185, 1.0);
+    color: rgba(41, 127, 185, 1.0);
+    border-radius: 5px;
+    font-family: poppins;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    font-size: 15px;
+    
+
+}
+
+.filters-section a {
+    text-decoration: none;
+}
+
+.add-opportunity-button:hover {
+    background: #1C5981;
+    color: white;
+    transition: .5s;
+   
+}
+
+
+
+
+.content-section {
+    padding-left: 10px;
+    width: 75%;
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.opportunity-card {
+    display: flex;
+    flex-direction: row;
+    /* border: 1px solid red; */
+    border-radius: 5px;
+    width: auto;
+    justify-content: space-between;
+    margin: 0 0 0 10px;
+    background-color: white;
+    margin-bottom: 20px;
+    text-decoration: none;
+    transition: transform 0.5s, opacity 0.5s;
+    border: 1px solid #2980b9;
+    transition: transform 0.3s ease;
+
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+    
+}
+
+.opportunity-card:hover{
+    transform: scale(1.03);
+}
+
+.opportunity-card-link{
+    text-decoration: none;  
+    color: inherit;
+}
+
+
+/* .opportunity-card:hover {
+    transform: translateX(10px);
+} */
+
+.opportunity-card .left-color-bar {
+    width: 0.5%;
+    height: 100%;
+    background-color: #2980b9;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.opportunity-card .image-section {
+    width: 15%;
+    /* border: 1px solid red; */
+    /* Center the image */
+    text-align: center;
+    /* Center the image horizontally */
+}
+
+.opportunity-card .image-section img {
+    width: 90%;
+    /* Ensure the image takes full width */
+    height: auto;
+    margin-top: 10px;
+    /* Automatically adjust height according to width */
+}
+
+.opportunity-card .title-section {
+    width: 55%;
+    height: 100%;
+    /* border: 1px solid red; */
+    
+}
+
+.title-section .title-text{
+    font-size: 25px;
+    font-weight: 400;
+    color: black;
+    margin-top: 10px;
+    /* border:1px solid red; */
+}
+.title-section .days-left{
+    /* border:1px solid red; */
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.day-count-box{
+    display: flex;
+    width: 40%;
+    /* border: 1px solid red; */
+}
+
+.title-section .days-left .day-count{
+    font-size: 12px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: white;
+    background-color: #2980b9;
+    width: max-content;
+}
+
+.day-count .fa-circle{
+    font-size: 10px;
+    margin-right: 10px;
+
+}
+
+.title-section .days-left .working-mod{
+    color: #2c3e50;
+    font-size: 15px;
+}
+
+.working-mod .fa-building{
+    margin-right: 10px;
+}
+
+
+.title-section .interesting-count{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    color: #2c3e50;
+    font-size: 15px;
+    width: 100%;
+}
+
+.interesting-count .interesting-box{
+    display: flex;
+    flex-direction: row;
+    width: 40%;
+    /* border: 1px solid red; */
+}
+
+.interesting-count .bookmark{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.bookmark{
+    font-size: 15px;
+    padding: 10px 20px;
+    border: 0.5px solid #3498db;
+    border-radius: 20px;
+}
+
+.bookmark .fa-bookmark{
+    margin-right: 10px;
+}
+
+.opportunity-card .details-section {
+    width: 20%;
+    height: auto;
+    /* border: 1px solid red; */
+    font-size: 15px;
+    padding-bottom: 20px;
+    /* border: 1px solid red; */
+}
+
+.opportunity-card .details-section i{
+    margin-right: 10px;
+    font-size: 20px;
+    color: #2c3e50;
+}
+
+.details-section .posted-by p{
+    padding: 2px 10px;
+    border: 0.5px solid #2980b9;
+    border-radius: 20px;
+}
+
+.opportunity-card .details-section .tags{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.opportunity-card .details-section .tag{
+    font-size: 12px;
+    padding: 5px 10px;
+    /* border: 1px solid red; */
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background-color: rgba(41, 127, 185, 0.2);
+    color: rgba(41, 127, 185, 1.0);
+}
+
+.details-section .posted-by{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    /* border: 1px solid red; */
+}
+
+
+
+.details-section .duration{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    /* border: 1px solid red; */
+}
+
+
+
+.details-section .tags{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    /* border: 1px solid red; */
+}
+
+.opportunity-card .right-color-bar {
+    width: 3%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid red; */
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: white;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.opportunity-card:hover .right-color-bar {
+    background-color: #2980b9;
+}

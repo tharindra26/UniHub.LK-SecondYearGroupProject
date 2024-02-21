@@ -10,7 +10,7 @@
         <div class="bottom-part">
             <div class="options-box">
 
-                <a href="<?php echo URLROOT ?>/events/changeProfileImage/<?php echo $data['id'] ?>" class="option-link">
+                <a href="<?php echo URLROOT ?>/events/editProfileImage/<?php echo $data['id'] ?>" class="option-link">
                     <div class="option">
                         <div class="option-icon">
                             <i class="fa-regular fa-images"></i>
@@ -20,7 +20,7 @@
                 </a>
 
 
-                <a href="<?php echo URLROOT ?>/events/changeContactDetails/<?php echo $data['id'] ?>"
+                <a href="<?php echo URLROOT ?>/events/editContactDetails/<?php echo $data['id'] ?>"
                     class="option-link">
                     <div class="option">
                         <div class="option-icon">
@@ -31,7 +31,7 @@
                 </a>
 
 
-                <a href="<?php echo URLROOT ?>/events/changePlacement/<?php echo $data['id'] ?>" class="option-link">
+                <a href="<?php echo URLROOT ?>/events/editPlacement/<?php echo $data['id'] ?>" class="option-link">
                     <div class="option">
                         <div class="option-icon">
                             <i class="fa-solid fa-map-location-dot"></i>

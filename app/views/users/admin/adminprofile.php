@@ -6,15 +6,18 @@
     <!--menu section start-->
     <menu>
         <div class="top">
-            <div class="admin-logo">
-                <span><i class="fa-solid fa-user-gear"></i></span>
+            <div class="sidebar-action">
+                <span><i class="fa-solid fa-xmark sidebar-close"></i></span>
+                <span><i class="fa-solid fa-bars sidebar-toggle"></i></span>
             </div>
+             <!-- <div class="admin-logo">
+                <span><i class="fa-solid fa-user-gear"></i></span>
+            </div> 
             <div class="profile-head">
                 <h2><span class="heading">ADMIN PROFILE</span></h2>
             </div>
-            <div class="close">
-                <span><i class="fa-solid fa-xmark"></i></span>
-            </div>
+             -->
+            
         </div>
         <!--end top -->
 
@@ -62,7 +65,7 @@
     <!--menu section ends-->
 
     <!--main section start-->
-    <main id="main-id">
+    <main id="main-id" class="main-class">
     <?php require APPROOT . '/views/users/admin/dashboard.php'; ?> 
     </main>
     <!--main section start-->

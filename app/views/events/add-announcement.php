@@ -23,7 +23,7 @@
                         </div>
                         
 
-                       <div class="column">
+                       <!-- <div class="column">
                         <div class="input-box">  
                                 <label for="">Notify for event followers via email?</label>
                                 <div class="select-box">
@@ -37,6 +37,20 @@
                                     <span class="error-message"><?php echo $data['sharingOption_err']; ?></span>
                                 <?php endif; ?>
                             </div>
+                       </div> -->
+                       <div class="radio-option-box">
+                        <h3>Notify followers</h3>
+                        <div class="radio-options">
+                            <div class="radio-option">
+                                <input type="radio" id="check-yes" name="sharingOption" value="1" checked>
+                                <label for="check-yes">Yes, notify them</label>
+                            </div>
+
+                            <div class="radio-option">
+                                <input type="radio" id="check-no" name="sharingOption" value="0">
+                                <label for="check-no">No,don't notify them</label>
+                            </div>
+                        </div>
                        </div>
                         
                         <button class="submit-btn" type="submit">Add Announcememnt</button>
