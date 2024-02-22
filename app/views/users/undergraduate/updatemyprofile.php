@@ -5,67 +5,50 @@
 <div class="container">
     <div class="inner-container">
         <div class="settings-text">
-            <p>Update Profile</p>
+            <p>Manage Event</p>
         </div>
         <div class="bottom-part">
             <div class="options-box">
 
+                <a href="<?php echo URLROOT ?>/users/editProfileImage/<?php echo $data['id'] ?>" class="option-link">
+                    <div class="option">
+                        <div class="option-icon">
+                            <i class="fa-regular fa-images"></i>
+                        </div>
+                        <div class="option-text">Profile Image & Cover Image</div>
+                    </div>
+                </a>
 
-                <a href="#" class="option-link">
+
+                <a href="<?php echo URLROOT ?>/users/updateContactDetails/<?php echo $data['id'] ?>"
+                    class="option-link">
                     <div class="option">
                         <div class="option-icon">
                             <i class="fa-solid fa-address-card"></i>
                         </div>
-                        <div class="option-text">Profile Header</div>
+                        <div class="option-text">Contact Details</div>
                     </div>
                 </a>
 
-                <a href="#" class="option-link">
-                    <div class="option">
-                        <div class="option-icon">
-                            <i class="fa-solid fa-table-list"></i>
-                        </div>
-                        <div class="option-text">Profile Image</div>
-                    </div>
-                </a>
-
-                <a href="#" class="option-link">
-                    <div class="option">
-                        <div class="option-icon">
-                            <i class="fa-solid fa-table-list"></i>
-                        </div>
-                        <div class="option-text">Cover Image</div>
-                    </div>
-                </a>
-
-                <a href="#" class="option-link">
+                <a href="<?php echo URLROOT ?>/users/changeDescription/<?php echo $data['id'] ?>" class="option-link">
                     <div class="option">
                         <div class="option-icon">
                             <i class="fa-solid fa-align-right"></i>
                         </div>
-                        <div class="option-text">About</div>
+                        <div class="option-text">Description</div>
                     </div>
                 </a>
-
-                <a href="#" class="option-link">
+                
+                <a href="<?php echo URLROOT ?>/users/editEducation/<?php echo $data['id'] ?>" class="option-link">
                     <div class="option">
                         <div class="option-icon">
                             <i class="fa-solid fa-map-location-dot"></i>
-                        </div>
-                        <div class="option-text">Events Added</div>
-                    </div>
-                </a>
-
-                <a href="#" class="option-link">
-                    <div class="option">
-                        <div class="option-icon">
-                            <i class="fa-solid fa-table-list"></i>
                         </div>
                         <div class="option-text">Education</div>
                     </div>
                 </a>
 
-                <a href="#" class="option-link">
+                <a href="<?php echo URLROOT ?>/users/editQualifications/<?php echo $data['id'] ?>" class="option-link">
                     <div class="option">
                         <div class="option-icon">
                             <i class="fa-solid fa-table-list"></i>
@@ -74,21 +57,23 @@
                     </div>
                 </a>
 
-                <a href="#" class="option-link">
+
+                <a href="<?php echo URLROOT ?>/users/editSkills/<?php echo $data['id'] ?>" class="option-link">
                     <div class="option">
                         <div class="option-icon">
-                            <i class="fa-solid fa-table-list"></i>
+                            <i class="fa-solid fa-hourglass-half"></i>
                         </div>
                         <div class="option-text">Skills</div>
                     </div>
                 </a>
 
-                <a href="#" class="option-link">
+                <a href="<?php echo URLROOT ?>/users/editInterestingCriteria/<?php echo $data['id'] ?>"
+                    class="option-link">
                     <div class="option">
                         <div class="option-icon">
                             <i class="fa-solid fa-bullhorn"></i>
                         </div>
-                        <div class="option-text">Announcements</div>
+                        <div class="option-text">Interesting Criteria</div>
                     </div>
                 </a>
 
@@ -103,5 +88,5 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="<?php echo URLROOT ?>/js/users/undergraduate/updatemyprofile.js"></script>
+<script src="<?php echo URLROOT ?>/js/events/settings.js"></script>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
