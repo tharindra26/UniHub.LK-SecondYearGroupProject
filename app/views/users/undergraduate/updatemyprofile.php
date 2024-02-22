@@ -30,7 +30,7 @@
                     </div>
                 </a>
 
-                <a href="<?php echo URLROOT ?>/users/changeDescription/<?php echo $data['id'] ?>" class="option-link">
+                <a href="<?php echo URLROOT ?>/users/editDescription/<?php echo $data['id'] ?>" class="option-link">
                     <div class="option">
                         <div class="option-icon">
                             <i class="fa-solid fa-align-right"></i>

@@ -446,6 +446,30 @@ main a{
     color: white;
     margin: 20px;
 }
+
+.paging{
+    margin-top: 25px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #3498DB;
+}
+
+.paging .index-buttons button{
+    padding: 7px 15px;
+    color: #3498DB;
+    border: none;
+    border-radius: 10px;
+    background-color: rgba(52, 152, 219, 0.3);
+    cursor: pointer;
+
+}
+
+.paging .index-buttons button.active, .paging .index-buttons button:hover{
+    background: linear-gradient(to bottom, #3498DB 0%,  #1f628f 100%);
+    color: white;
+}
 /* user accounts css ends */
 
 

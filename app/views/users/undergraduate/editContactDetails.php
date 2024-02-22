@@ -16,7 +16,7 @@
             <div class="left-box">
                 <div class="form-outer-box">
 
-                    <form class="form" action="<?php echo URLROOT; ?>/users/editContactDetails/<?php echo $data['id'] ?>" method="post"
+                    <form class="form" action="<?php echo URLROOT; ?>/users/updateContactDetails/<?php echo $data['id'] ?>" method="post"
                         enctype="multipart/form-data">
 
                         <div class="column">
