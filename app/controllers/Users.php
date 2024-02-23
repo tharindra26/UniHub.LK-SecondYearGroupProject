@@ -996,8 +996,6 @@ public function editEducation($education_id){
         $data['end_year_err'] = 'Pleae enter the end year';
       }
 
-
-
       // Make sure errors are empty
       if (empty($data['institution_err']) && empty($data['description_err']) && empty($data['start_year_err']) && empty($data['end_year_err']) ) {
         //Validated
@@ -1032,6 +1030,22 @@ public function editEducation($education_id){
       // Load view
       $this->view('users/undergraduate/editEducation', $data);
     }      
+}
+
+public function deleteEducation(){
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    $education_id = $_POST['education_id'];
+    $data = [
+      'education_id' => $education_id
+    ];
+    if ($this->userModel->deleteEducation($data)) {
+      echo 1;
+    } else {
+      echo 0;
+    }
+
+  }
 }
 
 

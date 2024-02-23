@@ -463,5 +463,19 @@ class User{
             return false;
         }
     }
+
+    public function deleteEducation($data){
+        $this->db->query("UPDATE user_education SET status = :status  WHERE education_id= :education_id");
+            //Bind values
+            $this->db->bind(':education_id', $data['education_id']);
+            $this->db->bind('status', 0);
+    
+            //Execute the query
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+    }
     
 }
