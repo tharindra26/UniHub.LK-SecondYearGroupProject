@@ -293,6 +293,23 @@
             .event-announcements-link{
                 text-decoration: none;
             }
+
+        .rating-btn{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+            /* border: 1px solid red; */
+            font-size: 20px;
+            border-radius: 10px;
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+        }
+
+
+
+
     /* left-section=============================== */
     
 
@@ -430,6 +447,257 @@
             height: 100%;
         }
 /* bottom main section */
+
+
+/* popup-modal css */
+.modal-box.active .show-modal{
+    display: none;
+}
+
+.overlay{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.modal-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    padding: 30px;
+    width: fit-content;
+    border-radius: 24px;
+    background-color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px 20px;
+    pointer-events: none;
+    transition: all 0.3s ease-in-out;
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 0;
+    z-index: 20;
+}
+
+.overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-box.active{
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-box .fa-xmark{
+    font-size: 70px;
+    /* color: #e74c3c; */
+}
+
+.modal-box h2{
+    margin-top: 10px;
+    font-size: 25px;
+    font-weight: 500;
+    color: #34495e;
+    /* border: 1px solid red; */
+}
+
+.modal-box h3{
+    font-size: 16px;
+    font-weight: 400;
+    color: #34495e;
+    text-align: center;
+}
+
+.close-btn{
+    font-size: 15px;
+    font-weight: 400;
+    padding: 5px 10px;
+    border-radius: 6px;
+    border-style: none;
+    color: white;
+    background-color: #2880b9;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.close-btn:hover{
+    background-color: #1f628f;
+}
+
+/* popup-modal css */
+
+
+/* rating-system css */
+.rating-box{
+    position: relative;
+    width: 200px;
+    background-color: #10334A;
+    padding: 10px 20px;
+    border: 1px solid white;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    /* border: 1px solid red; */
+}
+
+.rating-box .post{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.rating-box .text{
+    font-size: 20px;
+    color: white;
+    font-weight: 500;
+    text-align: center;
+
+}
+
+/* .rating-box .edit{
+    font-size: 16px;
+    color: #666;
+    font-weight: 500;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    cursor: pointer;
+    
+} */
+
+.rating-box .star-widget input{
+    display: none;
+
+}
+
+.star-widget{
+    /* border: 1px solid red; */
+    
+}
+
+
+.star-widget label{
+    font-size: 25px;
+    color: white;
+    padding: 5px;
+    float:right;
+    transition: all 0.2s ease;
+    /* border: 1px solid red; */
+}
+
+
+input:not(:checked) ~ label:hover,
+input:not(:checked) ~ label:hover ~ label{
+    color: #fd4;
+}
+
+input:checked ~ label{
+    color: #fd4;
+}
+
+
+input#rate-5:checked ~ label{
+    color: #fe7;
+    text-shadow: 0 0 20px #952;
+}
+
+#rate-1:checked ~ form header:before{
+    content: "I just hate it 😕";
+}
+
+#rate-2:checked ~ form header:before{
+    content: "I don't like it 😐";
+}
+
+#rate-3:checked ~ form header:before{
+    content: "It is awesome 🙂";
+}
+
+#rate-4:checked ~ form header:before{
+    content: "I liked it 😊";
+}
+
+#rate-5:checked ~ form header:before{
+    content: "I loved it 😍";
+}
+
+.rating-box form{
+    display: none;
+}
+
+input:checked ~ form {
+    display: block;
+}
+
+form header{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: #fe7;
+    font-weight: 500;
+    margin: 5px 0 20px 0;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+
+
+form .textarea{
+    height: 100px;
+    width: 100%;
+    overflow: hidden;
+}
+
+form .textarea textarea{
+    height: 100%;
+    width: 100%;
+    outline: none;
+    color: black;
+    border: 1px solid #333;
+    background: white;
+    padding: 10px;
+    font-size: 15px;
+    resize: none;
+}
+
+
+form .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    width: 100%;
+    border-radius: 10px;
+    margin: 15px 0;
+    border: 1px solid white;
+    outline: none;
+    background: #1f628f;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+}
+
+
+/* rating-system css */
 
 
 

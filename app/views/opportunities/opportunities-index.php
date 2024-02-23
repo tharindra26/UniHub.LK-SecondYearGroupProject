@@ -127,6 +127,42 @@
                     </div>
                 </div>
             </a>
+
+
+            <!-- rating-system -->
+            <div class="rating-box">
+                <div class="post">
+                    <div class="text">Thanks for rating us!</div>
+                    <div class="edit">EDIT</div>
+                </div>
+                <div class="star-widget">
+                    <input type="radio" name="rate"  id="rate-5">
+                    <label for="rate-5" class="fa-solid fa-star"></label>
+                    <input type="radio" name="rate" id="rate-4">
+                    <label for="rate-4" class="fa-solid fa-star"></label>
+                    <input type="radio" name="rate" id="rate-3">
+                    <label for="rate-3" class="fa-solid fa-star"></label>
+                    <input type="radio" name="rate" id="rate-2">
+                    <label for="rate-2" class="fa-solid fa-star"></label>
+                    <input type="radio" name="rate" id="rate-1">
+                    <label for="rate-1" class="fa-solid fa-star"></label>
+
+                    <form action="#">
+                        <header></header>
+                        <div class="textarea">
+                            <textarea name="" id="" cols="30" placeholder="Describe your experience..."></textarea>
+                        </div>
+                        <div class="btn">
+                            <p>Post</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- rating-system -->
+
+
+
         </div>
 
 
@@ -145,6 +181,24 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="<?php echo URLROOT ?>/js/events/opportunities-index.js"></script>
+
+<script>
+    const btn=document.querySelector(".btn");
+    const post=document.querySelector(".post");
+    const widget=document.querySelector(".star-widget");
+    const editBtn=document.querySelector(".edit");
+
+    btn.onclick= ()=>{
+        widget.style.display ="none";
+        post.style.display ="block";
+        editBtn.onclick = ()=>{
+            widget.style.display ="block";
+            post.style.display ="none";
+            return false;
+        }
+    }
+
+</script>
 
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

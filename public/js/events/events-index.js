@@ -1,3 +1,6 @@
+// Get the value inside the urlRootValue div
+var URLROOT = document.querySelector('.urlRootValue').textContent.trim();
+
 $(document).ready(function () {
   function updateContent() {
     var keyword = document.getElementById("search-bar-input").value;
@@ -12,7 +15,8 @@ $(document).ready(function () {
 
     // Send an AJAX request with the filter value
     $.ajax({
-      url: "http://localhost/unihub/events/searchEvents",
+      // url: "http://localhost/unihub/events/searchEvents",
+      url: URLROOT + "/events/searchEvents",
       method: "POST",
       data: {
         keyword: keyword,
@@ -136,7 +140,7 @@ function updateName(selectedLi) {
 
   // Send an AJAX request with the filter value
   $.ajax({
-    url: "http://localhost/unihub/events/searchEvents",
+    url: URLROOT +"/events/searchEvents",
     method: "POST",
     data: {
       keyword: keyword,
@@ -185,7 +189,7 @@ uniResetBtn.addEventListener("click", () => {
     .map((item) => item.querySelector(".checkbox + span").innerText);
 
   $.ajax({
-    url: "http://localhost/unihub/events/searchEvents",
+    url: URLROOT +"/events/searchEvents",
     method: "POST",
     data: {
       keyword: keyword,
@@ -264,7 +268,7 @@ function updateCategoryFilter() {
 
   // Send an AJAX request with the filter values
   $.ajax({
-    url: "http://localhost/unihub/events/searchEvents",
+    url: URLROOT +"/events/searchEvents",
     method: "POST",
     data: {
       keyword: keyword,
@@ -295,7 +299,7 @@ function quickShortcut(category) {
   // console.log(category);
 
   $.ajax({
-    url: "http://localhost/unihub/events/quickShortcut",
+    url: URLROOT +"/events/quickShortcut",
     type: "POST",
     data: {
       value: category,

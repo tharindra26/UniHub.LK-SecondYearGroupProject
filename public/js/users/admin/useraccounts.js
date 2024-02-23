@@ -191,7 +191,7 @@ var table_size = 10;
 var start_index = 1;
 var end_index = 10;
 var current_index = 1;
-var max_index = 6;
+var max_index = 2;
 
 function displayIndexButtons(){
   $(".index-buttons button").remove();
