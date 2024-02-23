@@ -9,47 +9,49 @@
 <div class="container">
     <div class="inner-container">
         <div class="title-text">
-            <p>Change Contact Details</p>
+            <p>Change Education</p>
         </div>
         <div class="bottom-part">
 
             <div class="left-box">
                 <div class="form-outer-box">
 
-                    <form class="form" action="<?php echo URLROOT; ?>/users/updateContactDetails/<?php echo $data['id'] ?>" method="post"
+                    <form class="form" action="<?php echo URLROOT; ?>/users/editEducation/<?php echo $data['education_id'] ?>" method="post"
                         enctype="multipart/form-data">
 
                         <div class="column">
                             <div class="input-box">
-                                <label for="">Email</label>
-                                <input type="text" name="email"  id="" placeholder="Enter the email" value="<?php echo $data['email'] ?>">
-                                <!-- <?php if (!empty($data['email_err'])): ?>
-                                    <span class="error-message"><?php echo $data['email_err']; ?></span>
-                                <?php endif; ?> -->
-                            </div>
-                            <div class="input-box">
-                                <label for="">Contact Number</label>
-                                <input type="tel" name="contact_number"  id=""
-                                    placeholder="Enter the Contact Number" value="<?php echo $data['contact_number'] ?>">
-                                <!-- <?php if (!empty($data['contact_number_err'])): ?>
-                                    <span class="error-message"><?php echo $data['contact_number_err']; ?></span>
+                                <label for="">Institute</label>
+                                <input type="text" name="institution"  id="" placeholder="Enter the Institution" value="<?php echo $data['institution'] ?>">
+                                <!-- <?php if (!empty($data['institution_err'])): ?>
+                                    <span class="error-message"><?php echo $data['institution_err']; ?></span>
                                 <?php endif; ?> -->
                             </div>
                         </div>
 
                         <div class="column">
                             <div class="input-box">
-                                <label for="">Web Address</label>
-                                <input type="text" name="web"  id="" placeholder="Enter the web" value="<?php echo $data['web'] ?>">
-                                <!-- <?php if (!empty($data['web_err'])): ?>
+                                <label for="">Description</label>
+                                <input type="text" name="description"  id="" placeholder="Enter the Description" value="<?php echo $data['description'] ?>">
+                                <!-- <?php if (!empty($data['description_err'])): ?>
+                                    <span class="error-message"><?php echo $data['description_err']; ?></span>
+                                <?php endif; ?> -->
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div class="input-box">
+                                <label for="">Start Year</label>
+                                <input type="text" name="start_year"  id="" placeholder="Enter the Start Year" value="<?php echo $data['start_year'] ?>">
+                                <!-- <?php if (!empty($data['start_year_err'])): ?>
                                     <span class="error-message"><?php echo $data['web_err']; ?></span>
                                 <?php endif; ?> -->
                             </div>
                             <div class="input-box">
-                                <label for="">LinkedIn</label>
-                                <input type="tel" name="linkedin"  id="" placeholder="Enter the linkedin" value="<?php echo $data['linkedin'] ?>">
-                                <!-- <?php if (!empty($data['linkedin_err'])): ?>
-                                    <span class="error-message"><?php echo $data['linkedin_err']; ?></span>
+                                <label for="">End Year</label>
+                                <input type="tel" name="end_year"  id="" placeholder="Enter the End Year" value="<?php echo $data['end_year'] ?>">
+                                <!-- <?php if (!empty($data['end_year_err'])): ?>
+                                    <span class="error-message"><?php echo $data['end_year_err']; ?></span>
                                 <?php endif; ?> -->
                             </div>
                         </div>

@@ -630,21 +630,51 @@ input[type="radio"]{
 .friends-content a{
     display: flex;
     text-decoration: none;
+    justify-content: space-evenly;
+    align-items: center;
+    margin:0 15px;
 }
 
 .friends .friend-pic img{
-    width: 80px;
+    width: 60px;
     border-radius: 50%;
     border: 2px solid #95a5a6;
 }
 
+.friends .friend-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .friends .friend-info h4{
-    font-size: 17px;
+    font-size: 18px;
+    font-weight: 700;
     color: black;
+    padding: 0 10px;
+    margin-top: 13px;
+}
+
+.friends .friend-info .uni{
+    display: flex;
+    justify-content: center;
+    padding:5px 0;
+}
+
+.friends .friend-info .uni img{
+    width: 18px;
+}
+
+.friends .friend-info h3{
+    font-size: 15px;
+    font-weight: 500;
+    color: #95a5a6;
+    padding:0;
 }
 
 .view-btn{
-    padding:10px 20px 10px 20px;
+    padding:5px 10px 5px 10px;
     border-radius: 10px;
     text-decoration: none;
     color: white;
@@ -652,7 +682,10 @@ input[type="radio"]{
     border: 2px solid #2980b9;
     align-items: center;
     justify-content: center;
-    margin: 10px;
+}
+
+.friends .friends-content hr{
+    margin-top: 10px;
 }
 
 /* Responsive css starts */

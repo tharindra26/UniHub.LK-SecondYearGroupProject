@@ -322,8 +322,9 @@ class Event
                         JOIN events
                         ON events.id = event_participation.event_id
                         WHERE event_participation.participation_status = "interested" 
-                        AND event_participation.user_id = :user_id;
-        ');
+                        AND event_participation.user_id = :user_id
+                        ORDER BY event_participation.participation_id 
+                        LIMIT 3');
         $this->db->bind(':user_id', $user);
 
         $row = $this->db->resultSet();
@@ -338,8 +339,9 @@ class Event
                         JOIN events
                         ON events.id = event_participation.event_id
                         WHERE event_participation.participation_status = "going" 
-                        AND event_participation.user_id = :user_id;
-        ');
+                        AND event_participation.user_id = :user_id
+                        ORDER BY event_participation.participation_id 
+                        LIMIT 3');
         $this->db->bind(':user_id', $user);
 
         $row = $this->db->resultSet();
@@ -410,6 +412,36 @@ class Event
             return false;
         }
 
+    }
+
+    public function addReview($data) {
+        // Check if there is already a review for this user and event
+        $this->db->query("SELECT * FROM events_reviews WHERE user_id = :user_id AND event_id = :event_id");
+        $this->db->bind(':user_id', $data['user_id']);
+        $this->db->bind(':event_id', $data['event_id']);
+        $existingReview = $this->db->single();
+    
+        // If there is an existing review, delete it
+        if ($existingReview) {
+            $this->db->query("DELETE FROM events_reviews WHERE user_id = :user_id AND event_id = :event_id");
+            $this->db->bind(':user_id', $data['user_id']);
+            $this->db->bind(':event_id', $data['event_id']);
+            $this->db->execute();
+        }
+    
+        // Add the new review
+        $this->db->query("INSERT INTO events_reviews (user_id, event_id, rating, comment) VALUES (:user_id, :event_id, :rating, :comment)");
+        $this->db->bind(':user_id', $data['user_id']);
+        $this->db->bind(':event_id', $data['event_id']);
+        $this->db->bind(':rating', $data['rating']);
+        $this->db->bind(':comment', $data['comment']);
+    
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
    

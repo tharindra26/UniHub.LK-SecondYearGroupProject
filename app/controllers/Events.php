@@ -840,5 +840,24 @@ class Events extends Controller
     }
   }
 
+  public function addReview()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $data = [
+        'event_id' => $_POST['event_id'],
+        'user_id' => $_POST['user_id'],
+        'comment' => $_POST['comment'],
+        'rating' => $_POST['rating']
+      ];
 
+      if ($this->eventModel->addReview($data)) {
+          echo true;
+      } else {
+          echo false;
+      }
+
+    }
+  }
 }
+

@@ -1,4 +1,5 @@
 <!-- sample commit -->
+<?php $jsonData = json_encode($data['user']); ?>
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/admin/adminprofile_style.css">
 <h1 class="section-title">User Accounts</h1>
@@ -180,7 +181,12 @@
 
         </tbody>
     </table>
+    <div class="paging">
+        <span></span>
+        <div class="index-buttons"></div>
+    </div>
 </div>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="<?php echo URLROOT ?>/js/users/admin/useraccounts.js"></script>

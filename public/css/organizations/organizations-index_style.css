@@ -785,7 +785,7 @@ nav li:first-child {
                 }
             .membership{
                 position: absolute;
-                right: 0px;
+                right: 5px;
                 width:150px;
                 height:100px;
                 border-bottom-right-radius: 20px;

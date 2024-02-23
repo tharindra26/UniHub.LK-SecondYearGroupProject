@@ -61,7 +61,7 @@
                 <i class="fa-regular fa-face-grin-hearts"></i>
                 <span>&nbsp Going</span>
             </a> -->
-            
+
         </div>
     </div>
 </div>
@@ -129,6 +129,61 @@
                     </div>
                 </a>
             </div>
+
+            <div class="rating-btn" onClick="openPopup('rating-popup')">
+                <p><i class="fa-solid fa-hands-clapping"></i> Rate us</p>
+            </div>
+
+            <!-- popupModal -->
+
+            <span class="overlay"></span>
+            <div class="modal-box" id="rating-popup">
+                <!-- <i class="fa-solid fa-xmark"></i> -->
+                <h2>Rate Us</h2>
+                <!-- <h3>Please check your email and password and try again.</h3> -->
+                <!-- rating-system -->
+                <div class="rating-box">
+                    <div class="post">
+                        <div class="text">Thanks for rating us!</div>
+                        <!-- <div class="edit">EDIT</div> -->
+                        <div class="buttons">
+                            <button class="close-btn" onClick=closePopup('rating-popup')>Ok, Close</button>
+                        </div>
+                    </div>
+                    <div class="star-widget">
+
+                        <input type="radio" name="rate" id="rate-5" value=5>
+                        <label for="rate-5" class="fa-solid fa-star" ></label>
+                        <input type="radio" name="rate" id="rate-4" value=4>
+                        <label for="rate-4" class="fa-solid fa-star"></label>
+                        <input type="radio" name="rate" id="rate-3" value=3>
+                        <label for="rate-3" class="fa-solid fa-star"></label>
+                        <input type="radio" name="rate" id="rate-2" value=2>
+                        <label for="rate-2" class="fa-solid fa-star"></label>
+                        <input type="radio" name="rate" id="rate-1" value=1>
+                        <label for="rate-1" class="fa-solid fa-star"></label>
+
+                        <form action="#">
+                            <header></header>
+                            <div class="textarea">
+                                <textarea name="" id="" cols="30" placeholder="Describe your experience..."></textarea>
+                            </div>
+                            <div class="btn" id="rating-btn">
+                                <p>Post</p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- rating-system -->
+
+
+            </div>
+
+            <!-- popupModal -->
+
+
+
         </div>
         <!-- left-section -->
 
@@ -229,11 +284,15 @@
 </div>
 
 
+
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <script>
 
-    
+    // Get the value inside the urlRootValue div
+    var URLROOT = document.querySelector('.urlRootValue').textContent.trim();
 
     var countDownDate = new Date("<?php echo $formatted_starting_datetime ?>").getTime();
 
@@ -304,34 +363,47 @@
         });
         // Initial check on page load
         checkEventParticipation();
+
+        $("#rating-btn").on("click", function (e) {
+            var rating = $("input[name='rate']:checked").val();
+
+            // Retrieve the text entered in the textarea
+            var comment = $(".textarea textarea").val();
+
+            console.log(rating, comment);
+
+            $.ajax({
+                url: URLROOT + '/events/addReview/', // Replace 'YOUR_ENDPOINT_URL' with the actual URL to which you want to send the data
+                type: "POST",
+                data: {
+                    event_id: <?php echo $data['event']->id ?>,
+                    user_id: <?php echo $_SESSION['user_id'] ?>,
+                    rating: rating,
+                    comment: comment,
+                },
+                success: function (response) {
+                    // Handle the success response here
+                    console.log("AJAX request successful:", response);
+                },
+                error: function (xhr, status, error) {
+                    // Handle the error response here
+                    console.error("AJAX request failed:", status, error);
+                },
+            });
+        })
+
+
     });
 
 
-    
-// Convert HTML content to PDF
-function Convert_HTML_To_PDF() {
-    window.jsPDF = window.jspdf.jsPDF;
 
-    var doc = new jsPDF();
-	
-    // Source HTMLElement or a string containing HTML.
-    var elementHTML = document.querySelector("body");
 
-    doc.html(elementHTML, {
-        callback: function(doc) {
-            // Save the PDF
-            doc.save('document-html.pdf');
-        },
-        margin: [10, 10, 10, 10],
-        autoPaging: 'text',
-        x: 0,
-        y: 0,
-        width: 190, //target width in the PDF document
-        windowWidth: 675 //window width in CSS pixels
-    });
-}
+
+
 
 </script>
+
+
 <script src="<?php echo URLROOT ?>/js/events/event-show.js"></script>
 <script>
 
@@ -369,6 +441,10 @@ function Convert_HTML_To_PDF() {
             // You may want to display a message or take some action when the countdown expires
         }
     }, 1000);
+
+
+
+
 </script>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

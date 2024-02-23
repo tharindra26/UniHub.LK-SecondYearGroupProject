@@ -183,3 +183,37 @@ function typefilter(type) {
     },
   });
 }
+
+
+
+var arr_length = 60;
+var table_size = 10;
+var start_index = 1;
+var end_index = 10;
+var current_index = 1;
+var max_index = 2;
+
+function displayIndexButtons(){
+  $(".index-buttons button").remove();
+  $(".index-buttons").append('<button>Previuos</button>');
+  for(var i=1; i<=max_index; i++){
+    $(".index-buttons").append('<button index="'+i+'">'+i+'</button>');
+  }
+  $(".index-buttons").append('<button>Next</button>');
+  highlightIndexButton();
+}
+
+displayIndexButtons();
+
+function highlightIndexButton(){
+  start_index = ((current_index - 1)* table_size) + 1;
+  end_index = (start_index + table_size) - 1;
+  if (end_index > arr_length){
+    end_index = arr_length;
+  }
+
+  $(".paging span").text('Showing '+start_index+' to '+end_index+' of '+arr_length+' entries')
+  $(".index-buttons button").removeClass('active');
+  $(".index-buttons button[index = '"+current_index+"']").addClass('active');
+
+}
