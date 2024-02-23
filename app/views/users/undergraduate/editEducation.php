@@ -42,14 +42,14 @@
                         <div class="column">
                             <div class="input-box">
                                 <label for="">Start Year</label>
-                                <input type="text" name="start_year"  id="" placeholder="Enter the Start Year" value="<?php echo $data['start_year'] ?>">
+                                <input type="number" name="start_year"  id="startyearInput" min="1900" max="2100" step="1" placeholder="YYYY"  value="<?php echo $data['start_year'] ?>" required>
                                 <!-- <?php if (!empty($data['start_year_err'])): ?>
                                     <span class="error-message"><?php echo $data['web_err']; ?></span>
                                 <?php endif; ?> -->
                             </div>
                             <div class="input-box">
                                 <label for="">End Year</label>
-                                <input type="tel" name="end_year"  id="" placeholder="Enter the End Year" value="<?php echo $data['end_year'] ?>">
+                                <input type="number" name="end_year"  id="endyearInput" min="1900" max="2100" step="1" placeholder="YYYY" value="<?php echo $data['end_year'] ?>" required>
                                 <!-- <?php if (!empty($data['end_year_err'])): ?>
                                     <span class="error-message"><?php echo $data['end_year_err']; ?></span>
                                 <?php endif; ?> -->

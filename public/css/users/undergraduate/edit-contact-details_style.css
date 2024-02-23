@@ -303,7 +303,8 @@ overpass */
     flex-direction: column;
 }
 
-.edu-btn button{
+.edu-btn .button{
+    text-decoration: none;
     font-size: 15px;
     font-weight: 400;
     margin:5px 10px;
@@ -339,7 +340,7 @@ overpass */
     left: 50%;
     top: 50%;
     padding: 30px;
-    width: fit-content;
+    width:300px;
     border-radius: 24px;
     background-color: white;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
@@ -349,6 +350,11 @@ overpass */
     transform: translate(-50%, -50%) scale(1.3);
     opacity: 0;
     z-index: 20;
+}
+
+.modal-box .form-outer-box{
+    width: 300px;
+    height: 100px;
 }
 
 .overlay.active {
