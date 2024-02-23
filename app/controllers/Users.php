@@ -1032,14 +1032,14 @@ public function editEducation($education_id){
     }      
 }
 
-public function deleteEducation($education_id){
+public function deleteEducation(){
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
     $education_id = $_POST['education_id'];
     $data = [
       'education_id' => $education_id
     ];
-    if ($this->userModel->DeleteEducation($data)) {
+    if ($this->userModel->deleteEducation($data)) {
       echo 1;
     } else {
       echo 0;

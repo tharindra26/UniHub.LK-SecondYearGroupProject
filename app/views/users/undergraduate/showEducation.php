@@ -27,13 +27,20 @@
                                     $edu_id = $education->education_id; ?>
                                 <div class="content">
                                     <div class="edu-info">
-                                        <h4><?php echo $education->institution ?></h4>
-                                        <p><?php echo $education->start_year?> - <?php echo $education->end_year?></p>
-                                        <p><?php echo $education->description ?></p>
+                                        <h4>
+                                            <?php echo $education->institution ?>
+                                        </h4>
+                                        <p>
+                                            <?php echo $education->start_year ?> -
+                                            <?php echo $education->end_year ?>
+                                        </p>
+                                        <p>
+                                            <?php echo $education->description ?>
+                                        </p>
                                     </div>
                                     <div class="edu-btn">
                                         <a href="<?php echo URLROOT ?>/users/editEducation/<?php echo $education->education_id ?>" class="button">Update</a>
-                                        <a href="#" class="button" onclick="openPopup('<?php echo $edu_id; ?>')">Delete</a>
+                                        <a href="#" class="button" onclick="openPopup('<?php echo $education->education_id;; ?>')">Delete</a>
                                         <!-- popupModal -->
 
             <span class="overlay"></span>
@@ -41,16 +48,16 @@
                 <i class="fa-solid fa-xmark"></i>
                 <h2>Confirm Deletion</h2>
                         <p>Are you sure you want to delete</p>
-                            <button class="confirm-btn" onclick="confirmDelete('<?php echo $edu_id; ?>')">Delete</button>
-                            <button class="confirm-btn" onclick="closePopup('<?php echo $edu_id; ?>')">Cancel</button>
+                            <button class="confirm-btn" onclick="confirmDelete('<?php echo $education->education_id; ?>')">Delete</button>
+                            <button class="confirm-btn" onclick="closePopup('<?php echo $education->education_id; ?>')">Cancel</button>
             </div>
 
             <!-- popupModal -->
                                     </div>
                                 </div>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
 
@@ -60,6 +67,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
