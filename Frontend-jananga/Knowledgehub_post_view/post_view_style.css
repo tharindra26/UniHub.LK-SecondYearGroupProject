@@ -118,6 +118,15 @@ body{
         }
 
 
+        .empty-box{
+            display: flex;
+            width: 100%;
+            height: 50px;
+            border: 1px solid black;
+            margin-bottom: 5px;
+        }
+
+
         .post-image-section{
             width: 100%;
             height: auto;
@@ -133,6 +142,13 @@ body{
             width: 100%; 
             height: 100%; 
             object-fit: cover; 
+        }
+
+
+        .post-description{
+            font-family: lora;
+            padding: 10px;
+            padding-top: 15px;
         }
 
 
