@@ -195,11 +195,27 @@ class User{
     }
 
     public function getEducationByUserId($user_id){
-        $this->db->query('SELECT * FROM user_education WHERE user_id = :user_id');
+        $this->db->query('SELECT * FROM user_education 
+                        WHERE user_id = :user_id
+                        AND status = :status');
 
         $this->db->bind(':user_id' , $user_id);
+        $this->db->bind(':status' , 1);
 
         $row = $this->db->resultSet();
+        
+        return $row;
+    }
+
+    public function getEducationById($education_id){
+        $this->db->query('SELECT * FROM user_education 
+                        WHERE education_id = :education_id
+                        AND status = :status');
+
+        $this->db->bind(':education_id' , $education_id);
+        $this->db->bind(':status' , 1);
+
+        $row = $this->db->single();
         
         return $row;
     }
@@ -417,6 +433,28 @@ class User{
         $this->db->bind(':id', $data['id']);
         $this->db->bind(':profile_title', $data['profile_title']);
         $this->db->bind(':description', $data['description']);
+
+        //Execute the query
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function updateEducation($data){
+        $this->db->query("UPDATE user_education SET
+                        institution = :institution,
+                        description = :description,
+                        start_year = :start_year,
+                        end_year = :end_year
+                        WHERE education_id = :education_id");
+        //Bind values
+        $this->db->bind(':education_id', $data['education_id']);
+        $this->db->bind(':institution', $data['institution']);
+        $this->db->bind(':description', $data['description']);
+        $this->db->bind(':start_year', $data['start_year']);
+        $this->db->bind(':end_year', $data['end_year']);
 
         //Execute the query
         if($this->db->execute()){
