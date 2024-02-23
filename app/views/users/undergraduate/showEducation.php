@@ -40,7 +40,7 @@
                                     </div>
                                     <div class="edu-btn">
                                         <a href="<?php echo URLROOT ?>/users/editEducation/<?php echo $education->education_id ?>" class="button">Update</a>
-                                        <a href="#" class="button" onclick="openPopup('<?php echo $edu_id; ?>')">Delete</a>
+                                        <a href="#" class="button" onclick="openPopup('<?php echo $education->education_id;; ?>')">Delete</a>
                                         <!-- popupModal -->
 
             <span class="overlay"></span>
@@ -48,8 +48,8 @@
                 <i class="fa-solid fa-xmark"></i>
                 <h2>Confirm Deletion</h2>
                         <p>Are you sure you want to delete</p>
-                            <button class="confirm-btn" onclick="confirmDelete('<?php echo $edu_id; ?>')">Delete</button>
-                            <button class="confirm-btn" onclick="closePopup('<?php echo $edu_id; ?>')">Cancel</button>
+                            <button class="confirm-btn" onclick="confirmDelete('<?php echo $education->education_id; ?>')">Delete</button>
+                            <button class="confirm-btn" onclick="closePopup('<?php echo $education->education_id; ?>')">Cancel</button>
             </div>
 
             <!-- popupModal -->
