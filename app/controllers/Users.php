@@ -943,6 +943,97 @@ public function editDescription($id){
     }      
 }
 
+public function showEducation($id){
+  $education = $this->userModel->getEducationByUserId($id);
+
+      $data = [
+        'education' => $education
+      ];
+
+      
+        $this->view('users/undergraduate/showEducation', $data);  
+}
+
+public function editEducation($education_id){
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //process form
+      $institution = trim($_POST['institution']);
+      $description = trim($_POST['description']);
+      $start_year = trim($_POST['start_year']);
+      $end_year = trim($_POST['end_year']);
+
+      //Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      //Init data
+      $data = [
+
+        'education_id' => $education_id,
+        'institution' =>  $institution,
+        'description' => $description,
+        'start_year' => $start_year,
+        'end_year' => $end_year,
+
+        'institution_err' => '',
+        'description_err' => '',
+        'start_year_err' => '',
+        'end_year_err' => ''
+      ];
+
+      if (empty($data['institution'])) {
+        $data['institution_err'] = 'Pleae enter the institution';
+      }
+
+      if (empty($data['description'])) {
+        $data['description_err'] = 'Pleae enter the description';
+      }
+
+      if (empty($data['start_year'])) {
+        $data['start_year_err'] = 'Pleae enter the start year';
+      }
+
+      if (empty($data['end_year'])) {
+        $data['end_year_err'] = 'Pleae enter the end year';
+      }
+
+
+
+      // Make sure errors are empty
+      if (empty($data['institution_err']) && empty($data['description_err']) && empty($data['start_year_err']) && empty($data['end_year_err']) ) {
+        //Validated
+        if ($this->userModel->updateEducation($data)) {
+          // 
+          echo "success";
+        }
+      } else {
+
+        //load view with errors
+        $this->view('users/undergraduate/editEducation', $data);
+
+      }
+    } else {
+      //get existing post from model
+      $education = $this->userModel->getEducationById($education_id);
+
+      // Init data
+      $data = [
+        'education_id' => $education->education_id,
+        'institution' =>  $education->institution,
+        'description' => $education->description,
+        'start_year' => $education->start_year,
+        'end_year' => $education->end_year,
+
+        'institution_err' => '',
+        'description_err' => '',
+        'start_year_err' => '',
+        'end_year_err' => ''
+      ];
+
+      // Load view
+      $this->view('users/undergraduate/editEducation', $data);
+    }      
+}
+
 
 
 
