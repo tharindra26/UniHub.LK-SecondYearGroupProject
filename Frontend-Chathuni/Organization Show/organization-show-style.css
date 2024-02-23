@@ -326,6 +326,12 @@ nav li:first-child {
 
 .wrapper .icon {
     margin: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
     cursor: pointer;
 }
 
@@ -342,13 +348,17 @@ nav li:first-child {
 
 .wrapper .icon span i {
     font-size: 12px;
-    line-height: 40px;
+    line-height: 30px;
+    
 }
 
 .wrapper .icon .tooltip {
+    position: absolute;
+    top: -40px;
     background: white;
     font-size: 12px;
     padding: 5px 10px;
+    border-radius: 25px;
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
 }
 

@@ -152,7 +152,7 @@
 
         <!-- organizations-card-section -->
         <div class="organizations-section">
-            <?php if (!empty($data['organizations'][0]->id)): ?>
+            <?php if (!empty($data['organizations'][0]->organization_id)): ?>
                 <?php foreach ($data['organizations'] as $organization): ?>
                     <div class="item-container">
                         <div class="item-image-container">
@@ -170,7 +170,7 @@
                         </div>
                         <div class="membership">
                             <div class="number" m-number="<?php echo $organization->member_count ?>">0</div>
-                            <a href="<?php echo URLROOT ?>/organizations/show/<?php echo $organization->id ?>" class ="view-org-btn">View Organization</a>
+                            <a href="<?php echo URLROOT ?>/organizations/organizations-show.php<?php echo $organization->organization_id ?>" class ="view-org-btn">View Organization</a>
                         </div>
                     </div>
                 <?php endforeach; ?>
