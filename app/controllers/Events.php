@@ -29,7 +29,7 @@ class Events extends Controller
 
     //check the user is a registered user
     if (!isLoggedIn()) {
-      redirect('/users/login');
+      redirect('users/login');
     }
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -40,6 +40,7 @@ class Events extends Controller
       $linkedin = trim($_POST['linkedin']);
       $facebook = trim($_POST['facebook']);
       $instagram = trim($_POST['instagram']);
+
       //Sanitize post data
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
@@ -200,6 +201,7 @@ class Events extends Controller
           $data['category_ids'] = $category_ids;
         }
         $data['university_id'] = $this->universityModel->getUniIdByName($data['university']);
+
 
         if ($this->eventModel->addEvent($data)) {
           // flash('event_message', "Event Added Successfully");
@@ -588,11 +590,11 @@ class Events extends Controller
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       //process form
-        $web = trim($_POST['web']);
-        $email = trim($_POST['email']);
-        $linkedin = trim($_POST['linkedin']);
-        $facebook = trim($_POST['facebook']);
-        $instagram = trim($_POST['instagram']);
+      $web = trim($_POST['web']);
+      $email = trim($_POST['email']);
+      $linkedin = trim($_POST['linkedin']);
+      $facebook = trim($_POST['facebook']);
+      $instagram = trim($_POST['instagram']);
 
       //Sanitize post data
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -613,12 +615,12 @@ class Events extends Controller
         'web_err' => '',
         'email_err' => '',
         'linkedin_err' => '',
-        'facebook_err' =>'',
+        'facebook_err' => '',
         'instagram_err' => '',
 
       ];
 
-      
+
 
 
       if (empty($data['organized_by'])) {
@@ -635,13 +637,13 @@ class Events extends Controller
 
 
       // Make sure errors are empty
-      if (empty($data['organized_by_err']) && empty($data['contact_number_err']) && empty($data['email_err']) ) {
+      if (empty($data['organized_by_err']) && empty($data['contact_number_err']) && empty($data['email_err'])) {
         //Validated
         if ($this->eventModel->updateContactDetails($data)) {
           redirect('events');
         }
 
-        
+
       } else {
 
         //load view with errors
@@ -838,5 +840,24 @@ class Events extends Controller
     }
   }
 
+  public function addReview()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $data = [
+        'event_id' => $_POST['event_id'],
+        'user_id' => $_POST['user_id'],
+        'comment' => $_POST['comment'],
+        'rating' => $_POST['rating']
+      ];
 
+      if ($this->eventModel->addReview($data)) {
+          echo true;
+      } else {
+          echo false;
+      }
+
+    }
+  }
 }
+

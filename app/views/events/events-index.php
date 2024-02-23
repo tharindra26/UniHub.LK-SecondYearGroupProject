@@ -88,7 +88,7 @@
                 <div class="option" onclick="quickShortcut('entertainment')">Entertainment
                     <hr>
                 </div>
-                <div class="option" onclick="quickShortcut('workshops')">Workshops
+                <div class="option" onclick="quickShortcut('workshop')">Workshops
                     <hr>
                 </div>
             </div>

@@ -9,7 +9,9 @@ define('DB_NAME','unihub');
 define('APPROOT',dirname(dirname(__FILE__))); //deparak danne file root eka deparak passata ganna
 
 //URL root
-define('URLROOT','http://localhost/unihub'); //for public
+define('URLROOT','http://localhost/unihub');
+// define('URLROOT','https://338b-2402-d000-8118-3536-584-dcac-d52a-e919.ngrok-free.app/unihub');
+
 
 //Site name
 define('SITENAME','UniHub');
