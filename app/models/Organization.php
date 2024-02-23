@@ -64,11 +64,12 @@
         }
     }
 
-    public function getOrganizationById($id){
-        $this->db->query('SELECT * FROM organizations WHERE id = :id');
-        $this->db->bind(':id' , $id);
+    public function getEventById($id)
+    {
+        $this->db->query('SELECT * FROM events WHERE organization_id = :organization_id');
+        $this->db->bind(':organization_id', $organization_id);
 
-        $row= $this->db->single();
+        $row = $this->db->single();
 
         return $row;
 
