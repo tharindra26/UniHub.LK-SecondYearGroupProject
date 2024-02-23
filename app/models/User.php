@@ -387,7 +387,7 @@ class User{
         $this->db->query("UPDATE users SET
                     contact_number = :contact_number,
                     web = :web,
-                    linkedin = :linkedin,
+                    linkedin = :linkedin
                     WHERE id = :id");
 
         //Bind values

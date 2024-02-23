@@ -805,12 +805,13 @@ class Users extends Controller
   }
 
   //update myprofile
-  public function updateContactDetails($id){
+  public function updateContactDetails($id)
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       //process form
-        $web = trim($_POST['web']);
-        $email = trim($_POST['email']);
-        $linkedin = trim($_POST['linkedin']);
+      $web = trim($_POST['web']);
+      $email = trim($_POST['email']);
+      $linkedin = trim($_POST['linkedin']);
 
       //Sanitize post data
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -836,14 +837,15 @@ class Users extends Controller
 
 
       // Make sure errors are empty
-      if (empty($data['email_err']) ) {
+      if (empty($data['email_err'])) {
         //Validated
+        
         if ($this->userModel->updateContactDetails($data)) {
           // 
           echo "success";
         }
 
-        
+
       } else {
 
         //load view with errors
@@ -863,7 +865,7 @@ class Users extends Controller
         'contact_number' => $user->contact_number,
         'web' => $user->web,
         'linkedin' => $user->linkedin,
-        
+
         'email_err' => '',
         'contact_number_err' => '',
         'web_err' => '',
