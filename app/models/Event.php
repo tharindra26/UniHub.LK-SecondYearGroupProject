@@ -322,8 +322,9 @@ class Event
                         JOIN events
                         ON events.id = event_participation.event_id
                         WHERE event_participation.participation_status = "interested" 
-                        AND event_participation.user_id = :user_id;
-        ');
+                        AND event_participation.user_id = :user_id
+                        ORDER BY event_participation.participation_id 
+                        LIMIT 3');
         $this->db->bind(':user_id', $user);
 
         $row = $this->db->resultSet();
@@ -338,8 +339,9 @@ class Event
                         JOIN events
                         ON events.id = event_participation.event_id
                         WHERE event_participation.participation_status = "going" 
-                        AND event_participation.user_id = :user_id;
-        ');
+                        AND event_participation.user_id = :user_id
+                        ORDER BY event_participation.participation_id 
+                        LIMIT 3');
         $this->db->bind(':user_id', $user);
 
         $row = $this->db->resultSet();

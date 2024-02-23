@@ -144,11 +144,7 @@
                     <!-- Going Events -->
                     <div class="tab-content content-2">
                     <?php if (!empty($data['goingEvents'][0]->id)) : ?> 
-                        <?php for ($i = 0; $i < 3; $i++ ) : 
-                            $goingEvents = $data['goingEvents'][$i]; 
-                            if (empty($goingEvents)):
-                                break;
-                            endif;?>
+                        <?php foreach ($data['goingEvents'] as $goingEvents) : ?>
                             
                             <?php
                                 $eventStartDate = $goingEvents->start_datetime;
@@ -196,7 +192,7 @@
                                 </div>
                             </a>    
                         </div>
-                        <?php endfor; ?>
+                        <?php endforeach; ?>
                     <?php endif; ?>
                         <div class="show-more-link">
                             <a href="#">Show All Going Events <i class="fa-solid fa-arrow-right"></i></a>
@@ -206,11 +202,7 @@
                     <!-- Interested Events -->
                     <div class="tab-content content-3">
                     <?php if (!empty($data['interestEvents'][0]->id)) : ?> 
-                        <?php for ($i = 0; $i < 3; $i++ ) : 
-                            $interestEvents = $data['interestEvents'][$i]; 
-                            if (empty($interestEvents)):
-                                break;
-                            endif;?>
+                        <?php foreach ($data['interestEvents'] as $interestEvents) : ?>
                             
                             <?php
                                 $eventStartDate = $interestEvents->start_datetime;
@@ -258,7 +250,7 @@
                                 </div>
                             </a>    
                         </div>
-                        <?php endfor; ?>
+                        <?php endforeach; ?>
                     <?php endif; ?>
                         <div class="show-more-link">
                             <a href="#">Show All Interested Events <i class="fa-solid fa-arrow-right"></i></a>
@@ -334,15 +326,21 @@
                 </div>
                 <a href="#">Generate Portfolio</a>
             </div>
+            <!-- <?php var_dump($data['friends']) ?> -->
             <div class="friends">
                 <div class="friends-content">
                     <h2>Friends</h2>
                     <a href="#">
                         <div class="friend-pic">
-                            <img src="../UserProfiles/images/profile.jpg" alt="">
+                            <img src="<?php echo URLROOT ?>/img/users/default/profilephoto.jpg" alt="">
                         </div>
                         <div class="friend-info">
                             <h4>Chathuni Ranasinghe</h4>
+                            <div class="uni">
+                                <img src="<?php echo URLROOT ?>/img/universities/<?php echo $data['university']->logo ?>" alt="logo">
+                                <h3>University of Colombo</h3>
+                            </div>
+                            
                         </div>
                     </a>
                     <a class="view-btn" href="#">View Profile</a>

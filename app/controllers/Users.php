@@ -299,6 +299,7 @@ class Users extends Controller
     $education = $this->userModel->getEducationByUserId($user->id);
     $qualifications = $this->userModel->getQualificationByUserId($user->id);
     $skills = $this->userModel->getSkillsByUserId($user->id);
+    $friends = $this->userModel->getFriendsByUserId($user->id);
 
     $data = [
       'user' => $user,
@@ -308,7 +309,8 @@ class Users extends Controller
       'goingEvents' => $goingEvents,
       'education' => $education,
       'qualifications' => $qualifications,
-      'skills' => $skills
+      'skills' => $skills,
+      'friends' => $friends
     ];
 
     if ($user->type == 'admin') {
@@ -873,7 +875,202 @@ class Users extends Controller
       // Load view
       $this->view('users/undergraduate/editContactDetails', $data);
     }
+}
+
+//change profile description
+
+public function editDescription($id){
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //process form
+      $profile_title = trim($_POST['profile_title']);
+      $description = trim($_POST['description']);
+
+      //Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      //Init data
+      $data = [
+
+        'id' => $id,
+        'profile_title' =>  $profile_title,
+        'description' => $description,
+
+        'profile_title_err' => '',
+        'description_err' => '',
+      ];
+
+      if (empty($data['profile_title'])) {
+        $data['profile_title_err'] = 'Pleae enter the profile title';
+      }
+
+      if (empty($data['description'])) {
+        $data['description_err'] = 'Pleae enter the description';
+      }
+
+
+
+      // Make sure errors are empty
+      if (empty($data['description_err']) ) {
+        //Validated
+        if ($this->userModel->updateDescription($data)) {
+          // 
+          echo "success";
+        }
+      } else {
+
+        //load view with errors
+        $this->view('users/undergraduate/editContactDetails', $data);
+
+      }
+    } else {
+      //get existing post from model
+      $user = $this->userModel->getUserById($id);
+
+      // Init data
+      $data = [
+        'id' => $id,
+        'profile_title' =>  $user->profile_title,
+        'description' => $user->description,
+
+        'profile_title_err' => '',
+        'description_err' => '',
+      ];
+
+      // Load view
+      $this->view('users/undergraduate/update-description', $data);
+    }      
+}
+
+
+
+
+
+
+  //change profile images
+
+  public function updateProfileImage($id)
+  {
+    // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //   //process form
+
+    //   //Sanitize post data
+    //   $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+    //   //Init data
+    //   $data = [
+    //     'id' => $id,
+    //     'profile_image' => trim($_POST['profile_image']),
+    //     'cover_image' => trim($_POST['cover_image']),
+    //     'profile_image_err' => '',
+    //     'cover_image_err' => '',
+
+    //   ];
+
+
+    //   // if (empty($data['event_title'])) {
+    //   //   $data['event_title_err'] = 'Pleae enter event title';
+    //   // }
+
+    //   // if (empty($data['event_type'])) {
+    //   //   $data['event_type_err'] = 'Pleae enter event type';
+    //   // }
+
+    //   // if (empty($data['description'])) {
+    //   //   $data['description_err'] = 'Pleae enter event description';
+    //   // }
+
+    //   // if (empty($data['date'])) {
+    //   //   $data['date_err'] = 'Pleae enter date';
+    //   // }
+
+    //   // if (empty($data['location'])) {
+    //   //   $data['location_err'] = 'Pleae enter location';
+    //   // }
+
+
+
+    //   // Make sure errors are empty
+    //   if (empty($data['event_title_err']) && empty($data['event_type_err']) && empty($data['description_err']) && empty($data['date_err']) && empty($data['location_err'])) {
+    //     //Validated
+    //     if (isset($_FILES['event_card_image']['name']) and !empty($_FILES['event_card_image']['name'])) {
+
+
+    //       $img_name = $_FILES['event_card_image']['name'];
+    //       $tmp_name = $_FILES['event_card_image']['tmp_name'];
+    //       $error = $_FILES['event_card_image']['error'];
+
+    //       if ($error === 0) {
+    //         $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+    //         $img_ex_to_lc = strtolower($img_ex);
+
+    //         $allowed_exs = array('jpg', 'jpeg', 'png');
+    //         if (in_array($img_ex_to_lc, $allowed_exs)) {
+    //           $new_img_name = $data['event_title'] . '-event-card-image.' . $img_ex_to_lc;
+    //           $img_upload_path = "../public/img/event-card-images/" . $new_img_name;
+    //           move_uploaded_file($tmp_name, $img_upload_path);
+
+    //           $data['event_card_image'] = $new_img_name;
+    //         }
+    //       }
+    //     }
+
+    //     if (isset($_FILES['event_cover_image']['name']) and !empty($_FILES['event_cover_image']['name'])) {
+
+
+    //       $img_name = $_FILES['event_cover_image']['name'];
+    //       $tmp_name = $_FILES['event_cover_image']['tmp_name'];
+    //       $error = $_FILES['event_cover_image']['error'];
+
+    //       if ($error === 0) {
+    //         $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+    //         $img_ex_to_lc = strtolower($img_ex);
+
+    //         $allowed_exs = array('jpg', 'jpeg', 'png');
+    //         if (in_array($img_ex_to_lc, $allowed_exs)) {
+    //           $new_img_name = $data['event_title'] . '-event-cover-image.' . $img_ex_to_lc;
+    //           $img_upload_path = "../public/img/event-cover-images/" . $new_img_name;
+    //           move_uploaded_file($tmp_name, $img_upload_path);
+
+    //           $data['event_cover_image'] = $new_img_name;
+    //         }
+    //       }
+    //     }
+
+    //     if ($this->eventModel->updateEvent($data)) {
+    //       flash('event_message', "Event Updated Successfully");
+    //       redirect('events');
+    //     }
+    //   } else {
+
+    //     //load view with error
+    //     $this->view('events/events-edit', $data);
+
+    //   }
+
+
+    // } else {
+    //   //get existing post from model
+    //   $event = $this->eventModel->getEventById($id);
+
+    //   //check for owner
+    //   // if ($event->user_id != $_SESSION['user_id']) {
+    //   //   redirect('events');
+    //   // }
+    //   // Init data
+    //   $data = [
+    //     'id' => $id,
+    //     'event_profile_image' => $event->event_profile_image,
+    //     'event_cover_image' => $event->event_cover_image,
+    //     'event_card_image_err' => '',
+    //     'event_cover_image_err' => '',
+
+    //   ];
+
+    //   // Load view
+    //   $this->view('events/editProfileImage', $data);
+    // }
   }
+
 
 
 
