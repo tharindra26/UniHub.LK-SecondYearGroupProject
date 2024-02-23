@@ -152,15 +152,15 @@
                     </div>
                     <div class="star-widget">
 
-                        <input type="radio" name="rate" id="rate-5">
-                        <label for="rate-5" class="fa-solid fa-star"></label>
-                        <input type="radio" name="rate" id="rate-4">
+                        <input type="radio" name="rate" id="rate-5" value=5>
+                        <label for="rate-5" class="fa-solid fa-star" ></label>
+                        <input type="radio" name="rate" id="rate-4" value=4>
                         <label for="rate-4" class="fa-solid fa-star"></label>
-                        <input type="radio" name="rate" id="rate-3">
+                        <input type="radio" name="rate" id="rate-3" value=3>
                         <label for="rate-3" class="fa-solid fa-star"></label>
-                        <input type="radio" name="rate" id="rate-2">
+                        <input type="radio" name="rate" id="rate-2" value=2>
                         <label for="rate-2" class="fa-solid fa-star"></label>
-                        <input type="radio" name="rate" id="rate-1">
+                        <input type="radio" name="rate" id="rate-1" value=1>
                         <label for="rate-1" class="fa-solid fa-star"></label>
 
                         <form action="#">
@@ -365,10 +365,12 @@
         checkEventParticipation();
 
         $("#rating-btn").on("click", function (e) {
-            var rating = $("input[name='rate']:checked").length;
+            var rating = $("input[name='rate']:checked").val();
 
             // Retrieve the text entered in the textarea
             var comment = $(".textarea textarea").val();
+
+            console.log(rating, comment);
 
             $.ajax({
                 url: URLROOT + '/events/addReview/', // Replace 'YOUR_ENDPOINT_URL' with the actual URL to which you want to send the data
