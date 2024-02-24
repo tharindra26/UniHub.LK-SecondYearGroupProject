@@ -32,7 +32,7 @@ body{
 .container1{
     width:60%;
     margin:0 auto;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 
@@ -42,7 +42,7 @@ body{
     width: 100%;
     height: auto;
     align-items: center;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 
@@ -54,25 +54,31 @@ body{
         display: flex;
         flex-direction: column;
         margin-bottom: 10px;
-        border: 1px solid red;
+        /* border: 1px solid red; */
     }
 
 
         .post-title{
-            font-size: 25px;
-            border: 1px solid red;
+            font-size: 30px;
+            /* border: 1px solid red; */
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
 
 
         .post{
             display: flex;
             flex-direction: column;
-            border: 1px solid red;
+            /* border: 1px solid red; */
             max-width: 400px;
             margin: 20px;
-            background-color: rgba(255, 255, 255, 1);
+            /* background-color: rgba(255, 255, 255, 1); */
+            background-color: #EDEDED;
             padding: 10px;
             border-radius: 5px;
+            color: black;
         
         }
         
@@ -130,7 +136,7 @@ body{
         .post-image-section{
             width: 100%;
             height: auto;
-            border: 1px solid red;
+            /* border: 1px solid red; */
             overflow: hidden;
             display: flex;
             justify-content: center;
@@ -157,7 +163,7 @@ body{
 /* Quick-shortcut-bar */
 .shortcut-bar{
     width: 100%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     height:70px;
     display: flex;
     flex-direction: row;
