@@ -12,7 +12,7 @@
             <div class="left-box">
                 <div class="form-outer-box">
 
-                    <form class="form" action="<?php echo URLROOT; ?>/events/editProfileImage" method="post"
+                    <form class="form" action="<?php echo URLROOT; ?>/events/editProfileImage/<?php echo $data['id'] ?>" method="post"
                         enctype="multipart/form-data">
                         <h3>Profile Image</h3>
                         <div class="profile-img-box">
