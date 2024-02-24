@@ -698,12 +698,15 @@ form .btn {
 
 
 /* rating-system css */
-
+.ratings-section h3{
+    font-size: 25px;
+    font-weight: 400;
+}
 .ratings{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
 }
 
@@ -714,7 +717,7 @@ form .btn {
     justify-content: center;
     height: fit-content;
     width: fit-content;
-    margin: 10px;
+    margin: 10px 10px 10px 0;
     padding: 10px;
     background-color: white;
     border-radius: 10px;
@@ -740,6 +743,9 @@ form .btn {
     width: 30px;
     border-radius: 100%;
     background-color: #10334A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .image-block img{
@@ -757,8 +763,14 @@ form .btn {
     
 }
 
-.user-rating .stars-set i{
+.user-rating .stars-set .fa-star{
     font-size: 15px;
+    color: #e67e22;
+    /* border: 0.5px solid #10334A; */
+}
+
+.user-rating .stars-set .fa-star .filled{
+    color: #f39c12;
 }
 
 .user-rating .user-comment{

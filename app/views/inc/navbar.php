@@ -12,7 +12,7 @@
                             <a href="<?php echo URLROOT ?>/users/show">
                                 <div class="profile-navigator">
                                     <div class="profile-image">
-                                        <img src="profile-image.jpg" alt="not found">
+                                        <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $_SESSION["user_profile_image"] ?>" alt="not found">
                                     </div>
                                     <div class="profile-name">
                                         <div class="user-name"><?php echo $_SESSION["user_name"] ?></div>
@@ -56,7 +56,7 @@
                             <a href="<?php echo URLROOT ?>/users/show">
                                 <div class="profile-navigator">
                                     <div class="profile-image">
-                                        <img src="<?php echo URLROOT ?>/img/users/default/<?php echo $_SESSION["user_profile_image"] ?>" alt="not found">
+                                        <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $_SESSION["user_profile_image"] ?>" alt="not found">
                                     </div>
                                     <div class="profile-name">
                                         <div class="user-name"><?php echo $_SESSION["user_name"] ?></div>

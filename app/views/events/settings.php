@@ -40,7 +40,7 @@
                     </div>
                 </a>
 
-                <a href="<?php echo URLROOT ?>/events/changeDescription/<?php echo $data['id'] ?>" class="option-link">
+                <a href="<?php echo URLROOT ?>/events/editDescription/<?php echo $data['id'] ?>" class="option-link">
                     <div class="option">
                         <div class="option-icon">
                             <i class="fa-solid fa-align-right"></i>
@@ -50,7 +50,7 @@
                 </a>
 
 
-                <a href="<?php echo URLROOT ?>/events/changeCategories/<?php echo $data['id'] ?>" class="option-link">
+                <a href="<?php echo URLROOT ?>/events/editCategories/<?php echo $data['id'] ?>" class="option-link">
                     <div class="option">
                         <div class="option-icon">
                             <i class="fa-solid fa-table-list"></i>
@@ -60,7 +60,7 @@
                 </a>
 
 
-                <a href="<?php echo URLROOT ?>/events/changeCountdown/<?php echo $data['id'] ?>" class="option-link">
+                <a href="<?php echo URLROOT ?>/events/editCountdown/<?php echo $data['id'] ?>" class="option-link">
                     <div class="option">
                         <div class="option-icon">
                             <i class="fa-solid fa-hourglass-half"></i>
@@ -69,7 +69,7 @@
                     </div>
                 </a>
 
-                <a href="<?php echo URLROOT ?>/events/changeAnnouncements/<?php echo $data['id'] ?>"
+                <a href="<?php echo URLROOT ?>/events/editAnnouncements/<?php echo $data['id'] ?>"
                     class="option-link">
                     <div class="option">
                         <div class="option-icon">

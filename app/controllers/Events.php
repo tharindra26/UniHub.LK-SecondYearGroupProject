@@ -127,7 +127,7 @@ class Events extends Controller
       if (empty($data['title_err']) && empty($data['university_err']) && empty($data['organized_by_err']) && empty($data['map_navigation_err']) && empty($data['start_datetime_err']) && empty($data['end_datetime_err']) && empty($data['description_datetime_err']) && empty($data['category_err'])) {
         //Validated
 
-        //event-card image adding
+        //event-profile image adding
         if (isset($_FILES['event_profile_image']['name']) and !empty($_FILES['event_profile_image']['name'])) {
 
 
@@ -141,11 +141,11 @@ class Events extends Controller
 
           //    $allowed_exs = array('jpg', 'jpeg', 'png');
           //    if(in_array($img_ex_to_lc, $allowed_exs)){
-          //       $new_img_name = $data['event_title'] . '-event-card-image.' . $img_ex_to_lc;
-          //       $img_upload_path = "../public/img/event-card-images/".$new_img_name;
+          //       $new_img_name = $data['event_title'] . '-event-profile-image.' . $img_ex_to_lc;
+          //       $img_upload_path = "../public/img/event-profile-images/".$new_img_name;
           //       move_uploaded_file($tmp_name, $img_upload_path);
 
-          //       $data['event_card_image']=$new_img_name;
+          //       $data['event_profile_image']=$new_img_name;
           //    }
           // }
           if ($error === 0) {
@@ -279,14 +279,14 @@ class Events extends Controller
         'description' => trim($_POST['description']),
         'date' => trim($_POST['date']),
         'location' => trim($_POST['location']),
-        'event_card_image' => trim($_POST['event_card_image']),
+        'event_profile_image' => trim($_POST['event_profile_image']),
         'event_cover_image' => trim($_POST['event_cover_image']),
         'event_title_err' => '',
         'event_type_err' => '',
         'description_err' => '',
         'date_err' => '',
         'location_err' => '',
-        'event_card_image_err' => '',
+        'event_profile_image_err' => '',
         'event_cover_image_err' => '',
 
       ];
@@ -317,12 +317,12 @@ class Events extends Controller
       // Make sure errors are empty
       if (empty($data['event_title_err']) && empty($data['event_type_err']) && empty($data['description_err']) && empty($data['date_err']) && empty($data['location_err'])) {
         //Validated
-        if (isset($_FILES['event_card_image']['name']) and !empty($_FILES['event_card_image']['name'])) {
+        if (isset($_FILES['event_profile_image']['name']) and !empty($_FILES['event_profile_image']['name'])) {
 
 
-          $img_name = $_FILES['event_card_image']['name'];
-          $tmp_name = $_FILES['event_card_image']['tmp_name'];
-          $error = $_FILES['event_card_image']['error'];
+          $img_name = $_FILES['event_profile_image']['name'];
+          $tmp_name = $_FILES['event_profile_image']['tmp_name'];
+          $error = $_FILES['event_profile_image']['error'];
 
           if ($error === 0) {
             $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
@@ -330,11 +330,11 @@ class Events extends Controller
 
             $allowed_exs = array('jpg', 'jpeg', 'png');
             if (in_array($img_ex_to_lc, $allowed_exs)) {
-              $new_img_name = $data['event_title'] . '-event-card-image.' . $img_ex_to_lc;
-              $img_upload_path = "../public/img/event-card-images/" . $new_img_name;
+              $new_img_name = $data['event_title'] . '-event-profile-image.' . $img_ex_to_lc;
+              $img_upload_path = "../public/img/event-profile-images/" . $new_img_name;
               move_uploaded_file($tmp_name, $img_upload_path);
 
-              $data['event_card_image'] = $new_img_name;
+              $data['event_profile_image'] = $new_img_name;
             }
           }
         }
@@ -389,14 +389,14 @@ class Events extends Controller
         'description' => $event->description,
         'date' => $event->date,
         'location' => $event->location,
-        'event_card_image' => '',
+        'event_profile_image' => '',
         'event_cover_image' => $event->event_cover_image,
         'event_title_err' => '',
         'event_type_err' => '',
         'description_err' => '',
         'date_err' => '',
         'location_err' => '',
-        'event_card_image_err' => '',
+        'event_profile_image_err' => '',
         'event_cover_image_err' => '',
 
       ];
@@ -435,10 +435,12 @@ class Events extends Controller
     $event = $this->eventModel->getEventById($id);
     $announcements = $this->eventModel->getAnnouncementsByEventId($id);
     $user = $this->userModel->getUserById($event->user_id);
+    $reviews = $this->eventModel->getReviewsByEventId($id);
     $data = [
       'event' => $event,
       'user' => $user,
-      'announcements' => $announcements
+      'announcements' => $announcements,
+      'reviews' => $reviews
     ];
     $this->view('events/event-show', $data);
   }
@@ -640,7 +642,7 @@ class Events extends Controller
       if (empty($data['organized_by_err']) && empty($data['contact_number_err']) && empty($data['email_err'])) {
         //Validated
         if ($this->eventModel->updateContactDetails($data)) {
-          redirect('events');
+          redirect('events/show/' . $id);
         }
 
 
@@ -684,10 +686,143 @@ class Events extends Controller
 
   public function editPlacement($id)
   {
-    $data = [
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      //process form
+      $map_navigation = trim($_POST['map_navigation']);
+
+      //Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      //Init data
+      $data = [
+
+        'id' => $id,
+        'venue' => trim($_POST['venue']),
+        'start_datetime' => trim($_POST['start_datetime']),
+        'end_datetime' => trim($_POST['end_datetime']),
+        'map_navigation' => $map_navigation,
+
+
+        'venue_err' => '',
+        'start_datetime_err' => '',
+        'end_datetime_err' => '',
+        'map_navigation_err' => '',
+
+
+      ];
+
+
+
+
+      if (empty($data['venue'])) {
+        $data['venue_err'] = 'Pleae enter the venue';
+      }
+
+      if (empty($data['map_navigation'])) {
+        $data['map_navigation_err'] = 'Pleae enter the embed Google map link';
+      }
+      if (empty($data['start_datetime'])) {
+        $data['start_datetime_err'] = 'Pleae enter the starting date & time';
+      }
+      if (empty($data['end_datetime'])) {
+        $data['end_datetime_err'] = 'Pleae enter the ending date & time';
+      }
+
+
+
+      // Make sure errors are empty
+      if (empty($data['venue_err']) && empty($data['map_navigation_err']) && empty($data['start_datetime_err']) && empty($data['end_datetime_err'])) {
+        //Validated
+        if ($this->eventModel->updatePlacementDetails($data)) {
+
+          redirect('events/show/' . $id);
+        }
+
+
+      } else {
+
+        //load view with errors
+        $this->view('events/editPlacement', $data);
+
+      }
+
+
+    } else {
+      //get existing post from model
+      $event = $this->eventModel->getEventById($id);
+
+      // Init data
+      $data = [
+        'id' => $id,
+        'venue' => $event->venue,
+        'start_datetime' => $event->start_datetime,
+        'end_datetime' => $event->end_datetime,
+        'map_navigation' => $event->map_navigation,
+
+
+        'venue_err' => '',
+        'start_datetime_err' => '',
+        'end_datetime_err' => '',
+        'map_navigation_err' => '',
+
+      ];
+
+      // Load view
+      $this->view('events/editPlacement', $data);
+    }
+  }
+
+  public function editDescription($id)
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      //Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      //Init data
+      $data = [
+
+        'id' => $id,
+        'description' => trim($_POST['description']),
+
+        'description_err' => '',
+      ];
+
+      if (empty($data['description'])) {
+        $data['description_err'] = 'Pleae enter the description';
+      }
+
+      // Make sure errors are empty
+      if (empty($data['description_err'])) {
+        //Validated
+        if ($this->eventModel->updateDescription($data)) {
+          redirect('events/show/' . $id);
+        }
+      } else {
+        //load view with errors
+        $this->view('events/editDescription', $data);
+      }
+    } else {
+      //get existing post from model
+      $event = $this->eventModel->getEventById($id);
+      // Init data
+      $data = [
+        'id' => $id,
+        'description' => $event->description,
+
+        'description_err' => '',
+      ];
+      // Load view
+      $this->view('events/editDescription', $data);
+    }
+  }
+
+  public function editCategories($id){
+    $eventCategories = $this->eventModel->getEventCategoriesByEventId($id);
+    $data= [
       'id' => $id,
+      'eventCategories' => $eventCategories
     ];
-    $this->view('events/editplacement', $data);
+    $this->view('events/editCategories', $data);
   }
 
   public function quickShortcut()
@@ -719,6 +854,9 @@ class Events extends Controller
 
   public function editProfileImage($id)
   {
+
+    $event = $this->eventModel->getEventById($id);
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       //process form
 
@@ -728,45 +866,48 @@ class Events extends Controller
       //Init data
       $data = [
         'id' => $id,
-        'event_card_image' => trim($_POST['event_card_image']),
-        'event_cover_image' => trim($_POST['event_cover_image']),
-        'event_card_image_err' => '',
+        'event_profile_image_err' => '',
         'event_cover_image_err' => '',
 
       ];
 
+      if (isset($_POST['event_profile_image']) && !empty($_POST['event_profile_image'])) {
+        // If it's set and not empty, trim any whitespace and assign it
+        $data['$event_profile_image'] = trim($_POST['event_profile_image']);
+      } else {
+        // If it's not set or empty, assign a default value or handle the scenario accordingly
+        $data['event_profile_image'] = $event->event_profile_image; // You can set a default value here if needed
+      }
 
-      // if (empty($data['event_title'])) {
-      //   $data['event_title_err'] = 'Pleae enter event title';
-      // }
-
-      // if (empty($data['event_type'])) {
-      //   $data['event_type_err'] = 'Pleae enter event type';
-      // }
-
-      // if (empty($data['description'])) {
-      //   $data['description_err'] = 'Pleae enter event description';
-      // }
-
-      // if (empty($data['date'])) {
-      //   $data['date_err'] = 'Pleae enter date';
-      // }
-
-      // if (empty($data['location'])) {
-      //   $data['location_err'] = 'Pleae enter location';
-      // }
+      if (isset($_POST['event_cover_image']) && !empty($_POST['event_cover_image'])) {
+        // If it's set and not empty, trim any whitespace and assign it
+        $data['$event_cover_image'] = trim($_POST['event_cover_image']);
+      } else {
+        // If it's not set or empty, assign a default value or handle the scenario accordingly
+        $data['event_cover_image'] = $event->event_cover_image; // You can set a default value here if needed
+      }
 
 
 
+
+      if (empty($data['event_profile_image'])) {
+        $data['event_profile_image_err'] = 'Pleae add a event profile image';
+      }
+
+      if (empty($data['event_cover_image'])) {
+        $data['event_cover_image_err'] = 'Pleae add a event cover image';
+      }
+
+    
       // Make sure errors are empty
-      if (empty($data['event_title_err']) && empty($data['event_type_err']) && empty($data['description_err']) && empty($data['date_err']) && empty($data['location_err'])) {
+      if (empty($data['event_profile_image_err']) && empty($data['event_cover_image_err'])) {
         //Validated
-        if (isset($_FILES['event_card_image']['name']) and !empty($_FILES['event_card_image']['name'])) {
+        if (isset($_FILES['event_profile_image']['name']) and !empty($_FILES['event_profile_image']['name'])) {
 
 
-          $img_name = $_FILES['event_card_image']['name'];
-          $tmp_name = $_FILES['event_card_image']['tmp_name'];
-          $error = $_FILES['event_card_image']['error'];
+          $img_name = $_FILES['event_profile_image']['name'];
+          $tmp_name = $_FILES['event_profile_image']['tmp_name'];
+          $error = $_FILES['event_profile_image']['error'];
 
           if ($error === 0) {
             $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
@@ -774,11 +915,11 @@ class Events extends Controller
 
             $allowed_exs = array('jpg', 'jpeg', 'png');
             if (in_array($img_ex_to_lc, $allowed_exs)) {
-              $new_img_name = $data['event_title'] . '-event-card-image.' . $img_ex_to_lc;
-              $img_upload_path = "../public/img/event-card-images/" . $new_img_name;
+              $new_img_name = $event->title . '_event_profile_' . time() . '.' . $img_ex_to_lc;
+              $img_upload_path = "../public/img/events/events_profile_images/" . $new_img_name;
               move_uploaded_file($tmp_name, $img_upload_path);
 
-              $data['event_card_image'] = $new_img_name;
+              $data['event_profile_image'] = $new_img_name;
             }
           }
         }
@@ -796,8 +937,8 @@ class Events extends Controller
 
             $allowed_exs = array('jpg', 'jpeg', 'png');
             if (in_array($img_ex_to_lc, $allowed_exs)) {
-              $new_img_name = $data['event_title'] . '-event-cover-image.' . $img_ex_to_lc;
-              $img_upload_path = "../public/img/event-cover-images/" . $new_img_name;
+              $new_img_name = $data['title'] . '_event_cover_' . time() . '.' . $img_ex_to_lc;
+              $img_upload_path = "../public/img/events/events_cover_images/" . $new_img_name;
               move_uploaded_file($tmp_name, $img_upload_path);
 
               $data['event_cover_image'] = $new_img_name;
@@ -805,22 +946,22 @@ class Events extends Controller
           }
         }
 
-        if ($this->eventModel->updateEvent($data)) {
-          flash('event_message', "Event Updated Successfully");
-          redirect('events');
+
+        $data['event_id'] = $event->id;
+        if ($this->eventModel->updateEventProfileImage($data)) {
+          // flash('event_message', "Event Updated Successfully");
+          redirect('events/show/' . $event->id);
         }
       } else {
 
         //load view with error
+        $data['id'] = $event->id;
         $this->view('events/events-edit', $data);
 
       }
 
 
     } else {
-      //get existing post from model
-      $event = $this->eventModel->getEventById($id);
-
       //check for owner
       // if ($event->user_id != $_SESSION['user_id']) {
       //   redirect('events');
@@ -830,9 +971,8 @@ class Events extends Controller
         'id' => $id,
         'event_profile_image' => $event->event_profile_image,
         'event_cover_image' => $event->event_cover_image,
-        'event_card_image_err' => '',
+        'event_profile_image_err' => '',
         'event_cover_image_err' => '',
-
       ];
 
       // Load view
@@ -852,12 +992,59 @@ class Events extends Controller
       ];
 
       if ($this->eventModel->addReview($data)) {
-          echo true;
+        echo true;
       } else {
-          echo false;
+        echo false;
       }
 
     }
   }
+
+  public function deleteEventCategory(){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $eventId = $_POST['eventId'];
+      $categoryId = $_POST['categoryId'];
+
+      $data=[
+        'event_id' => $eventId,
+        'category_id' => $categoryId
+      ];
+
+      if ($this->eventModel->deleteCategoryByEventIdCategoryId($data)) {
+        echo true;
+      } else {
+        echo false;
+      }
+    }
+  }
+
+  public function addEventCategory(){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $eventId = $_POST['eventId'];
+      $category = $_POST['category'];
+
+      $categoryId = $this->categoryModel->getCategoryIdByName($category);
+
+
+
+      $data=[
+        'eventId' => $eventId,
+        'categoryId' => $categoryId
+      ];
+
+      if ($this->eventModel->addEventCategory($data)) {
+        echo true;
+      } else {
+        echo false;
+      }
+    }
+  }
+
+  public function editCountdown($id){
+  }
+
+
 }
 
