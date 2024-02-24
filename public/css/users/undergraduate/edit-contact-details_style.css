@@ -12,7 +12,6 @@ overpass */
     margin: 10px 0;
     display: flex;
     flex-direction: column;
-    flex-direction: column;
     background-color: white;
     border-radius: 10px;
     border: 1px solid red;
@@ -25,6 +24,7 @@ overpass */
     /* border: 1px solid red; */
     display: flex;
     justify-content: center;
+    gap: 50px;
     align-items: center;
     font-weight: 500;
     font-size: 30px;
@@ -315,6 +315,20 @@ overpass */
     border: none;
 }
 
+.add-btn{
+    
+}
+
+.add-btn .button{
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    padding:10px 30px;
+    border-radius: 10px;
+    color: white;
+    background-color: #3498db;
+    border: none;
+}
 /* popup-modal css */
 .modal-box.active .show-modal{
     display: none;
@@ -368,7 +382,7 @@ overpass */
     transform: translate(-50%, -50%) scale(1);
 }
 
-.modal-box .fa-xmark{
+.modal-box i{
     font-size: 70px;
     /* color: #e74c3c; */
 }
@@ -386,6 +400,12 @@ overpass */
     font-weight: 400;
     color: #34495e;
     text-align: center;
+}
+
+.btn{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 20px;
 }
 
 .close-btn{
