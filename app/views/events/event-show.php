@@ -131,7 +131,7 @@
             </div>
 
             <div class="rating-btn" onClick="openPopup('rating-popup')">
-                <p><i class="fa-solid fa-hands-clapping"></i> Rate us</p>
+                <p><i class="fa-solid fa-hands-clapping"></i> Share Your Thoughts</p>
             </div>
 
             <!-- popupModal -->
@@ -153,7 +153,7 @@
                     <div class="star-widget">
 
                         <input type="radio" name="rate" id="rate-5" value=5>
-                        <label for="rate-5" class="fa-solid fa-star" ></label>
+                        <label for="rate-5" class="fa-solid fa-star"></label>
                         <input type="radio" name="rate" id="rate-4" value=4>
                         <label for="rate-4" class="fa-solid fa-star"></label>
                         <input type="radio" name="rate" id="rate-3" value=3>
@@ -282,6 +282,122 @@
     ?>
 
 </div>
+
+<!-- rating and review showing -->
+<div class="container">
+    <div class="ratings-section">
+        <h3>See What Others Say</h3>
+
+        <div class="ratings">
+            <div class="user-rating">
+                <div class="left-part">
+                    <div class="rating-user">
+                        <div class="image-block">
+                            <div class="img"></div>
+                        </div>
+                        <div class="name-text">Tharindra Fernando</div>
+                        <div class="date-text">24th Jan, 2024</div>
+                    </div>
+                    <div class="stars-set">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div class="user-comment">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus sit sunt
+                        blanditiis
+                    </div>
+                </div>
+                <div class="right-part">
+                    <i class="fa-solid fa-quote-right"></i>
+                </div>
+            </div>
+
+            <div class="user-rating">
+                <div class="left-part">
+                    <div class="rating-user">
+                        <div class="image-block">
+                            <div class="img"></div>
+                        </div>
+                        <div class="name-text">Tharindra Fernando</div>
+                        <div class="date-text">24th Jan, 2024</div>
+                    </div>
+                    <div class="stars-set">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div class="user-comment">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus sit sunt
+                        blanditiis
+                    </div>
+                </div>
+                <div class="right-part">
+                    <i class="fa-solid fa-quote-right"></i>
+                </div>
+            </div>
+
+            <div class="user-rating">
+                <div class="left-part">
+                    <div class="rating-user">
+                        <div class="image-block">
+                            <div class="img"></div>
+                        </div>
+                        <div class="name-text">Tharindra Fernando</div>
+                        <div class="date-text">24th Jan, 2024</div>
+                    </div>
+                    <div class="stars-set">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div class="user-comment">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus sit sunt
+                        blanditiis
+                    </div>
+                </div>
+                <div class="right-part">
+                    <i class="fa-solid fa-quote-right"></i>
+                </div>
+            </div>
+
+            <div class="user-rating">
+                <div class="left-part">
+                    <div class="rating-user">
+                        <div class="image-block">
+                            <div class="img"></div>
+                        </div>
+                        <div class="name-text">Tharindra Fernando</div>
+                        <div class="date-text">24th Jan, 2024</div>
+                    </div>
+                    <div class="stars-set">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div class="user-comment">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus sit sunt
+                        blanditiis
+                    </div>
+                </div>
+                <div class="right-part">
+                    <i class="fa-solid fa-quote-right"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<!-- rating and review showing -->
 
 
 
@@ -435,11 +551,11 @@
         document.getElementById("seconds").innerHTML = seconds;
 
         // If the countdown is over, clearInterval and display a message or take some action
-        if (distance < 0) {
-            clearInterval(x);
-            document.getElementById("countdown").innerHTML = "EXPIRED";
-            // You may want to display a message or take some action when the countdown expires
-        }
+        // if (distance < 0) {
+        //     clearInterval(x);
+        //     document.getElementById("countdown").innerHTML = "EXPIRED";
+        //     // You may want to display a message or take some action when the countdown expires
+        // }
     }, 1000);
 
 

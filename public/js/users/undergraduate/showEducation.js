@@ -63,11 +63,8 @@ function updateEducation(edu_id) {
         // Update the text content on success
         // interestedBtn.find('span').text(response);
         if (response === "1") {
-            let element = document.getElementById(edu_id);
-            if (element) {
-                element.classList.remove("active"); 
-                overlay.classList.remove("active");
-            }
+            // let element = document.getElementById(edu_id);
+            closePopup(edu_id);
         }
         //else {
         //     confirmBtn.addClass("new-class");
