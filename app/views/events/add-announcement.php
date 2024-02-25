@@ -22,7 +22,6 @@
                             </div>
                         </div>
                         
-
                        <!-- <div class="column">
                         <div class="input-box">  
                                 <label for="">Notify for event followers via email?</label>
