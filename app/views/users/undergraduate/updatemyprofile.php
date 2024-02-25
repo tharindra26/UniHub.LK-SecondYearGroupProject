@@ -93,7 +93,7 @@
                         <div class="option-icon">
                             <i class="fa-solid fa-bullhorn"></i>
                         </div>
-                        <div class="option-text">Delete Profile</div>
+                        <div class="option-text">Delete</div>
                     </div>
                 </a>
 

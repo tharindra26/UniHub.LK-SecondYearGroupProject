@@ -13,8 +13,13 @@
                         <h1><?php echo $data['user']->fname , " " , $data['user']->lname ?></h1>
                         <p class="title"><?php echo $data['user']->profile_title ?></p>
                         <p class="uni"><?php echo $data['university']->name ?></p>
+                    <?php if($data['user']->id == $_SESSION['user_id']): ?>
                         <a href="<?php echo URLROOT ?>/users/updatemyprofile/<?php echo $data['user']->id ?>" class="follow-btn">Profile Settings</a>
-                        <a href="#" class="msg-btn">Friends</a> 
+                        <a href="<?php echo URLROOT ?>/users/showFriends/<?php echo $data['user']->id ?>" class="msg-btn">Friends</a> 
+                    <?php else: ?>
+                        <a href="#" class="follow-btn">Follow</a>
+                        <a href="#" class="msg-btn">Report</a>
+                    <?php endif; ?> 
                     </div>
                     <div class="current-work">
                         <ul class="work-list">
@@ -306,7 +311,7 @@
             </div>
             <!-- Friends -->
             <div class="friends">
-            <h2>Friends</h2>
+            <h2>Friend Requests</h2>
                 <div class="friends-content">
                 <?php if (!empty($data['friends'][0]->id)) : ?> 
                     <?php foreach ($data['friends'] as $friends) : ?>
@@ -334,13 +339,13 @@
 
                 <!-- Friend Requsts -->
                 <div class="friends">
-            <h2>Friend Requsts</h2>
+            <h2>Friend Suggesions</h2>
                 <div class="friends-content">
                 <?php if (!empty($data['requests'][0]->id)) : ?> 
                     <?php foreach ($data['requests'] as $requests) : ?>
                         <div class="friend-profile">
                         <div class="friend-pic">
-                            <img src="<?php echo URLROOT ?>/img/users/default/<?php echo $requests->profile_image ?>" alt="">
+                            <img src="<?php echo URLROOT ?>/img/users/users_profile_image/<?php echo $requests->profile_image ?>" alt="">
                         </div>
                         <div class="friend-info">
                             <h4><?php echo $requests->fname , " " , $requests->lname ?></h4>

@@ -298,7 +298,7 @@ class Users extends Controller
     $education = $this->userModel->getEducationByUserId($user->id);
     $qualifications = $this->userModel->getQualificationByUserId($user->id);
     $skills = $this->userModel->getSkillsByUserId($user->id);
-    $friends = $this->userModel->getFriendsByUserId($user->id);
+    // $friends = $this->userModel->getFriendsByUserId($user->id);
 
     $data = [
       'user' => $user,
@@ -308,7 +308,7 @@ class Users extends Controller
       'education' => $education,
       'qualifications' => $qualifications,
       'skills' => $skills,
-      'friends' => $friends
+      // 'friends' => $friends
     ];
 
     if ($user->type == 'admin') {
@@ -322,10 +322,18 @@ class Users extends Controller
     }
   }
 
+ public function showFriends($user_id){
+  $friends = $this->userModel->getFriendsByUserId($user_id);
 
+  $data =[
+    'friends' => $friends
+  ];
+
+  $this->view('users/undergraduate/myFriends', $data);
+ }
 
   public function showAllInterestedEvents($id){
-    $interestEvents = $this->userModel->getAllInterestEventsByUserId($id);
+    $interestEvents = $this->userModel->getAllInterestedEventsByUserId($id);
     $data = [
       'events' => $interestEvents
     ];
