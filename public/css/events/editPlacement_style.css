@@ -120,8 +120,6 @@ overpass */
 
 #selection {
     padding-left: 10px;
-    border: 1px solid red;
-    height: 100px;
 }
 
 #eventDescription {
@@ -178,53 +176,6 @@ overpass */
     background: #2980b9;
 }
 
-#custom-profile-img-btn {
-    padding: 10px;
-    color: white;
-    background: #34495e;
-    outline: none;
-    border-radius: 5px;
-    cursor: pointer;
-    border: 1px solid black;
-    margin-top: 8px;
-    width: 30%;
-}
-
-#custom-profile-img-btn:hover {
-    background: #2c3e50;
-}
-
-#profile-img-txt {
-    color: #7f8c8d;
-}
-
-#profileImageUpload {
-    display: none;
-}
-
-#custom-cover-img-btn {
-    padding: 10px;
-    color: white;
-    background: #34495e;
-    outline: none;
-    border-radius: 5px;
-    cursor: pointer;
-    border: 1px solid black;
-    margin-top: 8px;
-    width: 30%;
-}
-
-#custom-cover-img-btn:hover {
-    background: #2c3e50;
-}
-
-#cover-img-txt {
-    color: #7f8c8d;
-}
-
-#coverImageUpload {
-    display: none;
-}
 
 .image-section {
     display: flex;
@@ -253,24 +204,3 @@ overpass */
 }
 
 /* error message */
-
-
-.spinner {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 8px solid #f3f3f3; /* Light grey */
-    border-top: 8px solid #3498db; /* Blue */
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-    z-index: 9999; /* Ensure it's above other content */
-    display: none; /* Initially hidden */
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}

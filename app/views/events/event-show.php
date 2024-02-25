@@ -284,119 +284,62 @@
 </div>
 
 <!-- rating and review showing -->
-<div class="container">
-    <div class="ratings-section">
-        <h3>See What Others Say</h3>
+<?php if (!empty($data['reviews'][0]->id)): ?>
+    <div class="container">
+        <div class="ratings-section">
+            <h3>See What Others Say...</h3>
 
-        <div class="ratings">
-            <div class="user-rating">
-                <div class="left-part">
-                    <div class="rating-user">
-                        <div class="image-block">
-                            <div class="img"></div>
+            <div class="ratings">
+
+                <?php foreach ($data['reviews'] as $review): ?>
+                    <div class="user-rating">
+                        <div class="left-part">
+                            <div class="rating-user">
+                                <div class="image-block">
+                                    <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $review->profile_image ?>"
+                                        alt="">
+                                </div>
+                                <div class="name-text">
+                                    <?php echo $review->fname . ' ' . $review->lname ?>
+                                </div>
+
+                                <?php
+                                $mysqlDateTime = $review->timestamp;
+                                $dateTime = new DateTime($mysqlDateTime);
+                                $formattedReviewDate = $dateTime->format('jS M, Y');
+                                ?>
+
+                                <div class="date-text">
+                                    <?php echo $formattedReviewDate ?>
+                                </div>
+                            </div>
+                            <?php if ($review->rating > 0): ?>
+                                <div class="stars-set">
+                                    <?php
+                                    // Determine the number of filled stars based on the rating
+                                    $rating = intval($review->rating);
+                                    for ($i = 1; $i <= 5; $i++) {
+                                        if ($i <= $rating) {
+                                            echo '<i class="fa-solid fa-star"></i>'; // Filled star
+                                        }
+                                    }
+                                    ?>
+                                </div>
+                            <?php endif; ?>
+                            <div class="user-comment">
+                                <?php echo $review->comment ?>
+                            </div>
                         </div>
-                        <div class="name-text">Tharindra Fernando</div>
-                        <div class="date-text">24th Jan, 2024</div>
-                    </div>
-                    <div class="stars-set">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                    </div>
-                    <div class="user-comment">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus sit sunt
-                        blanditiis
-                    </div>
-                </div>
-                <div class="right-part">
-                    <i class="fa-solid fa-quote-right"></i>
-                </div>
-            </div>
-
-            <div class="user-rating">
-                <div class="left-part">
-                    <div class="rating-user">
-                        <div class="image-block">
-                            <div class="img"></div>
+                        <div class="right-part">
+                            <i class="fa-solid fa-quote-right"></i>
                         </div>
-                        <div class="name-text">Tharindra Fernando</div>
-                        <div class="date-text">24th Jan, 2024</div>
                     </div>
-                    <div class="stars-set">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                    </div>
-                    <div class="user-comment">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus sit sunt
-                        blanditiis
-                    </div>
-                </div>
-                <div class="right-part">
-                    <i class="fa-solid fa-quote-right"></i>
-                </div>
-            </div>
+                <?php endforeach; ?>
 
-            <div class="user-rating">
-                <div class="left-part">
-                    <div class="rating-user">
-                        <div class="image-block">
-                            <div class="img"></div>
-                        </div>
-                        <div class="name-text">Tharindra Fernando</div>
-                        <div class="date-text">24th Jan, 2024</div>
-                    </div>
-                    <div class="stars-set">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                    </div>
-                    <div class="user-comment">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus sit sunt
-                        blanditiis
-                    </div>
-                </div>
-                <div class="right-part">
-                    <i class="fa-solid fa-quote-right"></i>
-                </div>
             </div>
-
-            <div class="user-rating">
-                <div class="left-part">
-                    <div class="rating-user">
-                        <div class="image-block">
-                            <div class="img"></div>
-                        </div>
-                        <div class="name-text">Tharindra Fernando</div>
-                        <div class="date-text">24th Jan, 2024</div>
-                    </div>
-                    <div class="stars-set">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                    </div>
-                    <div class="user-comment">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus sit sunt
-                        blanditiis
-                    </div>
-                </div>
-                <div class="right-part">
-                    <i class="fa-solid fa-quote-right"></i>
-                </div>
-            </div>
-
         </div>
     </div>
-
-</div>
+<?php endif; ?>
 <!-- rating and review showing -->
 
 

@@ -161,7 +161,12 @@ class Event
 
     public function getEventById($id) //14
     {
-        $this->db->query('SELECT * FROM events WHERE id = :id');
+        $this->db->query(
+            'SELECT events.*
+            FROM events 
+            WHERE id = :id'
+        );
+
         $this->db->bind(':id', $id);
 
         $row = $this->db->single();
@@ -387,7 +392,8 @@ class Event
         return $rows;
     }
 
-    public function updateContactDetails($data){
+    public function updateContactDetails($data)
+    {
         $this->db->query("UPDATE events SET
                     organized_by = :organized_by,
                     contact_number = :contact_number,
@@ -415,13 +421,58 @@ class Event
 
     }
 
-    public function addReview($data) {
+    public function updatePlacementDetails($data)
+    {
+        $this->db->query("UPDATE events SET
+                    venue = :venue,
+                    map_navigation = :map_navigation,
+                    start_datetime = :start_datetime,
+                    end_datetime = :end_datetime
+                    WHERE id = :id
+                    ");
+
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':venue', $data['venue']);
+        $this->db->bind(':map_navigation', $data['map_navigation']);
+        $this->db->bind(':start_datetime', $data['start_datetime']);
+        $this->db->bind(':end_datetime', $data['end_datetime']);
+
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function updateDescription($data)
+    {
+
+        $this->db->query("UPDATE events SET
+                    description = :description
+                    WHERE id = :id
+                    ");
+
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':description', $data['description']);
+
+
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function addReview($data)
+    {
         // Check if there is already a review for this user and event
         $this->db->query("SELECT * FROM events_reviews WHERE user_id = :user_id AND event_id = :event_id");
         $this->db->bind(':user_id', $data['user_id']);
         $this->db->bind(':event_id', $data['event_id']);
         $existingReview = $this->db->single();
-    
+
         // If there is an existing review, delete it
         if ($existingReview) {
             $this->db->query("DELETE FROM events_reviews WHERE user_id = :user_id AND event_id = :event_id");
@@ -429,14 +480,14 @@ class Event
             $this->db->bind(':event_id', $data['event_id']);
             $this->db->execute();
         }
-    
+
         // Add the new review
         $this->db->query("INSERT INTO events_reviews (user_id, event_id, rating, comment) VALUES (:user_id, :event_id, :rating, :comment)");
         $this->db->bind(':user_id', $data['user_id']);
         $this->db->bind(':event_id', $data['event_id']);
         $this->db->bind(':rating', $data['rating']);
         $this->db->bind(':comment', $data['comment']);
-    
+
         // Execute the query
         if ($this->db->execute()) {
             return true;
@@ -445,7 +496,85 @@ class Event
         }
     }
 
-   
+    public function getReviewsByEventId($event_id)
+    {
+        $this->db->query("SELECT er.*, u.* FROM events_reviews er 
+        INNER JOIN users u ON er.user_id = u.id 
+        WHERE er.event_id = :event_id");
+
+        $this->db->bind(':event_id', $event_id);
+
+        $reviews = $this->db->resultSet();
+
+        return $reviews;
+    }
+
+    public function updateEventProfileImage($data)
+    {
+
+        // var_dump($data);
+        // die();
+        $this->db->query("UPDATE events SET
+                event_profile_image = :event_profile_image,
+                event_cover_image = :event_cover_image
+                WHERE id = :id");
+
+        // Bind values
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':event_profile_image', $data['event_profile_image']);
+        $this->db->bind(':event_cover_image', $data['event_cover_image']);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getEventCategoriesByEventId($event_id)
+    {
+        $this->db->query("SELECT *
+        FROM events_categories ec
+        JOIN categories c ON ec.category_id = c.id
+        WHERE ec.event_id = :event_id;");
+
+        $this->db->bind(':event_id', $event_id);
+
+        $rows = $this->db->resultSet();
+
+        return $rows;
+    }
+
+    public function deleteCategoryByEventIdCategoryId($data)
+    {
+        $this->db->query("DELETE FROM events_categories WHERE event_id = :event_id AND category_id = :category_id");
+        $this->db->bind(':event_id', $data['event_id']);
+        $this->db->bind(':category_id', $data['category_id']);
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function addEventCategory($data)
+    {
+        $this->db->query("INSERT INTO events_categories (event_id, category_id) VALUES (:event_id, :category_id)");
+
+        // Bind the values
+        $this->db->bind(':event_id', $data['eventId']);
+        $this->db->bind(':category_id', $data['categoryId']);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 
 }

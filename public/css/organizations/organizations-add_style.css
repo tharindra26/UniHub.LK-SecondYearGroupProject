@@ -8,59 +8,13 @@ ExtraBold 800
 lora
 overpass */
 
-.inner-container{
-    margin: 10px 0;
-    display: flex;
-    flex-direction: column;
-    flex-direction: column;
-    background-color: white;
-    border-radius: 10px;
-    border: 1px solid red;
-
-}
-
-.title-text{
-    width: 70%;
-    height: 100px;
-    /* border: 1px solid red; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 500;
-    font-size: 30px;
-    letter-spacing: 3px;
-}
-.bottom-part{
-    display: flex;
-    flex-direction: row;
-    min-height: 500px;
-}
-
-.left-box{
-    width: 70%;
-    display: flex;
-    flex-wrap: wrap; 
-    padding: 0 10px;
-    justify-content: space-around;
-    border: 1px solid red;
-}
-
-.image-box {
-    max-width: 30%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.image-box img {
+.inner-container {
     width: 100%;
-    height: auto;
-    display: block;
+    display: flex;
+    /* flex-direction: row; */
 }
 
-
-
-.form-outer-box{
+.add-event-form {
     position: relative;
     width: 100%;
     background-color: white;
@@ -75,14 +29,14 @@ overpass */
     /* border: 1px solid red; */
 }
 
-.form-outer-box header {
+.add-event-form header {
     text-align: center;
     font-weight: 500;
     color: #2c3e50;
     font-size: 30px;
 }
 
-.form-outer-box .form {
+.add-event-form .form {
     margin-top: 30px;
     /* border: 1px solid red; */
 }
@@ -120,8 +74,6 @@ overpass */
 
 #selection {
     padding-left: 10px;
-    border: 1px solid red;
-    height: 100px;
 }
 
 #eventDescription {
@@ -143,10 +95,9 @@ overpass */
     padding-left: 0;
 }
 
-.form-outer-box .column {
+.add-event-form .column {
     display: flex;
     column-gap: 15px;
-    /* border:1px solid red */
 }
 
 .select-box select {
@@ -253,24 +204,3 @@ overpass */
 }
 
 /* error message */
-
-
-.spinner {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 8px solid #f3f3f3; /* Light grey */
-    border-top: 8px solid #3498db; /* Blue */
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-    z-index: 9999; /* Ensure it's above other content */
-    display: none; /* Initially hidden */
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
