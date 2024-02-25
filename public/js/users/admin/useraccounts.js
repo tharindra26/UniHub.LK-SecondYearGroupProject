@@ -19,7 +19,6 @@ function initializeCount() {
 
 initializeCount();
 
-
 //popup
 
 function openPopup(confirm) {
@@ -115,54 +114,31 @@ function updateUser(userId) {
 }
 
 // filters======================================================================
-// $(document).ready(function () {
-//   function updateContent() {
-//     var keyword = document.getElementById("search-bar-input").value;
-//     // var date = document.getElementById("date-input").value;
-//     // var university =
-//     //   selectBtn.firstElementChild.innerText != "Select University"
-//     //     ? selectBtn.firstElementChild.innerText
-//     //     : "";
-//     // const checkedCategories = Array.from(items)
-//     //   .filter((item) => item.classList.contains("category-checked"))
-//     //   .map((item) => item.querySelector(".checkbox + span").innerText);
 
-//     // Send an AJAX request with the filter value
-//     $.ajax({
-//       url: "http://localhost/unihub/users/filterUsers",
-//       method: "POST",
-//       data: {
-//         keyword: keyword,
-//         // date: date,
-//         // university: university,
-//         // categories: checkedCategories,
-//       },
-//       success: function (response) {
-//         $("#filter-table").html(response);
-//       },
-//       error: function (error) {
-//         console.error("Error:", error);
-//       },
-//     });
-//   }
+function updateContent() {
+  var keyword = document.getElementById("search-bar-input").value;
+  console.log(keyword );
+  $.ajax({
+    url: "http://localhost/unihub/users/filterUsers",
+    method: "POST",
+    data: {
+      keyword: keyword
+    },
+    success: function (response) {
+      console.log(response);
+      $("#filter-table").html(response);
+    },
+    error: function (error) {
+      console.error("Error:", error);
+    },
+  });
+}
 
-//   // Attach keyup event listener to the search bar input
-//   document
-//     .getElementById("search-bar-input")
-//     .addEventListener("keyup", updateContent);
+// Attach keyup event listener to the search bar input
+document.getElementById("search-bar-input").addEventListener("keyup", updateContent);
 
-//   // Attach change event listener to date input
-//   // document
-//   //   .getElementById("date-input")
-//   //   .addEventListener("change", updateContent);
+updateContent();
 
-//   // document
-//   //   .getElementById("date-reset-btn")
-//   //   .addEventListener("click", updateContent);
-
-//   // Trigger the initial update when the page loads
-//   updateContent();
-// });
 // filters-end==================================================================
 
 //Type filter
@@ -184,8 +160,6 @@ function typefilter(type) {
   });
 }
 
-
-
 var arr_length = 60;
 var table_size = 10;
 var start_index = 1;
@@ -193,27 +167,36 @@ var end_index = 10;
 var current_index = 1;
 var max_index = 2;
 
-function displayIndexButtons(){
+function displayIndexButtons() {
   $(".index-buttons button").remove();
-  $(".index-buttons").append('<button>Previuos</button>');
-  for(var i=1; i<=max_index; i++){
-    $(".index-buttons").append('<button index="'+i+'">'+i+'</button>');
+  $(".index-buttons").append("<button>Previuos</button>");
+  for (var i = 1; i <= max_index; i++) {
+    $(".index-buttons").append('<button index="' + i + '">' + i + "</button>");
   }
-  $(".index-buttons").append('<button>Next</button>');
+  $(".index-buttons").append("<button>Next</button>");
   highlightIndexButton();
 }
 
 displayIndexButtons();
 
-function highlightIndexButton(){
-  start_index = ((current_index - 1)* table_size) + 1;
-  end_index = (start_index + table_size) - 1;
-  if (end_index > arr_length){
+function highlightIndexButton() {
+  start_index = (current_index - 1) * table_size + 1;
+  end_index = start_index + table_size - 1;
+  if (end_index > arr_length) {
     end_index = arr_length;
   }
 
-  $(".paging span").text('Showing '+start_index+' to '+end_index+' of '+arr_length+' entries')
-  $(".index-buttons button").removeClass('active');
-  $(".index-buttons button[index = '"+current_index+"']").addClass('active');
-
+  $(".paging span").text(
+    "Showing " +
+      start_index +
+      " to " +
+      end_index +
+      " of " +
+      arr_length +
+      " entries"
+  );
+  $(".index-buttons button").removeClass("active");
+  $(".index-buttons button[index = '" + current_index + "']").addClass(
+    "active"
+  );
 }
