@@ -194,6 +194,42 @@ class User{
         }
     }
 
+    public function getAllGoingEventsByUserId($user_id){
+        $this->db->query('SELECT events.*, event_participation.* 
+                        FROM event_participation
+                        LEFT JOIN events
+                        ON events.id = event_participation.event_id
+                        WHERE event_participation.participation_status = :participation_status 
+                        AND event_participation.user_id = :user_id
+                        AND event_participation.status = :status
+                        ');
+
+        $this->db->bind(':user_id', $user_id);
+        $this->db->bind(':participation_status', "going");
+        $this->db->bind(':status', 1);
+
+        $row = $this->db->resultSet();
+
+        return $row;
+    }
+
+    public function RemoveGoingEvent($data){
+        $this->db->query("UPDATE event_participation 
+                        SET status = :status  
+                        WHERE participation_id= :paricipation_id
+                        AND participation_status = :participation_status");
+            //Bind values
+            $this->db->bind(':participation_id', $data['participation_id']);
+            $this->db->bind(':participation_status', "going");
+            $this->db->bind('status', 0);
+    
+            //Execute the query
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+    }
     public function getEducationByUserId($user_id){
         $this->db->query('SELECT * FROM user_education 
                         WHERE user_id = :user_id
@@ -221,11 +257,28 @@ class User{
     }
 
     public function getQualificationByUserId($user_id){
-        $this->db->query('SELECT * FROM user_qualifications WHERE user_id = :user_id');
+        $this->db->query('SELECT * FROM user_qualifications 
+                        WHERE user_id = :user_id
+                        AND status = :status');
 
         $this->db->bind(':user_id' , $user_id);
+        $this->db->bind(':status' , 1);
 
         $row = $this->db->resultSet();
+        
+        return $row;
+    }
+
+    
+    public function getQualificationById($qualification_id){
+        $this->db->query('SELECT * FROM user_qualifications 
+                        WHERE qualification_id = :qualification_id
+                        AND status = :status');
+
+        $this->db->bind(':qualification_id' , $qualification_id);
+        $this->db->bind(':status' , 1);
+
+        $row = $this->db->single();
         
         return $row;
     }
@@ -442,6 +495,7 @@ class User{
         }
     }
 
+    //User Education 
     public function updateEducation($data){
         $this->db->query("UPDATE user_education SET
                         institution = :institution,
@@ -477,5 +531,107 @@ class User{
                 return false;
             }
     }
-    
+
+    public function addEducation($data)
+    {
+        // var_dump($data['category_ids']);
+        // die();
+        $this->db->query("INSERT INTO user_education (
+        user_id, 
+        institution,
+        description,
+        start_year, 
+        end_year) VALUES(:user_id, :institution, :description, :start_year, :end_year)");
+        //Bind values
+        $this->db->bind(':user_id', $_SESSION['user_id']);
+        $this->db->bind(':institution', $data['institution']);
+        $this->db->bind(':description', $data['description']);
+        $this->db->bind(':start_year', $data['start_year']);
+        $this->db->bind(':end_year', $data['end_year']);
+
+        // Begin the transaction
+        $this->db->beginTransaction();
+
+        // Execute the first query
+        if (!$this->db->execute()) {
+            // Rollback the transaction if there's an error
+            $this->db->rollBack();
+            return false;
+        }
+
+        // Commit the transaction if everything is successful
+        $this->db->commit();
+        return true;
+    }
+
+//User Qualifications 
+public function updateQualification($data){
+    $this->db->query("UPDATE user_qualifications SET
+                    qualification_name = :qualification_name,
+                    institution = :institution,
+                    description = :description,
+                    completion_date = :completion_date 
+                    WHERE qualification_id = :qualification_id");
+    //Bind values
+    $this->db->bind(':qualification_id', $data['qualification_id']);
+    $this->db->bind(':qualification_name', $data['qualification_name']);
+    $this->db->bind(':institution', $data['institution']);
+    $this->db->bind(':description', $data['description']);
+    $this->db->bind(':completion_date', $data['completion_date']);
+
+    //Execute the query
+    if($this->db->execute()){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+public function deleteQualification($data){
+    $this->db->query("UPDATE user_qualifications SET status = :status  WHERE qualification_id= :qualification_id");
+        //Bind values
+        $this->db->bind(':qualification_id', $data['qualification_id']);
+        $this->db->bind('status', 0);
+
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+}
+
+public function addQualification($data)
+{
+    // var_dump($data['category_ids']);
+    // die();
+    $this->db->query("INSERT INTO user_qualifications (
+    user_id,
+    qualification_name, 
+    institution,
+    description, 
+    completion_date) VALUES(:user_id, :qualification_name, :institution, :description, :completion_date)");
+    //Bind values
+    $this->db->bind(':user_id', $_SESSION['user_id']);
+    $this->db->bind(':qualification_name', $data['qualification_name']);
+    $this->db->bind(':institution', $data['institution']);
+    $this->db->bind(':description', $data['description']);
+    $this->db->bind(':completion_date', $data['completion_date']);
+
+    // Begin the transaction
+    $this->db->beginTransaction();
+
+    // Execute the first query
+    if (!$this->db->execute()) {
+        // Rollback the transaction if there's an error
+        $this->db->rollBack();
+        return false;
+    }
+
+    // Commit the transaction if everything is successful
+    $this->db->commit();
+    return true;
+}
+
+
 }

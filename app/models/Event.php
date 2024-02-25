@@ -326,11 +326,12 @@ class Event
                         FROM event_participation
                         JOIN events
                         ON events.id = event_participation.event_id
-                        WHERE event_participation.participation_status = "interested" 
+                        WHERE event_participation.participation_status = :participation_status
                         AND event_participation.user_id = :user_id
                         ORDER BY event_participation.participation_id 
                         LIMIT 3');
         $this->db->bind(':user_id', $user);
+        $this->db->bind(':participation_status', "interested");
 
         $row = $this->db->resultSet();
 

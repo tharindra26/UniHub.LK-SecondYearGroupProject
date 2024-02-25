@@ -1,16 +1,16 @@
 const overlay = document.querySelector(".overlay");
 const modalBox = document.querySelector(".modal-box");
 
-function openPopup(edu_id) {
-  let element = document.getElementById(edu_id);
+function openPopup(qualification_id) {
+  let element = document.getElementById(qualification_id);
   if (element) {
     element.classList.add("active");
     overlay.classList.add("active");
   }
 }
 
-function closePopup(edu_id) {
-  let element = document.getElementById(edu_id);
+function closePopup(qualification_id) {
+  let element = document.getElementById(qualification_id);
   if (element) {
     element.classList.remove("active");
     overlay.classList.remove("active");
@@ -26,7 +26,7 @@ function addEducation(user_id) {
   let overlay = document.querySelector(".overlay");
   // // Your AJAX function here
   $.ajax({
-    url: "http://localhost/unihub/users/addEducation",
+    url: "http://localhost/unihub/users/addQualification",
     type: "POST", // or 'GET' depending on your needs
     data: {
       user_id: user_id,
@@ -48,15 +48,15 @@ function addEducation(user_id) {
 }
 
 
-function updateEducation(edu_id) {
-    let element = document.getElementById(edu_id);
+function updateEducation(qualification_id) {
+    let element = document.getElementById(qualification_id);
     let overlay = document.querySelector(".overlay");
     // // Your AJAX function here
     $.ajax({
-      url: "http://localhost/unihub/users/updateEducation",
+      url: "http://localhost/unihub/users/editQualification",
       type: "POST", // or 'GET' depending on your needs
       data: {
-        education_id: edu_id,
+        qualification_id: qualification_id,
       },
       success: function (response) {
         // Handle the success response
@@ -74,13 +74,13 @@ function updateEducation(edu_id) {
     // if (popup) popup.classList.remove("open-popup");
   }
 
-  function confirmDelete(edu_id) {
+  function confirmDelete(qualification_id) {
     // // Your AJAX function here
     $.ajax({
-      url: "http://localhost/unihub/users/deleteEducation",
+      url: "http://localhost/unihub/users/deleteQualification",
       type: "POST", // or 'GET' depending on your needs
       data: {
-        education_id: edu_id,
+        qualification_id: qualification_id,
       },
       success: function (response) {
         // Handle the success response
@@ -90,7 +90,7 @@ function updateEducation(edu_id) {
         // interestedBtn.find('span').text(response);
         if (response === "1") {
             // let element = document.getElementById(edu_id);
-            closePopup(edu_id);
+            closePopup(qualification_id);
         }
         //else {
         //     confirmBtn.addClass("new-class");

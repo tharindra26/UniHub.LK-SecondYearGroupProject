@@ -44,7 +44,7 @@
                                 <label for="">Start Year</label>
                                 <input type="number" name="start_year"  id="startyearInput" min="1900" max="2100" step="1" placeholder="YYYY"  value="<?php echo $data['start_year'] ?>" required>
                                 <!-- <?php if (!empty($data['start_year_err'])): ?>
-                                    <span class="error-message"><?php echo $data['web_err']; ?></span>
+                                    <span class="error-message"><?php echo $data['start_year_err']; ?></span>
                                 <?php endif; ?> -->
                             </div>
                             <div class="input-box">

@@ -195,7 +195,7 @@
                         <?php endforeach; ?>
                     <?php endif; ?>
                         <div class="show-more-link">
-                            <a href="#">Show All Going Events <i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="<?php echo URLROOT ?>/users/showAllGoingEvents/<?php echo $data['user']->id ?>">Show All Going Events <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
 
@@ -253,7 +253,7 @@
                         <?php endforeach; ?>
                     <?php endif; ?>
                         <div class="show-more-link">
-                            <a href="#">Show All Interested Events <i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="<?php echo URLROOT ?>/users/showAllInterestedEvents/<?php echo $interestEvents->id ?>">Show All Interested Events <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
 
@@ -289,7 +289,7 @@
                         <input type="radio" name="accordion" id="second">
                         <label for="second">Qualifications</label>
                         <div class="accordion-content">
-                        <?php if (!empty($data['qualifications'][0]->user_qualification_id)) : ?> 
+                        <?php if (!empty($data['qualifications'][0]->qualification_id)) : ?> 
                                 <?php foreach ($data['qualifications'] as $qualification) : ?>
                                     <h4><?php echo $qualification->qualification_name ?> - <?php echo $qualification->institution ?></h4>
                                     <p>Completed date : <?php echo $qualification->completion_date?></p>
