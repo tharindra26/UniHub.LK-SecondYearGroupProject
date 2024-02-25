@@ -9,7 +9,7 @@
                     <li onclick=hideSideBar()><a href="#" ><svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a></li>
                     <?php if(isset($_SESSION["user_id"])): ?>
                         <li >
-                            <a href="<?php echo URLROOT ?>/users/show">
+                            <a href="<?php echo URLROOT ?>/users/show/<?php echo $_SESSION['user_id'] ?>">
                                 <div class="profile-navigator">
                                     <div class="profile-image">
                                         <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $_SESSION["user_profile_image"] ?>" alt="not found">
@@ -53,7 +53,7 @@
 
                     <?php if(isset($_SESSION['user_id'])): ?>
                         <li class="hideOnMobile">
-                            <a href="<?php echo URLROOT ?>/users/show">
+                            <a href="<?php echo URLROOT ?>/users/show/<?php echo $_SESSION['user_id'] ?>">
                                 <div class="profile-navigator">
                                     <div class="profile-image">
                                         <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $_SESSION["user_profile_image"] ?>" alt="not found">

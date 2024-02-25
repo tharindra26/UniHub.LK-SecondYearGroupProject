@@ -82,7 +82,7 @@
     $(document).ready(function () {
         // Add click event to the button
         $("#dashboard-btn").on("click", function (e) {
-            console.log("Click");
+            //
             e.preventDefault(); // Prevent the default link behavior
             // // Your AJAX function here
             $.ajax({
@@ -92,7 +92,7 @@
                     
                 },
                 success: function (response) { //echo 1   
-                    console.log("AJAX request successful:", response);
+                    // console.log("AJAX request successful:", response);
                     $("#main-id").html(response);
                 },
                 error: function (error) {    
@@ -106,7 +106,7 @@
     $(document).ready(function () {
         // Add click event to the button
         $("#user-accounts-btn").on("click", function (e) {
-            console.log("Click");
+        
             e.preventDefault(); // Prevent the default link behavior
             // // Your AJAX function here
             $.ajax({
@@ -116,7 +116,7 @@
             
                 },
                 success: function (response) { //echo 1
-                    console.log("AJAX request successful:", response);
+                    // console.log("AJAX request successful:", response);
                     $("#main-id").html(response);
                 },
                 error: function (error) {
@@ -131,7 +131,7 @@
     $(document).ready(function () {
         // Add click event to the button
         $("#events-btn").on("click", function (e) {
-            console.log("Click");
+        
             e.preventDefault(); // Prevent the default link behavior
             // // Your AJAX function here
             $.ajax({
@@ -141,7 +141,7 @@
             
                 },
                 success: function (response) { //echo 1
-                    console.log("AJAX request successful:", response);
+                    // console.log("AJAX request successful:", response);
                     $("#main-id").html(response);
                 },
                 error: function (error) {
@@ -156,7 +156,7 @@
     $(document).ready(function () {
         // Add click event to the button
         $("#organizations-btn").on("click", function (e) {
-            console.log("Click");
+        
             e.preventDefault(); // Prevent the default link behavior
             // // Your AJAX function here
             $.ajax({
@@ -166,7 +166,7 @@
             
                 },
                 success: function (response) { //echo 1
-                    console.log("AJAX request successful:", response);
+                    // console.log("AJAX request successful:", response);
                     $("#main-id").html(response);
                 },
                 error: function (error) {
@@ -181,7 +181,7 @@
     $(document).ready(function () {
         // Add click event to the button
         $("#knowledge-hub-btn").on("click", function (e) {
-            console.log("Click");
+        
             e.preventDefault(); // Prevent the default link behavior
             // // Your AJAX function here
             $.ajax({
@@ -191,7 +191,7 @@
             
                 },
                 success: function (response) { //echo 1
-                    console.log("AJAX request successful:", response);
+                    // console.log("AJAX request successful:", response);
                     $("#main-id").html(response);
                 },
                 error: function (error) {
@@ -206,7 +206,7 @@
     $(document).ready(function () {
         // Add click event to the button
         $("#opportunities-btn").on("click", function (e) {
-            console.log("Click");
+        
             e.preventDefault(); // Prevent the default link behavior
             // // Your AJAX function here
             $.ajax({
@@ -216,7 +216,7 @@
             
                 },
                 success: function (response) { //echo 1
-                    console.log("AJAX request successful:", response);
+                    // console.log("AJAX request successful:", response);
                     $("#main-id").html(response);
                 },
                 error: function (error) {
@@ -231,7 +231,7 @@
     $(document).ready(function () {
         // Add click event to the button
         $("#rquests-btn").on("click", function (e) {
-            console.log("Click");
+        
             e.preventDefault(); // Prevent the default link behavior
             // // Your AJAX function here
             $.ajax({
@@ -241,7 +241,7 @@
             
                 },
                 success: function (response) { //echo 1
-                    console.log("AJAX request successful:", response);
+                    // console.log("AJAX request successful:", response);
                     $("#main-id").html(response);
                 },
                 error: function (error) {
@@ -256,7 +256,7 @@
     $(document).ready(function () {
         // Add click event to the button
         $("#reports-btn").on("click", function (e) {
-            console.log("Click");
+        
             e.preventDefault(); // Prevent the default link behavior
             // // Your AJAX function here
             $.ajax({
@@ -266,7 +266,7 @@
             
                 },
                 success: function (response) { //echo 1
-                    console.log("AJAX request successful:", response);
+                    // console.log("AJAX request successful:", response);
                     $("#main-id").html(response);
                 },
                 error: function (error) {
@@ -281,7 +281,7 @@
     $(document).ready(function () {
         // Add click event to the button
         $("#settings-btn").on("click", function (e) {
-            console.log("Click");
+        
             e.preventDefault(); // Prevent the default link behavior
             // // Your AJAX function here
             $.ajax({
@@ -291,7 +291,7 @@
             
                 },
                 success: function (response) { //echo 1
-                    console.log("AJAX request successful:", response);
+                    // console.log("AJAX request successful:", response);
                     $("#main-id").html(response);
                 },
                 error: function (error) {

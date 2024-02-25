@@ -289,17 +289,16 @@ class Users extends Controller
   //   }
 
   // }
-  public function show()
+  public function show($id)
   {
-    $user = $this->userModel->getUserById($_SESSION['user_id']);
+    $user = $this->userModel->getUserById($id);
     $university = $this->universityModel->getUniversityById($user->university_id);
     $event = $this->eventModel->getEventByUser($user->id);
     $interestEvents = $this->eventModel->getInterestEventsByUser($user->id);
     $education = $this->userModel->getEducationByUserId($user->id);
     $qualifications = $this->userModel->getQualificationByUserId($user->id);
     $skills = $this->userModel->getSkillsByUserId($user->id);
-    // $friends = $this->userModel->getFriendsByUserId($user->id);
-    // $requests = $this->userModel->getFriendRequestsByUserId($user->id);
+    $friends = $this->userModel->getFriendsByUserId($user->id);
 
     $data = [
       'user' => $user,
@@ -309,8 +308,7 @@ class Users extends Controller
       'education' => $education,
       'qualifications' => $qualifications,
       'skills' => $skills,
-      // 'friends' => $friends,
-      // 'requests' => $requests
+      'friends' => $friends
     ];
 
     if ($user->type == 'admin') {
@@ -678,22 +676,22 @@ class Users extends Controller
 
 
   //filter-users-function==============================================================
-  // public function filterUsers()
-  // {
-  //   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  //     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-  //     // echo $_POST['value'];
+  public function filterUsers()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      // echo $_POST['value'];
 
-  //     $users = $this->userModel->filterUsers($_POST);
+      $users = $this->userModel->filterUsers($_POST);
 
-  //     $data = [
-  //       'users' => $users,
-  //     ];
+      $data = [
+        'users' => $users,
+      ];
 
-  //     $this->view('users/admin/typefilter', $data);
+      $this->view('users/admin/typefilter', $data);
 
-  //   }
-  // }
+    }
+  }
   //filter-users-function==============================================================
 
 

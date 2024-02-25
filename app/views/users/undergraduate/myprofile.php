@@ -5,8 +5,8 @@
         <div class="left-bar">
             <div class="profile_header">
                 <div class="photos">
-                    <img src="<?php echo URLROOT ?>/img/users/default/<?php echo $data['user']->cover_image ?>" alt="Cover Photo" class="cover-photo">
-                    <img src="<?php echo URLROOT ?>/img/users/default/<?php echo $data['user']->profile_image ?>" alt="Profile Picture" class="profile-photo">
+                    <img src="<?php echo URLROOT ?>/img/users/users_cover_images/<?php echo $data['user']->cover_image ?>" alt="Cover Photo" class="cover-photo">
+                    <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $data['user']->profile_image ?>" alt="Profile Picture" class="profile-photo">
                 </div>
                 <div class="profile-info">
                     <div class="description">
