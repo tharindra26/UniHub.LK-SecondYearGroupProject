@@ -19,10 +19,10 @@
                                 </svg></a></li>
                         <?php if (isset($_SESSION["user_id"])): ?>
                             <li>
-                                <a href="<?php echo URLROOT ?>/users/show">
+                                <a href="<?php echo URLROOT ?>/users/show/<?php echo $_SESSION['user_id'] ?>">
                                     <div class="profile-navigator">
                                         <div class="profile-image">
-                                            <img src="profile-image.jpg" alt="not found">
+                                            <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $_SESSION["user_profile_image"] ?>" alt="not found">
                                         </div>
                                         <div class="profile-name">
                                             <div class="user-name">
@@ -71,10 +71,10 @@
 
                         <?php if (isset($_SESSION['user_id'])): ?>
                             <li class="hideOnMobile">
-                                <a href="<?php echo URLROOT ?>/users/show">
+                                <a href="<?php echo URLROOT ?>/users/show/<?php echo $_SESSION['user_id'] ?>">
                                     <div class="profile-navigator">
                                         <div class="profile-image">
-                                            <img src="<?php echo URLROOT ?>/img/users/default/<?php echo $_SESSION["user_profile_image"] ?>"
+                                            <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $_SESSION["user_profile_image"] ?>"
                                                 alt="not found">
                                         </div>
                                         <div class="profile-name">

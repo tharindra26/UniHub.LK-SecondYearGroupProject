@@ -289,9 +289,9 @@ class Users extends Controller
   //   }
 
   // }
-  public function show()
+  public function show($id)
   {
-    $user = $this->userModel->getUserById($_SESSION['user_id']);
+    $user = $this->userModel->getUserById($id);
     $university = $this->universityModel->getUniversityById($user->university_id);
     $event = $this->eventModel->getEventByUser($user->id);
     $interestEvents = $this->eventModel->getInterestEventsByUser($user->id);
