@@ -87,6 +87,16 @@
                     </div>
                 </a>
 
+                <a href="<?php echo URLROOT ?>/users/passwordReset/<?php echo $data['id'] ?>"
+                    class="option-link">
+                    <div class="option">
+                        <div class="option-icon">
+                            <i class="fa-solid fa-bullhorn"></i>
+                        </div>
+                        <div class="option-text">Delete Profile</div>
+                    </div>
+                </a>
+
 
             </div>
             <div class="image-box">

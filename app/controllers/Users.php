@@ -295,22 +295,22 @@ class Users extends Controller
     $university = $this->universityModel->getUniversityById($user->university_id);
     $event = $this->eventModel->getEventByUser($user->id);
     $interestEvents = $this->eventModel->getInterestEventsByUser($user->id);
-    $goingEvents = $this->eventModel->getGoingEventsByUser($user->id);
     $education = $this->userModel->getEducationByUserId($user->id);
     $qualifications = $this->userModel->getQualificationByUserId($user->id);
     $skills = $this->userModel->getSkillsByUserId($user->id);
-    $friends = $this->userModel->getFriendsByUserId($user->id);
+    // $friends = $this->userModel->getFriendsByUserId($user->id);
+    // $requests = $this->userModel->getFriendRequestsByUserId($user->id);
 
     $data = [
       'user' => $user,
       'university' => $university,
       'event' => $event,
       'interestEvents' => $interestEvents,
-      'goingEvents' => $goingEvents,
       'education' => $education,
       'qualifications' => $qualifications,
       'skills' => $skills,
-      'friends' => $friends
+      // 'friends' => $friends,
+      // 'requests' => $requests
     ];
 
     if ($user->type == 'admin') {
@@ -322,12 +322,12 @@ class Users extends Controller
     } else {
       $this->view('users/undergraduate/myprofile', $data);
     }
-
-
   }
 
+
+
   public function showAllInterestedEvents($id){
-    $interestEvents = $this->userModel->getAllInterestEventsByUser($id);
+    $interestEvents = $this->userModel->getAllInterestEventsByUserId($id);
     $data = [
       'events' => $interestEvents
     ];
@@ -335,23 +335,14 @@ class Users extends Controller
     $this->view('users/undergraduate/showInterestedEvents', $data);
   }
 
-  public function showAllGoingEvents($id){
-    $goingEvents = $this->userModel->getAllGoingEventsByUserId($id);
-    $data = [
-      'events' => $goingEvents
-    ];
-
-    $this->view('users/undergraduate/showGoingEvents', $data);
-  }
-
-  public function removeGoingEvent(){
+  public function removeInterestedEvent(){
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
       $participation_id = $_POST['participation_id'];
       $data = [
         'participation_id' => $participation_id
       ];
-      if ($this->userModel->RemoveGoingEvent($data)) {
+      if ($this->userModel->RemoveInterestedEvent($data)) {
         echo 1;
       } else {
         echo 0;
@@ -359,6 +350,7 @@ class Users extends Controller
 
     }
   }
+
 
   public function adminaccounthandling()
   {

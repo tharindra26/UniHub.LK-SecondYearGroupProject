@@ -1,6 +1,6 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
-<link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/undergraduate/going-events_style.css">
+<link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/undergraduate/interested-events_style.css">
 
 <!-- Loading Spinner -->
 <div class="spinner" id="spinner"></div>
@@ -10,7 +10,7 @@
     <div class="inner-container">
         <div class="title-text">
             <div class="title">
-                <p>Going Events</p>
+                <p>Interested Events</p>
             </div>
 
         </div>
@@ -19,10 +19,10 @@
                 <div class="form-outer-box">
                         <div class="row">
                             <?php if (!empty($data['events'][0]->id)) : ?> 
-                                <?php foreach ($data['events'] as $goingEvents) : 
-                                    $participation_id = $goingEvents->participation_id; ?>
+                                <?php foreach ($data['events'] as $interestedEvents) : 
+                                    $participation_id =$interestedEvents->participation_id;?>
                                     <?php
-                                    $eventStartDate = $goingEvents->start_datetime;
+                                    $eventStartDate = $interestedEvents->start_datetime;
                                     // Convert MySQL datetime to DateTime object
                                     $dateTime = new DateTime($eventStartDate);
                                     // Format the DateTime object to extract only THU NOV 16
@@ -32,25 +32,25 @@
                             ?>
                                 <div class="content">
                                     <div class="material">
-                                    <a href="<?php echo URLROOT ?>/events/show/<?php echo $goingEvents->id ?>">
+                                    <a href="<?php echo URLROOT ?>/events/show/<?php echo $interestedEvents->id ?>">
                                 <div class="material-img">
                                     
-                                    <img src="<?php echo URLROOT ?>/img/events/events_profile_images/<?php echo $goingEvents->event_profile_image ?>" alt="Event Profile Image">
+                                    <img src="<?php echo URLROOT ?>/img/events/events_profile_images/<?php echo $interestedEvents->event_profile_image ?>" alt="Event Profile Image">
                                 </div>
                                 <div class="material-content">
-                                    <h4><?php echo $goingEvents->title ?></h4>
+                                    <h4><?php echo $interestedEvents->title ?></h4>
                                     <div class="date-vennue">
                                         <div class="tab-date-section">
                                             <i class="fa-regular fa-calendar-days"></i> &nbsp <?php echo $extractedDate ?> &nbsp &nbsp
                                             <i class="fa-solid fa-clock"></i> &nbsp <?php echo $extractedTime ?>
                                         </div>
                                         <div class="tab-venue-section">
-                                            <i class="fa-solid fa-location-dot"></i> &nbsp <?php echo $goingEvents->venue ?>       
+                                            <i class="fa-solid fa-location-dot"></i> &nbsp <?php echo $interestedEvents->venue ?>       
                                         </div>
                                     </div>
                                     <p>
                                         <?php 
-                                            $content = $goingEvents->description;
+                                            $content = $interestedEvents->description;
                                             $string = strip_tags($content);
                                             if(strlen($string) > 100):
                                                 $stringCut = substr($string, 0, 100);
@@ -79,7 +79,7 @@
                             <p>Are you sure you want to remove this event from the list</p>
                         <div class="btn">
                             <button class="close-btn" onclick="confirmDelete('<?php echo $participation_id ?>')">Delete</button>
-                            <button class="close-btn" onclick="closePopup('<?php echo $participation_id_id ?>')">Cancel</button>
+                            <button class="close-btn" onclick="closePopup('<?php echo $participation_id ?>')">Cancel</button>
                         </div>
                         </div>
 
@@ -105,5 +105,5 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="<?php echo URLROOT ?>/js/users/undergraduate/showQualification.js"></script>
+<script src="<?php echo URLROOT ?>/js/users/undergraduate/showInterestedEvents.js"></script>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
