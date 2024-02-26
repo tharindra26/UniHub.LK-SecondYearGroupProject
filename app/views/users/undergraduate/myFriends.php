@@ -20,31 +20,54 @@
                                 <?php foreach ($data['friends'] as $friends) : 
                                     $friend_id =$friends->follower_relationship_id;?>
                                 <div class="content">
-                                    <div class="material">
+                                    
                                     <a href="<?php echo URLROOT ?>/users/show/<?php echo $friends->id ?>">
                                     <div class="friend">
                                     <div class="friend_img">
                                     <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $friends->profile_image ?>" alt="">
                                     </div>
-                                    <div class="friend-name"><?php echo $friends->fname , " " , $friends->lname  ?></div>
-                                </div>
+                                    <div class="friend-info">
+                                        <div class="friend-name"><?php echo $friends->fname , " " , $friends->lname  ?></div>
+                                        <div class="friend-uni"><?php 
+                                            $uni = $friends->university_name;
+                                            $string = strip_tags($uni);
+                                            if(strlen($string) > 30):
+                                                $stringCut = substr($string, 0, 26);
+                                                $endPoint = strrpos($stringCut, '');
+                                                $string = $endPoint?substr($stringCut, 0, $endPoint):substr($stringCut,0);
+                                                echo $string;
+                                        ?>
+                                        <span class="see-more-btn">...</span>
+                                        <?php
+                                            else :
+                                            echo $string;
+                                            endif;
+                                        ?>
+                                    </div>
+                                    </div>
+                                    </div>
                                     
                                 </a> 
-                                </div>
+
                              
                                     <div class="edu-btn">
-                                        <a href="#" class="button" onclick="openPopup('<?php echo $participation_id; ?>')"><i class="fa-solid fa-xmark"></i></a>
+                                        <a href="#" class="button" onclick="openPopup('<?php echo $friend_id; ?>')">
+                                            <div class="unfollow-btn">
+                                                <i class="fa-solid fa-user-minus"></i>
+                                                <div class="btn-text">Unfollow</div>
+                                            </div>
+                                        </a>
                                         <!-- popupModal -->
 
                         <span class="overlay"></span>
-                        <div class="modal-box" id="<?php echo $participation_id; ?>">
+                        <div class="modal-box" id="<?php echo $friend_id; ?>">
                         <!-- <i class="fa-solid fa-xmark"></i> -->
                         <i class="fa-solid fa-trash-can"></i>
-                            <h2>Confirm Deletion</h2>
-                            <p>Are you sure you want to remove this event from the list</p>
+                            <h2>Are you Sure??? </h2>
+                            <p>Unfollow : <?php echo $friends->fname , " " , $friends->lname  ?></p>
                         <div class="btn">
-                            <button class="close-btn" onclick="confirmDelete('<?php echo $participation_id ?>')">Delete</button>
-                            <button class="close-btn" onclick="closePopup('<?php echo $participation_id ?>')">Cancel</button>
+                            <button class="close-btn" onclick="unfollow('<?php echo $friend_id; ?>')">Delete</button>
+                            <button class="close-btn" onclick="closePopup('<?php echo $friend_id; ?>')">Cancel</button>
                         </div>
                         </div>
 

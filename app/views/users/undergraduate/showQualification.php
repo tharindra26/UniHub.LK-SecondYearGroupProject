@@ -10,7 +10,7 @@
     <div class="inner-container">
         <div class="title-text">
             <div class="title">
-                <p>Education Details</p>
+                <p>Qualifications</p>
             </div>
             <div class="add-btn">
                 <a href="<?php echo URLROOT ?>/users/addQualification" class="button">Add New</a>

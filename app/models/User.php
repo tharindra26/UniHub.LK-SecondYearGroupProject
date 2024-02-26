@@ -243,12 +243,14 @@ class User
 
     public function getFriendsByUserId($user_id){
         // First query: Fetching users followed by the given user
-        $this->db->query('SELECT u2.*, f.follower_relationship_id
+        $this->db->query('SELECT u2.*, f.follower_relationship_id, universities.name AS university_name
                         FROM users u1
                         JOIN user_followers f
                         ON u1.id = f.follower_id
                         JOIN users u2
                         ON u2.id = f.following_id
+                        JOIN universities 
+                        ON universities.id = u2.university_id
                         WHERE f.follower_id = :user_id
                         AND f.status = :status');
 
@@ -258,10 +260,12 @@ class User
         $friendsYouFollow = $this->db->resultSet();
 
         // Second query: Fetching users that follow the given user
-        $this->db->query('SELECT u1.*, f.follower_relationship_id
+        $this->db->query('SELECT u1.*, f.follower_relationship_id,universities.name AS university_name
                         FROM users u1
                         JOIN user_followers f
                         ON u1.id = f.follower_id
+                        JOIN universities 
+                        ON universities.id = u1.university_id
                         JOIN users u2
                         ON u2.id = f.following_id
                         WHERE f.following_id = :user_id
@@ -278,6 +282,71 @@ class User
 
         return $allFriends;
     }
+
+    public function UnfollowFriend($data){
+        $this->db->query("DELETE FROM user_followers WHERE 	follower_relationship_id = :follower_relationship_id");
+        //Bind values
+        $this->db->bind(':follower_relationship_id', $data['follower_relationship_id']);
+
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function checkFriendStatus($data){
+        $this->db->query("SELECT *
+                        FROM user_followers
+                        WHERE (follower_id = :loggedin_user AND following_id = :user_id)
+                        OR (follower_id = :user_id AND following_id = :loggedin_user)");
+        
+        //Bind Values
+        $this->db->bind(':user_id', $data['user_id']);
+        $this->db->bind(':loggedin_user', $data['loggedin_id']);
+
+        $result = $this->db->single();
+        return $result;
+    }
+
+    public function getFriendRequestsById($id){
+            //Fetching users that follow the given user
+            $this->db->query('SELECT u1.*, f.follower_relationship_id,universities.name AS university_name
+                FROM users u1
+                JOIN user_followers f
+                ON u1.id = f.follower_id
+                JOIN universities 
+                ON universities.id = u1.university_id
+                JOIN users u2
+                ON u2.id = f.following_id
+                WHERE f.following_id = :user_id
+                AND f.status = :status');
+
+        $this->db->bind(':user_id', $id);
+        $this->db->bind(':status', "pending");
+
+        $rows = $this->db->resultSet();
+        return $rows;
+
+    }
+
+    public function acceptRequestById($data){
+        $this->db->query("UPDATE user_followers 
+                        SET status = :status
+                        WHERE follower_relationship_id = :follower_relationship_id");
+        //Bind values
+        $this->db->bind(':follower_relationship_id', $data['follower_relationship_id']);
+        $this->db->bind(':status', "accepted");
+
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function getEducationByUserId($user_id)
     {
         $this->db->query('SELECT * FROM user_education 

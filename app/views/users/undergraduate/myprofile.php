@@ -17,7 +17,7 @@
                         <a href="<?php echo URLROOT ?>/users/updatemyprofile/<?php echo $data['user']->id ?>" class="follow-btn">Profile Settings</a>
                         <a href="<?php echo URLROOT ?>/users/showFriends/<?php echo $data['user']->id ?>" class="msg-btn">Friends</a> 
                     <?php else: ?>
-                        <a href="#" class="follow-btn">Follow</a>
+                        <a href="#" class="follow-btn" id="friendBtn"></a>
                         <a href="#" class="msg-btn">Report</a>
                     <?php endif; ?> 
                     </div>
@@ -300,6 +300,7 @@
             
         </div>
         <div class="right-bar">
+        <?php if($data['user']->id == $_SESSION['user_id']): ?>
             <div class="portfolio">
                 <div class="portfolio-content">
                     <h4>Craft Your Future: Unleash Your Potential on Unihub.lk!</h4>
@@ -309,64 +310,176 @@
                 </div>
                 <a href="#">Generate Portfolio</a>
             </div>
-            <!-- Friends -->
-            <div class="friends">
-            <h2>Friend Requests</h2>
-                <div class="friends-content">
-                <?php if (!empty($data['friends'][0]->id)) : ?> 
-                    <?php foreach ($data['friends'] as $friends) : ?>
-                        <div class="friend-profile">
-                        <div class="friend-pic">
-                            <img src="<?php echo URLROOT ?>/img/users/default/<?php echo $friends->profile_image ?>" alt="">
-                        </div>
-                        <div class="friend-info">
-                            <h4><?php echo $friends->fname , " " , $friends->lname ?></h4>
-                            <div class="uni">
-                                <img src="<?php echo URLROOT ?>/img/universities/<?php echo $friends->logo ?>" alt="logo">
-                                <h3><?php echo $friends->name ?></h3>
-                            </div>    
-                        </div>
-                        </div>
-                        <div class="btn">
-                        <a class="view-btn" href="<?php echo URLROOT ?>/users/updatemyprofile/<?php echo $data['user']->id ?>">View Profile</a>
-                        <a class="view-btn" href="#">Unfollow</a>
-                        </div>
-                        <hr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-                </div>    
-                </div>
+        <?php endif; ?>
 
+        <?php if($data['user']->id == $_SESSION['user_id']): ?>
                 <!-- Friend Requsts -->
                 <div class="friends">
-            <h2>Friend Suggesions</h2>
+            <h2>Friend Requests</h2>
                 <div class="friends-content">
                 <?php if (!empty($data['requests'][0]->id)) : ?> 
-                    <?php foreach ($data['requests'] as $requests) : ?>
+                    <?php foreach ($data['requests'] as $requests) : 
+                        $friend_id =$requests->follower_relationship_id;?>
+                        <a href="<?php echo URLROOT ?>/users/show/<?php echo $requests->id ?>" class="profile-link">
                         <div class="friend-profile">
                         <div class="friend-pic">
-                            <img src="<?php echo URLROOT ?>/img/users/users_profile_image/<?php echo $requests->profile_image ?>" alt="">
+                            <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $requests->profile_image ?>" alt="">
                         </div>
                         <div class="friend-info">
                             <h4><?php echo $requests->fname , " " , $requests->lname ?></h4>
-                            <div class="uni">
-                                <img src="<?php echo URLROOT ?>/img/universities/<?php echo $requests->logo ?>" alt="logo">
-                                <h3><?php echo $requests->name ?></h3>
-                            </div>    
+                            <div class="friend-uni"><?php 
+                                            $uni = $requests->university_name;
+                                            $string = strip_tags($uni);
+                                            if(strlen($string) > 30):
+                                                $stringCut = substr($string, 0, 23);
+                                                $endPoint = strrpos($stringCut, '');
+                                                $string = $endPoint?substr($stringCut, 0, $endPoint):substr($stringCut,0);
+                                                echo $string;
+                                        ?>
+                                        <span class="see-more-btn">...</span>
+                                        <?php
+                                            else :
+                                            echo $string;
+                                            endif;
+                                        ?>
+                                    </div>  
                         </div>
                         </div>
+                        </a>
                         <div class="btn">
-                        <a class="view-btn" href="#">Accept</a>
-                        <a class="view-btn" href="#">Reject</a>
+                        <div class="accept-div">
+                        <a class="accept-btn" href="#" onclick="acceptRequest(<?php echo $friend_id; ?>)"><i class="fa-solid fa-user-plus"></i> &nbsp;&nbsp;Accept</a>
+                        <!-- popupModal -->
+                        <span class="overlay"></span>
+                        <div class="modal-box" id="<?php echo $friend_id; ?>">
+                        <!-- <i class="fa-solid fa-xmark"></i> -->
+                        <i class="fa-solid fa-circle-check"></i>
+                            <h2>Accepted </h2>
+                            <p>You and <?php echo $requests->fname , " " , $requests->lname  ?> are Friends Now</p>
+                        <div class="btn">
+                            <button class="close-btn" onclick="closePopup('<?php echo $friend_id; ?>')">OK</button>
+                        </div>
+                        </div>
+                        <!-- popupModal -->
+
+                        </div>
+                        <div class="reject-div">
+                        <a class="reject-btn" href="#" onclick="openPopup('reject.<?php echo $friend_id; ?>')"><i class="fa-solid fa-user-xmark"></i>&nbsp;&nbsp;Reject</a>
+                        <!-- popupModal -->
+                        <span class="overlay"></span>
+                        <div class="modal-box" id="reject.<?php echo $friend_id; ?>">
+                        <!-- <i class="fa-solid fa-xmark"></i> -->
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                            <h2>Are you sure?? </h2>
+                            <p>Reject Request : <?php echo $requests->fname , " " , $requests->lname  ?></p>
+                        <div class="btn">
+                            <button class="close-btn" onclick="rejectRequest('<?php echo $friend_id; ?>','reject.<?php echo $friend_id; ?>')">Reject</button>
+                            <button class="close-btn" onclick="closePopup('reject.<?php echo $friend_id; ?>')">Close</button>
+                        </div>
+                        </div>
+                        <!-- popupModal -->
+                        </div>
                         </div>
                         <hr>
                     <?php endforeach; ?>
+                    <?php else: ?>
+                        <span>No friend requests are available</span>
                 <?php endif; ?>
                 </div>    
                 </div>
+                <?php else: ?>
+                    <div class="friends">
+                        <h2>Mutual Friends</h2>
+                    </div>
+                <?php endif; ?>
                     
             </div>
         </div>
     </div>
-    <script src="<?php echo URLROOT?>/js/users/undergraduate/myprofile.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
+    <script>
+
+    $(document).ready(function () {
+
+        function checkFriendStatus() {
+            $.ajax({
+                url: 'http://localhost/unihub/users/checkFriendStatus',
+                type: 'POST',
+                data: {
+                    user_id: <?php echo $data['user']->id ?>,
+                    loggedin_id: <?php echo $_SESSION['user_id'] ?>,
+                },
+            success: function (response) {
+            // Handle the success response
+            console.log("Check Friend Status - AJAX request successful:", response);
+
+            var friendBtn = $("#friendBtn");
+
+            friendBtn.text(response);
+
+            // if (response === "Friends") {
+            //     //console.log(response)
+            //     friendBtn.text(response);
+            // } 
+            // else if(response === "Accept"){
+            //     console.log(response)
+            // }
+            // else if(response === "Requested"){
+            //     console.log(response);
+            // }
+            // else if(response === "Follow"){
+            //     console.log(response);
+            // }
+        },
+        error: function (xhr, status, error) {
+            // Handle the error response
+            console.error("Check Friend Status - AJAX request failed:", status, error);
+        }
+    });
+}
+
+// Add click event to the button
+// $("#interested-btn-id").on("click", function (e) {
+//     // console.log("Click");
+//     e.preventDefault(); // Prevent the default link behavior
+
+//     // // Store reference to the button element
+//     var interestedBtn = $("#interested-btn-id");
+
+//     // // Your AJAX function here
+//     $.ajax({
+//         url: 'http://localhost/unihub/events/changeEventInterest',
+//         type: 'POST', // or 'GET' depending on your needs
+//         data: {
+//             event_id: 
+//             user_id:
+//         },
+//         success: function (response) {
+//             // Handle the success response
+//             console.log("AJAX request successful:", response);
+
+//             // Update the text content on success
+//             // interestedBtn.find('span').text(response);   
+//             if (response === '1') {
+//                 interestedBtn.addClass("new-class");
+//             } else {
+//                 interestedBtn.removeClass("new-class");
+//             }
+
+
+//         },
+//         error: function (error) {
+//             // Handle the error response
+//             console.error("AJAX request failed:", error);
+//         }
+//     });
+// });
+// Initial check on page load
+checkFriendStatus();
+
+});
+</script>
+<script src="<?php echo URLROOT?>/js/users/undergraduate/myprofile.js"></script>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

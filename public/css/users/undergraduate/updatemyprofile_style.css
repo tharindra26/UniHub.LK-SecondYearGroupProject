@@ -7,6 +7,19 @@
     border-radius: 10px;
 
 }
+
+.settings-text{
+    width: 70%;
+    height: 100px;
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-size: 30px;
+    letter-spacing: 3px;
+}
+
 .bottom-part{
     display: flex;
     flex-direction: row;
@@ -21,6 +34,8 @@
     justify-content: flex-start;
     border: 1px solid red;
 }
+
+
 
 .option-link{
     text-decoration: none;
