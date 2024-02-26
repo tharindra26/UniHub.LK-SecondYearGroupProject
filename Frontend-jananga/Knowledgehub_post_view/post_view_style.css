@@ -64,7 +64,7 @@ body{
             margin-left: auto;
             margin-right: auto;
             margin-top: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 50px;
         }
 
 
@@ -73,7 +73,7 @@ body{
             flex-direction: column;
             /* border: 1px solid red; */
             max-width: 400px;
-            margin: 20px;
+            /* margin: 20px; */
             /* background-color: rgba(255, 255, 255, 1); */
             background-color: #EDEDED;
             padding: 10px;
@@ -127,10 +127,34 @@ body{
         .empty-box{
             display: flex;
             width: 100%;
-            height: 50px;
-            border: 1px solid black;
-            margin-bottom: 5px;
+            height: 40px;
+            /* border: 1px solid black; */
+            margin-bottom: 20px;
         }
+
+            .reaction-section{
+                display: flex;
+                flex-direction: row;
+                width: 20%;
+                /* border: 1px solid black; */
+            }
+
+                .like-btn{
+                    display: flex;
+                    width: 50%;
+                    justify-content: center;
+                    align-items: center;
+                    /* border: 1px solid red; */
+                }
+
+
+                .comment-btn{
+                    display: flex;
+                    width: 50%;
+                    justify-content: center;
+                    align-items: center;
+                    /* border: 1px solid red; */
+                }
 
 
         .post-image-section{
@@ -154,7 +178,7 @@ body{
         .post-description{
             font-family: lora;
             padding: 10px;
-            padding-top: 15px;
+            padding-top: 40px;
         }
 
 
