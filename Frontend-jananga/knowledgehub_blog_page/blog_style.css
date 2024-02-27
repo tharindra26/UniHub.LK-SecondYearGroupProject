@@ -114,8 +114,19 @@ body{
     background-color: rgba(255, 255, 255, 1);
     padding: 10px;
     border-radius: 5px;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+
 
 }
+
+    .trending-blog:hover {
+        background: rgb(228, 228, 233);
+        color: black;
+        transition: .5s;
+        -webkit-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
+        box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
+    }
 
 .author-details{
     display: flex;
@@ -275,6 +286,18 @@ body{
         display: flex;
         flex-direction: column;
         margin-bottom: 10px;
+        box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+
+    }
+
+
+    .blog-card:hover {
+        background: rgb(228, 228, 233);
+        color: black;
+        transition: .5s;
+        -webkit-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
+        box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.75);
     }
     
     .publisher-details{
