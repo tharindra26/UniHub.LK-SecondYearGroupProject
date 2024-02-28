@@ -293,12 +293,12 @@ class Users extends Controller
   {
     $user = $this->userModel->getUserById($id);
     $university = $this->universityModel->getUniversityById($user->university_id);
-    $event = $this->eventModel->getEventByUser($user->id);
-    $interestEvents = $this->eventModel->getInterestEventsByUser($user->id);
-    $goingEvents = $this->eventModel->getGoingEventsByUser($user->id);
-    $education = $this->userModel->getEducationByUserId($user->id);
-    $qualifications = $this->userModel->getQualificationByUserId($user->id);
-    $skills = $this->userModel->getSkillsByUserId($user->id);
+    $event = $this->eventModel->getEventByUser($id);
+    $interestEvents = $this->eventModel->getInterestEventsByUser($id);
+    $education = $this->userModel->getEducationByUserId($id);
+    $qualifications = $this->userModel->getQualificationByUserId($id);
+    $skills = $this->userModel->getSkillsByUserId($id);
+    $requests = $this->userModel->getFriendRequestsById($id);
     // $friends = $this->userModel->getFriendsByUserId($user->id);
 
     $data = [
@@ -306,10 +306,10 @@ class Users extends Controller
       'university' => $university,
       'event' => $event,
       'interestEvents' => $interestEvents,
-      'goingEvents' => $goingEvents,
       'education' => $education,
       'qualifications' => $qualifications,
       'skills' => $skills,
+      'requests' => $requests
       // 'friends' => $friends
     ];
 
@@ -322,12 +322,93 @@ class Users extends Controller
     } else {
       $this->view('users/undergraduate/myprofile', $data);
     }
+  }
 
+ public function showFriends($user_id){
+  $friends = $this->userModel->getFriendsByUserId($user_id);
 
+  $data =[
+    'friends' => $friends
+  ];
+
+  $this->view('users/undergraduate/myFriends', $data);
+ }
+
+ public function unFollow(){
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    $follower_relationship_id = $_POST['follower_relationship_id'];
+    $data = [
+      'follower_relationship_id' => $follower_relationship_id
+    ];
+    if ($this->userModel->UnfollowFriend($data)) {
+      echo 1;
+    } else {
+      echo 0;
+    }
+
+  }
+ }
+
+ public function acceptRequest(){
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    $follower_relationship_id = $_POST['follower_relationship_id'];
+    $data = [
+      'follower_relationship_id' => $follower_relationship_id
+    ];
+    if ($this->userModel->acceptRequestById($data)) {
+      echo 1;
+    } else {
+      echo 0;
+    }
+  }
+ }
+
+ public function rejectRequest(){
+  $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    $follower_relationship_id = $_POST['follower_relationship_id'];
+    $data = [
+      'follower_relationship_id' => $follower_relationship_id
+    ];
+    if ($this->userModel->UnfollowFriend($data)) {
+      echo 1;
+    } else {
+      echo 0;
+    }
+  }
+
+  public function checkFriendStatus(){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $user_id = $_POST['user_id'];
+      $loggedin_id = $_POST['loggedin_id'];
+      $data = [
+        'user_id' => $user_id,
+        'loggedin_id' => $loggedin_id
+      ];
+
+      $result = $this->userModel->checkFriendStatus($data);
+    if($result){
+      if ($result->status == "accepted") {
+        echo "Friends";
+      } 
+      else if($result->status == "pending"){
+        if($result->following_id == $loggedin_id){
+          echo "Accept";
+        }
+        else if($result->follower_id == $loggedin_id){
+          echo "Requested";
+        }
+      }
+    }else{
+      echo "Follow";
+    }
+  }
   }
 
   public function showAllInterestedEvents($id){
-    $interestEvents = $this->userModel->getAllInterestEventsByUser($id);
+    $interestEvents = $this->userModel->getAllInterestedEventsByUserId($id);
     $data = [
       'events' => $interestEvents
     ];
@@ -335,23 +416,14 @@ class Users extends Controller
     $this->view('users/undergraduate/showInterestedEvents', $data);
   }
 
-  public function showAllGoingEvents($id){
-    $goingEvents = $this->userModel->getAllGoingEventsByUserId($id);
-    $data = [
-      'events' => $goingEvents
-    ];
-
-    $this->view('users/undergraduate/showGoingEvents', $data);
-  }
-
-  public function removeGoingEvent(){
+  public function removeInterestedEvent(){
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
       $participation_id = $_POST['participation_id'];
       $data = [
         'participation_id' => $participation_id
       ];
-      if ($this->userModel->RemoveGoingEvent($data)) {
+      if ($this->userModel->RemoveInterestedEvent($data)) {
         echo 1;
       } else {
         echo 0;
@@ -359,6 +431,7 @@ class Users extends Controller
 
     }
   }
+
 
   public function adminaccounthandling()
   {
@@ -1040,7 +1113,7 @@ public function editQualification($qualification_id){
         //Validated
         if ($this->userModel->updateQualification($data)) {
           // 
-          echo "success";
+          redirect('users/showQualifications/'. $_SESSION['user_id']);
         }
       } else {
 
@@ -1139,7 +1212,7 @@ public function addQualification(){
 
       if ($this->userModel->addQualification($data)) {
         // flash('event_message', "Event Added Successfully");
-        redirect('users/show');
+        redirect('users/showQualifications/'. $_SESSION['user_id']);
       }
     } else {
       //load view with error
@@ -1228,7 +1301,7 @@ public function editEducation($education_id){
         //Validated
         if ($this->userModel->updateEducation($data)) {
           // 
-          echo "success";
+          redirect('users/showEducation/'. $_SESSION['user_id']);
         }
       } else {
 
@@ -1283,7 +1356,6 @@ public function addEducation(){
 
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //process form
-
     $institution = trim($_POST['institution']);
     $description = trim($_POST['description']);
     $start_year = trim($_POST['start_year']);
@@ -1326,7 +1398,7 @@ public function addEducation(){
 
       if ($this->userModel->addEducation($data)) {
         // flash('event_message', "Event Added Successfully");
-        redirect('users/show');
+        redirect('users/showEducation/'. $_SESSION['user_id']);
       }
     } else {
       //load view with error

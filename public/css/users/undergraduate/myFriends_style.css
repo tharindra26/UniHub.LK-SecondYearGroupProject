@@ -2,9 +2,9 @@
     margin: 10px 0;
     display: flex;
     flex-direction: column;
+    flex-direction: column;
     background-color: white;
     border-radius: 10px;
-    border: 1px solid red;
 
 }
 
@@ -32,7 +32,6 @@
     flex-wrap: wrap; 
     padding: 0 10px;
     justify-content: space-around;
-    border: 1px solid red;
 }
 
 .image-box {
@@ -47,173 +46,87 @@
     height: auto;
     display: block;
 }
-
-
-
-.form-outer-box{
+.row{
+    display: flex;
+    flex-wrap: wrap;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
     position: relative;
     width: 100%;
     background-color: white;
-    padding: 25px;
+    padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     margin: 20px 20px 20px 0;
-    /* background-image: url('../../img/events/event-add/event-add-image.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center; */
-    /* border: 1px solid red; */
-}
-
-.form-outer-box header {
-    text-align: center;
-    font-weight: 500;
-    color: #2c3e50;
-    font-size: 30px;
-}
-
-.form-outer-box .form {
-    margin-top: 30px;
-    /* border: 1px solid red; */
-}
-
-.image-section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40%;
-    max-width: 100%;
-    max-height: 100%;
-    overflow: hidden;
-    background: white;
-    margin: 20px 0;
-}
-
-.image-section img {
-    /* border: 1px solid red; */
-    width: 100%;
-    height: auto;
+    border: 1px solid red;
 }
 
 .row .content{
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
     border: 1px solid #7f8c8d;
+    margin: 10px;
+    padding: 10px 20px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    max-height: 100px;
+    width: 300px;
 }
-
-.material{
-    display: flex;
-    margin: 10px;
-}
-
-.material a{
-    display: flex;
-    flex-direction: row;
+.content a{
     text-decoration: none;
+    color: black;
+    font-size: 20px;
+    font-weight: 500
 }
 
-.material-img{
-    width: 20%;
-    max-height: 150px;
-    margin: 10px;
+.friend{
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
-.material-img img{
-    width: 100%;
-    height: 100%;
+.friend_img{    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.friend_img img{
+    width: 60px;
+}
+
+.friend-info .friend-uni{
+    color: #7f8c8d;
+    font-size: 15px;
+    font-weight: 300;
+}
+
+.unfollow-btn{
+    color: #3498db;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-evenly;
+    padding:5px 10px;
+    border: 1px solid #3498db;
     border-radius: 10px;
 }
 
-.material-content{
-    margin: 10px;
-    width: 70%;
+.unfollow-btn:hover{
+    color: white;
+    background-color: #3498db;
+    border: 1px solid #3498db;
 }
 
-.see-more-btn{
-    color: #2980b9;
-}
-
-.see-more-text{
-    display: none;
-}
-
-.see-more-text--show{
-    display: inline;
-}
-
-.material-content h4{
-    padding: 10px;
-    color: black;
-    font-size: 20px;
-    font-size: 18px;
-    font-weight: 700;
-}
-
-.date-vennue{
-    display: flex;
-}
-
-.tab-date-section{
-    display: flex;
-    height: 10%;
+.unfollow-btn i{
     font-size: 15px;
-    padding: 10px;
-    align-items: center;
-    color: #95a5a6;
 }
 
-.tab-venue-section{
-    display: flex;
-    height: 10%;
-    font-size: 16px;
-    padding: 10px;
-    align-items: center;
-    color: #95a5a6;
+.unfollow-btn .btn-text{
+    font-size: 15px;
+    font-weight: 400;
 }
-
-.material-content p{
-    padding: 0 10px;
-    color: black;
-}
-
-.show-more-link{
-    text-align: center;
-    border-top: 1px solid silver;
-    border-radius: 0 0 10px 10px;
-    padding: 10px;
-    background-color: #ededed;
-}
-
-
-.show-more-link a{
-    padding: 10px;
-    font-size: 17px;
-    text-decoration: none;
-    color: #95a5a6;
-    transition: all 0.5s ease;
-    font-weight: 500;
-}
-
-.show-more-link a:hover{
-    color: #2980b9;
-}
-
-.left-box .form-outer-box .row{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.material .button{
-    text-decoration: none;
-    font-size: 25px;
-    padding:10px;
-    border-radius: 50%;
-    color: black;
-}
-
 
 /* popup-modal css */
 .modal-box.active .show-modal{
@@ -312,3 +225,4 @@
 }
 
 /* popup-modal css */
+

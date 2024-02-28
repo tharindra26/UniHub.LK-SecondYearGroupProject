@@ -25,7 +25,7 @@ overlay.addEventListener("click", () => {
 function confirmDelete(participation_id) {
     // // Your AJAX function here
     $.ajax({
-      url: "http://localhost/unihub/users/removeGoingEvent",
+      url: "http://localhost/unihub/users/removeInterestedEvent",
       type: "POST", // or 'GET' depending on your needs
       data: {
         participation_id: participation_id,

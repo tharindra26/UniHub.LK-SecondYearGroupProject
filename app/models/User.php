@@ -208,36 +208,85 @@ class User
         }
     }
 
-    public function getAllGoingEventsByUserId($user_id)
-    {
-        $this->db->query('SELECT events.*, event_participation.* 
+    public function getAllInterestedEventsByUserId($user_id){
+        $this->db->query('SELECT e.*, event_participation.* 
                         FROM event_participation
-                        LEFT JOIN events
-                        ON events.id = event_participation.event_id
+                        INNER JOIN events e
+                        ON e.id = event_participation.event_id
                         WHERE event_participation.participation_status = :participation_status 
                         AND event_participation.user_id = :user_id
-                        AND event_participation.status = :status
                         ');
 
         $this->db->bind(':user_id', $user_id);
-        $this->db->bind(':participation_status', "going");
-        $this->db->bind(':status', 1);
+        $this->db->bind(':participation_status', "interested");
 
         $row = $this->db->resultSet();
 
         return $row;
     }
 
-    public function RemoveGoingEvent($data)
-    {
-        $this->db->query("UPDATE event_participation 
-                        SET status = :status  
-                        WHERE participation_id= :paricipation_id
+    public function RemoveInterestedEvent($data){
+        $this->db->query("DELETE FROM event_participation   
+                        WHERE participation_id= :participation_id
                         AND participation_status = :participation_status");
+            //Bind values
+            $this->db->bind(':participation_id', $data['participation_id']);
+            $this->db->bind(':participation_status', "interested");
+    
+            //Execute the query
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+    }
+
+    public function getFriendsByUserId($user_id){
+        // First query: Fetching users followed by the given user
+        $this->db->query('SELECT u2.*, f.follower_relationship_id, universities.name AS university_name
+                        FROM users u1
+                        JOIN user_followers f
+                        ON u1.id = f.follower_id
+                        JOIN users u2
+                        ON u2.id = f.following_id
+                        JOIN universities 
+                        ON universities.id = u2.university_id
+                        WHERE f.follower_id = :user_id
+                        AND f.status = :status');
+
+        $this->db->bind(':user_id', $user_id);
+        $this->db->bind(':status', "accepted");
+
+        $friendsYouFollow = $this->db->resultSet();
+
+        // Second query: Fetching users that follow the given user
+        $this->db->query('SELECT u1.*, f.follower_relationship_id,universities.name AS university_name
+                        FROM users u1
+                        JOIN user_followers f
+                        ON u1.id = f.follower_id
+                        JOIN universities 
+                        ON universities.id = u1.university_id
+                        JOIN users u2
+                        ON u2.id = f.following_id
+                        WHERE f.following_id = :user_id
+                        AND f.status = :status');
+
+        $this->db->bind(':user_id', $user_id);
+        $this->db->bind(':status', "accepted");
+
+        $friendsFollowingYou = $this->db->resultSet();
+
+        // Combine the results from both queries
+        // Depending on your needs, you might want to merge them or handle them separately
+        $allFriends = array_merge($friendsYouFollow, $friendsFollowingYou);
+
+        return $allFriends;
+    }
+
+    public function UnfollowFriend($data){
+        $this->db->query("DELETE FROM user_followers WHERE 	follower_relationship_id = :follower_relationship_id");
         //Bind values
-        $this->db->bind(':participation_id', $data['participation_id']);
-        $this->db->bind(':participation_status', "going");
-        $this->db->bind('status', 0);
+        $this->db->bind(':follower_relationship_id', $data['follower_relationship_id']);
 
         //Execute the query
         if ($this->db->execute()) {
@@ -246,6 +295,58 @@ class User
             return false;
         }
     }
+
+    public function checkFriendStatus($data){
+        $this->db->query("SELECT *
+                        FROM user_followers
+                        WHERE (follower_id = :loggedin_user AND following_id = :user_id)
+                        OR (follower_id = :user_id AND following_id = :loggedin_user)");
+        
+        //Bind Values
+        $this->db->bind(':user_id', $data['user_id']);
+        $this->db->bind(':loggedin_user', $data['loggedin_id']);
+
+        $result = $this->db->single();
+        return $result;
+    }
+
+    public function getFriendRequestsById($id){
+            //Fetching users that follow the given user
+            $this->db->query('SELECT u1.*, f.follower_relationship_id,universities.name AS university_name
+                FROM users u1
+                JOIN user_followers f
+                ON u1.id = f.follower_id
+                JOIN universities 
+                ON universities.id = u1.university_id
+                JOIN users u2
+                ON u2.id = f.following_id
+                WHERE f.following_id = :user_id
+                AND f.status = :status');
+
+        $this->db->bind(':user_id', $id);
+        $this->db->bind(':status', "pending");
+
+        $rows = $this->db->resultSet();
+        return $rows;
+
+    }
+
+    public function acceptRequestById($data){
+        $this->db->query("UPDATE user_followers 
+                        SET status = :status
+                        WHERE follower_relationship_id = :follower_relationship_id");
+        //Bind values
+        $this->db->bind(':follower_relationship_id', $data['follower_relationship_id']);
+        $this->db->bind(':status', "accepted");
+
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function getEducationByUserId($user_id)
     {
         $this->db->query('SELECT * FROM user_education 
@@ -313,27 +414,7 @@ class User
 
         return $row;
     }
-
-    public function getFriendsByUserId($user_id)
-    {
-        $this->db->query('SELECT *
-        FROM users u1
-        JOIN followers
-        ON u1.id = followers.follower_id
-        -- JOIN users u2
-        -- ON u2.id = followers.following_id
-        WHERE 
-        -- followers.follower_id = :user_id
-        -- OR followers.following_id = :user_id
-        followers.request_status = :status');
-
-        // $this->db->bind(':user_id', $user_id);
-        $this->db->bind(':status', "accepted");
-
-        $row = $this->db->resultSet();
-
-        return $row;
-    }
+    
 
     public function getUsersByType($data)
     {
