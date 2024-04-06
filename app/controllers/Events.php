@@ -1,6 +1,10 @@
 <?php
 class Events extends Controller
 {
+  public $eventModel;
+  public $userModel;
+  public $categoryModel;
+  public $universityModel;
   public function __construct()
   {
     // if(!isLoggedIn()){
@@ -1043,6 +1047,7 @@ class Events extends Controller
   }
 
   public function editCountdown($id){
+    
   }
 
 
