@@ -46,6 +46,7 @@ profileImageUpload.addEventListener("change", function () {
 
   //     reader.readAsDataURL(fileInput.files[0]);
   // }
+  //
 });
 
 const coverImageUpload = document.getElementById("coverImageUpload"), //original button

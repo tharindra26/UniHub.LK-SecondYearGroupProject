@@ -598,7 +598,7 @@ li.selected {
 
 .content-section {
     padding-left: 10px;
-    width: 75%;
+    /* width: 75%; */
     /* border: 1px solid red; */
     display: flex;
     flex-direction: row;
