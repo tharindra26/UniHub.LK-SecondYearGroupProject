@@ -109,6 +109,7 @@
                     </div> -->
 
                 <a href="#" class="reg-btn">Register Now</a>
+                
             </div>
 
             <div class="wrapper">
@@ -141,6 +142,8 @@
                                 <?php echo $data['password_err']; ?>
                             </span>
                         <?php endif; ?>
+
+                        <a href="<?php echo URLROOT; ?>/users/googleLogin" class="reg-btn">Google Login</a>
 
 
                         <div class="remember-forgot">

@@ -1,4 +1,6 @@
 <?php
+
+require_once '../vendor/autoload.php';
 class Users extends Controller
 {
   public $userModel = null;
@@ -163,6 +165,48 @@ class Users extends Controller
     }
   }
 
+  public function googleLogin()
+  {
+    //Google Authentication credentials
+    $clientID = '472800178666-2lruamt57kjllkgvqr7t2amcmm644289.apps.googleusercontent.com'; // your client id
+    $clientSecret = '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'; // your client secret
+    $redirectUri = 'http://localhost/unihub/users/googleLogin';
+
+    // create Client Request to access Google API
+    $client = new Google_Client();
+    $client->setClientId($clientID);
+    $client->setClientSecret($clientSecret);
+    $client->setRedirectUri($redirectUri);
+    $client->addScope("email");
+    $client->addScope("profile");
+
+
+    
+    if (isset($_GET['code'])) {
+      $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+      // $client->setAccessToken($token['access_token']);
+
+      // get profile info
+      $google_oauth = new Google_Service_Oauth2($client);
+      $google_account_info = $google_oauth->userinfo->get();
+      $email = $google_account_info->email;
+      $name = $google_account_info->name;
+
+
+
+      var_dump($email, $name); // Debugging purpose
+      die();
+    } else {
+      //redirect to google
+      $authUrl = $client->createAuthUrl();
+      header('Location: ' . $authUrl);
+      die();
+    }
+
+
+
+  }
+
 
   public function login()
   {
@@ -324,18 +368,52 @@ class Users extends Controller
     }
   }
 
- public function showFriends($user_id){
-  $friends = $this->userModel->getFriendsByUserId($user_id);
+  public function showFriends($user_id)
+  {
+    $friends = $this->userModel->getFriendsByUserId($user_id);
 
-  $data =[
-    'friends' => $friends
-  ];
+    $data = [
+      'friends' => $friends
+    ];
 
-  $this->view('users/undergraduate/myFriends', $data);
- }
+    $this->view('users/undergraduate/myFriends', $data);
+  }
 
- public function unFollow(){
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  public function unFollow()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $follower_relationship_id = $_POST['follower_relationship_id'];
+      $data = [
+        'follower_relationship_id' => $follower_relationship_id
+      ];
+      if ($this->userModel->UnfollowFriend($data)) {
+        echo 1;
+      } else {
+        echo 0;
+      }
+
+    }
+  }
+
+  public function acceptRequest()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $follower_relationship_id = $_POST['follower_relationship_id'];
+      $data = [
+        'follower_relationship_id' => $follower_relationship_id
+      ];
+      if ($this->userModel->acceptRequestById($data)) {
+        echo 1;
+      } else {
+        echo 0;
+      }
+    }
+  }
+
+  public function rejectRequest()
+  {
     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
     $follower_relationship_id = $_POST['follower_relationship_id'];
     $data = [
@@ -346,39 +424,10 @@ class Users extends Controller
     } else {
       echo 0;
     }
-
-  }
- }
-
- public function acceptRequest(){
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    $follower_relationship_id = $_POST['follower_relationship_id'];
-    $data = [
-      'follower_relationship_id' => $follower_relationship_id
-    ];
-    if ($this->userModel->acceptRequestById($data)) {
-      echo 1;
-    } else {
-      echo 0;
-    }
-  }
- }
-
- public function rejectRequest(){
-  $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    $follower_relationship_id = $_POST['follower_relationship_id'];
-    $data = [
-      'follower_relationship_id' => $follower_relationship_id
-    ];
-    if ($this->userModel->UnfollowFriend($data)) {
-      echo 1;
-    } else {
-      echo 0;
-    }
   }
 
-  public function checkFriendStatus(){
+  public function checkFriendStatus()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
       $user_id = $_POST['user_id'];
@@ -389,25 +438,24 @@ class Users extends Controller
       ];
 
       $result = $this->userModel->checkFriendStatus($data);
-    if($result){
-      if ($result->status == "accepted") {
-        echo "Friends";
-      } 
-      else if($result->status == "pending"){
-        if($result->following_id == $loggedin_id){
-          echo "Accept";
+      if ($result) {
+        if ($result->status == "accepted") {
+          echo "Friends";
+        } else if ($result->status == "pending") {
+          if ($result->following_id == $loggedin_id) {
+            echo "Accept";
+          } else if ($result->follower_id == $loggedin_id) {
+            echo "Requested";
+          }
         }
-        else if($result->follower_id == $loggedin_id){
-          echo "Requested";
-        }
+      } else {
+        echo "Follow";
       }
-    }else{
-      echo "Follow";
     }
   }
-  }
 
-  public function showAllInterestedEvents($id){
+  public function showAllInterestedEvents($id)
+  {
     $interestEvents = $this->userModel->getAllInterestedEventsByUserId($id);
     $data = [
       'events' => $interestEvents
@@ -416,7 +464,8 @@ class Users extends Controller
     $this->view('users/undergraduate/showInterestedEvents', $data);
   }
 
-  public function removeInterestedEvent(){
+  public function removeInterestedEvent()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
       $participation_id = $_POST['participation_id'];
@@ -948,7 +997,7 @@ class Users extends Controller
       // Make sure errors are empty
       if (empty($data['email_err'])) {
         //Validated
-        
+
         if ($this->userModel->updateContactDetails($data)) {
           // 
           echo "success";
@@ -984,13 +1033,14 @@ class Users extends Controller
       // Load view
       $this->view('users/undergraduate/editContactDetails', $data);
     }
-}
+  }
 
-//change profile description
+  //change profile description
 
-public function editDescription($id){
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //process form
+  public function editDescription($id)
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      //process form
       $profile_title = trim($_POST['profile_title']);
       $description = trim($_POST['description']);
 
@@ -1001,7 +1051,7 @@ public function editDescription($id){
       $data = [
 
         'id' => $id,
-        'profile_title' =>  $profile_title,
+        'profile_title' => $profile_title,
         'description' => $description,
 
         'profile_title_err' => '',
@@ -1019,7 +1069,7 @@ public function editDescription($id){
 
 
       // Make sure errors are empty
-      if (empty($data['description_err']) ) {
+      if (empty($data['description_err'])) {
         //Validated
         if ($this->userModel->updateDescription($data)) {
           // 
@@ -1038,7 +1088,7 @@ public function editDescription($id){
       // Init data
       $data = [
         'id' => $id,
-        'profile_title' =>  $user->profile_title,
+        'profile_title' => $user->profile_title,
         'description' => $user->description,
 
         'profile_title_err' => '',
@@ -1047,32 +1097,34 @@ public function editDescription($id){
 
       // Load view
       $this->view('users/undergraduate/update-description', $data);
-    }      
-}
+    }
+  }
 
-//Update Qualification
-public function showQualifications($id){
-  $qualification = $this->userModel->getQualificationByUserId($id);
-  $user = $this->userModel->getUserById($id);
+  //Update Qualification
+  public function showQualifications($id)
+  {
+    $qualification = $this->userModel->getQualificationByUserId($id);
+    $user = $this->userModel->getUserById($id);
 
-      $data = [
-        'qualification' => $qualification,
-        'user' => $user
-      ];
+    $data = [
+      'qualification' => $qualification,
+      'user' => $user
+    ];
 
-      
-    $this->view('users/undergraduate/showQualification', $data);  
-}
 
-public function editQualification($qualification_id){
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //process form
+    $this->view('users/undergraduate/showQualification', $data);
+  }
+
+  public function editQualification($qualification_id)
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      //process form
       $qualification_name = trim($_POST['qualification_name']);
       $institution = trim($_POST['institution']);
       $completion_date = trim($_POST['completion_date']);
       $description = trim($_POST['description']);
-      
-      
+
+
 
       //Sanitize post data
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -1082,7 +1134,7 @@ public function editQualification($qualification_id){
 
         'qualification_id' => $qualification_id,
         'qualification_name' => $qualification_name,
-        'institution' =>  $institution,
+        'institution' => $institution,
         'description' => $description,
         'completion_date' => $completion_date,
 
@@ -1109,11 +1161,11 @@ public function editQualification($qualification_id){
       }
 
       // Make sure errors are empty
-      if (empty($data['qualification_name_err']) && empty($data['institution_err']) && empty($data['description_err']) && empty($data['completion_date_err']) ) {
+      if (empty($data['qualification_name_err']) && empty($data['institution_err']) && empty($data['description_err']) && empty($data['completion_date_err'])) {
         //Validated
         if ($this->userModel->updateQualification($data)) {
           // 
-          redirect('users/showQualifications/'. $_SESSION['user_id']);
+          redirect('users/showQualifications/' . $_SESSION['user_id']);
         }
       } else {
 
@@ -1129,7 +1181,7 @@ public function editQualification($qualification_id){
       $data = [
         'qualification_id' => $qualification->qualification_id,
         'qualification_name' => $qualification->qualification_name,
-        'institution' =>  $qualification->institution,
+        'institution' => $qualification->institution,
         'description' => $qualification->description,
         'completion_date' => $qualification->completion_date,
 
@@ -1141,122 +1193,126 @@ public function editQualification($qualification_id){
 
       // Load view
       $this->view('users/undergraduate/editQualification', $data);
-    }      
-}
-
-public function deleteQualification(){
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    $qualification_id = $_POST['qualification_id'];
-    $data = [
-      'qualification_id' => $qualification_id
-    ];
-    if ($this->userModel->deleteQualification($data)) {
-      echo 1;
-    } else {
-      echo 0;
     }
-
-  }
-}
-
-public function addQualification(){
-  //check the user is a registered user
-  if (!isLoggedIn()) {
-    redirect('users/login');
   }
 
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //process form
-
-    $qualification_name = trim($_POST['qualification_name']);
-    $institution = trim($_POST['institution']);
-    $description = trim($_POST['description']);
-    $completion_date = trim($_POST['completion_date']);
-
-    //Sanitize post data
-    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-    //Init data
-    $data = [
-      'qualification_name' => $qualification_name,
-      'institution' => $institution,
-      'description' => $description,
-      'completion_date' => $completion_date,
-
-      'qualification_name_err' => '',
-      'institution_err' => '',
-      'description_err' => '',
-      'completion_date_err' => '',
-    ];
-
-
-
-    if (empty($data['qualification_name'])) {
-      $data['qualification_name_err'] = 'Pleae enter the qualification name';
-    }
-    if (empty($data['institution'])) {
-      $data['institution_err'] = 'Pleae enter event institution';
-    }
-    if (empty($data['description'])) {
-      $data['description_err'] = 'Pleae enter the description';
-    }
-
-    if (empty($data['completion_date'])) {
-      $data['completion_date_err'] = 'Pleae enter the completion date';
-    }
-
-    // Make sure errors are empty
-    if (empty(empty($data['qualification_name_err']) && $data['institution_err']) && empty($data['description_err']) &&  empty($data['completion_date_err'])) {
-      //Validated
-
-      if ($this->userModel->addQualification($data)) {
-        // flash('event_message', "Event Added Successfully");
-        redirect('users/showQualifications/'. $_SESSION['user_id']);
-      }
-    } else {
-      //load view with error
-      $this->view('users/undergraduate/addQualification', $data);
-
-    }
-
-
-  } else {
-    // Init data
-    $data = [
-      'qualification_name' => '',
-      'institution' => '',
-      'description' => '',
-      'completion_date' => '',
-
-      'qualification_name_err' => '',
-      'institution_err' => '',
-      'description_err' => '',
-      'completion_date_err' => '',
-    ];
-
-    // Load view
-    $this->view('users/undergraduate/addQualification', $data);
-  }  
-}
-
-//Update Education
-public function showEducation($id){
-  $education = $this->userModel->getEducationByUserId($id);
-  $user = $this->userModel->getUserById($id);
-
+  public function deleteQualification()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $qualification_id = $_POST['qualification_id'];
       $data = [
-        'education' => $education,
-        'user' => $user
+        'qualification_id' => $qualification_id
+      ];
+      if ($this->userModel->deleteQualification($data)) {
+        echo 1;
+      } else {
+        echo 0;
+      }
+
+    }
+  }
+
+  public function addQualification()
+  {
+    //check the user is a registered user
+    if (!isLoggedIn()) {
+      redirect('users/login');
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      //process form
+
+      $qualification_name = trim($_POST['qualification_name']);
+      $institution = trim($_POST['institution']);
+      $description = trim($_POST['description']);
+      $completion_date = trim($_POST['completion_date']);
+
+      //Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      //Init data
+      $data = [
+        'qualification_name' => $qualification_name,
+        'institution' => $institution,
+        'description' => $description,
+        'completion_date' => $completion_date,
+
+        'qualification_name_err' => '',
+        'institution_err' => '',
+        'description_err' => '',
+        'completion_date_err' => '',
       ];
 
-      
-        $this->view('users/undergraduate/showEducation', $data);  
-}
 
-public function editEducation($education_id){
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //process form
+
+      if (empty($data['qualification_name'])) {
+        $data['qualification_name_err'] = 'Pleae enter the qualification name';
+      }
+      if (empty($data['institution'])) {
+        $data['institution_err'] = 'Pleae enter event institution';
+      }
+      if (empty($data['description'])) {
+        $data['description_err'] = 'Pleae enter the description';
+      }
+
+      if (empty($data['completion_date'])) {
+        $data['completion_date_err'] = 'Pleae enter the completion date';
+      }
+
+      // Make sure errors are empty
+      if (empty(empty($data['qualification_name_err']) && $data['institution_err']) && empty($data['description_err']) && empty($data['completion_date_err'])) {
+        //Validated
+
+        if ($this->userModel->addQualification($data)) {
+          // flash('event_message', "Event Added Successfully");
+          redirect('users/showQualifications/' . $_SESSION['user_id']);
+        }
+      } else {
+        //load view with error
+        $this->view('users/undergraduate/addQualification', $data);
+
+      }
+
+
+    } else {
+      // Init data
+      $data = [
+        'qualification_name' => '',
+        'institution' => '',
+        'description' => '',
+        'completion_date' => '',
+
+        'qualification_name_err' => '',
+        'institution_err' => '',
+        'description_err' => '',
+        'completion_date_err' => '',
+      ];
+
+      // Load view
+      $this->view('users/undergraduate/addQualification', $data);
+    }
+  }
+
+  //Update Education
+  public function showEducation($id)
+  {
+    $education = $this->userModel->getEducationByUserId($id);
+    $user = $this->userModel->getUserById($id);
+
+    $data = [
+      'education' => $education,
+      'user' => $user
+    ];
+
+
+    $this->view('users/undergraduate/showEducation', $data);
+  }
+
+  public function editEducation($education_id)
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      //process form
       $institution = trim($_POST['institution']);
       $description = trim($_POST['description']);
       $start_year = trim($_POST['start_year']);
@@ -1269,7 +1325,7 @@ public function editEducation($education_id){
       $data = [
 
         'education_id' => $education_id,
-        'institution' =>  $institution,
+        'institution' => $institution,
         'description' => $description,
         'start_year' => $start_year,
         'end_year' => $end_year,
@@ -1297,11 +1353,11 @@ public function editEducation($education_id){
       }
 
       // Make sure errors are empty
-      if (empty($data['institution_err']) && empty($data['description_err']) && empty($data['start_year_err']) && empty($data['end_year_err']) ) {
+      if (empty($data['institution_err']) && empty($data['description_err']) && empty($data['start_year_err']) && empty($data['end_year_err'])) {
         //Validated
         if ($this->userModel->updateEducation($data)) {
           // 
-          redirect('users/showEducation/'. $_SESSION['user_id']);
+          redirect('users/showEducation/' . $_SESSION['user_id']);
         }
       } else {
 
@@ -1316,7 +1372,7 @@ public function editEducation($education_id){
       // Init data
       $data = [
         'education_id' => $education->education_id,
-        'institution' =>  $education->institution,
+        'institution' => $education->institution,
         'description' => $education->description,
         'start_year' => $education->start_year,
         'end_year' => $education->end_year,
@@ -1329,102 +1385,104 @@ public function editEducation($education_id){
 
       // Load view
       $this->view('users/undergraduate/editEducation', $data);
-    }      
-}
-
-public function deleteEducation(){
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    $education_id = $_POST['education_id'];
-    $data = [
-      'education_id' => $education_id
-    ];
-    if ($this->userModel->deleteEducation($data)) {
-      echo 1;
-    } else {
-      echo 0;
     }
-
-  }
-}
-
-public function addEducation(){
-  //check the user is a registered user
-  if (!isLoggedIn()) {
-    redirect('users/login');
   }
 
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //process form
-    $institution = trim($_POST['institution']);
-    $description = trim($_POST['description']);
-    $start_year = trim($_POST['start_year']);
-    $end_year = trim($_POST['end_year']);
-
-    //Sanitize post data
-    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-    //Init data
-    $data = [
-      'institution' => $institution,
-      'description' => $description,
-      'start_year' => $start_year,
-      'end_year' => $end_year,
-
-      'institution_err' => '',
-      'description_err' => '',
-      'start_year_err' => '',
-      'end_year_err' => '',
-    ];
-
-
-
-    if (empty($data['institution'])) {
-      $data['institution_err'] = 'Pleae enter event institution';
-    }
-    if (empty($data['description'])) {
-      $data['description_err'] = 'Pleae enter the description';
-    }
-    if (empty($data['start_year'])) {
-      $data['start_year_err'] = 'Pleae enter the start year';
-    }
-    if (empty($data['end_year'])) {
-      $data['end_year_err'] = 'Pleae enter the end year';
-    }
-
-    // Make sure errors are empty
-    if (empty($data['institution_err']) && empty($data['description_err']) && empty($data['start_year_err']) && empty($data['end_year_err'])) {
-      //Validated
-
-      if ($this->userModel->addEducation($data)) {
-        // flash('event_message', "Event Added Successfully");
-        redirect('users/showEducation/'. $_SESSION['user_id']);
+  public function deleteEducation()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $education_id = $_POST['education_id'];
+      $data = [
+        'education_id' => $education_id
+      ];
+      if ($this->userModel->deleteEducation($data)) {
+        echo 1;
+      } else {
+        echo 0;
       }
-    } else {
-      //load view with error
-      $this->view('users/undergraduate/addEducation', $data);
 
     }
+  }
+
+  public function addEducation()
+  {
+    //check the user is a registered user
+    if (!isLoggedIn()) {
+      redirect('users/login');
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      //process form
+      $institution = trim($_POST['institution']);
+      $description = trim($_POST['description']);
+      $start_year = trim($_POST['start_year']);
+      $end_year = trim($_POST['end_year']);
+
+      //Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      //Init data
+      $data = [
+        'institution' => $institution,
+        'description' => $description,
+        'start_year' => $start_year,
+        'end_year' => $end_year,
+
+        'institution_err' => '',
+        'description_err' => '',
+        'start_year_err' => '',
+        'end_year_err' => '',
+      ];
 
 
-  } else {
-    // Init data
-    $data = [
-      'institution' => '',
-      'description' => '',
-      'start_year' => '',
-      'end_year' => '',
 
-      'institution_err' => '',
-      'description_err' => '',
-      'start_year_err' => '',
-      'end_year_err' => '',
-    ];
+      if (empty($data['institution'])) {
+        $data['institution_err'] = 'Pleae enter event institution';
+      }
+      if (empty($data['description'])) {
+        $data['description_err'] = 'Pleae enter the description';
+      }
+      if (empty($data['start_year'])) {
+        $data['start_year_err'] = 'Pleae enter the start year';
+      }
+      if (empty($data['end_year'])) {
+        $data['end_year_err'] = 'Pleae enter the end year';
+      }
 
-    // Load view
-    $this->view('users/undergraduate/addEducation', $data);
-  }  
-}
+      // Make sure errors are empty
+      if (empty($data['institution_err']) && empty($data['description_err']) && empty($data['start_year_err']) && empty($data['end_year_err'])) {
+        //Validated
+
+        if ($this->userModel->addEducation($data)) {
+          // flash('event_message', "Event Added Successfully");
+          redirect('users/showEducation/' . $_SESSION['user_id']);
+        }
+      } else {
+        //load view with error
+        $this->view('users/undergraduate/addEducation', $data);
+
+      }
+
+
+    } else {
+      // Init data
+      $data = [
+        'institution' => '',
+        'description' => '',
+        'start_year' => '',
+        'end_year' => '',
+
+        'institution_err' => '',
+        'description_err' => '',
+        'start_year_err' => '',
+        'end_year_err' => '',
+      ];
+
+      // Load view
+      $this->view('users/undergraduate/addEducation', $data);
+    }
+  }
 
 
   //change profile images
