@@ -37,126 +37,34 @@ body{
     align-items: center;
 }
 
-/* navigation bar css */
-/* navbar  */
-.nav-outer-container{
+
+.inner-container {
+    width: 100%;
     display: flex;
-    background-color: rgba(255, 0, 0, 0);
+    /* flex-direction: row; */
+}
+
+.register-form {
+    position: relative;
+    width: 100%;
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin: 20px 20px 20px 0;
+    /* background-image: url('../../img/events/event-add/event-add-image.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; */
     /* border: 1px solid red; */
-    /* box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1); */
 }
 
-
-nav{
-    display: flex;
-    /* border: 1px solid red; */
-    background-color: rgba(255, 0, 0, 0);
-    border-radius: 10px;
-    width: auto;
-
-}
-
-nav ul{
-    width: 100%;
-    list-style: none;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-
-}
-
-nav li{
-    display: flex;
-    height: 80px;
-    align-items: center;
-    justify-content: center;
-}
-
-nav a{
-    padding: 10px 20px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    font-family: poppins;
-    font-weight: 400;
-    color: white;
-    font-size: 15px;
-}
-
-.unihub-logo-text{
-    font-family: overpass;
-    color:#3498db;
-    font-size: 50px;
-    font-weight: bold;
-    padding:10px 0;
-}
-
-nav a:hover{
-    padding: 5px 20px;
-    border-radius: 100px;
-    color: black;
-    background-color: #2880b9;
-    color:white
-}
-
-nav li:first-child {
-    margin-right: auto;
-}
-
-.unihub-logo-text:hover{
-    padding: 0;
-    color: #3498db;
-    background-color: rgba(255, 0, 0, 0);
-}
-
-/* Verticle mobile navbar */
-.sidebar{
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    width: 250px;
-    z-index: 999;
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    box-shadow: -10px 0 10px rgba(0,0,0,0.1);
-    display: none;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    border-top-right-radius: 10px;
-
-}
-/* Verticle mobile navbar */
-
-.sidebar li{
-    width: 100%;
-}
-
-.sidebar a{
-    width: auto;
-}
-
-.menu-button{
-    display: none;
-    color: white;
-}
-/* navigation bar css */
-
-.outer-box{
-    display: flex;
-    flex-direction: raw;
-    width: 100%;
-    padding: 20px;
-    /* border: 2px solid blue; */
-}
-
-.content{
+/* .content{
     display: flex;
     justify-content: center;
     flex-direction: column;
     width: 40%;
-    /* border: 1px solid red; */
+    border: 1px solid red;
     width: 40%;
     line-height: 30px;
 }
@@ -197,281 +105,141 @@ nav li:first-child {
     background: linear-gradient(90deg,#2980b9, #FFF, #2980b9);
     transition: 0.5s;
     border: none;
+} */
+
+.register-form header {
+    text-align: center;
+    font-weight: 500;
+    color: #2c3e50;
+    font-size: 30px;
 }
 
-.wrapper{
-    display: flex;
-    width: 60%;
+.register-form .form {
+    margin-top: 30px;
     /* border: 1px solid red; */
-    overflow: hidden;
-    font-family: 'Poppins', sans-serif;
-    letter-spacing: 1px;
-    justify-content: center;
-
 }
 
-.register{
-    width: 80%;
-    overflow: hidden;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    padding: 10px 30px 10px 30px;
-    border-radius: 40px;
-    background: transparent;
-    background-color: hsla(0, 0%, 100%, 0.3);
-    backdrop-filter: blur(20px);
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-}
-
-.register h2{
-    font-family: poppins;
-    color: white; 
-    text-align: center;
-    font-size: 40px;
-    font-weight: 400; 
-    margin: 20px 0 10px 0;
-}
-
-.register .input-box{
-    width: 90%;
-    height: 65px;
-    margin: 0 0 40px  0;
-    border-bottom: 2px solid black;
-}
-
-.input-box input{
+.form .input-box {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    height: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: black;
-    font-size: 1em;
-    padding: 0 5px 0 50px;
+    margin-bottom: 30px;
+    /* border: 1px solid red; */
 }
 
+.input-box label {
+    color: #2c3e50;
+}
 
-.input-box label{
+.form :where(.input-box input, .select-box) {
     position: relative;
-    left: 50px;    
-    top: -80%;
-    transform: translateY(-50%);
-    font-size: 1em;
-    color: black;
-    pointer-events: none;
-    transition: 0.5s;
-    
-}
-.input-box .dob-label{
-    top: -90%;
-}
-
-.input-box input:focus~label,
-.input-box input:valid~label,
-.input-box input:placeholder-shown~label {
-    font-size: 0.9em;
-    top: -80px;
-    left: 40px;
-}
-
-.input-box .fa-solid{
-    position: relative;
-    color: black;
-    top: 40px;
-    left: 20px;
-    font-size: 1.2em;
-    
-}
-
-.register .drop-down{
-    width: 90%;
-    margin: 0 0 40px  0;
-    box-sizing: border-box;
-    position: relative;
-    border-bottom: 2px solid black;
-    overflow: hidden;
-}
-
-.drop-down.active{
-    border: none;
-    margin: 0;
-    
-}
-
-.drop-down .selected{
-    position: relative;
-    display: flex;
-    /* height: 65px; */
-    padding: 20px;
-    border-radius: 40px;
-    padding: 10px;
-    cursor: pointer;
-    transition: 0.3s;
-    outline: none;
-    border: none;
-    margin: 30px  0  0 0;
-    /* justify-content: space-between; */
-}
-
-.selected .fa-graduation-cap{
-    position: relative;
-    color: black;
-    font-size: 1.2em;
-    margin:-10px 5px  0  0;
-}
-
-.selected .btn-text{
-    position: relative;
-    margin-left: 10px;
-}
-
-.selected .arrow-dwn{
-    position: relative;
-    font-size: 1.2em;
-    transition: 0.3s;
-    margin: -2px  0  0 auto;
-}
-
-.drop-down.active .selected .arrow-dwn{
-    transform: rotate(180deg);
-}
-
-.drop-down .options{
-    position: relative;
-    padding: 20px;
-    margin-top: 10px;
-    border-radius: 40px;
-    background-color: rgb(255, 255, 255);
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-    display: none;
-    max-height: 250px;
-    overflow-y: auto;
-}
-
-.drop-down.active .options{
-    display: block;
-}
-
-.options .option{
-    display: flex;
-    cursor: pointer;
-    padding: 10px 10px 10px ;
-    border-radius: 40px;
-}
-
-.option:hover{
-    background-color: hsla(0, 2%, 36%, 0.5);
-}
-.options img{
-    width: 30px;
-    height: 25px;
-    margin: 0 10px 0 10px;
-    border-radius: 50%;
-    border: 1px solid black;
-}
-
-.option .option-text{
-    font-size: 1em;
-    color: black;
-}
-
-
-.register .terms{
-    position: relative;
-    color: black;
-    font-weight: 500;
-    margin: 15px 0 15px;
-    display: flex;
-    
-}
-
-.terms label input{
-    accent-color: #0B0C10;
-    margin-right: 5px;
-}
-
-.register .btn{
-    width: 100%;
     height: 50px;
-    border: none;
+    width: auto;
     outline: none;
-    border-radius: 40px;
-    background: linear-gradient(90deg, #0B0C10, #2980b9, #0B0C10);
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    cursor: pointer;
-    font-size: 1.3em;
-    color: white;
-    font-weight: 500;
-    transition: 0.5s;
+    font-size: 16px;
+    color: #7f8c8d;
+    margin-top: 8px;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    padding-left: 10px;
+    /* border: 1px solid red; */
+
 }
 
-.btn:hover{
-    background: linear-gradient(90deg,#0B0C10, #C5C6C7, #0B0C10);
-    color: #0B0C10;
+
+
+#selection {
+    padding-left: 10px;
 }
-.register .register-link{
-    font-size: 0.9em;
+
+#eventDescription {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: poppins;
+    font-size: 16px;
+    color: #7f8c8d;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    resize: vertical;
+    outline: none;
+}
+
+.select-box {
+    border: none;
+    padding-left: 0;
+    /* border: 1px solid red; */
+}
+.category {
+    width: 45%;
+    height: 150px;
+}
+
+.register-form .column {
+    display: flex;
+    column-gap: 15px;
+}
+
+.select-box select {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: none;
+    color: #7f8c8d;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #bdc3c7;
+}
+
+.submit-btn {
+    height: 55px;
+    width: 100%;
+    font-size: 16px;
+    border: none;
+    margin-top: 30px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: 500;
+    background: #3498db;
     color: white;
+    transition: all 0.2s ease;
+}
+
+.submit-btn:hover {
+    background: #2980b9;
+}
+
+.register-link{
+    padding: 10px;
+}
+
+.register-link p{
     text-align: center;
-    margin: 30px 0;
 }
 
 .register-link p a{
-    color: white;
     text-decoration: none;
-    font-weight: 600;
+    color: #7f8c8d;
 }
-
 .register-link p a:hover{
-    text-decoration: underline;
+    color: #3498db;
 }
 
-.error-message{
-    display: flex;
-    color: white;
-    align-items: center;
-    margin-top: -30px;
-    padding-left: 20px;
+/* error message */
+.error-message {
+    color: red;
+    /* font-style: italic; */
+    font-weight: 400;
     font-size: 15px;
-
 }
 
-@media(max-width: 1536px){
-    .container{
-        max-width: 1280px;
-    }
-}
+/* error message */
 
-@media(max-width: 1280px){
-    .container{
-        max-width: 1024px;
-    }
-}
 
-@media(max-width: 1024px){
-    .container{
-        max-width: 768px;
-        flex-direction: column;
-    }
-}
-
-@media(max-width: 768px){
-    .container{
-        max-width: 640px;
-        flex-direction: column;
-    }
-}
-
-@media(max-width: 640px){
-    .container{
-        max-width: 475px;
-        flex-direction: column;
-    }
-}
-
-@media(max-width: 475px){
-    .container{
-        max-width: 100%;
-        flex-direction: column;
+@media screen and (max-width: 500px){
+    .form .column{
+        flex-wrap: wrap;
     }
 }
 

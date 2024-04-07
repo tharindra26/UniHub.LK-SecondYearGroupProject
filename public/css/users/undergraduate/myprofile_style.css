@@ -25,6 +25,56 @@ body{
     padding-top: 20px;
 }
 
+/* Search bar */
+.search-bar-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.search-bar {
+    width: 100%;
+    /* background: rgba(127, 140, 141, 0.3); */
+    position: relative;
+    background: rgba(255, 255, 255, 1);
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding: 3px 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 0.5px solid #2980b9;
+}
+
+.search-bar input {
+    background: transparent;
+    /* flex: 1; */
+    /* flex:1 get the full width */
+    border: 0;
+    outline: none;
+    font-size: 15px;
+    color: rgb(130, 130, 130);
+    text-align: left;
+
+}
+
+.search-bar input::placeholder {
+    color: rgb(130, 130, 130);
+}
+
+.search-bar button {
+    border: 0;
+    padding: 10px;
+    cursor: pointer;
+    background-color: white;
+    font-size: 20px;
+}
+
+.fa-magnifying-glass {
+    color: black;
+}
+
+/* Search bar */
 /* start css of left bar */
 
 .left-bar{

@@ -1,6 +1,15 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/undergraduate/myprofile_style.css">
+    <div class="option search">
+        <div class="search-bar-container">
+            <form action="" class="search-bar">
+                <input type="text" name="searchInput" placeholder="Search Profile" id="search-bar-input">
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+        </div>        
+                
+    </div>
     <div class="container content-profile">
         <div class="left-bar">
             <div class="profile_header">
