@@ -66,8 +66,8 @@
                                         <img src="profile-image.jpg" alt="not found">
                                     </div>
                                     <div class="profile-name">
-                                        <div class="user-name">Tharindra Fernando</div>
-                                        <div class="user-type">Admin</div>
+                                        <div class="user-name"><?php echo $_SESSION["user_name"] ?></div>
+                                        <div class="user-type"><?php echo $_SESSION["user_type"] ?></div>
                                     </div>
                                 </div>
                             </a>
@@ -108,7 +108,7 @@
                         </ul>
                     </div> -->
 
-                <a href="#" class="reg-btn">Register Now</a>
+                <a href="<?php echo URLROOT ?>/users/register" class="reg-btn">Register Now</a>
             </div>
 
             <div class="wrapper">
@@ -150,7 +150,7 @@
                         <button type="submit" class="btn">Login</button>
 
                         <div class="register-link">
-                            <p>Do not have an Account? <a href="#">Register Now</a></p>
+                            <p>Do not have an Account? <a href="<?php echo URLROOT ?>/users/register">Register Now</a></p>
                         </div>
 
                     </form>
