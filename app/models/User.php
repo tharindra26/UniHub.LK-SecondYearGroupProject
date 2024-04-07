@@ -16,7 +16,7 @@ class User
         $this->db->query("INSERT INTO users (email,type,password,status,verification_code,fname,lname,dob,university_id,contact_number,description,profile_image,cover_image) VALUES(:email,:type,:password,:status,:verification_code,:fname,:lname,:dob,:university_id,:contact_number,:description,:profile_image,:cover_image)");
         //Bind values
         $this->db->bind(':email', $data['email']);
-        $this->db->bind(':type', "Undergraduate");
+        $this->db->bind(':type', "undergraduate");
         $this->db->bind(':password', $data['password']);
         $this->db->bind(':status', false);
         $this->db->bind(':verification_code', $data['verification_code']);
@@ -41,7 +41,10 @@ class User
     // Login User
     public function login($email, $password)
     {
-        $this->db->query('SELECT * FROM users WHERE email = :email');
+        $this->db->query('SELECT u.*, ua.last_authentication_date, ua.google_auth_required, ua.successfully_authenticated 
+        FROM users u 
+        LEFT JOIN user_authentication ua ON u.id = ua.user_id 
+        WHERE u.email = :email');
         $this->db->bind(':email', $email);
 
         $row = $this->db->single();
@@ -92,6 +95,66 @@ class User
         }
     }
 
+    public function addUserAuthenticationRecord($user_id, $last_authentication_date)
+    {
+        $this->db->query("INSERT INTO user_authentication (user_id, last_authentication_date) VALUES (:user_id, :last_authentication_date)");
+        // Bind values
+        $this->db->bind(':user_id', $user_id);
+        $this->db->bind(':last_authentication_date', $last_authentication_date);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function updateLastAuthenticationDate($user_id, $last_authentication_date)
+    {
+        $this->db->query("UPDATE user_authentication SET last_authentication_date = :last_authentication_date WHERE user_id = :user_id");
+        // Bind values
+        $this->db->bind(':user_id', $user_id);
+        $this->db->bind(':last_authentication_date', $last_authentication_date);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setGoogleAuthRequired($user_id, $google_auth_required)
+    {
+        $this->db->query("UPDATE user_authentication SET google_auth_required = :google_auth_required WHERE user_id = :user_id");
+        // Bind values
+        $this->db->bind(':user_id', $user_id);
+        $this->db->bind(':google_auth_required', $google_auth_required);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function updateSuccessfullyAuthenticated($user_id, $successfully_authenticated)
+    {
+        $this->db->query("UPDATE user_authentication SET successfully_authenticated = :successfully_authenticated WHERE user_id = :user_id");
+        // Bind values
+        $this->db->bind(':user_id', $user_id);
+        $this->db->bind(':successfully_authenticated', $successfully_authenticated);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function updateUser($data)
     {
         $this->db->query("UPDATE users SET name = :name, user_type = :user_type, email = :email, password = :password WHERE id= :id");
@@ -130,6 +193,23 @@ class User
         //check row
         if ($this->db->rowCount() > 0) {
             return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getUserByEmail($email)
+    {
+        $this->db->query('SELECT u.*, ua.last_authentication_date, ua.google_auth_required, ua.successfully_authenticated 
+        FROM users u 
+        LEFT JOIN user_authentication ua ON u.id = ua.user_id WHERE email = :email');
+        $this->db->bind(':email', $email);
+
+        $row = $this->db->single();
+
+        //check row
+        if ($this->db->rowCount() > 0) {
+            return $row;
         } else {
             return false;
         }
@@ -208,7 +288,8 @@ class User
         }
     }
 
-    public function getAllInterestedEventsByUserId($user_id){
+    public function getAllInterestedEventsByUserId($user_id)
+    {
         $this->db->query('SELECT e.*, event_participation.* 
                         FROM event_participation
                         INNER JOIN events e
@@ -225,23 +306,25 @@ class User
         return $row;
     }
 
-    public function RemoveInterestedEvent($data){
+    public function RemoveInterestedEvent($data)
+    {
         $this->db->query("DELETE FROM event_participation   
                         WHERE participation_id= :participation_id
                         AND participation_status = :participation_status");
-            //Bind values
-            $this->db->bind(':participation_id', $data['participation_id']);
-            $this->db->bind(':participation_status', "interested");
-    
-            //Execute the query
-            if ($this->db->execute()) {
-                return true;
-            } else {
-                return false;
-            }
+        //Bind values
+        $this->db->bind(':participation_id', $data['participation_id']);
+        $this->db->bind(':participation_status', "interested");
+
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public function getFriendsByUserId($user_id){
+    public function getFriendsByUserId($user_id)
+    {
         // First query: Fetching users followed by the given user
         $this->db->query('SELECT u2.*, f.follower_relationship_id, universities.name AS university_name
                         FROM users u1
@@ -283,7 +366,8 @@ class User
         return $allFriends;
     }
 
-    public function UnfollowFriend($data){
+    public function UnfollowFriend($data)
+    {
         $this->db->query("DELETE FROM user_followers WHERE 	follower_relationship_id = :follower_relationship_id");
         //Bind values
         $this->db->bind(':follower_relationship_id', $data['follower_relationship_id']);
@@ -296,12 +380,13 @@ class User
         }
     }
 
-    public function checkFriendStatus($data){
+    public function checkFriendStatus($data)
+    {
         $this->db->query("SELECT *
                         FROM user_followers
                         WHERE (follower_id = :loggedin_user AND following_id = :user_id)
                         OR (follower_id = :user_id AND following_id = :loggedin_user)");
-        
+
         //Bind Values
         $this->db->bind(':user_id', $data['user_id']);
         $this->db->bind(':loggedin_user', $data['loggedin_id']);
@@ -310,9 +395,10 @@ class User
         return $result;
     }
 
-    public function getFriendRequestsById($id){
-            //Fetching users that follow the given user
-            $this->db->query('SELECT u1.*, f.follower_relationship_id,universities.name AS university_name
+    public function getFriendRequestsById($id)
+    {
+        //Fetching users that follow the given user
+        $this->db->query('SELECT u1.*, f.follower_relationship_id,universities.name AS university_name
                 FROM users u1
                 JOIN user_followers f
                 ON u1.id = f.follower_id
@@ -331,7 +417,8 @@ class User
 
     }
 
-    public function acceptRequestById($data){
+    public function acceptRequestById($data)
+    {
         $this->db->query("UPDATE user_followers 
                         SET status = :status
                         WHERE follower_relationship_id = :follower_relationship_id");
@@ -414,7 +501,7 @@ class User
 
         return $row;
     }
-    
+
 
     public function getUsersByType($data)
     {

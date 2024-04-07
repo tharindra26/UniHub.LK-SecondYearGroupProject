@@ -1,6 +1,6 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
-<link rel="stylesheet" href="<?php echo URLROOT ?>/css/signin_style.css">
+<link rel="stylesheet" href="<?php echo URLROOT ?>/css/google-auth_style.css">
 
 <!-- navigation-bar -->
 <div class="nav-outer-container">
@@ -112,50 +112,20 @@
                 
             </div>
 
-            <div class="wrapper">
-                <div class="form-box login">
+            <div class="right-wrapper">
                     <h2>SignIn</h2>
-                    <form action="<?php echo URLROOT; ?>/users/login" method="post">
-                        <div class="input-box">
-                            <span>
-                                <i class="fa-solid fa-envelope"></i>
-                            </span>
-                            <label>Enter Your Email</label>
-                            <input type="email" name="email" value="<?php echo $data['email'] ?>">
+                    <div class="google-auth-caption">
+                        Please proceed with Google authentication to continue.
+                    </div>                   
+                    <a class="google-login" href="<?php echo URLROOT; ?>/users/googleLogin">
+                        <div class="google-logo">
+                            <img src="<?php echo URLROOT ?>/img/users/google-login/google-logo.png" alt="">
                         </div>
-                        <?php if (!empty($data['email_err'])): ?>
-                            <span class="error-message">
-                                <?php echo $data['email_err']; ?>
-                            </span>
-                        <?php endif; ?>
-
-
-                        <div class="input-box">
-                            <span>
-                                <i class="fa-solid fa-lock"></i>
-                            </span>
-                            <label>Enter Your Password</label>
-                            <input type="password" name="password" value="<?php echo $data['password'] ?>">
+                        <div class="auth-txt">
+                            Google Authentication
                         </div>
-                        <?php if (!empty($data['password_err'])): ?>
-                            <span class="error-message">
-                                <?php echo $data['password_err']; ?>
-                            </span>
-                        <?php endif; ?>
+                    </a>
 
-
-                        <div class="remember-forgot">
-                            <label><input type="checkbox" name="" id="">Remember Me</label>
-                            <a href="#">Forgot Password?</a>
-                        </div>
-                        <button type="submit" class="btn">Login</button>
-
-                        <div class="register-link">
-                            <p>Do not have an Account? <a href="#">Register Now</a></p>
-                        </div>
-
-                    </form>
-                </div>
             </div>
 
         </div>

@@ -129,6 +129,19 @@ class Users extends Controller
             echo 'Error.';
           }
 
+          $user = $this->userModel->getUserByEmail($data['email']); // Get user ID
+          $user_id = $user->id; // Get user ID
+          $last_authentication_date = date('Y-m-d H:i:s'); // Current date and time
+
+          // Add record to user_authentication table
+          if ($this->userModel->addUserAuthenticationRecord($user_id, $last_authentication_date)) {
+            // Mail sending code...
+            // Redirect or display appropriate message
+            redirect('users/login');
+          } else {
+            die("Something went wrong adding user authentication record");
+          }
+
 
           // flash('register_success', 'You are registered and can log in');
           redirect('users/login'); //redirect back to login page if register is successful
@@ -167,6 +180,8 @@ class Users extends Controller
 
   public function googleLogin()
   {
+
+
     //Google Authentication credentials
     $clientID = '472800178666-2lruamt57kjllkgvqr7t2amcmm644289.apps.googleusercontent.com'; // your client id
     $clientSecret = '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'; // your client secret
@@ -181,7 +196,7 @@ class Users extends Controller
     $client->addScope("profile");
 
 
-    
+
     if (isset($_GET['code'])) {
       $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
       // $client->setAccessToken($token['access_token']);
@@ -193,14 +208,27 @@ class Users extends Controller
       $name = $google_account_info->name;
 
 
-
-      var_dump($email, $name); // Debugging purpose
-      die();
+      if ($this->userModel->findUserByEmail($email)) {
+        $user = $this->userModel->getUserByEmail($email);
+        $currentDate = new DateTime();
+        $currentDateString = $currentDate->format('Y-m-d H:i:s');
+        $this->userModel->updateLastAuthenticationDate($user->id, $currentDateString);
+        $this->userModel->setGoogleAuthRequired($user->id, false);
+        $this->userModel->updateSuccessfullyAuthenticated($user->id, true);
+        $data = [
+          'email' => $email,
+          'password' => '',
+          'password_err' => 'Google authentication succeeded. Please provide your password to continue.',
+        ];
+        $this->view('signin', $data);
+      } else {
+        echo "Google authentication failed. Please try again.";
+      }
     } else {
+
       //redirect to google
       $authUrl = $client->createAuthUrl();
       header('Location: ' . $authUrl);
-      die();
     }
 
 
@@ -210,6 +238,11 @@ class Users extends Controller
 
   public function login()
   {
+
+
+    // $data = [];
+    // $this->view('google-auth', $data);
+    // die();
     // Check for POST
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       // Process form
@@ -254,16 +287,45 @@ class Users extends Controller
       if (empty($data['email_err']) && empty($data['password_err'])) {
         // Validated
         // Check and set logged in user
+        $user = $this->userModel->getUserByEmail($data['email']);
+
+
+        // $loggedInUser = $this->userModel->login($data['email'], $data['password']);
+        // $status = $this->userModel->getUserStatusByEmail($data['email']);
+
+        if ($user->type == 'undergraduate') {
+          $lastAuthDate = new DateTime($user->last_authentication_date);
+          $currentDate = new DateTime();
+          $interval = $currentDate->diff($lastAuthDate);
+
+          // Check if it's been more than 7 days since the last authentication
+          if ($interval->days >= 7) {
+            // Set google_auth_required flag to true
+            $this->userModel->setGoogleAuthRequired($user->id, true);
+            $data = [
+              'user_id' => $user->id,
+            ];
+            $this->view('google-auth', $data);
+            die();
+          }
+        }
+
         $loggedInUser = $this->userModel->login($data['email'], $data['password']);
-        $status = $this->userModel->getUserStatusByEmail($data['email']);
 
 
         if ($loggedInUser) {
           // Create Session
-          // Print JavaScript code for SweetAlert2
+          if ($loggedInUser->type == 'undergraduate') {
+            if ($loggedInUser->google_auth_required == false && $loggedInUser->successfully_authenticated == true) {
+              $this->createUserSession($loggedInUser);
+              $this->userModel->addLoginRecord($_SESSION['user_id']);
+            }
+          }else{
+            $this->createUserSession($loggedInUser);
+            $this->userModel->addLoginRecord($_SESSION['user_id']);
+          }
+          
 
-          $this->createUserSession($loggedInUser);
-          $this->userModel->addLoginRecord($_SESSION['user_id']);
         } else {
           $data['password_err'] = 'Password incorrect';
           $_SESSION['login_status'] = 'invalid';
