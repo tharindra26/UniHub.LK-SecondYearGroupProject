@@ -1047,7 +1047,86 @@ class Events extends Controller
   }
 
   public function editCountdown($id){
-    
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      //process form
+      $main_button_link = trim($_POST['main_button_link']);
+
+      //Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      //Init data
+      $data = [
+
+        'id' => $id,
+        'main_button_action' => $_POST['main_button_action'],
+        'main_button_link' => $main_button_link,
+        'countdown_text' => $_POST['countdown_text'],
+        'countdown_datetime' => $_POST['countdown_datetime'],
+
+
+        'main_button_action_err' => '',
+        'main_button_link_err' => '',
+        'countdown_text_err' => '',
+        'countdown_datetime_err' => '',
+
+
+      ];
+
+
+
+
+      if (empty($data['main_button_action'])) {
+        $data['main_button_action_err'] = 'Pleae enter the main button action';
+      }
+
+      if (empty($data['countdown_text'])) {
+        $data['countdown_text_err'] = 'Pleae enter the countdown text';
+      }
+      if (empty($data['countdown_datetime'])) {
+        $data['countdown_datetime_err'] = 'Pleae enter the countdown date and time';
+      }
+
+
+      // Make sure errors are empty
+      if (empty($data['main_button_action_err']) && empty($data['countdown_text_err']) && empty($data['start_datetime_err']) && empty($data['countdown_datetime_err'])) {
+        //Validated
+        if ($this->eventModel->updateCountdown($data)) {
+
+          redirect('events/show/' . $id);
+        }
+
+
+      } else {
+
+        //load view with errors
+        $this->view('events/editCountdown', $data);
+
+      }
+
+
+    } else {
+      //get existing post from model
+      $event = $this->eventModel->getEventById($id);
+
+      // Init data
+      $data = [
+        'id' => $id,
+        'main_button_action' => $event->main_button_action,
+        'main_button_link' => $event->main_button_link,
+        'countdown_text' => $event->countdown_text,
+        'countdown_datetime' => $event->countdown_datetime,
+
+
+        'main_button_action_err' => '',
+        'main_button_link_err' => '',
+        'countdown_text_err' => '',
+        'countdown_datetime_err' => '',
+
+      ];
+
+      // Load view
+      $this->view('events/editCountdown', $data);
+    }
   }
 
 
