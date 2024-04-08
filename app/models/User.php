@@ -414,8 +414,46 @@ class User
 
         return $row;
     }
+
+    public function searchUsers($data)
+    {
+        $keyword = $data['keyword'];
+        //$university = trim($data['university']);
+
+        $query = 'SELECT *
+                    FROM users 
+                    WHERE 1=1';
+
+        if (!empty($keyword)) {
+            $query .= " AND email LIKE :keyword
+                        OR fname LIKE :keyword
+                        OR lname LIKE :keyword";
+
+        }
+        // Prepare the query
+        $this->db->query($query);
+
+        // Bind values to the placeholders
+        if (!empty($keyword)) {
+            $this->db->bind(':keyword', '%' . $keyword . '%');
+        }
+
+        // if (!empty($university)) {
+        //     $this->db->bind(':university', $university);
+        // }
+
+
+        // Execute the query
+        $this->db->execute();
+
+        // Fetch the results
+        $row = $this->db->resultSet();
+        return $row;
+
+    }
     
 
+    //Admin
     public function getUsersByType($data)
     {
         $type = $data['value'];

@@ -44,44 +44,44 @@ class Users extends Controller
 
       // Validate Email
       if (empty($data['email'])) {
-        $data['email_err'] = 'Pleae enter email';
+        $data['email_err'] = 'Please enter email';
       } else {
         //check email is already exists
         if ($this->userModel->findUserByEmail($data['email'])) {
-          $data['email_err'] = 'Email is already taken';
+          $data['email_err'] = 'Please is already taken';
         }
       }
 
       // Validate Name
       if (empty($data['fname'])) {
-        $data['fname_err'] = 'Pleae enter first name';
+        $data['fname_err'] = 'Please enter first name';
       }
 
       // Validate Name
       if (empty($data['lname'])) {
-        $data['lname_err'] = 'Pleae enter last name';
+        $data['lname_err'] = 'Please enter last name';
       }
 
       // Validate Name
       if (empty($data['dob'])) {
-        $data['dob_err'] = 'Pleae enter date of birth';
+        $data['dob_err'] = 'Please enter date of birth';
       }
 
       // Validate Name
       if (empty($data['university'])) {
-        $data['university_err'] = 'Pleae select University';
+        $data['university_err'] = 'Please select University';
       }
 
       // Validate Password
       if (empty($data['password'])) {
-        $data['password_err'] = 'Pleae enter password';
+        $data['password_err'] = 'Please enter password';
       } elseif (strlen($data['password']) < 6) {
         $data['password_err'] = 'Password must be at least 6 characters';
       }
 
       // Validate Confirm Password
       if (empty($data['confirm_password'])) {
-        $data['confirm_password_err'] = 'Pleae confirm password';
+        $data['confirm_password_err'] = 'Please confirm password';
       } else {
         if ($data['password'] != $data['confirm_password']) {
           $data['confirm_password_err'] = 'Passwords do not match';
@@ -716,6 +716,25 @@ class Users extends Controller
     $this->view('users/undergraduate/updatemyprofile', $data);
   }
 
+//Search Profiles
+public function searchUsers()
+{
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    // echo $_POST['value'];
+
+    $users = $this->userModel->searchUsers($_POST);
+
+    $data = [
+      'users' => $users, 
+    ];
+
+    $this->view('users/undergraduate/', $data);
+
+  }
+}
+
+//Admin
   public function dashboard()
   {
     $data = [

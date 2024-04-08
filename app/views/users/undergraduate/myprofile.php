@@ -1,16 +1,20 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/undergraduate/myprofile_style.css">
+<div class="container">
     <div class="option search">
         <div class="search-bar-container">
             <form action="" class="search-bar">
                 <input type="text" name="searchInput" placeholder="Search Profile" id="search-bar-input">
                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
-        </div>        
+        </div>   
+        <div class="results" id="result-list">
+            <a href="#">List 1</a>
+        </div>     
                 
     </div>
-    <div class="container content-profile">
+    <div class="content-profile">
         <div class="left-bar">
             <div class="profile_header">
                 <div class="photos">
@@ -405,7 +409,7 @@
             </div>
         </div>
     </div>
-
+</div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     
     <script>
@@ -489,6 +493,32 @@
 checkFriendStatus();
 
 });
+</script>
+<script>
+    $(document).ready(function(){
+        $("#search-bar-input").keyup(function(){
+            var searchUser = $(this).val();
+            if(searchUser != ''){
+                $.ajax({
+                    url: 'http://localhost/unihub/users/searchUsers',
+                    type: 'POST',
+                    data: {
+                        keyword: searchUser,
+                    },
+                    success:function(response){
+                        $("#result-list").html(response);
+                    }
+                });
+            }
+            else{
+                $("#result-list").html('');
+            }
+        });
+        $(document).on('click', 'a', function(){
+            $("#search-bar-input").val($(this).text());
+            $("#result-list").html('');
+        })
+    });
 </script>
 <script src="<?php echo URLROOT?>/js/users/undergraduate/myprofile.js"></script>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
