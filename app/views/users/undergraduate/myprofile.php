@@ -2,7 +2,7 @@
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/undergraduate/myprofile_style.css">
 <div class="container">
-    <div class="option search">
+    <div class="search">
         <div class="search-bar-container">
             <form action="" class="search-bar">
                 <input type="text" name="searchInput" placeholder="Search Profile" id="search-bar-input">
@@ -10,7 +10,7 @@
             </form>
         </div>   
         <div class="results" id="result-list">
-            <a href="#">List 1</a>
+            
         </div>     
                 
     </div>

@@ -840,7 +840,7 @@ public function searchUsers()
       'users' => $users, 
     ];
 
-    $this->view('users/undergraduate/', $data);
+    $this->view('users/undergraduate/searchUser', $data);
 
   }
 }
