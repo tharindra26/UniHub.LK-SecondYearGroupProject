@@ -215,6 +215,24 @@ class User
         }
     }
 
+    public function getUserByName($name){
+        $names = explode(' ', $name);
+        $fname = $names[0];
+        $lname = $names[1];
+        $this->db->query('SELECT id FROM users WHERE fname = :fname AND lname = :lname');
+        $this->db->bind(':fname', $fname);
+        $this->db->bind(':lname', $lname);
+
+        $row = $this->db->single();
+
+        //check row
+        if ($this->db->rowCount() > 0) {
+            return $row;
+        } else {
+            return false;
+        } 
+    }
+
     //Find user by id
     public function getUserById($id)
     {

@@ -845,6 +845,32 @@ public function searchUsers()
   }
 }
 
+public function viewUser(){
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    // echo $_POST['value'];
+
+    $name = $_POST['name'];
+
+    $user = $this->userModel->getUserByName($name);
+
+    $data = [
+      'user' => $user, 
+    ];
+
+    if ($user) {
+      // Assuming $user is an object with 'id' property
+      $id = $user->id;
+      echo $id;
+      // Redirect to the user's profile page
+      //redirect('users/show/' . $id);
+  } else {
+      // Handle case where user is not found
+      echo "User not found!";
+  }
+  }
+}
+
 //Admin
   public function dashboard()
   {
