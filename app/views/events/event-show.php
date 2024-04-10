@@ -468,7 +468,7 @@
 
     <?php
     // Your MySQL datetime value
-    $mysqlDateTime = $data['event']->start_datetime;
+    $mysqlDateTime = $data['event']->countdown_datetime;
 
     // Parse MySQL datetime string using DateTime
     $dateTime = new DateTime($mysqlDateTime);

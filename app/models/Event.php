@@ -159,7 +159,7 @@ class Event
         }
     }
 
-    public function getEventById($id) //14
+    public function getEventById($id) 
     {
         $this->db->query(
             'SELECT events.*
@@ -465,6 +465,30 @@ class Event
         }
     }
 
+    public function updateCountdown($data)
+    {
+        $this->db->query("UPDATE events SET
+                    main_button_action = :main_button_action,
+                    main_button_link = :main_button_link,
+                    countdown_text = :countdown_text,
+                    countdown_datetime = :countdown_datetime
+                    WHERE id = :id");
+
+        //Bind values
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':main_button_action', $data['main_button_action']);
+        $this->db->bind(':main_button_link', $data['main_button_link']);
+        $this->db->bind(':countdown_text', $data['countdown_text']);
+        $this->db->bind(':countdown_datetime', $data['countdown_datetime']);
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
     public function addReview($data)
     {
         // Check if there is already a review for this user and event
@@ -574,6 +598,35 @@ class Event
             return false;
         }
     }
+
+    public function deleteAnnouncementById($announcement_id)
+    {
+        $this->db->query("DELETE FROM event_announcements WHERE announcement_id = :announcement_id");
+        $this->db->bind(':announcement_id', $announcement_id);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function updateAnnouncementById($data)
+    {
+        $this->db->query("UPDATE event_announcements SET announcement_text = :announcement_text WHERE announcement_id = :announcement_id");
+        $this->db->bind(':announcement_id', $data['announcementId']);
+        $this->db->bind(':announcement_text', $data['announcementText']);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 
 
 
