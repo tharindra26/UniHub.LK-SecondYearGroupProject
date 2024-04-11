@@ -25,7 +25,7 @@
                             </div>
                         </div>
                         <div class="working-mod-box">
-                            <div class="working-mod"><i class="fa-solid fa-building"></i> Physical</div>
+                            <div class="working-mod"><i class="fa-solid fa-building"></i> <?php echo $opportunity->working_type ?></div>
                         </div>
                     </div>
                     <div class="interesting-count">

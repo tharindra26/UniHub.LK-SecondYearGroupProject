@@ -95,6 +95,28 @@
                     </div>
 
                     <div class="input-box">
+                        <label for="">Working Type</label>
+                        <div class="select-box">
+                            <select name="working_type" id="selection">
+                                <option hidden <?php if (empty($data['working_type']))
+                                    echo 'selected'; ?>>Select
+                                    Working Type</option>
+                                <option value="Physical Work" <?php if ($data['working_type'] == 'Physical Work')
+                                    echo 'selected'; ?>>Physical Work</option>
+                                <option value="Online Work (Remote Work)" <?php if ($data['working_type'] == 'Online Work')
+                                    echo 'selected'; ?>>Online Work (Remote Work)</option>
+                                <option value="Both physical & remote" <?php if ($data['working_type'] == 'Both physical & remote')
+                                    echo 'selected'; ?>>Both physical & remote</option>
+                            </select>
+                        </div>
+                        <?php if (!empty($data['working_type_err'])): ?>
+                            <span class="error-message">
+                                <?php echo $data['working_type_err']; ?>
+                            </span>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="input-box">
                         <label for="">Title Positions</label>
                         <input type="text" name="title_positions" id="" value="<?php echo $data['title_positions'] ?>"
                             placeholder="Enter the tite positions">

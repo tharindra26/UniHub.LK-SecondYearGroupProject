@@ -87,6 +87,7 @@ class Opportunity
         contact_email,
         contact_phone,
         opportunity_type,
+        working_type,
         description,
         qualifications,
         additional_information,
@@ -103,6 +104,7 @@ class Opportunity
         :contact_email,
         :contact_phone,
         :opportunity_type,
+        :working_type,
         :description,
         :qualifications,
         :additional_information,
@@ -123,6 +125,7 @@ class Opportunity
         $this->db->bind(':contact_email', $data['contact_email']);
         $this->db->bind(':contact_phone', $data['contact_phone']);
         $this->db->bind(':opportunity_type', $data['opportunity_type']);
+        $this->db->bind(':working_type', $data['working_type']);
         $this->db->bind(':description', $data['description']);
         $this->db->bind(':qualifications', $data['qualifications']);
         $this->db->bind(':additional_information', $data['additional_information']);

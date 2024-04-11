@@ -55,6 +55,7 @@ class Opportunities extends Controller
         'contact_email' => trim($_POST['contact_email']),
         'contact_phone' => trim($_POST['contact_phone']),
         'opportunity_type' => trim($_POST['opportunity_type']),
+        'working_type' => trim($_POST['working_type']),
         'title_positions' => trim($_POST['title_positions']),
         'tags' => trim($_POST['tags']),
         'description' => trim($_POST['description']),
@@ -74,6 +75,7 @@ class Opportunities extends Controller
         'contact_email_err' => '',
         'contact_phone_err' => '',
         'opportunity_type_err' => '',
+        'working_type_err' => '',
         'title_positions_err' => '',
         'tags_err' => '',
         'description_err' => '',
@@ -108,6 +110,9 @@ class Opportunities extends Controller
       if (empty($data['opportunity_type'])) {
         $data['opportunity_type_err'] = 'Pleae enter the opportunity type';
       }
+      if (empty($data['working_type'])) {
+        $data['working_type_err'] = 'Pleae enter the working type';
+      }
       if (empty($data['title_positions'])) {
         $data['title_positions_err'] = 'Pleae add the title positions';
       }
@@ -141,6 +146,7 @@ class Opportunities extends Controller
         && empty($data['contact_email_err'])
         && empty($data['contact_phone_err'])
         && empty($data['opportunity_type_err'])
+        && empty($data['working_type_err'])
         && empty($data['title_positions_err'])
         && empty($data['tags_err'])
         && empty($data['description_err'])
@@ -270,6 +276,7 @@ class Opportunities extends Controller
         'contact_email' => '',
         'contact_phone' => '',
         'opportunity_type' => '',
+        'working_type' => '',
         'title_positions' => '',
         'tags' => '',
         'description' => '',
@@ -289,6 +296,7 @@ class Opportunities extends Controller
         'contact_email_err' => '',
         'contact_phone_err' => '',
         'opportunity_type_err' => '',
+        'working_type_err' => '',
         'title_positions_err' => '',
         'tags_err' => '',
         'description_err' => '',
