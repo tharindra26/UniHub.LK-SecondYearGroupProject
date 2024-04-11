@@ -700,6 +700,29 @@ class User
     //     return $rows;
     // }
 
+    public function updateUserProfileImage($data)
+    {
+
+        // var_dump($data);
+        // die();
+        $this->db->query("UPDATE users SET
+                profile_image = :profile_image,
+                cover_image = :cover_image
+                WHERE id = :id");
+
+        // Bind values
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':profile_image', $data['profile_image']);
+        $this->db->bind(':cover_image', $data['cover_image']);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function updateContactDetails($data)
     {
         $this->db->query("UPDATE users SET

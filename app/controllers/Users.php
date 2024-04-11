@@ -1590,133 +1590,140 @@ public function viewUser(){
       $this->view('users/undergraduate/addEducation', $data);
     }
   }
-
-
   //change profile images
 
-  public function updateProfileImage($id)
-  {
-    // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //   //process form
+public function  editProfileImage($id){
+  $user = $this->userModel->getUserById($id);
 
-    //   //Sanitize post data
-    //   $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //process form
 
-    //   //Init data
-    //   $data = [
-    //     'id' => $id,
-    //     'profile_image' => trim($_POST['profile_image']),
-    //     'cover_image' => trim($_POST['cover_image']),
-    //     'profile_image_err' => '',
-    //     'cover_image_err' => '',
+    //Sanitize post data
+    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-    //   ];
+    //Init data
+    $data = [
+      'id' => $id,
+      'profile_image_err' => '',
+      'cover_image_err' => '',
 
+    ];
 
-    //   // if (empty($data['event_title'])) {
-    //   //   $data['event_title_err'] = 'Pleae enter event title';
-    //   // }
+    if (isset($_POST['profile_image']) && !empty($_POST['profile_image'])) {
+      // If it's set and not empty, trim any whitespace and assign it
+      $data['$profile_image'] = trim($_POST['profile_image']);
+    } else {
+      // If it's not set or empty, assign a default value or handle the scenario accordingly
+      $data['profile_image'] = $user->profile_image; // You can set a default value here if needed
+    }
 
-    //   // if (empty($data['event_type'])) {
-    //   //   $data['event_type_err'] = 'Pleae enter event type';
-    //   // }
-
-    //   // if (empty($data['description'])) {
-    //   //   $data['description_err'] = 'Pleae enter event description';
-    //   // }
-
-    //   // if (empty($data['date'])) {
-    //   //   $data['date_err'] = 'Pleae enter date';
-    //   // }
-
-    //   // if (empty($data['location'])) {
-    //   //   $data['location_err'] = 'Pleae enter location';
-    //   // }
+    if (isset($_POST['cover_image']) && !empty($_POST['cover_image'])) {
+      // If it's set and not empty, trim any whitespace and assign it
+      $data['$cover_image'] = trim($_POST['cover_image']);
+    } else {
+      // If it's not set or empty, assign a default value or handle the scenario accordingly
+      $data['cover_image'] = $user->cover_image; // You can set a default value here if needed
+    }
 
 
 
-    //   // Make sure errors are empty
-    //   if (empty($data['event_title_err']) && empty($data['event_type_err']) && empty($data['description_err']) && empty($data['date_err']) && empty($data['location_err'])) {
-    //     //Validated
-    //     if (isset($_FILES['event_card_image']['name']) and !empty($_FILES['event_card_image']['name'])) {
+
+    if (empty($data['profile_image'])) {
+      $data['profile_image_err'] = 'Pleae add a profile image';
+    }
+
+    if (empty($data['cover_image'])) {
+      $data['cover_image_err'] = 'Pleae add a cover image';
+    }
+
+  
+    // Make sure errors are empty
+    if (empty($data['profile_image_err']) && empty($data['cover_image_err'])) {
+      //Validated
+      if (isset($_FILES['profile_image']['name']) and !empty($_FILES['profile_image']['name'])) {
 
 
-    //       $img_name = $_FILES['event_card_image']['name'];
-    //       $tmp_name = $_FILES['event_card_image']['tmp_name'];
-    //       $error = $_FILES['event_card_image']['error'];
+        $img_name = $_FILES['profile_image']['name'];
+        $tmp_name = $_FILES['profile_image']['tmp_name'];
+        $error = $_FILES['profile_image']['error'];
 
-    //       if ($error === 0) {
-    //         $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-    //         $img_ex_to_lc = strtolower($img_ex);
+        if ($error === 0) {
+          $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+          $img_ex_to_lc = strtolower($img_ex);
 
-    //         $allowed_exs = array('jpg', 'jpeg', 'png');
-    //         if (in_array($img_ex_to_lc, $allowed_exs)) {
-    //           $new_img_name = $data['event_title'] . '-event-card-image.' . $img_ex_to_lc;
-    //           $img_upload_path = "../public/img/event-card-images/" . $new_img_name;
-    //           move_uploaded_file($tmp_name, $img_upload_path);
+          $allowed_exs = array('jpg', 'jpeg', 'png');
+          if (in_array($img_ex_to_lc, $allowed_exs)) {
+            $new_img_name = $user->title . '_user_profile_' . time() . '.' . $img_ex_to_lc;
+            $img_upload_path = "../public/img/users/users_profile_images/" . $new_img_name;
+            move_uploaded_file($tmp_name, $img_upload_path);
 
-    //           $data['event_card_image'] = $new_img_name;
-    //         }
-    //       }
-    //     }
+            $data['profile_image'] = $new_img_name;
+          }
+        }
+      }
 
-    //     if (isset($_FILES['event_cover_image']['name']) and !empty($_FILES['event_cover_image']['name'])) {
-
-
-    //       $img_name = $_FILES['event_cover_image']['name'];
-    //       $tmp_name = $_FILES['event_cover_image']['tmp_name'];
-    //       $error = $_FILES['event_cover_image']['error'];
-
-    //       if ($error === 0) {
-    //         $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-    //         $img_ex_to_lc = strtolower($img_ex);
-
-    //         $allowed_exs = array('jpg', 'jpeg', 'png');
-    //         if (in_array($img_ex_to_lc, $allowed_exs)) {
-    //           $new_img_name = $data['event_title'] . '-event-cover-image.' . $img_ex_to_lc;
-    //           $img_upload_path = "../public/img/event-cover-images/" . $new_img_name;
-    //           move_uploaded_file($tmp_name, $img_upload_path);
-
-    //           $data['event_cover_image'] = $new_img_name;
-    //         }
-    //       }
-    //     }
-
-    //     if ($this->eventModel->updateEvent($data)) {
-    //       flash('event_message', "Event Updated Successfully");
-    //       redirect('events');
-    //     }
-    //   } else {
-
-    //     //load view with error
-    //     $this->view('events/events-edit', $data);
-
-    //   }
+      if (isset($_FILES['cover_image']['name']) and !empty($_FILES['cover_image']['name'])) {
 
 
-    // } else {
-    //   //get existing post from model
-    //   $event = $this->eventModel->getEventById($id);
+        $img_name = $_FILES['cover_image']['name'];
+        $tmp_name = $_FILES['cover_image']['tmp_name'];
+        $error = $_FILES['cover_image']['error'];
 
-    //   //check for owner
-    //   // if ($event->user_id != $_SESSION['user_id']) {
-    //   //   redirect('events');
-    //   // }
-    //   // Init data
-    //   $data = [
-    //     'id' => $id,
-    //     'event_profile_image' => $event->event_profile_image,
-    //     'event_cover_image' => $event->event_cover_image,
-    //     'event_card_image_err' => '',
-    //     'event_cover_image_err' => '',
+        if ($error === 0) {
+          $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+          $img_ex_to_lc = strtolower($img_ex);
 
-    //   ];
+          $allowed_exs = array('jpg', 'jpeg', 'png');
+          if (in_array($img_ex_to_lc, $allowed_exs)) {
+            $new_img_name = $data['title'] . '_user_cover_' . time() . '.' . $img_ex_to_lc;
+            $img_upload_path = "../public/img/users/users_cover_images/" . $new_img_name;
+            move_uploaded_file($tmp_name, $img_upload_path);
 
-    //   // Load view
-    //   $this->view('events/editProfileImage', $data);
+            $data['cover_image'] = $new_img_name;
+          }
+        }
+      }
+
+
+      $data['id'] = $user->id;
+      if ($this->userModel->updateUserProfileImage($data)) {
+        // flash('event_message', "Event Updated Successfully");
+        redirect('users/show/' . $user->id);
+      }
+    } else {
+
+      //load view with error
+      $data['id'] = $user->id;
+      //$this->view('events/events-edit', $data);
+
+    }
+
+
+  } else {
+    //check for owner
+    // if ($event->user_id != $_SESSION['user_id']) {
+    //   redirect('events');
     // }
-  }
+    // Init data
+    $data = [
+      'id' => $id,
+      'profile_image' => $user->profile_image,
+      'cover_image' => $user->cover_image,
+      'profile_image_err' => '',
+      'cover_image_err' => '',
+    ];
 
+    // Load view
+    $this->view('users/undergraduate/editProfileImage', $data);
+  }
+}
+  
+public function editSkills($id){
+  $data =[
+
+  ];
+  $this->view('users/undergraduate/editSkills', $data);
+}
 
 
 
