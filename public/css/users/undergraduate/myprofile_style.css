@@ -107,10 +107,17 @@ body{
     
 }
 
-.search-results a{
+.profile-link{
+    display: flex;
     text-decoration: none;
     color: #7f8c8d;
+}
+
+.profile-name{
     padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .profile-pic{
     width: 40px;
@@ -163,7 +170,9 @@ body{
 }
 
 .profile-photo{
-    width: 180px;
+    margin: 1px solid red;
+    max-width: 300px;
+    max-height: 180px;
     border-radius: 50%;
     margin-top: -90px;
     margin-left: 30px;
