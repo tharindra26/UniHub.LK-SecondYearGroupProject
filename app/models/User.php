@@ -215,6 +215,24 @@ class User
         }
     }
 
+    public function getUserByName($name){
+        $names = explode(' ', $name);
+        $fname = $names[0];
+        $lname = $names[1];
+        $this->db->query('SELECT id FROM users WHERE fname = :fname AND lname = :lname');
+        $this->db->bind(':fname', $fname);
+        $this->db->bind(':lname', $lname);
+
+        $row = $this->db->single();
+
+        //check row
+        if ($this->db->rowCount() > 0) {
+            return $row;
+        } else {
+            return false;
+        } 
+    }
+
     //Find user by id
     public function getUserById($id)
     {
@@ -522,6 +540,38 @@ class User
         return $rows;
     }
 
+    public function searchUsers($data)
+    {
+        $keyword = $data['keyword'];
+        //$date = $data['date'];
+        //$university = trim($data['university']);
+
+        $query = 'SELECT *
+                    FROM users 
+                    WHERE 1=1';
+
+        if (!empty($keyword)) {
+            $query .= " AND fname LIKE :keyword
+                        OR lname LIKE :keyword";
+
+        }
+
+        // Prepare the query
+        $this->db->query($query);
+
+        // Bind values to the placeholders
+                if (!empty($keyword)) {
+                    $this->db->bind(':keyword', '%' . $keyword . '%');
+                }
+
+                // Execute the query
+                $this->db->execute();
+        
+                // Fetch the results
+                $row = $this->db->resultSet();
+                return $row;
+        
+    }
 
     public function filterUsers($data)
     {

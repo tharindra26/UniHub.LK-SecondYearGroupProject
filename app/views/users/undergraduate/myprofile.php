@@ -1,16 +1,22 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/undergraduate/myprofile_style.css">
-    <div class="option search">
+<div class="container">
+    <div class="search">
         <div class="search-bar-container">
             <form action="" class="search-bar">
                 <input type="text" name="searchInput" placeholder="Search Profile" id="search-bar-input">
-                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <a href="#">
+                    <button type="submit" onclick="viewUser()"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+                </a>
             </form>
-        </div>        
+        </div>   
+        <div class="results" id="result-list">
+            
+        </div>     
                 
     </div>
-    <div class="container content-profile">
+    <div class="content-profile">
         <div class="left-bar">
             <div class="profile_header">
                 <div class="photos">
@@ -405,7 +411,7 @@
             </div>
         </div>
     </div>
-
+</div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     
     <script>
@@ -428,19 +434,6 @@
 
             friendBtn.text(response);
 
-            // if (response === "Friends") {
-            //     //console.log(response)
-            //     friendBtn.text(response);
-            // } 
-            // else if(response === "Accept"){
-            //     console.log(response)
-            // }
-            // else if(response === "Requested"){
-            //     console.log(response);
-            // }
-            // else if(response === "Follow"){
-            //     console.log(response);
-            // }
         },
         error: function (xhr, status, error) {
             // Handle the error response
@@ -449,46 +442,54 @@
     });
 }
 
-// Add click event to the button
-// $("#interested-btn-id").on("click", function (e) {
-//     // console.log("Click");
-//     e.preventDefault(); // Prevent the default link behavior
-
-//     // // Store reference to the button element
-//     var interestedBtn = $("#interested-btn-id");
-
-//     // // Your AJAX function here
-//     $.ajax({
-//         url: 'http://localhost/unihub/events/changeEventInterest',
-//         type: 'POST', // or 'GET' depending on your needs
-//         data: {
-//             event_id: 
-//             user_id:
-//         },
-//         success: function (response) {
-//             // Handle the success response
-//             console.log("AJAX request successful:", response);
-
-//             // Update the text content on success
-//             // interestedBtn.find('span').text(response);   
-//             if (response === '1') {
-//                 interestedBtn.addClass("new-class");
-//             } else {
-//                 interestedBtn.removeClass("new-class");
-//             }
-
-
-//         },
-//         error: function (error) {
-//             // Handle the error response
-//             console.error("AJAX request failed:", error);
-//         }
-//     });
-// });
-// Initial check on page load
 checkFriendStatus();
 
 });
+</script>
+<script>
+    $(document).ready(function(){
+        $("#search-bar-input").keyup(function(){
+            var searchUser = $(this).val();
+            if(searchUser != ''){
+                $.ajax({
+                    url: 'http://localhost/unihub/users/searchUsers',
+                    type: 'POST',
+                    data: {
+                        keyword: searchUser,
+                    },
+                    success:function(response){
+                        $("#result-list").html(response);
+                    }
+                });
+            }
+            else{
+                $("#result-list").html('');
+            }
+        });
+        $(document).on('click', 'a', function(){
+            $("#search-bar-input").val($(this).text());
+            $("#result-list").html('');
+        })
+    });
+
+    function viewUser(){
+        var userName = $("#search-bar-input").val();
+    $.ajax({
+      url: "http://localhost/unihub/users/viewUser",
+      type: "POST", // or 'GET' depending on your needs
+      data: {
+        name: userName,
+      },
+      success: function (response) {
+        console.log("AJAX request successful:", response);
+      },
+      error: function (error) {
+        // Handle the error response
+        console.error("AJAX request failed:", error);
+      },
+    });
+    }
+
 </script>
 <script src="<?php echo URLROOT?>/js/users/undergraduate/myprofile.js"></script>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
