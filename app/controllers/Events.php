@@ -138,20 +138,7 @@ class Events extends Controller
           $img_name = $_FILES['event_profile_image']['name'];
           $tmp_name = $_FILES['event_profile_image']['tmp_name'];
           $error = $_FILES['event_profile_image']['error'];
-
-          // if($error === 0){
-          //    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-          //    $img_ex_to_lc = strtolower($img_ex);
-
-          //    $allowed_exs = array('jpg', 'jpeg', 'png');
-          //    if(in_array($img_ex_to_lc, $allowed_exs)){
-          //       $new_img_name = $data['event_title'] . '-event-profile-image.' . $img_ex_to_lc;
-          //       $img_upload_path = "../public/img/event-profile-images/".$new_img_name;
-          //       move_uploaded_file($tmp_name, $img_upload_path);
-
-          //       $data['event_profile_image']=$new_img_name;
-          //    }
-          // }
+          
           if ($error === 0) {
             $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
             $img_ex_to_lc = strtolower($img_ex);
@@ -434,7 +421,7 @@ class Events extends Controller
   }
 
 
-  public function show($id) //14
+  public function show($id) 
   {
     $event = $this->eventModel->getEventById($id);
     $announcements = $this->eventModel->getAnnouncementsByEventId($id);
@@ -1126,6 +1113,46 @@ class Events extends Controller
 
       // Load view
       $this->view('events/editCountdown', $data);
+    }
+  }
+
+  public function editAnnouncements($id){
+    $announcements = $this->eventModel->getAnnouncementsByEventId($id);
+    $data=[
+      'announcements'=> $announcements,
+    ];
+    $this->view('events/editAnnouncements', $data);
+  }
+
+  public function deleteAnnouncement(){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $id = $_POST['announcementId'];
+
+      if ($this->eventModel->deleteAnnouncementById($id)) {
+        echo true;
+      } else {
+        echo false;
+      }
+    }
+  }
+
+  public function updateAnnouncement(){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $id = $_POST['announcementId'];
+      $announcementText = $_POST['announcementText'];
+
+      $data =[
+        'announcementId'=> $id,
+        'announcementText' => $announcementText
+      ];
+
+      if ($this->eventModel->updateAnnouncementById($data)) {
+        echo true;
+      } else {
+        echo false;
+      }
     }
   }
 

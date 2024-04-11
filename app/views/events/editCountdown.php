@@ -1,13 +1,13 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
-<link rel="stylesheet" href="<?php echo URLROOT ?>/css/events/change-contact-details_style.css">
+<link rel="stylesheet" href="<?php echo URLROOT ?>/css/events/editCountdown_style.css">
 
 
 
 <div class="container">
     <div class="inner-container">
         <div class="title-text">
-            <p>Change Countdown</p>
+            <p>Change Countdown Settings</p>
         </div>
         <div class="bottom-part">
 
@@ -15,73 +15,47 @@
                 <div class="form-outer-box">
 
                     <form class="form"
-                        action="<?php echo URLROOT; ?>/events/editContactDetails/<?php echo $data['id'] ?>"
+                        action="<?php echo URLROOT; ?>/events/editCountdown/<?php echo $data['id'] ?>"
                         method="post" enctype="multipart/form-data">
                         <div class="column">
                             <div class="input-box">
-                                <label for="">Organized by</label>
-                                <input type="text" name="organized_by" id="" placeholder="Enter the organization entity"
-                                    value="<?php echo $data['organized_by'] ?>">
-                                <?php if (!empty($data['organized_by_err'])): ?>
-                                    <span class="error-message"><?php echo $data['organized_by_err']; ?></span>
+                                <label for="">Main Button Action</label>
+                                <input type="text" name="main_button_action" id="" placeholder="Enter the main button action"
+                                    value="<?php echo $data['main_button_action'] ?>">
+                                <?php if (!empty($data['main_button_action_err'])): ?>
+                                    <span class="error-message"><?php echo $data['main_button_action_err']; ?></span>
+                                <?php endif; ?>
+                            </div>
+
+                            <div class="input-box">
+                                <label for="">Main Button Link</label>
+                                <input type="text" name="main_button_link" id="" placeholder="Enter the main button link"
+                                    value="<?php echo $data['main_button_link'] ?>">
+                                <?php if (!empty($data['main_button_link_err'])): ?>
+                                    <span class="error-message"><?php echo $data['main_button_link_err']; ?></span>
                                 <?php endif; ?>
                             </div>
                         </div>
 
                         <div class="column">
                             <div class="input-box">
-                                <label for="">Email</label>
-                                <input type="text" name="email" id="" placeholder="Enter the email"
-                                    value="<?php echo $data['email'] ?>">
-                                <!-- <?php if (!empty($data['email_err'])): ?>
-                                    <span class="error-message"><?php echo $data['email_err']; ?></span>
-                                <?php endif; ?> -->
+                                <label for="">Countdown Text</label>
+                                <input type="text" name="countdown_text" id="" placeholder="Enter the countdown text"
+                                    value="<?php echo $data['countdown_text'] ?>">
+                                <?php if (!empty($data['countdown_text_err'])): ?>
+                                    <span class="error-message"><?php echo $data['countdown_text_err']; ?></span>
+                                <?php endif; ?>
                             </div>
-                            <div class="input-box">
-                                <label for="">Contact Number</label>
-                                <input type="tel" name="contact_number" id="" placeholder="Enter the Contact Number"
-                                    value="<?php echo $data['contact_number'] ?>">
-                                <!-- <?php if (!empty($data['contact_number_err'])): ?>
-                                    <span class="error-message"><?php echo $data['contact_number_err']; ?></span>
-                                <?php endif; ?> -->
-                            </div>
-                        </div>
 
-                        <div class="column">
                             <div class="input-box">
-                                <label for="">Web Address</label>
-                                <input type="text" name="web" id="" placeholder="Enter the web"
-                                    value="<?php echo $data['web'] ?>">
-                                <!-- <?php if (!empty($data['web_err'])): ?>
-                                    <span class="error-message"><?php echo $data['web_err']; ?></span>
-                                <?php endif; ?> -->
-                            </div>
-                            <div class="input-box">
-                                <label for="">LinkedIn</label>
-                                <input type="tel" name="linkedin" id="" placeholder="Enter the linkedin"
-                                    value="<?php echo $data['linkedin'] ?>">
-                                <!-- <?php if (!empty($data['linkedin_err'])): ?>
-                                    <span class="error-message"><?php echo $data['linkedin_err']; ?></span>
-                                <?php endif; ?> -->
-                            </div>
-                        </div>
-
-                        <div class="column">
-                            <div class="input-box">
-                                <label for="">Facebook</label>
-                                <input type="text" name="facebook" id="" placeholder="Enter the facebook"
-                                    value="<?php echo $data['facebook'] ?>">
-                                <!-- <?php if (!empty($data['facebook_err'])): ?>
-                                    <span class="error-message"><?php echo $data['facebook_err']; ?></span>
-                                <?php endif; ?> -->
-                            </div>
-                            <div class="input-box">
-                                <label for="">Instagram</label>
-                                <input type="tel" name="instagram" id="" placeholder="Enter the Instagram"
-                                    value="<?php echo $data['instagram'] ?>">
-                                <!-- <?php if (!empty($data['instagram_err'])): ?>
-                                    <span class="error-message"><?php echo $data['instagram_err']; ?></span>
-                                <?php endif; ?> -->
+                                <label for="">Countdown date-time</label>
+                                <input type="datetime-local" name="countdown_datetime"
+                                    value="<?php echo $data['countdown_datetime'] ?>" id="">
+                                <?php if (!empty($data['countdown_datetime_err'])): ?>
+                                    <span class="error-message">
+                                        <?php echo $data['countdown_datetime_err']; ?>
+                                    </span>
+                                <?php endif; ?>
                             </div>
                         </div>
 

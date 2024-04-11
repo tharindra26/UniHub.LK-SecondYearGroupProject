@@ -62,7 +62,7 @@
                     connect with tomorrow's leaders.
                     Post your job openings, internships, and exciting initiatives directly to our platform.</p>
 
-                <a href="<?php echo URLROOT ?>/events/add">
+                <a href="<?php echo URLROOT ?>/opportunities/add">
                     <div class="add-opportunity-button">
                         <i class="fa-solid fa-paper-plane"></i>
                         <span>Post Opportunity</span>
@@ -74,100 +74,13 @@
         </div>
         <!-- filters-section -->
 
-        <!-- events-card-section -->
+        <!-- opportunity-card-section -->
         <div class="content-section" id="content-section">
-            <a class="opportunity-card-link" href="<?php echo URLROOT ?>/opportunities/show/1">
-                <div class="opportunity-card">
-                    <div class="left-color-bar"></div>
-                    <div class="image-section">
-                        <img src="<?php echo URLROOT ?>/img/opportunities/card-images/medium_square.png" alt="">
-                    </div>
-                    <div class="title-section">
-                        <div class="title-text">GitLab Innovation Pitch</div>
-                        <div class="days-left">
-                            <div class="day-count-box">
-                                <div class="day-count"><i class="fa-solid fa-circle"></i>21 days left</div>
-                            </div>
-                            <div class="working-mod-box">
-                                <div class="working-mod"><i class="fa-solid fa-building"></i> Physical</div>
-                            </div>
-                        </div>
-                        <div class="interesting-count">
-                            <div class="interesting-box">
-                                <p><span>253</span> Interesting </p>
-                            </div>
-                            <div class="bookmark"><i class="fa-solid fa-bookmark"></i>
-                                <p>Add Bookmark</p>
-                            </div>
-                        </div>
-                        <!-- <div class="options-tab">
-
-                        </div> -->
-
-                    </div>
-                    <div class="details-section">
-                        <div class="posted-by">
-                            <i class="fa-solid fa-flag"></i>
-                            <p>WSO2</p>
-                        </div>
-                        <div class="duration">
-                            <i class="fa-solid fa-calendar-days"></i>
-                            <p>10 Feb-15 Mar, 2024</p>
-                        </div>
-                        <div class="tags">
-                            <i class="fa-solid fa-tags"></i>
-                            <div class="tag">Intern</div>
-                            <div class="tag">Machine Learning</div>
-                            <div class="tag">AI</div>
-                            <div class="tag">Python</div>
-                        </div>
-                    </div>
-                    <div class="right-color-bar">
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </div>
-                </div>
-            </a>
-
-
-            <div class="wrapper">
-                <i class="fa-solid fa-angle-left"></i>
-                <div class="carousal">
-                    <li class="card">
-                        <div class="inside-card"></div>
-                    </li>
-                    <li class="card">
-                        <div class="inside-card"></div>
-                    </li>
-                    <li class="card">
-                        <div class="inside-card"></div>
-                    </li>
-                    <li class="card">
-                        <div class="inside-card"></div>
-                    </li>
-                    <li class="card">
-                        <div class="inside-card"></div>
-                    </li>
-                    <li class="card">
-                        <div class="inside-card"></div>
-                    </li>
-                    <li class="card">
-                        <div class="inside-card"></div>
-                    </li>
-
-                </div>
-                <i class="fa-solid fa-angle-right"></i>
-            </div>
+            
 
 
 
         </div>
-
-
-
-
-
-
-
         <!-- events-card-section -->
 
     </div>
@@ -175,34 +88,13 @@
 <!-- event-showing-section -->
 
 <script>
-    const carousal = document.querySelector(".carousal");
 
-    // let isDragging =false, startX, startScrollLeft;
-
-    // const dragStart =() => {
-    //     isDragging = true;
-    //     carousal.classList.add("dragging");
-    // }
-    carousal.addEventListener("mousemove", dragging);
-    const dragging = (e) => {
-        console.log(e.pageX);
-
-    }
-
-    // const dragStop= ()=>{
-    //     isDragging = false;
-    //     carousal.classList.remove("dragging");
-    // }
-
-    // carousal.addEventListener("mousedown", dragStart);
-    
-    // carousal.addEventListener("mouseup", dragStop);
 </script>
 
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="<?php echo URLROOT ?>/js/events/opportunities-index.js"></script>
+<script src="<?php echo URLROOT ?>/js/opportunities/opportunities-index.js"></script>
 
 
 
