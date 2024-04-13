@@ -1,7 +1,7 @@
 // Get the value inside the urlRootValue div
 var URLROOT = document.querySelector(".urlRootValue").textContent.trim();
 
-$(document).ready(function () {
+// $(document).ready(function () {
   function updateContent() {
     var keyword = document.getElementById("search-bar-input").value;
 
@@ -26,4 +26,24 @@ $(document).ready(function () {
   document
     .getElementById("search-bar-input")
     .addEventListener("keyup", updateContent);
-});
+
+
+
+  function quickShortcut(category) {
+    // console.log(category);
+
+    $.ajax({
+      url: URLROOT + "/opportunities/quickShortcut",
+      type: "POST",
+      data: {
+        value: category,
+      },
+      success: function (response) {
+        $("#content-section").html(response);
+      },
+      error: function (error) {
+        console.error("Error:", error);
+      },
+    });
+  }
+// });
