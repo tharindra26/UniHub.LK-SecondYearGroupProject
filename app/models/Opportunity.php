@@ -8,74 +8,32 @@ class Opportunity
         $this->db = new Database;
     }
 
-    // public function addOpportunity($data)
-    // {
-    //     $query = "INSERT INTO opportunities (
-    //         opportunity_title,
-    //         organization_name,
-    //         contact_person,
-    //         contact_email,
-    //         contact_phone,
-    //         opportunity_type,
-    //         title_positions,
-    //         tags,
-    //         description,
-    //         qualifications,
-    //         additional_information,
-    //         application_deadline,
-    //         website_url,
-    //         linkedin,
-    //         opportunity_card_image,
-    //         opportunity_cover_image,
-    //         description_image
-    //     ) VALUES (
-    //         :opportunity_title,
-    //         :organization_name,
-    //         :contact_person,
-    //         :contact_email,
-    //         :contact_phone,
-    //         :opportunity_type,
-    //         :title_positions,
-    //         :tags,
-    //         :description,
-    //         :qualifications,
-    //         :additional_information,
-    //         :application_deadline,
-    //         :website_url,
-    //         :linkedin,
-    //         :opportunity_card_image,
-    //         :opportunity_cover_image,
-    //         :description_image
-    //     )";
-    //     // Prepare the query
-    //     $this->db->query($query);
+    public function getOpportunityById($id)
+    {
+        $query = 'SELECT 
+                o.*,
+                GROUP_CONCAT(DISTINCT ot.tag) AS tags,
+                GROUP_CONCAT(DISTINCT otp.title_position) AS title_positions
+                FROM opportunities o
+                LEFT JOIN opportunity_tags ot ON o.id = ot.opportunity_id
+                LEFT JOIN opportunity_title_positions otp ON o.id = otp.opportunity_id
+                WHERE o.id = :id';
 
-    //     $this->db->bind(':opportunity_title', $data['opportunity_title']);
-    //     $this->db->bind(':organization_name', $data['organization_name']);
-    //     $this->db->bind(':contact_person', $data['contact_person']);
-    //     $this->db->bind(':contact_email', $data['contact_email']);
-    //     $this->db->bind(':contact_phone', $data['contact_phone']);
-    //     $this->db->bind(':opportunity_type', $data['opportunity_type']);
-    //     $this->db->bind(':title_positions', $data['title_positions']);
-    //     $this->db->bind(':tags', $data['tags']);
-    //     $this->db->bind(':description', $data['description']);
-    //     $this->db->bind(':qualifications', $data['qualifications']);
-    //     $this->db->bind(':additional_information', $data['additional_information']);
-    //     $this->db->bind(':application_deadline', $data['application_deadline']);
-    //     $this->db->bind(':website_url', $data['website_url']);
-    //     $this->db->bind(':linkedin', $data['linkedin']);
-    //     $this->db->bind(':opportunity_card_image', $data['opportunity_card_image']);
-    //     $this->db->bind(':opportunity_cover_image', $data['opportunity_cover_image']);
-    //     $this->db->bind(':description_image', $data['description_image']);
+        // Prepare the query
+        $this->db->query($query);
 
-    //     //Execute the query
-    //     if ($this->db->execute()) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
+        // Bind values to the placeholders
+        $this->db->bind(':id', $id);
 
-    // }
+        // Execute the query
+        $this->db->execute();
+
+        // Fetch the result
+        $opportunity = $this->db->single();
+        return $opportunity;
+    }
+
+
 
     public function addOpportunity($data)
     {
@@ -255,6 +213,77 @@ class Opportunity
         // Fetch the results
         $opportunities = $this->db->resultSet();
         return $opportunities;
+    }
+
+    public function getOpportuntiesByShortcut($data) //$_POST
+    {
+        $category = $data['value'];
+
+        $query = 'SELECT 
+                o.*,
+                GROUP_CONCAT(DISTINCT ot.tag) AS tags,
+                GROUP_CONCAT(DISTINCT otp.title_position) AS title_positions
+                FROM opportunities o
+                LEFT JOIN opportunity_tags ot ON o.id = ot.opportunity_id
+                LEFT JOIN opportunity_title_positions otp ON o.id = otp.opportunity_id
+                WHERE 1=1';
+
+        if ($category !== "All") {
+            $query .= " AND o.opportunity_type = :category";
+        }
+
+        // Group by opportunity id to aggregate tags and title positions
+        $query .= " GROUP BY o.id";
+
+        // Prepare the query
+        $this->db->query($query);
+
+        // Bind values to the placeholders
+        if ($category !== "All") {
+            $this->db->bind(':category', $category);
+        }
+
+        // Execute the query
+        $this->db->execute();
+
+        // Fetch the results
+        $opportunities = $this->db->resultSet();
+        return $opportunities;
+    }
+
+    public function checkUserOpportunityBookmark($data)
+    {
+        $this->db->query("SELECT * FROM opportunity_user_bookmark WHERE user_id = :user_id AND opportunity_id = :opportunity_id");
+        $this->db->bind(':user_id', $data['user_id']);
+        $this->db->bind(':opportunity_id', $data['opportunity_id']);
+
+        $this->db->single(); // Assuming you have a method like this to fetch a single row
+
+        return $this->db->rowCount() > 0;
+    }
+
+    public function addUserOpportunityBookmark($data)
+    {
+        $this->db->query("INSERT INTO opportunity_user_bookmark (user_id, opportunity_id) VALUES(:user_id, :opportunity_id)");
+        $this->db->bind(':user_id', $data['user_id']);
+        $this->db->bind(':opportunity_id', $data['opportunity_id']);
+
+        if ($this->db->execute()) {
+            return true;
+        }
+    }
+
+    public function deleteUserOpportunityBookmark($data)
+    {
+        $this->db->query("DELETE FROM opportunity_user_bookmark WHERE user_id = :user_id AND opportunity_id = :opportunity_id");
+        $this->db->bind(':user_id', $data['user_id']);
+        $this->db->bind(':opportunity_id', $data['opportunity_id']);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

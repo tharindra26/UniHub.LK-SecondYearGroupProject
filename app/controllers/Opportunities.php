@@ -10,7 +10,7 @@ class Opportunities extends Controller
 
     //test comment
     $this->userModel = $this->model('User');
-    $this->opportunityModel= $this->model('opportunity');
+    $this->opportunityModel = $this->model('opportunity');
 
   }
 
@@ -29,9 +29,9 @@ class Opportunities extends Controller
   {
 
 
-    // $user = $this->userModel->getUserById($event->user_id);
+    $opportunity = $this->opportunityModel->getOpportunityById($id);
     $data = [
-
+      'opportunity' => $opportunity,
     ];
     $this->view('opportunities/showOpportunity', $data);
   }
@@ -134,7 +134,7 @@ class Opportunities extends Controller
       if (empty($data['linkedin'])) {
         $data['linkedin_err'] = 'Pleae enter the linkedin';
       }
-     
+
 
 
 
@@ -154,7 +154,7 @@ class Opportunities extends Controller
         && empty($data['application_deadline_err'])
         && empty($data['website_url_err'])
         && empty($data['linkedin_err'])
-  
+
       ) {
         //Validated
 
@@ -337,6 +337,70 @@ class Opportunities extends Controller
 
     }
   }
+
+  public function quickShortcut()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      // echo $_POST['value'];
+
+      $opportunities = $this->opportunityModel->getOpportuntiesByShortcut($_POST);
+
+      $data = [
+        'opportunities' => $opportunities,
+      ];
+
+      $this->view('opportunities/filter-opportunities', $data);
+
+    }
+  }
+
+  public function addBookmark()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $opportunity_id = $_POST['opportunity_id'];
+      $user_id = $_POST['user_id'];
+      if ($user_id == null) {
+        echo 0;
+      }
+      $data = [
+        'opportunity_id' => $opportunity_id,
+        'user_id' => $user_id
+      ];
+      if (!$this->opportunityModel->checkUserOpportunityBookmark($data)) {
+        if ($status = $this->opportunityModel->addUserOpportunityBookmark($data)) {
+          echo $status;
+        }
+      } else {
+        $this->opportunityModel->deleteUserOpportunityBookmark($data);
+        echo 0;
+      }
+
+    }
+  }
+
+  public function checkUserOpportunityBookmark()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $opportunity_id = $_POST['opportunity_id'];
+      $user_id = $_POST['user_id'];
+      $data = [
+        'opportunity_id' => $opportunity_id,
+        'user_id' => $user_id
+      ];
+      if ($this->opportunityModel->checkUserOpportunityBookmark($data)) {
+        echo 1;
+      } else {
+        echo 0;
+      }
+
+    }
+  }
+
+
+  
 
 }
 

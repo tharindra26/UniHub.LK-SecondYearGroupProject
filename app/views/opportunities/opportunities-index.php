@@ -29,16 +29,16 @@
         <div class="shortcut-options">
             <h3>Sort:</h3>
             <div class="shortcut-options-outer-box">
-                <div class="option" onclick="quickShortcut('all')">All
+                <div class="option" onclick="quickShortcut('All')">All
                     <hr>
                 </div>
-                <div class="option" onclick="quickShortcut('hackathon')">Intern
+                <div class="option" onclick="quickShortcut('Intern')">Intern
                     <hr>
                 </div>
-                <div class="option" onclick="quickShortcut('entertainment')">Job
+                <div class="option" onclick="quickShortcut('Full-Time')">Full-Time
                     <hr>
                 </div>
-                <div class="option" onclick="quickShortcut('workshops')">New Initiative
+                <div class="option" onclick="quickShortcut('Part-Time')">Part-Time
                     <hr>
                 </div>
             </div>
