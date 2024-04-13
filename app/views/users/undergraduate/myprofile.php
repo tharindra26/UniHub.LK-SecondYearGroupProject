@@ -6,6 +6,7 @@
         <div class="search-bar-container">
             <form action="" class="search-bar">
                 <input type="text" name="searchInput" placeholder="Search Profile" id="search-bar-input">
+                <!-- <div class="searchId" id = "searchId">test</div> -->
                 <a href="#">
                     <button type="submit" onclick="viewUser()"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
                 </a>
@@ -466,10 +467,11 @@ checkFriendStatus();
                 $("#result-list").html('');
             }
         });
-        $(document).on('click', 'a', function(){
-            $("#search-bar-input").val($(this).text());
-            $("#result-list").html('');
-        })
+        // $(document).on('click', 'a', function(){
+        //     //$("#search-bar-input").val($(this).text());
+        //     //$("#searchId").val('#userId');
+        //     $("#result-list").html('');
+        // })
     });
 
     function viewUser(){
