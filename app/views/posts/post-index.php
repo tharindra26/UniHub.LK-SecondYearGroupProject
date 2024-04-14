@@ -23,7 +23,7 @@
 
     </div>
     <div class="header-block-image">
-        <img src="<?php echo URLROOT ?>/img/posts/post-index/posts-header-block-image.png" alt="">
+        <img src="<?php echo URLROOT ?>/img/posts/post-index/post-header-image.jpg" alt="">
     </div>
 </div>
 
@@ -122,67 +122,42 @@
 <!-- content-showing-section -->
 <div class="container">
     <div class="left-main-section">
-        <div class="post-card">
-            <div class="publisher-details">
-                <div class="publisher-image-box">
-                    <img src="<?php echo URLROOT ?>/img/posts/post-authors/default_user.png" alt="">
-                </div>
-                <div class="publisher-name">Tharindra Fernando</div>
-                <div class="published-date">21 Feb, 2024</div>
-            </div>
-            <div class="post-title">To be honest, people don't care</div>
-            <div class="post-short-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus omnis
-                nulla ad itaque, velit nam quaerat quam quasi iste facilis est vero tenetur. Doloremque, ullam
-                temporibus aliquid rerum ipsam fugiat. Eos, temporibus quae. Facere reprehenderit culpa asperiores illo
-                labore hic, rerum ipsa rem, at nihil ad. Necessitatibus saepe maxime quaerat.</div>
-            <div class="post-tags">
-                <div class="tag">Productivity</div>
-                <div class="tag">Life</div>
-            </div>
-            <div class="post-options"></div>
-        </div>
+
 
         <div class="post-card">
-            <div class="publisher-details">
-                <div class="publisher-image-box">
-                    <img src="<?php echo URLROOT ?>/img/posts/post-authors/default_user.png" alt="">
+            <div class="post-card-left-section">
+                <div class="publisher-details">
+                    <div class="publisher-image-box">
+                        <img src="<?php echo URLROOT ?>/img/posts/post-authors/default_user.png" alt="">
+                    </div>
+                    <div class="publisher-name">Tharindra Fernando</div>
+                    <div class="published-date">21 Feb, 2024</div>
                 </div>
-                <div class="publisher-name">Tharindra Fernando</div>
-                <div class="published-date">21 Feb, 2024</div>
+                <div class="post-title">To be honest, people don't care</div>
+                <div class="post-short-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus
+                    omnis
+                    nulla ad itaque, velit nam quaerat quam quasi iste facilis est vero tenetur. Doloremque, ullam
+                    temporibus aliquid rerum ipsam fugiat. Eos, temporibus quae. Facere reprehenderit culpa asperiores
+                    illo
+                    labore hic, rerum ipsa rem, at nihil ad. Necessitatibus saepe maxime quaerat.</div>
+                <div class="post-tags">
+                    <div class="tag">Productivity</div>
+                    <div class="tag">Life</div>
+                </div>
+                <div class="post-options"></div>
             </div>
-            <div class="post-title">To be honest, people don't care</div>
-            <div class="post-short-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus omnis
-                nulla ad itaque, velit nam quaerat quam quasi iste facilis est vero tenetur. Doloremque, ullam
-                temporibus aliquid rerum ipsam fugiat. Eos, temporibus quae. Facere reprehenderit culpa asperiores illo
-                labore hic, rerum ipsa rem, at nihil ad. Necessitatibus saepe maxime quaerat.</div>
-            <div class="post-tags">
-                <div class="tag">Productivity</div>
-                <div class="tag">Life</div>
+            <div class="post-card-rigth-section">
+                <div class="post-image-box">
+                    <img src="<?php echo URLROOT ?>/img/posts/post-card-images/post-card-image1.jpg" alt="">
+                </div>
             </div>
-            <div class="post-options"></div>
         </div>
 
-        <div class="post-card">
-            <div class="publisher-details">
-                <div class="publisher-image-box">
-                    <img src="<?php echo URLROOT ?>/img/posts/post-authors/default_user.png" alt="">
-                </div>
-                <div class="publisher-name">Tharindra Fernando</div>
-                <div class="published-date">21 Feb, 2024</div>
-            </div>
-            <div class="post-title">To be honest, people don't care</div>
-            <div class="post-short-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus omnis
-                nulla ad itaque, velit nam quaerat quam quasi iste facilis est vero tenetur. Doloremque, ullam
-                temporibus aliquid rerum ipsam fugiat. Eos, temporibus quae. Facere reprehenderit culpa asperiores illo
-                labore hic, rerum ipsa rem, at nihil ad. Necessitatibus saepe maxime quaerat.</div>
-            <div class="post-tags">
-                <div class="tag">Productivity</div>
-                <div class="tag">Life</div>
-            </div>
-            <div class="post-options"></div>
-        </div>
     </div>
-    <div class="right-section"></div>
+
+   
+</div>
+<div class="right-section"></div>
 </div>
 <!-- content-showing-section -->
 

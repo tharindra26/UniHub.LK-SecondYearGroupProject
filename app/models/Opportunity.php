@@ -382,6 +382,18 @@ class Opportunity
         return true; // Opportunity, tags, and title positions updated successfully
     }
 
+    public function deleteOpportunityById($id)
+    {
+        $query = "DELETE FROM opportunities WHERE id = :id";
+        $this->db->query($query);
+        $this->db->bind(':id', $id);
+        if ($this->db->execute()) {
+            return true; // Opportunity delete failed
+        }else{
+            return false; // Opportunity delete failed
+        }
+    }
+
 
 
 

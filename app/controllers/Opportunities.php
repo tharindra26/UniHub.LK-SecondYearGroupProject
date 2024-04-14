@@ -424,7 +424,7 @@ class Opportunities extends Controller
 
       //Init data
       $data = [
-        'id'=>$id,
+        'id' => $id,
         'opportunity_title' => trim($_POST['opportunity_title']),
         'organization_name' => trim($_POST['organization_name']),
         'contact_person' => trim($_POST['contact_person']),
@@ -441,7 +441,7 @@ class Opportunities extends Controller
         'website_url' => $website_url,
         'linkedin' => $linkedin,
         'opportunity_card_image' => $opportunity->opportunity_card_image,
-        'opportunity_cover_image' =>$opportunity->opportunity_cover_image,
+        'opportunity_cover_image' => $opportunity->opportunity_cover_image,
         'description_image' => $opportunity->description_image,
 
 
@@ -650,7 +650,7 @@ class Opportunities extends Controller
 
       // Prepare the data array
       $data = [
-        'id'=>$id,
+        'id' => $id,
         'opportunity_title' => $opportunity->opportunity_title,
         'organization_name' => $opportunity->organization_name,
         'contact_person' => $opportunity->contact_person,
@@ -692,6 +692,20 @@ class Opportunities extends Controller
 
       // Load view
       $this->view('opportunities/opportunity-update', $data);
+    }
+  }
+
+  public function deleteOpportunity()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $id = $_POST['opportunityId'];
+
+      if ($this->opportunityModel->deleteOpportunityById($id)) {
+        echo true;
+      } else {
+        echo false;
+      }
     }
   }
 

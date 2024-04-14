@@ -301,7 +301,6 @@
     flex-direction: row;
     margin-top: 10px;
     /* border: 1px solid red; */
-    position:sticky;
 
 }
 
@@ -312,6 +311,10 @@
     display: flex;
     flex-direction: column;
 
+    position: sticky;
+    top: 100px;
+    height: 100vh; /* Adjust height as needed */
+    overflow-y: auto; 
 
 }
 
@@ -601,6 +604,7 @@ li.selected {
     /* width: 75%; */
     /* border: 1px solid red; */
     display: flex;
+    overflow-y: auto;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
