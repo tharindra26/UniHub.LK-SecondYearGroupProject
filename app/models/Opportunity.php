@@ -286,6 +286,116 @@ class Opportunity
         }
     }
 
+    public function updateOpportunity($data)
+    {
+        // Update opportunity in opportunities table
+        $query = "UPDATE opportunities SET
+        opportunity_title = :opportunity_title,
+        organization_name = :organization_name,
+        contact_person = :contact_person,
+        contact_email = :contact_email,
+        contact_phone = :contact_phone,
+        opportunity_type = :opportunity_type,
+        working_type = :working_type,
+        description = :description,
+        qualifications = :qualifications,
+        additional_information = :additional_information,
+        application_deadline = :application_deadline,
+        website_url = :website_url,
+        linkedin = :linkedin,
+        opportunity_card_image = :opportunity_card_image,
+        opportunity_cover_image = :opportunity_cover_image,
+        description_image = :description_image
+    WHERE id = :id";
+
+        $this->db->query($query);
+
+        // Bind parameters for the opportunities table
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':opportunity_title', $data['opportunity_title']);
+        $this->db->bind(':organization_name', $data['organization_name']);
+        $this->db->bind(':contact_person', $data['contact_person']);
+        $this->db->bind(':contact_email', $data['contact_email']);
+        $this->db->bind(':contact_phone', $data['contact_phone']);
+        $this->db->bind(':opportunity_type', $data['opportunity_type']);
+        $this->db->bind(':working_type', $data['working_type']);
+        $this->db->bind(':description', $data['description']);
+        $this->db->bind(':qualifications', $data['qualifications']);
+        $this->db->bind(':additional_information', $data['additional_information']);
+        $this->db->bind(':application_deadline', $data['application_deadline']);
+        $this->db->bind(':website_url', $data['website_url']);
+        $this->db->bind(':linkedin', $data['linkedin']);
+        $this->db->bind(':opportunity_card_image', $data['opportunity_card_image']);
+        $this->db->bind(':opportunity_cover_image', $data['opportunity_cover_image']);
+        $this->db->bind(':description_image', $data['description_image']);
+
+        // Execute the query
+        if (!$this->db->execute()) {
+            return false; // Opportunity update failed
+        }
+
+        // Delete existing tags and title positions associated with this opportunity
+        $deleteTagsQuery = "DELETE FROM opportunity_tags WHERE opportunity_id = :id";
+        $this->db->query($deleteTagsQuery);
+        $this->db->bind(':id', $data['id']);
+        $this->db->execute();
+
+        $deleteTitlePositionsQuery = "DELETE FROM opportunity_title_positions WHERE opportunity_id = :id";
+        $this->db->query($deleteTitlePositionsQuery);
+        $this->db->bind(':id', $data['id']);
+        $this->db->execute();
+
+        // Process tags
+        $tags = explode(',', $data['tags']);
+        $tags = array_map('trim', $tags);
+        $tags = array_filter($tags); // Remove empty elements
+
+        foreach ($tags as $tag) {
+            // Insert into opportunity_tags pivot table
+            $insertTagQuery = "INSERT INTO opportunity_tags (opportunity_id, tag) VALUES (:opportunity_id, :tag)";
+            $this->db->query($insertTagQuery);
+            $this->db->bind(':opportunity_id', $data['id']);
+            $this->db->bind(':tag', $tag);
+            if (!$this->db->execute()) {
+                // Failed to insert into opportunity_tags pivot table
+                return false;
+            }
+        }
+
+        // Process title positions
+        $title_positions = explode(',', $data['title_positions']);
+        $title_positions = array_map('trim', $title_positions);
+        $title_positions = array_filter($title_positions); // Remove empty elements
+
+        foreach ($title_positions as $title_position) {
+            // Insert into opportunity_title_positions pivot table
+            $insertTitlePositionQuery = "INSERT INTO opportunity_title_positions (opportunity_id, title_position) VALUES (:opportunity_id, :title_position)";
+            $this->db->query($insertTitlePositionQuery);
+            $this->db->bind(':opportunity_id', $data['id']);
+            $this->db->bind(':title_position', $title_position);
+            if (!$this->db->execute()) {
+                // Failed to insert into opportunity_title_positions pivot table
+                return false;
+            }
+        }
+
+        return true; // Opportunity, tags, and title positions updated successfully
+    }
+
+    public function deleteOpportunityById($id)
+    {
+        $query = "DELETE FROM opportunities WHERE id = :id";
+        $this->db->query($query);
+        $this->db->bind(':id', $id);
+        if ($this->db->execute()) {
+            return true; // Opportunity delete failed
+        }else{
+            return false; // Opportunity delete failed
+        }
+    }
+
+
+
 
 
 }

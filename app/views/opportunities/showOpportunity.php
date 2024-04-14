@@ -115,6 +115,13 @@ $formatted_deadline = date_format($deadline, 'd M, Y');
                     <p><?php echo $data['opportunity']->working_type ?></p>
                 </div>
             </div>
+
+            <div class="opportunity-settings-box">
+                <a href="<?php echo URLROOT ?>/opportunities/settings/<?php echo $data['opportunity']->id ?>">
+                <i class="fa-solid fa-gear"></i>
+                <p>Settings</p>
+                </a>
+            </div>
         </div>
     </div>
 

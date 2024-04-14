@@ -1,3 +1,13 @@
+/* Poppins:
+Thin 100
+Light 300
+Regular 400
+Medium 500
+Bold 700
+ExtraBold 800
+lora
+overpass */
+
 .header-block {
     width: auto;
     /* border: 1px solid black; */
@@ -13,7 +23,7 @@
 }
 
 .header-block-text {
-    width: auto;
+    width: 60%;
     max-height: 100%;
     display: flex;
     /* border: 1px solid red; */
@@ -24,25 +34,27 @@
 }
 
 .header-block-text h2 {
-    font-family: lora;
+    color: black;
     font-size: 60px;
 
 }
 
 .header-block-text h3 {
     /* margin-left: 30px; */
+    color: black;
     font-size: 25px;
     font-weight: 400;
 
 }
 
 .header-block-image {
-    width: 30wv;
+    width: 30%;
 }
 
 .header-block-image img {
     width: 100%;
     height: auto;
+
 }
 
 .header-buttons {
@@ -58,22 +70,32 @@
     align-items: center;
     padding: 5px 30px;
     border-radius: 30px;
-    background-color: #2980b9;
-    color: white;
+    color: black;
     margin-right: 30px;
     font-size: 20px;
     font-weight: 400;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
 
 }
 
+.start-reading-btn:hover {
+    background-color: black;
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+  }
 
 
-.header-buttons a{
+
+.header-buttons a {
     text-decoration: none;
     color: inherit;
 }
 
-.add-post-btn{
+.add-post-btn {
     display: flex;
     width: fit-content;
     justify-content: center;
@@ -85,7 +107,7 @@
     border: 1px solid #e67e22;
     font-size: 20px;
     font-weight: 400;
-    
+
 }
 
 
@@ -98,7 +120,7 @@
 
 .trending-post-title {
     font-size: 20px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .trending-post-title i {
@@ -111,7 +133,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .trending-post-section a {
@@ -249,8 +271,14 @@
     background-color: white;
     border-radius: 5px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin-bottom: 10px;
+}
+
+.post-card-left-section{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
 }
 
 .publisher-details {
@@ -314,3 +342,25 @@
     margin-right: 5px;
     border-radius: 5px;
 }
+
+.post-card-rigth-section{
+    display: flex;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    /* border: 1px solid red; */
+}
+
+.post-image-box {
+    width: 100%; /* Adjust the width as needed */
+    height: auto; /* Ensures the height adjusts proportionally to the width */
+    overflow: hidden; /* Hides any overflowing content */
+    /* border: 1px solid red; */
+  }
+  
+  .post-image-box img {
+    width: 100%; /* Makes the image fill the width of its container */
+    height: auto; /* Ensures the height adjusts proportionally to the width */
+    display: block; /* Ensures proper rendering and spacing */
+  }
