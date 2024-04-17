@@ -15,3 +15,22 @@ profileImageUpload.addEventListener("change", function () {
     profileImgTxt.innerHTML = "File chosen: " + fileInput.files[0].name;
   }
 });
+
+
+const coverImageUpload = document.getElementById("coverImageUpload"), //original button
+  customCoverImgBtn = document.getElementById("custom-cover-img-btn"), //duplicate button view for us
+  coverImgTxt = document.getElementById("cover-img-txt");
+
+customCoverImgBtn.addEventListener("click", function () {
+  coverImageUpload.click();
+});
+
+
+coverImageUpload.addEventListener("change", function () {
+  var fileInput = this;
+
+  if (fileInput.files && fileInput.files[0]) {
+    // Display the file name when an image is chosen
+    coverImgTxt.innerHTML = "File chosen: " + fileInput.files[0].name;
+  }
+});

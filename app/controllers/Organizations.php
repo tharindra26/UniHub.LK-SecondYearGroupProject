@@ -223,16 +223,7 @@ class Organizations extends Controller
       $this->view('events/event-add', $data);
     }
   }
-
-
-  public function show($organization_id)
-  {
-    $organization = $this->organizationModel->getOrganizationById($organization_id);
-    $user = $this->userModel->getUserById($event->user_id);
-    $data = [
-      'organization' => $organization,
-      'user' => $user,
-    ];
-    $this->view('organizations/organizations-show', $data);
-  }
 }
+  
+
+

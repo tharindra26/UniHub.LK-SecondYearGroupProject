@@ -266,7 +266,7 @@ overpass */
 }
 
 .post-card {
-    width: auto;
+    width: 100%;
     padding: 20px;
     background-color: white;
     border-radius: 5px;
@@ -321,6 +321,9 @@ overpass */
 }
 
 .post-card .post-short-description {
+    text-decoration: none;
+    color: inherit;
+    text-align: justify;
     font-family: lora;
 }
 
@@ -363,4 +366,81 @@ overpass */
     width: 100%; /* Makes the image fill the width of its container */
     height: auto; /* Ensures the height adjusts proportionally to the width */
     display: block; /* Ensures proper rendering and spacing */
+  }
+
+  .post-options{
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0;
+    /* border: 1px solid red; */
+    align-items: center;
+  }
+
+  .post-options a{
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .post-options i{
+    font-size: 25px;
+  }
+
+  .like-option i{
+    color: #e74c3c;
+    cursor: pointer;
+  }
+
+  .comment-option{
+    display: flex;
+    flex-direction: row;
+    margin-left: 20px;
+    cursor: pointer;
+  }
+
+  .comment-text{
+    margin-left: 5px;
+  }
+
+  .bookmark-option{
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    cursor: pointer;
+  }
+
+  .explore-more-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .explore-more-section a{
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    border: 1px solid #2980b9; 
+    border-radius: 30px;
+    background-color: rgba(41, 127, 185, 0.2);
+    color: #2980b9;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .explore-more-section a:hover {
+    border: none;
+    background-color: #e67e22;
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+  }
+
+  .explore-more-section a i{
+    margin-right: 10px;
   }

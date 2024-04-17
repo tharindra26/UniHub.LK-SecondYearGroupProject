@@ -17,12 +17,12 @@
                         <div class="column">
                             <div class="input-box">
 
-                                <label for="">Title</label>
-                                <input type="text" name="title" id="" placeholder="Enter your title "
-                                    value="<?php echo $data['title'] ?>">
-                                <?php if (!empty($data['title_err'])): ?>
+                                <label for="">Post Title</label>
+                                <input type="text" name="post_title" id="" placeholder="Enter your title "
+                                    value="<?php echo $data['post_title'] ?>">
+                                <?php if (!empty($data['post_title_err'])): ?>
                                     <span class="error-message">
-                                        <?php echo $data['title_err']; ?>
+                                        <?php echo $data['post_title_err']; ?>
                                     </span>
                                 <?php endif; ?>
                             </div>
@@ -31,12 +31,12 @@
 
                         <div class="column">
                             <div class="input-box">
-                                <label for="">Event Description</label>
-                                <textarea id="eventDescription" name="description"
-                                    placeholder="Enter event description"><?php echo $data['description'] ?></textarea>
-                                <?php if (!empty($data['description_err'])): ?>
+                                <label for="">Post Description</label>
+                                <textarea id="eventDescription" name="post_description"
+                                    placeholder="Enter the post description"><?php echo $data['post_description'] ?></textarea>
+                                <?php if (!empty($data['post_description_err'])): ?>
                                     <span class="error-message">
-                                        <?php echo $data['description_err']; ?>
+                                        <?php echo $data['post_description_err']; ?>
                                     </span>
                                 <?php endif; ?>
                             </div>
@@ -87,18 +87,47 @@
 
                         </div>
 
+                        <div class="input-box">
+                            <label for="">Tags</label>
+                            <input type="text" name="tags" id="" value="<?php echo $data['tags'] ?>"
+                                placeholder="Enter tags separated by commas">
+                            <?php if (!empty($data['tags_err'])): ?>
+                                <span class="error-message">
+                                    <?php echo $data['tags_err']; ?>
+                                </span>
+                            <?php endif; ?>
+                        </div>
+
                         <div class="column">
                             <div class="input-box">
-                                <H3>Profile Image</H3>
+                                <H3>Profile Image for Post</H3>
                                 <label for="">Upload a 600x600 pixels image. Accepted formats: JPG, PNG.</label>
                                 <input type="file" id="profileImageUpload" name="post_profile_image"
                                     value="<?php echo $data['post_profile_image'] ?>" accept="image/*">
                                 <button type="button" id="custom-profile-img-btn"><i
-                                        class="fa-regular fa-file-image"></i> &nbsp Choose a image</button>
+                                        class="fa-regular fa-file-image"></i> &nbsp
+                                    Choose a image</button>
                                 <span id="profile-img-txt">No file chosen, yet.</span>
                                 <?php if (!empty($data['post_profile_image_err'])): ?>
                                     <span class="error-message">
                                         <?php echo $data['post_profile_image_err']; ?>
+                                    </span>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div class="input-box">
+                                <H3>Post Cover Image</H3>
+                                <label for="">Upload a 600x600 pixels image. Accepted formats: JPG, PNG.</label>
+                                <input type="file" id="coverImageUpload" name="post_cover_image"
+                                    value="<?php echo $data['post_cover_image'] ?>" accept="image/*">
+                                <button type="button" id="custom-cover-img-btn"><i class="fa-regular fa-file-image"></i>
+                                    &nbsp Choose a image</button>
+                                <span id="cover-img-txt">No file chosen, yet.</span>
+                                <?php if (!empty($data['post_cover_image_err'])): ?>
+                                    <span class="error-message">
+                                        <?php echo $data['post_cover_image_err']; ?>
                                     </span>
                                 <?php endif; ?>
                             </div>
@@ -113,9 +142,9 @@
                 </div>
             </div>
 
-            <div class="image-box">
+            <!-- <div class="image-box">
                 <img src="<?php echo URLROOT ?>/img/events/announcements/announcement_img.jpg" alt="">
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
