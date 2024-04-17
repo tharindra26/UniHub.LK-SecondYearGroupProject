@@ -1,0 +1,689 @@
+/* Poppins:
+Thin 100
+Light 300
+Regular 400
+Medium 500
+Bold 700
+ExtraBold 800
+lora
+overpass */
+
+.inner-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid red; */
+}
+
+.author-details {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.author-details .author-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    /* border: 1px solid red; */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+}
+
+.author-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.author-details .author-name {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.trending-post .post-topic {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+}
+
+.trending-post .post-date {
+    font-size: 13px;
+    color: #7f8c8d;
+    align-items: center;
+}
+
+.trending-post-section hr {
+    border: 0;
+    height: 1px;
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: #7f8c8d;
+}
+
+/* Search bar */
+.search-bar-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    /* border: 1px solid red; */
+}
+
+.search-bar {
+    width: 30%;
+    /* background: rgba(127, 140, 141, 0.3); */
+    position: relative;
+    right: 0;
+    background: rgba(255, 255, 255, 1);
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding: 3px 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 0.5px solid #2980b9;
+}
+
+.search-bar input {
+    background: transparent;
+    flex: 1;
+    /* flex:1 get the full width */
+    border: 0;
+    outline: none;
+    font-size: 15px;
+    color: rgb(130, 130, 130);
+    text-align: left;
+
+}
+
+.search-bar input::placeholder {
+    color: rgb(130, 130, 130);
+}
+
+.search-bar button {
+    border: 0;
+    padding: 10px;
+    cursor: pointer;
+    background-color: white;
+    font-size: 20px;
+}
+
+.fa-magnifying-glass {
+    color: black;
+}
+
+/* Search bar */
+
+.left-main-section {
+    width: 60%;
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.post-card {
+    width: 80%;
+    padding: 20px 0;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    /* border: 1px solid red; */
+}
+
+.post-card-left-section {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    margin-left: 20px;
+    /* border: 1px solid red; */
+}
+
+.publisher-details {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.publisher-details .publisher-image-box {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid red; */
+    margin-right: 10px;
+}
+
+.publisher-details .publisher-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.publisher-details .publisher-name {
+    margin-right: 10px;
+}
+
+.publisher-details .published-date {
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+.post-card .post-title {
+    font-size: 25px;
+    font-weight: 700;
+    /* font-family: lora; */
+}
+
+.post-card .post-short-description {
+    font-family: lora;
+}
+
+.post-tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.tag {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    padding: 5px;
+    background-color: rgba(52, 152, 219, 0.2);
+    color: rgba(52, 152, 219, 1);
+    margin-right: 5px;
+    border-radius: 5px;
+}
+
+.post-card-rigth-section {
+    display: flex;
+    width: auto;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    /* border: 1px solid red; */
+}
+
+.post-image-box {
+    width: 250px;
+    /* Adjust the width as needed */
+    height: 250px;
+    /* Ensures the height adjusts proportionally to the width */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /* Hides any overflowing content */
+    /* border: 1px solid red; */
+}
+
+.post-image-box img {
+    width: 100%;
+    /* Makes the image fill the width of its container */
+    height: auto;
+    /* Ensures the height adjusts proportionally to the width */
+
+    display: block;
+    /* Ensures proper rendering and spacing */
+}
+
+.post-options {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0;
+    /* border: 1px solid red; */
+    align-items: center;
+}
+
+.post-options a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.post-options i {
+    font-size: 25px;
+}
+
+.like-option i {
+    color: #e74c3c;
+    cursor: pointer;
+}
+
+.comment-option {
+    display: flex;
+    flex-direction: row;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.comment-text {
+    margin-left: 5px;
+}
+
+
+.bookmark-option {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+}
+
+.bookmark-option i{
+    padding: 0;
+}
+
+.explore-more-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.explore-more-section a {
+    display: flex;
+    width: auto;
+    padding: 10px 20px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+}
+
+.explore-more-btn{
+    border: 1px solid #2980b9;
+    color: #2980b9;
+}
+
+.add-comment-btn{
+    background-color: black;
+    color: white;
+    margin-left: 10px;
+}
+.explore-more-section a:hover {
+    border: none;
+    background-color: #e67e22;
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+}
+
+.explore-more-section a i {
+    margin-right: 10px;
+}
+
+/* popup-modal css */
+.modal-box.active .show-modal {
+    display: none;
+}
+
+.overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.modal-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    left: 50vw;
+    top: 50vh;
+    max-width: 500px;
+    width: 100%;
+    border-radius: 24px;
+    background-color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px 20px;
+    pointer-events: none;
+    transition: all 0.3s ease-in-out;
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 0;
+    z-index: 20;
+}
+
+.overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-box.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-box .fa-trash-can {
+    font-size: 70px;
+    color: #e74c3c;
+}
+
+.modal-box h2 {
+    margin-top: 15px;
+    font-size: 25px;
+    font-weight: 500;
+    color: #34495e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-box h3 {
+    font-size: 16px;
+    font-weight: 400;
+    color: #34495e;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close-btn {
+    font-size: 15px;
+    font-weight: 400;
+    padding: 5px 10px;
+    border-radius: 6px;
+    border-style: none;
+    color: white;
+    background-color: #2880b9;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.close-btn:hover {
+    background-color: #1f628f;
+}
+
+/* popup-modal css */
+
+
+/* form css */
+.add-announcement-form {
+    position: relative;
+    width: 100%;
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin: 20px 20px 20px 0;
+    /* border: 1px solid red; */
+}
+
+/* .add-event-form header {
+    text-align: center;
+    font-weight: 500;
+    color: #2c3e50;
+    font-size: 30px;
+} */
+
+.add-announcement-form .form {
+    margin-top: 30px;
+    /* border: 1px solid red; */
+}
+
+.form .input-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 30px;
+    /* border: 1px solid red; */
+}
+
+.input-box label {
+    color: #2c3e50;
+}
+
+.form :where(.input-box input, .select-box) {
+    position: relative;
+    height: 50px;
+    width: auto;
+    outline: none;
+    font-size: 16px;
+    color: #7f8c8d;
+    margin-top: 8px;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    padding-left: 10px;
+    /* border: 1px solid red; */
+
+}
+
+.category {
+    width: 45%;
+}
+
+#selection {
+    padding-left: 10px;
+}
+
+#eventAnnouncement {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: poppins;
+    font-size: 16px;
+    color: #7f8c8d;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    resize: vertical;
+    outline: none;
+}
+
+.select-box {
+    border: none;
+    padding-left: 0;
+    /* border: 1px solid red; */
+    width: 50%;
+}
+
+.add-event-form .column {
+    display: flex;
+    column-gap: 15px;
+}
+
+.select-box select {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: none;
+    color: #7f8c8d;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #bdc3c7;
+}
+
+.form .radio-option-box {
+    margin-top: 20px;
+}
+
+.radio-option-box h3 {
+    font-weight: 400;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+
+.form :where(.radio-options, .radio-option) {
+    display: flex;
+    align-items: center;
+    column-gap: 50px;
+}
+
+.form .radio-option {
+    column-gap: 5px;
+}
+
+.form :where(.radio-option input, .radio-option label) {
+    cursor: pointer;
+}
+
+.submit-btn {
+    height: 55px;
+    width: 100%;
+    font-size: 16px;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: 500;
+    background: #3498db;
+    color: white;
+    transition: all 0.2s ease;
+    /* border:1px solid red; */
+}
+
+.submit-btn:hover {
+    background: #2980b9;
+}
+
+/* form css */
+
+textarea#comment {
+    width: 400px;
+    height: 100px;
+    /* Adjust height as needed */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+    /* Allow vertical resizing */
+    box-sizing: border-box;
+    /* Include padding and border in element's total width and height */
+    font-size: 16px;
+    /* Adjust font size as needed */
+    line-height: 1.5;
+    /* Adjust line height as needed */
+    color: #333;
+    /* Text color */
+}
+
+textarea#comment::placeholder {
+    color: #999;
+    /* Placeholder text color */
+}
+
+textarea#updatedComment {
+    width: 400px;
+    height: 100px;
+    /* Adjust height as needed */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+    /* Allow vertical resizing */
+    box-sizing: border-box;
+    /* Include padding and border in element's total width and height */
+    font-size: 16px;
+    /* Adjust font size as needed */
+    line-height: 1.5;
+    /* Adjust line height as needed */
+    color: #333;
+    /* Text color */
+}
+
+textarea#updatedComment::placeholder {
+    color: #999;
+    /* Placeholder text color */
+}
+
+/* comment section css */
+.comments-section {
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid red; */
+    background-color: white;
+}
+
+.comment-card {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    padding: 10px;
+    background-color: white;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.comment-divider {
+    margin: 20px 0; /* Adjust the margin as needed */
+    border: 1px solid black; /* Define the border style */
+}
+
+.comment-card .user-details {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 15px;
+}
+
+.user-details .user-image-box {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    /* border: 1px solid red; */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+}
+
+.user-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-details .published-date {
+    color: #95a5a6;
+    margin-left: 20px;
+}
+
+.comment-delete-option {
+    margin-left: auto;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.comment-edit-option {
+    margin-left: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* comment section css */

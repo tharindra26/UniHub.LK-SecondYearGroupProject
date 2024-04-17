@@ -112,7 +112,7 @@
 
                                                 <div class="buttons">
                                                     <button class="close-btn" id="update-btn"
-                                                        onclick="updateAnnouncement('<?php echo $announcement->announcement_id ?>','<?php echo $announcement->announcement_text ?>')">
+                                                        onclick="updateAnnouncement('<?php echo $announcement->announcement_id ?>')">
                                                         Update
                                                     </button>
                                                 </div>
