@@ -33,7 +33,7 @@
                         <a href="<?php echo URLROOT ?>/users/updatemyprofile/<?php echo $data['user']->id ?>" class="follow-btn">Profile Settings</a>
                         <a href="<?php echo URLROOT ?>/users/showFriends/<?php echo $data['user']->id ?>" class="msg-btn">Friends</a> 
                     <?php else: ?>
-                        <a href="#" class="follow-btn" id="friendBtn"></a>
+                        <a href="#" class="follow-btn" id="friendBtn" onclick = "profileFriendBtnOption()"></a>
                         <a href="#" class="msg-btn">Report</a>
                     <?php endif; ?> 
                     </div>
@@ -492,6 +492,61 @@ checkFriendStatus();
     });
     }
 
+</script>
+   
+<script>
+    function profileFriendBtnOption(){
+        var btnText =  $("#friendBtn").text();
+        if (btnText == "Follow"){
+            $.ajax({
+                url: "http://localhost/unihub/users/addFriend",
+                type: "POST",
+                data: {
+                    friendId: <?php echo $data['user']->id ?>,
+                    userId: <?php echo $_SESSION['user_id'] ?>
+
+                },
+
+                success: function (response) {
+                    console.log("AJAX request successful:", response);
+                },
+                error: function (error) {
+                    // Handle the error response
+                    console.error("AJAX request failed:", error);
+                },
+            });
+        }
+        else if(btnText == "Requested"){
+            $.ajax({
+                url: "http://localhost/unihub/users/cancelRequest",
+                type: "POST",
+                data: {
+                    friendId: <?php echo $data['user']->id ?>,
+                    userId: <?php echo $_SESSION['user_id'] ?>
+
+                },
+
+                success: function (response) {
+                    console.log("AJAX request successful:", response);
+                },
+                error: function (error) {
+                    // Handle the error response
+                    console.error("AJAX request failed:", error);
+                },
+            });
+        }
+
+        else if (btnText == "Accept"){
+            acceptRequest(<?php echo $data['user']->id; ?>)
+        }
+
+        else if(btnText == "Friends"){
+            
+        }
+        setTimeout(function () {
+                            window.location.reload();
+                        }, 500);
+    }
 </script>
 <script src="<?php echo URLROOT?>/js/users/undergraduate/myprofile.js"></script>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
