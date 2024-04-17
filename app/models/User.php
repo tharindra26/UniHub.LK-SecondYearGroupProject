@@ -435,6 +435,37 @@ class User
 
     }
 
+    public function addFriend($data){
+        $this->db->query("INSERT INTO user_followers (
+            follower_id, 
+            following_id,
+            status) VALUES(:follower_id, :following_id, :status) ");
+
+        $this->db->bind(':follower_id', $data['follower_id']);
+        $this->db->bind(':following_id', $data['following_id']);
+        $this->db->bind(':status', "pending");
+
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function cancelRequest($data){
+        $this->db->query("DELETE FROM user_followers WHERE 	follower_id = :follower_id AND following_id = :following_id");
+
+        $this->db->bind(':follower_id', $data['follower_id']);
+        $this->db->bind(':following_id', $data['following_id']);
+
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function acceptRequestById($data)
     {
         $this->db->query("UPDATE user_followers 
@@ -907,5 +938,6 @@ class User
         return true;
     }
 
+   
 
 }

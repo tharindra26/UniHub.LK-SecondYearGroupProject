@@ -458,6 +458,23 @@ class Users extends Controller
     }
   }
 
+  public function addFriend(){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $follower_id = $_POST['userId'];
+      $following_id = $_POST['friendId'];
+      $data = [
+        'follower_id' => $follower_id,
+        'following_id' => $following_id
+      ];
+      if ($this->userModel->addFriend($data)) {
+        echo 1;
+      } else {
+        echo 0;
+      }
+    }
+  }
+
   public function acceptRequest()
   {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -467,6 +484,23 @@ class Users extends Controller
         'follower_relationship_id' => $follower_relationship_id
       ];
       if ($this->userModel->acceptRequestById($data)) {
+        echo 1;
+      } else {
+        echo 0;
+      }
+    }
+  }
+
+  public function cancelRequest(){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $follower_id = $_POST['userId'];
+      $following_id = $_POST['friendId'];
+      $data = [
+        'follower_id' => $follower_id,
+        'following_id' => $following_id
+      ];
+      if ($this->userModel->cancelRequest($data)) {
         echo 1;
       } else {
         echo 0;
@@ -1719,11 +1753,127 @@ public function  editProfileImage($id){
 }
   
 public function editSkills($id){
-  $data =[
-
+  $skills = $this->userModel->getSkillsByUserId($id);
+  $data= [
+    'id' => $id,
+    'skill' => $skills
   ];
   $this->view('users/undergraduate/editSkills', $data);
 }
+
+public function addSkill($id){
+   //check the user is a registered user
+   if (!isLoggedIn()) {
+    redirect('users/login');
+  }
+
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //process form
+    $skill_name = trim($_POST['skill_name']);
+    $proficiency_level = trim($_POST['proficiency_level']);
+
+    //Sanitize post data
+    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+    //Init data
+    $data = [
+      'skill_name' => $skill_name,
+      'proficiency_level' => $proficiency_level,
+      
+      'skill_name_err' => '',
+      'proficiency_level_err' => '',
+      
+    ];
+
+
+
+    if (empty($data['skill_name'])) {
+      $data['skill_name_err'] = 'Pleae enter skill_name';
+    }
+    if (empty($data['proficiency_level'])) {
+      $data['proficiency_level_err'] = 'Pleae enter the proficiency_level';
+    }
+    
+
+    // Make sure errors are empty
+    if (empty($data['skill_name_err']) && empty($data['proficiency_level_err']) ) {
+      //Validated
+
+      if ($this->userModel->addSkill($data)) {
+        // flash('event_message', "Event Added Successfully");
+        redirect('users/editSkills/' . $_SESSION['user_id']);
+      }
+    } else {
+      //load view with error
+      $this->view('users/undergraduate/editSkills', $data);
+
+    }
+
+
+  } else {
+    // Init data
+    $data = [
+      'skill_name' => '',
+      'proficiency_level' => '',
+
+      'skill_name_err' => '',
+      'proficiency_level_err' => '',
+    ];
+
+    // Load view
+    $this->view('users/undergraduate/editSkills', $data);
+  }
+
+}
+
+public function getEventCategories()
+{
+  $eventCategories = $this->eventModel->getEventCategories();
+  echo json_encode($eventCategories);
+}
+
+public function deleteEventCategory(){
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    $eventId = $_POST['eventId'];
+    $categoryId = $_POST['categoryId'];
+
+    $data=[
+      'event_id' => $eventId,
+      'category_id' => $categoryId
+    ];
+
+    if ($this->eventModel->deleteCategoryByEventIdCategoryId($data)) {
+      echo true;
+    } else {
+      echo false;
+    }
+  }
+}
+
+public function addEventCategory(){
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    $eventId = $_POST['eventId'];
+    $category = $_POST['category'];
+
+    $categoryId = $this->categoryModel->getCategoryIdByName($category);
+
+
+
+    $data=[
+      'eventId' => $eventId,
+      'categoryId' => $categoryId
+    ];
+
+    if ($this->eventModel->addEventCategory($data)) {
+      echo true;
+    } else {
+      echo false;
+    }
+  }
+}
+
 
 
 
