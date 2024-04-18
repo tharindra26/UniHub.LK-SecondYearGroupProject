@@ -603,3 +603,79 @@ a.active{
 .footer-box2 ul li a{
     color: #ECECEC;
 }
+
+.sub-menu-wrap{
+    position: absolute;
+    top: 100%;
+    right: 2%;
+    width: 320px;
+    /* border: 1px solid red; */
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s;
+}
+
+.sub-menu-wrap.open-menu{
+    max-height: 400px;
+}
+
+.sub-menu{
+    background-color: white;
+    color: black;
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+.sub-menu hr{
+    border: 0;
+    height: 1px;
+    width: 100%;
+    background: #ccc;
+    margin: 15px 0 10px;
+}
+
+.sub-menu-link .right-arrow{
+    font-size: 22px;
+    transition: transform 0.5s;
+}
+
+.sub-menu-link:hover .right-arrow{
+    transform: translateX(5px);
+}
+
+.user-info{
+    display: flex;
+    flex-direction: row;
+}
+
+
+.sub-menu-profile-image{
+    display: flex;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+}
+.sub-menu-profile-image img{
+    width: 100%;
+    height: auto;
+}
+
+.right-arrow{
+    margin-left: auto;
+}
+
+
+.sub-menu-profile-name{
+    display: flex;
+    flex-direction: column;
+    padding-left: 5px;
+}
+
+.sub-menu-link-icon{
+    margin-right: 10px;
+}

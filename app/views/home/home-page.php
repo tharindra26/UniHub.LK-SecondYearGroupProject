@@ -22,7 +22,8 @@
                                 <a href="<?php echo URLROOT ?>/users/show/<?php echo $_SESSION['user_id'] ?>">
                                     <div class="profile-navigator">
                                         <div class="profile-image">
-                                            <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $_SESSION["user_profile_image"] ?>" alt="not found">
+                                            <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $_SESSION["user_profile_image"] ?>"
+                                                alt="not found">
                                         </div>
                                         <div class="profile-name">
                                             <div class="user-name">
@@ -71,8 +72,8 @@
 
                         <?php if (isset($_SESSION['user_id'])): ?>
                             <li class="hideOnMobile">
-                                <a href="<?php echo URLROOT ?>/users/show/<?php echo $_SESSION['user_id'] ?>">
-                                    <div class="profile-navigator">
+                                <a href="#">
+                                    <div class="profile-navigator" onclick="toggleMenu()"> 
                                         <div class="profile-image">
                                             <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $_SESSION["user_profile_image"] ?>"
                                                 alt="not found">
@@ -88,8 +89,34 @@
                                     </div>
                                 </a>
                             </li>
-                            <li class="hideOnMobile"><a href="<?php echo URLROOT ?>/users/logout"><i
-                                        class="fa-solid fa-arrow-right-from-bracket"></i> &nbsp Signout</a></li>
+
+                            <!-- sub-menu-wrap -->
+                            <div class="sub-menu-wrap" id="sub-menu-wrap">
+                                <div class="sub-menu">
+                                    <a href="<?php echo URLROOT ?>/users/show/<?php echo $_SESSION['user_id'] ?>"
+                                        class="user-info">
+                                        <div class="sub-menu-profile-image">
+                                            <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $_SESSION["user_profile_image"] ?>"
+                                                alt="not found">
+                                        </div>
+                                        <div class="sub-menu-profile-name">
+                                            <div class="sub-menu-user-name"><?php echo $_SESSION["user_name"] ?></div>
+                                            <div class="sub-menu-user-type"><?php echo $_SESSION["user_type"] ?></div>
+                                        </div>
+                                    </a>
+                                    <hr>
+
+                                    <a href="<?php echo URLROOT ?>/users/logout" class="sub-menu-link">
+                                        <i class="sub-menu-link-icon fa-solid fa-arrow-right-from-bracket"></i>
+                                        <p>Signout</p>
+                                        <div class="right-arrow">
+                                            <i class="fa-solid fa-chevron-right"></i>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- sub-menu-wrap -->
+
 
                         <?php else: ?>
                             <li class="hideOnMobile"><a href="<?php echo URLROOT ?>/users/login">Login</a></li>

@@ -42,3 +42,9 @@ function startTypewriterAnimation() {
 
 // Start the typewriter animation when the page loads
 document.addEventListener('DOMContentLoaded', startTypewriterAnimation);
+
+let subMenuWrap= document.getElementById("sub-menu-wrap");
+
+function toggleMenu(){
+    subMenuWrap.classList.toggle("open-menu");
+}
