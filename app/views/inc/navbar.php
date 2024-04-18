@@ -55,6 +55,23 @@
             <li class="hideOnMobile"><a href="<?php echo URLROOT ?>/organizations/index">Organizations</a></li>
             <li class="hideOnMobile"><a href="<?php echo URLROOT ?>/posts/index">Posts</a></li>
             <li class="hideOnMobile"><a href="<?php echo URLROOT ?>/opportunities/index">Opportunities</a></li>
+            <li class="hideOnMobile">
+                <div class="notification-icon" onclick="toggleNotificationList()">
+                    <i class="fa-solid fa-bell"></i>
+                    <div class="notification-count">50</div>
+                    <div class="notification-list" id="notification-list">
+                        <!-- Notification items will go here -->
+                        <div class="notification-item">
+                            <div class="notification-text">Notification1</div>
+                            <hr>
+                        </div>
+                        
+                        <!-- Add more notification items as needed -->
+                    </div>
+                </div>
+            </li>
+
+
 
 
             <?php if (isset($_SESSION['user_id'])): ?>

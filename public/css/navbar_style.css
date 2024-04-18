@@ -207,6 +207,53 @@ nav li:first-child {
 }
 
 
+.notification-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-right: 20px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.notification-icon i{
+    font-size: 22px;
+    color: #3498db;
+}
+
+.notification-icon .notification-count{
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    background-color: #c0392b;
+    color: white;
+    text-align: center;
+    font-size: 10px;
+    line-height: 20px;
+}
+
+
+.notification-list {
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 320px;
+    background-color: white;
+    border-radius: 0 0 5px 5px;
+    z-index: 1;
+}
+
+.notification-list.open-menu{
+    max-height: 400px;
+}
+
 
 
 @media(max-width: 1536px){

@@ -25,15 +25,14 @@ class Posts extends Controller
     $this->view('posts/post-index', $data);
   }
 
-  public function show($id) //14
+  public function show($id)
   {
 
-
-    // $user = $this->userModel->getUserById($event->user_id);
+    $post = $this->postModel->getPostById($id);
     $data = [
-
+      'post' => $post
     ];
-    $this->view('post/showPost', $data);
+    $this->view('posts/post-show', $data);
   }
 
   public function add()

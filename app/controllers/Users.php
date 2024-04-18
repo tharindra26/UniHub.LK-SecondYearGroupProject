@@ -10,6 +10,7 @@ class Users extends Controller
     $this->organizationalModel = $this->model('Organization');
     $this->universityModel = $this->model('University');
     $this->eventModel = $this->model('Event');
+    $this->postModel = $this->model('Post');
   }
 
 
@@ -320,11 +321,11 @@ class Users extends Controller
               $this->createUserSession($loggedInUser);
               $this->userModel->addLoginRecord($_SESSION['user_id']);
             }
-          }else{
+          } else {
             $this->createUserSession($loggedInUser);
             $this->userModel->addLoginRecord($_SESSION['user_id']);
           }
-          
+
 
         } else {
           $data['password_err'] = 'Password incorrect';
@@ -458,7 +459,8 @@ class Users extends Controller
     }
   }
 
-  public function addFriend(){
+  public function addFriend()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
       $follower_id = $_POST['userId'];
@@ -491,7 +493,8 @@ class Users extends Controller
     }
   }
 
-  public function cancelRequest(){
+  public function cancelRequest()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
       $follower_id = $_POST['userId'];
@@ -861,51 +864,52 @@ class Users extends Controller
     $this->view('users/undergraduate/updatemyprofile', $data);
   }
 
-//Search Profiles
-public function searchUsers()
-{
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    // echo $_POST['value'];
+  //Search Profiles
+  public function searchUsers()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      // echo $_POST['value'];
 
-    $users = $this->userModel->searchUsers($_POST);
+      $users = $this->userModel->searchUsers($_POST);
 
-    $data = [
-      'users' => $users, 
-    ];
+      $data = [
+        'users' => $users,
+      ];
 
-    $this->view('users/undergraduate/searchUser', $data);
+      $this->view('users/undergraduate/searchUser', $data);
 
+    }
   }
-}
 
-public function viewUser(){
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    // echo $_POST['value'];
+  public function viewUser()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      // echo $_POST['value'];
 
-    $name = $_POST['name'];
+      $name = $_POST['name'];
 
-    $user = $this->userModel->getUserByName($name);
+      $user = $this->userModel->getUserByName($name);
 
-    $data = [
-      'user' => $user, 
-    ];
+      $data = [
+        'user' => $user,
+      ];
 
-    if ($user) {
-      // Assuming $user is an object with 'id' property
-      $id = $user->id;
-      echo $id;
-      // Redirect to the user's profile page
-      //redirect('users/show/' . $id);
-  } else {
-      // Handle case where user is not found
-      echo "User not found!";
+      if ($user) {
+        // Assuming $user is an object with 'id' property
+        $id = $user->id;
+        echo $id;
+        // Redirect to the user's profile page
+        //redirect('users/show/' . $id);
+      } else {
+        // Handle case where user is not found
+        echo "User not found!";
+      }
+    }
   }
-  }
-}
 
-//Admin
+  //Admin
   public function dashboard()
   {
     $data = [
@@ -1626,253 +1630,356 @@ public function viewUser(){
   }
   //change profile images
 
-public function  editProfileImage($id){
-  $user = $this->userModel->getUserById($id);
+  public function editProfileImage($id)
+  {
+    $user = $this->userModel->getUserById($id);
 
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //process form
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      //process form
 
-    //Sanitize post data
-    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      //Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-    //Init data
-    $data = [
-      'id' => $id,
-      'profile_image_err' => '',
-      'cover_image_err' => '',
+      //Init data
+      $data = [
+        'id' => $id,
+        'profile_image_err' => '',
+        'cover_image_err' => '',
 
-    ];
+      ];
 
-    if (isset($_POST['profile_image']) && !empty($_POST['profile_image'])) {
-      // If it's set and not empty, trim any whitespace and assign it
-      $data['$profile_image'] = trim($_POST['profile_image']);
-    } else {
-      // If it's not set or empty, assign a default value or handle the scenario accordingly
-      $data['profile_image'] = $user->profile_image; // You can set a default value here if needed
-    }
+      if (isset($_POST['profile_image']) && !empty($_POST['profile_image'])) {
+        // If it's set and not empty, trim any whitespace and assign it
+        $data['$profile_image'] = trim($_POST['profile_image']);
+      } else {
+        // If it's not set or empty, assign a default value or handle the scenario accordingly
+        $data['profile_image'] = $user->profile_image; // You can set a default value here if needed
+      }
 
-    if (isset($_POST['cover_image']) && !empty($_POST['cover_image'])) {
-      // If it's set and not empty, trim any whitespace and assign it
-      $data['$cover_image'] = trim($_POST['cover_image']);
-    } else {
-      // If it's not set or empty, assign a default value or handle the scenario accordingly
-      $data['cover_image'] = $user->cover_image; // You can set a default value here if needed
-    }
-
-
-
-
-    if (empty($data['profile_image'])) {
-      $data['profile_image_err'] = 'Pleae add a profile image';
-    }
-
-    if (empty($data['cover_image'])) {
-      $data['cover_image_err'] = 'Pleae add a cover image';
-    }
-
-  
-    // Make sure errors are empty
-    if (empty($data['profile_image_err']) && empty($data['cover_image_err'])) {
-      //Validated
-      if (isset($_FILES['profile_image']['name']) and !empty($_FILES['profile_image']['name'])) {
+      if (isset($_POST['cover_image']) && !empty($_POST['cover_image'])) {
+        // If it's set and not empty, trim any whitespace and assign it
+        $data['$cover_image'] = trim($_POST['cover_image']);
+      } else {
+        // If it's not set or empty, assign a default value or handle the scenario accordingly
+        $data['cover_image'] = $user->cover_image; // You can set a default value here if needed
+      }
 
 
-        $img_name = $_FILES['profile_image']['name'];
-        $tmp_name = $_FILES['profile_image']['tmp_name'];
-        $error = $_FILES['profile_image']['error'];
 
-        if ($error === 0) {
-          $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-          $img_ex_to_lc = strtolower($img_ex);
 
-          $allowed_exs = array('jpg', 'jpeg', 'png');
-          if (in_array($img_ex_to_lc, $allowed_exs)) {
-            $new_img_name = $user->title . '_user_profile_' . time() . '.' . $img_ex_to_lc;
-            $img_upload_path = "../public/img/users/users_profile_images/" . $new_img_name;
-            move_uploaded_file($tmp_name, $img_upload_path);
+      if (empty($data['profile_image'])) {
+        $data['profile_image_err'] = 'Pleae add a profile image';
+      }
 
-            $data['profile_image'] = $new_img_name;
+      if (empty($data['cover_image'])) {
+        $data['cover_image_err'] = 'Pleae add a cover image';
+      }
+
+
+      // Make sure errors are empty
+      if (empty($data['profile_image_err']) && empty($data['cover_image_err'])) {
+        //Validated
+        if (isset($_FILES['profile_image']['name']) and !empty($_FILES['profile_image']['name'])) {
+
+
+          $img_name = $_FILES['profile_image']['name'];
+          $tmp_name = $_FILES['profile_image']['tmp_name'];
+          $error = $_FILES['profile_image']['error'];
+
+          if ($error === 0) {
+            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+            $img_ex_to_lc = strtolower($img_ex);
+
+            $allowed_exs = array('jpg', 'jpeg', 'png');
+            if (in_array($img_ex_to_lc, $allowed_exs)) {
+              $new_img_name = $user->title . '_user_profile_' . time() . '.' . $img_ex_to_lc;
+              $img_upload_path = "../public/img/users/users_profile_images/" . $new_img_name;
+              move_uploaded_file($tmp_name, $img_upload_path);
+
+              $data['profile_image'] = $new_img_name;
+            }
           }
         }
-      }
 
-      if (isset($_FILES['cover_image']['name']) and !empty($_FILES['cover_image']['name'])) {
+        if (isset($_FILES['cover_image']['name']) and !empty($_FILES['cover_image']['name'])) {
 
 
-        $img_name = $_FILES['cover_image']['name'];
-        $tmp_name = $_FILES['cover_image']['tmp_name'];
-        $error = $_FILES['cover_image']['error'];
+          $img_name = $_FILES['cover_image']['name'];
+          $tmp_name = $_FILES['cover_image']['tmp_name'];
+          $error = $_FILES['cover_image']['error'];
 
-        if ($error === 0) {
-          $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-          $img_ex_to_lc = strtolower($img_ex);
+          if ($error === 0) {
+            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+            $img_ex_to_lc = strtolower($img_ex);
 
-          $allowed_exs = array('jpg', 'jpeg', 'png');
-          if (in_array($img_ex_to_lc, $allowed_exs)) {
-            $new_img_name = $data['title'] . '_user_cover_' . time() . '.' . $img_ex_to_lc;
-            $img_upload_path = "../public/img/users/users_cover_images/" . $new_img_name;
-            move_uploaded_file($tmp_name, $img_upload_path);
+            $allowed_exs = array('jpg', 'jpeg', 'png');
+            if (in_array($img_ex_to_lc, $allowed_exs)) {
+              $new_img_name = $data['title'] . '_user_cover_' . time() . '.' . $img_ex_to_lc;
+              $img_upload_path = "../public/img/users/users_cover_images/" . $new_img_name;
+              move_uploaded_file($tmp_name, $img_upload_path);
 
-            $data['cover_image'] = $new_img_name;
+              $data['cover_image'] = $new_img_name;
+            }
           }
         }
+
+
+        $data['id'] = $user->id;
+        if ($this->userModel->updateUserProfileImage($data)) {
+          // flash('event_message', "Event Updated Successfully");
+          redirect('users/show/' . $user->id);
+        }
+      } else {
+
+        //load view with error
+        $data['id'] = $user->id;
+        //$this->view('events/events-edit', $data);
+
       }
 
 
-      $data['id'] = $user->id;
-      if ($this->userModel->updateUserProfileImage($data)) {
-        // flash('event_message', "Event Updated Successfully");
-        redirect('users/show/' . $user->id);
-      }
     } else {
+      //check for owner
+      // if ($event->user_id != $_SESSION['user_id']) {
+      //   redirect('events');
+      // }
+      // Init data
+      $data = [
+        'id' => $id,
+        'profile_image' => $user->profile_image,
+        'cover_image' => $user->cover_image,
+        'profile_image_err' => '',
+        'cover_image_err' => '',
+      ];
 
-      //load view with error
-      $data['id'] = $user->id;
-      //$this->view('events/events-edit', $data);
-
+      // Load view
+      $this->view('users/undergraduate/editProfileImage', $data);
     }
+  }
 
-
-  } else {
-    //check for owner
-    // if ($event->user_id != $_SESSION['user_id']) {
-    //   redirect('events');
-    // }
-    // Init data
+  public function editSkills($id)
+  {
+    $skills = $this->userModel->getSkillsByUserId($id);
     $data = [
       'id' => $id,
-      'profile_image' => $user->profile_image,
-      'cover_image' => $user->cover_image,
-      'profile_image_err' => '',
-      'cover_image_err' => '',
+      'skill' => $skills
     ];
-
-    // Load view
-    $this->view('users/undergraduate/editProfileImage', $data);
-  }
-}
-  
-public function editSkills($id){
-  $skills = $this->userModel->getSkillsByUserId($id);
-  $data= [
-    'id' => $id,
-    'skill' => $skills
-  ];
-  $this->view('users/undergraduate/editSkills', $data);
-}
-
-public function addSkill($id){
-   //check the user is a registered user
-   if (!isLoggedIn()) {
-    redirect('users/login');
-  }
-
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //process form
-    $skill_name = trim($_POST['skill_name']);
-    $proficiency_level = trim($_POST['proficiency_level']);
-
-    //Sanitize post data
-    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-    //Init data
-    $data = [
-      'skill_name' => $skill_name,
-      'proficiency_level' => $proficiency_level,
-      
-      'skill_name_err' => '',
-      'proficiency_level_err' => '',
-      
-    ];
-
-
-
-    if (empty($data['skill_name'])) {
-      $data['skill_name_err'] = 'Pleae enter skill_name';
-    }
-    if (empty($data['proficiency_level'])) {
-      $data['proficiency_level_err'] = 'Pleae enter the proficiency_level';
-    }
-    
-
-    // Make sure errors are empty
-    if (empty($data['skill_name_err']) && empty($data['proficiency_level_err']) ) {
-      //Validated
-
-      if ($this->userModel->addSkill($data)) {
-        // flash('event_message', "Event Added Successfully");
-        redirect('users/editSkills/' . $_SESSION['user_id']);
-      }
-    } else {
-      //load view with error
-      $this->view('users/undergraduate/editSkills', $data);
-
-    }
-
-
-  } else {
-    // Init data
-    $data = [
-      'skill_name' => '',
-      'proficiency_level' => '',
-
-      'skill_name_err' => '',
-      'proficiency_level_err' => '',
-    ];
-
-    // Load view
     $this->view('users/undergraduate/editSkills', $data);
   }
 
-}
+  public function addSkill($id)
+  {
+    //check the user is a registered user
+    if (!isLoggedIn()) {
+      redirect('users/login');
+    }
 
-public function getEventCategories()
-{
-  $eventCategories = $this->eventModel->getEventCategories();
-  echo json_encode($eventCategories);
-}
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      //process form
+      $skill_name = trim($_POST['skill_name']);
+      $proficiency_level = trim($_POST['proficiency_level']);
 
-public function deleteEventCategory(){
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    $eventId = $_POST['eventId'];
-    $categoryId = $_POST['categoryId'];
+      //Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-    $data=[
-      'event_id' => $eventId,
-      'category_id' => $categoryId
-    ];
+      //Init data
+      $data = [
+        'skill_name' => $skill_name,
+        'proficiency_level' => $proficiency_level,
 
-    if ($this->eventModel->deleteCategoryByEventIdCategoryId($data)) {
-      echo true;
+        'skill_name_err' => '',
+        'proficiency_level_err' => '',
+
+      ];
+
+
+
+      if (empty($data['skill_name'])) {
+        $data['skill_name_err'] = 'Pleae enter skill_name';
+      }
+      if (empty($data['proficiency_level'])) {
+        $data['proficiency_level_err'] = 'Pleae enter the proficiency_level';
+      }
+
+
+      // Make sure errors are empty
+      if (empty($data['skill_name_err']) && empty($data['proficiency_level_err'])) {
+        //Validated
+
+        if ($this->userModel->addSkill($data)) {
+          // flash('event_message', "Event Added Successfully");
+          redirect('users/editSkills/' . $_SESSION['user_id']);
+        }
+      } else {
+        //load view with error
+        $this->view('users/undergraduate/editSkills', $data);
+
+      }
+
+
     } else {
-      echo false;
+      // Init data
+      $data = [
+        'skill_name' => '',
+        'proficiency_level' => '',
+
+        'skill_name_err' => '',
+        'proficiency_level_err' => '',
+      ];
+
+      // Load view
+      $this->view('users/undergraduate/editSkills', $data);
+    }
+
+  }
+
+  public function getEventCategories()
+  {
+    $eventCategories = $this->eventModel->getEventCategories();
+    echo json_encode($eventCategories);
+  }
+
+  public function deleteEventCategory()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $eventId = $_POST['eventId'];
+      $categoryId = $_POST['categoryId'];
+
+      $data = [
+        'event_id' => $eventId,
+        'category_id' => $categoryId
+      ];
+
+      if ($this->eventModel->deleteCategoryByEventIdCategoryId($data)) {
+        echo true;
+      } else {
+        echo false;
+      }
     }
   }
-}
 
-public function addEventCategory(){
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    $eventId = $_POST['eventId'];
-    $category = $_POST['category'];
+  public function addEventCategory()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $eventId = $_POST['eventId'];
+      $category = $_POST['category'];
 
-    $categoryId = $this->categoryModel->getCategoryIdByName($category);
+      $categoryId = $this->categoryModel->getCategoryIdByName($category);
 
 
 
-    $data=[
-      'eventId' => $eventId,
-      'categoryId' => $categoryId
-    ];
+      $data = [
+        'eventId' => $eventId,
+        'categoryId' => $categoryId
+      ];
 
-    if ($this->eventModel->addEventCategory($data)) {
-      echo true;
-    } else {
-      echo false;
+      if ($this->eventModel->addEventCategory($data)) {
+        echo true;
+      } else {
+        echo false;
+      }
     }
   }
-}
+
+  public function changeEventInterest()
+  {
+    $userId = $_SESSION['user_id'];
+    $userEventCategories = $this->userModel->getUserEventCategories($userId);
+    $eventCategories = $this->eventModel->getEventCategories();
+    $data = [
+      'userId' => $userId,
+      'userEventCategories' => $userEventCategories,
+      'eventCategories' => $eventCategories
+    ];
+    $this->view('users/undergraduate/editUserEventCategories', $data);
+  }
+
+  public function addEventInterestCategory()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $category = $_POST['category'];
+
+      $data = [
+        'userId' => $_SESSION['user_id'],
+        'categoryId' => $category
+      ];
+
+      if ($this->userModel->addEventInterestCategory($data)) {
+        echo true;
+      } else {
+        echo false;
+      }
+    }
+  }
+
+  public function deleteEventInterestCategory(){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $categoryId = $_POST['categoryId'];
+
+      $data = [
+        'categoryId' => $categoryId
+      ];
+
+      if ($this->userModel->deleteEventInterestCategory($data)) {
+        echo true;
+      } else {
+        echo false;
+      }
+    }
+  }
+
+  public function changePostInterest()
+  {
+    $userId = $_SESSION['user_id'];
+    $userPostCategories = $this->userModel->getUserPostCategories($userId);
+    $postCategories = $this->postModel->getPostCategories();
+    $data = [
+      'userId' => $userId,
+      'userPostCategories' => $userPostCategories,
+      'postCategories' => $postCategories
+    ];
+    $this->view('users/undergraduate/editUserPostCategories', $data);
+  }
+
+  public function addPostInterestCategory()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $category = $_POST['category'];
+
+      $data = [
+        'userId' => $_SESSION['user_id'],
+        'categoryId' => $category
+      ];
+
+      if ($this->userModel->addPostInterestCategory($data)) {
+        echo true;
+      } else {
+        echo false;
+      }
+    }
+  }
+
+  public function deletePostInterestCategory(){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $categoryId = $_POST['categoryId'];
+
+      $data = [
+        'categoryId' => $categoryId
+      ];
+
+      if ($this->userModel->deletePostInterestCategory($data)) {
+        echo true;
+      } else {
+        echo false;
+      }
+    }
+  }
 
 
 
