@@ -111,6 +111,13 @@
                 </div>
             </a>
 
+            <a href="<?php echo URLROOT ?>/users/changeEventInterest">
+                <div class="add-event-button">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Event Interest categories</span>
+                </div>
+            </a>
+
             <!-- university-filter -->
             <div class="uni-filter ">
                 <div class="select-btn">

@@ -228,6 +228,7 @@ class Post
                 p.*,
                 u.fname,
                 u.lname,
+                u.profile_image AS user_profile_image,
                 GROUP_CONCAT(DISTINCT pt.tag_text) AS tags,
                 GROUP_CONCAT(DISTINCT pc.category_name) AS categories,
                 GROUP_CONCAT(DISTINCT pl.user_id) AS liked_users,
@@ -330,6 +331,15 @@ class Post
         } else {
             return false;
         }
+    }
+
+    public function getPostCategories()
+    {
+        $this->db->query('SELECT * FROM post_categories');
+
+        $rows = $this->db->resultSet();
+
+        return $rows;
     }
 
 }

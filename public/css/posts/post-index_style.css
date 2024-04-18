@@ -255,6 +255,10 @@ overpass */
 }
 
 /* Search bar */
+.content-outer-container{
+    display: flex;
+    flex-direction: row;
+}
 
 .left-main-section {
     width: 60%;
@@ -265,8 +269,13 @@ overpass */
 
 }
 
+.right-main-section{
+    /* margin-left: 30px; */
+    border: 1px solid red;
+}
+
 .post-card {
-    width: 100%;
+    width: auto;
     padding: 20px;
     background-color: white;
     border-radius: 5px;

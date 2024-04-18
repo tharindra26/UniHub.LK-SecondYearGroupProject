@@ -215,7 +215,8 @@ class User
         }
     }
 
-    public function getUserByName($name){
+    public function getUserByName($name)
+    {
         $names = explode(' ', $name);
         $fname = $names[0];
         $lname = $names[1];
@@ -230,7 +231,7 @@ class User
             return $row;
         } else {
             return false;
-        } 
+        }
     }
 
     //Find user by id
@@ -435,7 +436,8 @@ class User
 
     }
 
-    public function addFriend($data){
+    public function addFriend($data)
+    {
         $this->db->query("INSERT INTO user_followers (
             follower_id, 
             following_id,
@@ -453,7 +455,8 @@ class User
         }
     }
 
-    public function cancelRequest($data){
+    public function cancelRequest($data)
+    {
         $this->db->query("DELETE FROM user_followers WHERE 	follower_id = :follower_id AND following_id = :following_id");
 
         $this->db->bind(':follower_id', $data['follower_id']);
@@ -591,17 +594,17 @@ class User
         $this->db->query($query);
 
         // Bind values to the placeholders
-                if (!empty($keyword)) {
-                    $this->db->bind(':keyword', '%' . $keyword . '%');
-                }
+        if (!empty($keyword)) {
+            $this->db->bind(':keyword', '%' . $keyword . '%');
+        }
 
-                // Execute the query
-                $this->db->execute();
-        
-                // Fetch the results
-                $row = $this->db->resultSet();
-                return $row;
-        
+        // Execute the query
+        $this->db->execute();
+
+        // Fetch the results
+        $row = $this->db->resultSet();
+        return $row;
+
     }
 
     public function filterUsers($data)
@@ -938,6 +941,112 @@ class User
         return true;
     }
 
-   
+    public function getUserEventCategories($userId)
+    {
+        $query = 'SELECT ueic.*, c.category_name
+        FROM user_event_interest_categories ueic
+        LEFT JOIN categories c ON ueic.event_category_id = c.id
+        WHERE ueic.user_id = :user_id';
+
+        // Bind the user ID parameter
+        $this->db->query($query);
+        $this->db->bind(':user_id', $userId);
+
+        // Execute the query
+        $this->db->execute();
+
+        // Fetch the result set
+        $categories = $this->db->resultSet();
+
+        return $categories;
+    }
+
+    public function addEventInterestCategory($data)
+    {
+        $query = 'INSERT INTO user_event_interest_categories (user_id, event_category_id) VALUES (:user_id, :event_category_id)';
+
+        // Bind the parameters
+        $this->db->query($query);
+        $this->db->bind(':user_id', $data['userId']);
+        $this->db->bind(':event_category_id', $data['categoryId']);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function deleteEventInterestCategory($data)
+    {
+        $query = 'DELETE FROM user_event_interest_categories WHERE id = :id';
+
+        // Bind the parameter
+        $this->db->query($query);
+        $this->db->bind(':id', $data['categoryId']);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    public function getUserPostCategories($userId)
+    {
+        $query = 'SELECT upic.*, pc.category_name
+        FROM user_post_interest_categories upic
+        LEFT JOIN post_categories pc ON upic.post_category_id = pc.category_id
+        WHERE upic.user_id = :user_id';
+
+        // Bind the user ID parameter
+        $this->db->query($query);
+        $this->db->bind(':user_id', $userId);
+
+        // Execute the query
+        $this->db->execute();
+
+        // Fetch the result set
+        $categories = $this->db->resultSet();
+
+        return $categories;
+    }
+
+    public function addPostInterestCategory($data)
+    {
+        $query = 'INSERT INTO user_post_interest_categories (user_id, post_category_id) VALUES (:user_id, :post_category_id)';
+
+        // Bind the parameters
+        $this->db->query($query);
+        $this->db->bind(':user_id', $data['userId']);
+        $this->db->bind(':post_category_id', $data['categoryId']);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function deletePostInterestCategory($data)
+    {
+        $query = 'DELETE FROM user_post_interest_categories WHERE id = :id';
+
+        // Bind the parameter
+        $this->db->query($query);
+        $this->db->bind(':id', $data['categoryId']);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 }
