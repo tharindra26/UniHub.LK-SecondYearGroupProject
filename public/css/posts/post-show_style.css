@@ -20,7 +20,7 @@ overpass */
     width: 80%;
     /* border: 1px solid red; */
     background-color: white;
-    padding: 10PX;
+    padding: 20PX;
 }
 
 .post-title{
@@ -75,6 +75,7 @@ overpass */
 .like-option{
     margin-left: 5px;
     font-size: 30px;
+    cursor: pointer;
 }
 
 .like-option i{
@@ -102,10 +103,30 @@ overpass */
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    border: 1px solid red;
     border-radius: 10px;
-    padding: 10px;
     margin-left: auto;
+    cursor: pointer;
+}
+
+.bookmark-text{
+    margin-left: 5px;
+}
+
+.post-settings-option{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    color: #e67e22;
+    border: 1px solid #e67e22;
+    border-radius: 10px;
+    margin-left: 20px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.post-setting-option-text{
+    margin-left: 5px;
 }
 
 .explore-more-option{
@@ -114,9 +135,15 @@ overpass */
     justify-content: center;
     align-items: center;
     padding: 10px;
-    margin-left: 30px;
+    margin-left: 20px;
     border-radius: 10px;
-    border: 1px solid red;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+}
+
+.explore-more-text{
+    margin-left: 5px;
 }
 
 .post-image{
@@ -156,6 +183,7 @@ hr{
     border: 0;
     height: 1px;
     width: 100%;
+    margin-top: 10px;
     margin-bottom: 20px;
-    background-color: #7f8c8d;
+    background-color: #7f8c8d5f;
 }

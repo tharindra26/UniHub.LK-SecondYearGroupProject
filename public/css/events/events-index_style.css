@@ -599,6 +599,37 @@ li.selected {
 
 /* category filter */
 
+/* customize-feed */
+
+.customize-feed-option {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    /* padding: 10px; */
+}
+
+.customize-feed-text{
+    font-size: 18px;
+    text-align: justify;
+}
+.customize-feed-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    padding: 5px 10px;
+    border-radius: 50px;
+    background-color: #c0392b;
+    color: white;
+    text-decoration: none;
+
+}
+
+.customize-feed-btn-txt{
+    margin-left: 5px;
+}
+/* customize-feed */
+
 .content-section {
     padding-left: 10px;
     /* width: 75%; */

@@ -11,6 +11,7 @@ class Users extends Controller
     $this->universityModel = $this->model('University');
     $this->eventModel = $this->model('Event');
     $this->postModel = $this->model('Post');
+    $this->notificationModel = $this->model('Notification');
   }
 
 
@@ -239,7 +240,6 @@ class Users extends Controller
 
   public function login()
   {
-
 
     // $data = [];
     // $this->view('google-auth', $data);

@@ -1,0 +1,8 @@
+.organization-cover-image{
+    height: 500px;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(70%);
+    overflow: hidden;
+}
