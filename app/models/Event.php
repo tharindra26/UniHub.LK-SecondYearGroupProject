@@ -10,11 +10,14 @@ class Event
 
     public function getAllEvents()
     {
-        $this->db->query('SELECT * FROM events
+        $this->db->query('SELECT *
+                        -- GROUP_CONCAT(categories.category_name) AS category_names
+                        FROM events
                         INNER JOIN events_categories
                         ON events_categories.event_id = events.id
-                        INNER JOIN categories 
+                        LEFT JOIN categories 
                         ON categories.id = events_categories.category_id
+                        WHERE 1=1
                         ORDER BY events.created_at DESC
                         ');
         $results = $this->db->resultSet();

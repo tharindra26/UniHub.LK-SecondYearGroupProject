@@ -475,6 +475,23 @@ class Users extends Controller
     }
   }
 
+  public function unfollowFriend(){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $follower_id = $_POST['userId'];
+      $following_id = $_POST['friendId'];
+      $data = [
+        'follower_id' => $follower_id,
+        'following_id' => $following_id
+      ];
+      if ($this->userModel->cancelRequest($data)) {
+        echo 1;
+      } else {
+        echo 0;
+      }
+    }
+  }
+
   public function acceptRequest()
   {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -861,6 +878,10 @@ class Users extends Controller
     $this->view('users/undergraduate/updatemyprofile', $data);
   }
 
+  public function deleteAccount($id){
+
+  }
+
 //Search Profiles
 public function searchUsers()
 {
@@ -1072,8 +1093,9 @@ public function viewUser(){
 
   public function requests()
   {
+    $requests = $this->userModel->getAllRequests();
     $data = [
-
+      'requests' => $requests
     ];
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -1141,7 +1163,7 @@ public function viewUser(){
 
         if ($this->userModel->updateContactDetails($data)) {
           // 
-          echo "success";
+          redirect('users/show/' . $id);
         }
 
 
@@ -1214,7 +1236,7 @@ public function viewUser(){
         //Validated
         if ($this->userModel->updateDescription($data)) {
           // 
-          echo "success";
+          redirect('users/show/' . $id);
         }
       } else {
 

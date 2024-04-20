@@ -458,6 +458,29 @@ class Events extends Controller
     }
   }
 
+  public function filterEvents()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+      // Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      // var_dump($_POST);
+      // die();
+
+      // $keyword = $_POST['keyword'];
+      // $date = $_POST['date'];
+      $events = $this->eventModel->getEventsBySearch($_POST);
+
+      $data = [
+        'events' => $events,
+      ];
+
+      $this->view('users/admin/eventfilter', $data);
+
+    }
+  }
+
+
   public function checkEventParticipation()
   {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {

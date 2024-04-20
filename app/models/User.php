@@ -674,6 +674,13 @@ class User
         return $rows;
     }
 
+    public function getAllRequests(){
+        $this->db->query('SELECT * FROM events, posts, organizations, opportunities
+                        WHERE events.approval == :event_approval
+                        OR posts.approval == :posts_approval
+                        AND  ');
+    }
+
     public function DeactivateAccount($data)
     {
         $this->db->query("UPDATE users SET status = :status  WHERE id= :id");

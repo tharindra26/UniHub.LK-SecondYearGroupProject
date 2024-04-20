@@ -97,7 +97,8 @@
                     </div>
                 </a>
 
-                <a href="<?php echo URLROOT ?>/users/passwordReset/<?php echo $data['id'] ?>"
+                <div class="deleteAccount">
+                <a href="#" onclick = "openPopup('<?php echo $data['id']; ?>')"
                     class="option-link">
                     <div class="option">
                         <div class="option-icon">
@@ -107,6 +108,20 @@
                     </div>
                 </a>
 
+                <!-- popupModal -->
+                <span class="overlay"></span>
+                <div class="modal-box" id="<?php echo $data['id']; ?>">
+                <!-- <i class="fa-solid fa-xmark"></i> -->
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <h2>Are you sure?? </h2>
+                    <p>Delete Your Account</p>
+                    <div class="btn">
+                        <button class="close-btn" onclick="deleteAccount('<?php echo $data['id']; ?>')">Delete</button>
+                        <button class="close-btn" onclick="closePopup('<?php echo $data['id']; ?>')">Close</button>
+                    </div>
+                    </div>
+                <!-- popupModal -->
+                </div>
 
             </div>
             <div class="image-box">
@@ -118,5 +133,5 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="<?php echo URLROOT ?>/js/events/settings.js"></script>
+<script src="<?php echo URLROOT ?>/js/users/undergraduate/settings.js"></script>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
