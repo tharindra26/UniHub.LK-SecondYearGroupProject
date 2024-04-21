@@ -19,11 +19,15 @@ class Organization
 
     public function getOrganizationById($organization_id)
     {
-        $this->db->query('SELECT * 
+        $this->db->query('SELECT o.*,
+        u_table.name AS university_name,
+        GROUP_CONCAT(DISTINCT oc.category_name) AS category_names,
+        GROUP_CONCAT(DISTINCT of.follower_id) AS organization_followers
         FROM organizations o
         LEFT JOIN organization_category_mapping ocm ON o.organization_id = ocm.organization_id
         LEFT JOIN universities u_table ON o.university = u_table.id 
         LEFT JOIN organization_categories oc ON ocm.organization_category_id = oc.category_id
+        LEFT JOIN organization_followers of ON o.organization_id =of.organization_id
         WHERE o.organization_id= :organization_id');
 
         $this->db->bind(':organization_id', $organization_id);
@@ -176,12 +180,87 @@ class Organization
 
     }
 
-    public function getActivitiesByOrganizationId($organizationId){
+    public function getActivitiesByOrganizationId($organizationId)
+    {
         $this->db->query('SELECT * FROM organization_activities WHERE organization_id = :organization_id');
         $this->db->bind(':organization_id', $organizationId);
-        $row = $this->db->single();
+        // Execute the query
+        $this->db->execute();
+
+        // Fetch the results
+        $row = $this->db->resultSet();
         return $row;
     }
+
+    public function getNewsByOrganizationId($organizationId){
+        $this->db->query('SELECT * FROM organization_news WHERE organization_id = :organization_id');
+        $this->db->bind(':organization_id', $organizationId);
+        // Execute the query
+        $this->db->execute();
+
+        // Fetch the results
+        $row = $this->db->resultSet();
+        return $row;
+    }
+
+    public function addActivity($data)
+    {
+        $this->db->query('INSERT INTO organization_activities (organization_id, activity_title, activity_description, activity_image) 
+        VALUES (:organization_id, :activity_title, :activity_description, :activity_image)');
+        $this->db->bind(':organization_id', $data['organization_id']);
+        $this->db->bind(':activity_title', $data['activity_title']);
+        $this->db->bind(':activity_description', $data['activity_description']);
+        $this->db->bind(':activity_image', $data['activity_image']);
+        return $this->db->execute();
+    }
+
+    public function addNews($data)
+    {
+        $this->db->query('INSERT INTO organization_news (organization_id, news_title, news_text, sharing_option) 
+        VALUES (:organization_id, :news_title, :news_text, :sharing_option)');
+        $this->db->bind(':organization_id', $data['organization_id']);
+        $this->db->bind('news_title', $data['news_title']);
+        $this->db->bind(':news_text', $data['news_text']);
+        $this->db->bind(':sharing_option', $data['sharing_option']);
+        return $this->db->execute();
+    }
+
+    public function checkUserOrganizationFollow($data)
+    {
+        $this->db->query("SELECT * FROM organization_followers WHERE follower_id = :follower_id AND organization_id = :organization_id");
+        $this->db->bind(':follower_id', $data['followerId']);
+        $this->db->bind(':organization_id', $data['organizationId']);
+
+        $this->db->single(); // Assuming you have a method like this to fetch a single row
+
+        return $this->db->rowCount() > 0;
+    }
+
+    public function addUserOrganizationFollow($data)
+    {
+        $this->db->query("INSERT INTO organization_followers (follower_id, organization_id) VALUES(:follower_id, :organization_id)");
+        $this->db->bind(':follower_id', $data['followerId']);
+        $this->db->bind(':organization_id', $data['organizationId']);
+
+        if ($this->db->execute()) {
+            return true;
+        }
+    }
+
+    public function deleteUserOrganizationFollow($data)
+    {
+        $this->db->query("DELETE FROM organization_followers WHERE follower_id = :follower_id AND organization_id = :organization_id");
+        $this->db->bind(':follower_id', $data['followerId']);
+        $this->db->bind(':organization_id', $data['organizationId']);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 
 
 }

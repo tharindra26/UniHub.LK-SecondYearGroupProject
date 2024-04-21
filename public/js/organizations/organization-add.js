@@ -42,7 +42,7 @@ const boardImageUpload = document.getElementById("boardImageUpload"), //original
   boardImgTxt = document.getElementById("board-img-txt");
 
 customBoardImgBtn.addEventListener("click", function () {
-  coverImageUpload.click();
+  boardImageUpload.click();
 });
 
 boardImageUpload.addEventListener("change", function () {

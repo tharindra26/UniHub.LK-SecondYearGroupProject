@@ -725,6 +725,7 @@ li.selected {
     height: 150px;
     background-color: #2980b9;
     border-radius: 15px;
+    margin-bottom: 20px;
 
     box-shadow: 0px 7px 17px 5px rgba(0, 0, 0, 0.29);
     -webkit-box-shadow: 0px 7px 17px 5px rgba(0, 0, 0, 0.29);
@@ -751,6 +752,7 @@ li.selected {
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 150px;
+    align-items: center;
 }
 
 .organization-card-inner .right-section {
@@ -766,7 +768,7 @@ li.selected {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: auto;
+    height: 95%;
     width: 20%;
     /* border: 1px solid red; */
     margin-left: 30px;
@@ -814,7 +816,7 @@ li.selected {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px 10px;
+    padding: 5px 15px;
     /* border: 1px solid red; */
     border-radius: 10px;
     text-decoration: none;
@@ -826,6 +828,11 @@ li.selected {
 
 .view-profile-btn i {
     margin-left: 5px;
+    transition: transform 0.5s;
+}
+
+.view-profile-btn:hover i{
+    transform: translateX(5px);
 }
 
 /* organization card */

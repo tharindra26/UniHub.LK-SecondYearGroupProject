@@ -113,7 +113,7 @@ class Organizations extends Controller
         $data['number_of_members_err'] = 'Please enter the number of members';
       }
 
-      
+
       ;
       // Make sure errors are empty
       if (
@@ -127,7 +127,7 @@ class Organizations extends Controller
         empty($data['number_of_members_err'])
       ) {
         //Validated
-        
+
         //organization-profile image adding
         if (isset($_FILES['organization_profile_image']['name']) and !empty($_FILES['organization_profile_image']['name'])) {
 
@@ -199,16 +199,16 @@ class Organizations extends Controller
           }
         }
 
-        
+
         if ($this->organizationModel->addOrganization($data)) {
           // flash('event_message', "Event Added Successfully");
-          
+
           redirect('organizations');
         }
       } else {
         //load view with error
-        $data['universities']=$universities;
-        $data['organizationCategories']=$organizationCategories;
+        $data['universities'] = $universities;
+        $data['organizationCategories'] = $organizationCategories;
         $this->view('organizations/organization-add', $data);
 
       }
@@ -254,8 +254,8 @@ class Organizations extends Controller
       ];
 
       // Load view
-      $data['universities']=$universities;
-      $data['organizationCategories']=$organizationCategories;
+      $data['universities'] = $universities;
+      $data['organizationCategories'] = $organizationCategories;
       $this->view('organizations/organization-add', $data);
     }
   }
@@ -278,17 +278,216 @@ class Organizations extends Controller
     }
   }
 
-  public function show($id) 
+  public function show($id)
   {
     $organization = $this->organizationModel->getOrganizationById($id);
     $organization_activties = $this->organizationModel->getActivitiesByOrganizationId($id);
+    $organization_news = $this->organizationModel->getNewsByOrganizationId($id);
     // $organizationAccount = $this->userModel->getUserByEmail($organization->contact_email);
     // $events = $this->eventModel->getEventById($id);
     $data = [
       'organization' => $organization,
       'organization_activities' => $organization_activties,
+      'organization_news' => $organization_news
     ];
     $this->view('organizations/organization-show', $data);
+  }
+
+  public function addActivity($id)
+  {
+
+    //check the user is a registered user
+    // if (!isLoggedIn()) {
+    //   redirect('/users/login');
+    // }
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      //process form
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      //Init data
+      $data = [
+        'organization_id' => $id,
+        'activity_title' => trim($_POST['activity_title']),
+        'activity_description' => trim($_POST['activity_description']),
+        'activity_image' => '',
+
+        'activity_title_err' => '',
+        'activity_description_err' => '',
+        'activity_image_err' => ''
+
+      ];
+
+
+
+
+      if (empty($data['activity_title'])) {
+        $data['activity_title_err'] = 'Pleae enter the acitivity title';
+      }
+      if (empty($data['activity_description'])) {
+        $data['activity_description_err'] = 'Pleae enter the acitivity description';
+      }
+
+      if (isset($_FILES['activity_image']['name']) and !empty($_FILES['activity_image']['name'])) {
+
+
+        $img_name = $_FILES['activity_image']['name'];
+        $tmp_name = $_FILES['activity_image']['tmp_name'];
+        $error = $_FILES['activity_image']['error'];
+
+        if ($error === 0) {
+          $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+          $img_ex_to_lc = strtolower($img_ex);
+
+          $allowed_exs = array('jpg', 'jpeg', 'png');
+          if (in_array($img_ex_to_lc, $allowed_exs)) {
+            $new_img_name = $data['activity_title'] . '-activity-image.' . time() . '.' . $img_ex_to_lc;;
+            $img_upload_path = "../public/img/organizations/activity_images/" . $new_img_name;
+            move_uploaded_file($tmp_name, $img_upload_path);
+
+            $data['activity_image'] = $new_img_name;
+          }
+        }
+      }
+
+      // Make sure errors are empty
+      if (empty($data['activity_title_err']) && empty($data['activity_description_err'])) {
+
+        //Validated
+        
+
+
+        if ($this->organizationModel->addActivity($data)) {
+          // flash('event_message', "Event Added Successfully");
+          redirect('organizations/show/' . $id);
+        }
+      } else {
+        //load view with error
+        $this->view('organizations/add-activity', $data);
+
+      }
+
+
+
+    } else {
+      // Init data
+      $data = [
+        'organization_id' => $id,
+        'activity_title' => '',
+        'activity_description' => '',
+        'activity_image' => '',
+
+        'activity_title_err' => '',
+        'activity_description_err' => '',
+        'activity_image_err' => ''
+      ];
+
+      // Load view
+      $this->view('organizations/add-activity', $data);
+    }
+
+  }
+
+
+
+
+  public function addNews($id)
+  {
+
+    //check the user is a registered user
+    // if (!isLoggedIn()) {
+    //   redirect('/users/login');
+    // }
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      //process form
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      //Init data
+      $data = [
+        'organization_id' => $id,
+        'news_title' => trim($_POST['news_title']),
+        'news_text' => trim($_POST['news_text']),
+        'sharing_option' => trim($_POST['sharing_option']),
+
+        'news_title_err' => '',
+        'news_text_err' => '',
+        'sharing_option_err'=> ''
+
+      ];
+
+
+
+
+      if (empty($data['news_title'])) {
+        $data['news_title_err'] = 'Pleae enter the news title';
+      }
+      if (empty($data['news_text'])) {
+        $data['news_text_err'] = 'Pleae enter the news text';
+      }
+
+
+      // Make sure errors are empty
+      if (empty($data['news_title_err']) && empty($data['news_text_err'])) {
+
+        //Validated
+        
+
+
+        if ($this->organizationModel->addNews($data)) {
+          // flash('event_message', "Event Added Successfully");
+          redirect('organizations/show/' . $id);
+        }
+      } else {
+        //load view with error
+        $this->view('organizations/add-news', $data);
+
+      }
+
+
+
+    } else {
+      // Init data
+      $data = [
+        'organization_id' => $id,
+        'news_title' => '',
+        'news_text' => '',
+        'sharing_option' => '',
+
+        'news_title_err' => '',
+        'news_text_err' => '',
+        'sharing_option_err'=> ''
+      ];
+
+      // Load view
+      $this->view('organizations/add-news', $data);
+    }
+
+  }
+
+  public function addFollow()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $organizationId = $_POST['organizationId'];
+      if (isset($_SESSION['user_id'])) {
+        $followerId = $_SESSION['user_id'];
+        $data = [
+          'organizationId' => $organizationId,
+          'followerId' => $followerId
+        ];
+        if (!$this->organizationModel->checkUserOrganizationFollow($data)) {
+          if ($status = $this->organizationModel->addUserOrganizationFollow($data)) {
+            echo $status;
+          }
+        } else {
+          $this->organizationModel->deleteUserOrganizationFollow($data);
+          echo 0;
+        }
+      } else {
+        echo 0;
+      }
+    }
   }
 }
 

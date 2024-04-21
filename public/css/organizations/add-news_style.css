@@ -1,0 +1,245 @@
+/* Poppins:
+Thin 100
+Light 300
+Regular 400
+Medium 500
+Bold 700
+ExtraBold 800
+lora
+overpass */
+
+.inner-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+.top-part{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.top-part header{
+    text-align: center;
+    font-weight: 500;
+    color: #2c3e50;
+    font-size: 30px;
+}
+
+.bottom-part{
+    display: flex;
+    flex-direction: row;
+    /* border: 1px solid red; */
+    background-color: white;
+}
+
+.bottom-left{
+    display: flex;
+    width: 70%;
+}
+
+.image-box {
+    max-width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-box img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.add-event-form {
+    position: relative;
+    width: 100%;
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+}
+
+.add-event-form .form {
+    margin-top: 30px;
+    /* border: 1px solid red; */
+}
+
+.form .input-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 30px;
+    /* border: 1px solid red; */
+}
+
+.input-box label {
+    color: #2c3e50;
+}
+
+.form :where(.input-box input, .select-box) {
+    position: relative;
+    height: 50px;
+    width: auto;
+    outline: none;
+    font-size: 16px;
+    color: #7f8c8d;
+    margin-top: 8px;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    padding-left: 10px;
+    /* border: 1px solid red; */
+
+}
+
+
+
+#selection {
+    padding-left: 10px;
+}
+
+#eventDescription {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: poppins;
+    font-size: 16px;
+    color: #7f8c8d;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    resize: vertical;
+    outline: none;
+}
+
+.select-box {
+    border: none;
+    padding-left: 0;
+    /* border: 1px solid red; */
+}
+.category {
+    width: 45%;
+    height: 150px;
+}
+
+.add-event-form .column {
+    display: flex;
+    column-gap: 15px;
+}
+
+.select-box select {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: none;
+    color: #7f8c8d;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #bdc3c7;
+}
+
+.submit-btn {
+    height: 55px;
+    width: 100%;
+    font-size: 16px;
+    border: none;
+    margin-top: 30px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: 500;
+    background: #3498db;
+    color: white;
+    transition: all 0.2s ease;
+}
+
+.submit-btn:hover {
+    background: #2980b9;
+}
+
+#custom-activity-img-btn {
+    padding: 10px;
+    color: white;
+    background: #34495e;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid black;
+    margin-top: 8px;
+    width: 30%;
+}
+
+#custom-activity-img-btn:hover {
+    background: #2c3e50;
+}
+
+#activity-img-txt {
+    color: #7f8c8d;
+}
+
+#activityImageUpload {
+    display: none;
+}
+
+.image-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    background: white;
+    margin: 20px 0;
+}
+
+.image-section img {
+    /* border: 1px solid red; */
+    width: 100%;
+    height: auto;
+}
+
+.form .radio-option-box{
+    margin-top: 20px;
+}
+
+.radio-option-box h3{
+    font-weight: 400;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+
+.form :where(.radio-options, .radio-option){
+    display: flex;
+    align-items: center;
+    column-gap: 50px;
+}
+
+.form .radio-option{
+    column-gap: 5px;
+}
+
+.form :where(.radio-option input, .radio-option label){
+    cursor: pointer;
+}
+
+/* error message */
+.error-message {
+    color: red;
+    /* font-style: italic; */
+    font-weight: 400;
+    font-size: 15px;
+}
+
+/* error message */
+
+
+@media screen and (max-width: 500px){
+    .form .column{
+        flex-wrap: wrap;
+    }
+}
