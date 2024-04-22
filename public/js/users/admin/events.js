@@ -1,7 +1,7 @@
 // Counter starts
 function initializeCount() {
     totalValue = document.querySelectorAll(".tot");
-    let timeinterval = 1000;
+    let timeinterval = 200;
 
     totalValue.forEach((valueDisplay) => {
         let startValue = 0;
@@ -180,8 +180,63 @@ uniResetBtn.addEventListener("click", () => {
 });
 //university filter
 
+//approval filter
 
+  function selectData(approvalType){
+    $.ajax({
+      url: "http://localhost/unihub/events/approvalFilter",
+      //url: URLROOT +"/events/searchEvents",
+      method: "POST",
+      data: {
+        type: approvalType,
+      },
+      success: function (data) {
+        // Update the content section with the retrieved data
+        $("#events-filter-table").html(data);
+      },
+    });
+  }
+  
+ 
+//approval filter
 
+//status filter
+function selectStatus(status){
+  $.ajax({
+    url: "http://localhost/unihub/events/statusFilter",
+    //url: URLROOT +"/events/searchEvents",
+    method: "POST",
+    data: {
+      status: status,
+    },
+    success: function (data) {
+      // Update the content section with the retrieved data
+      $("#events-filter-table").html(data);
+    },
+  });
+}
+//status filter
+
+//Main Event filter
+function mainEventFilter(type) {
+  //console.log(type);
+
+  $.ajax({
+    url: "http://localhost/unihub/events/dueEventsFilterilter",
+    type: "POST",
+    data: {
+      value: type,
+    },
+    success: function (response) {
+      $("#events-filter-table").html(response);
+    },
+    error: function (error) {
+      console.error("Error:", error);
+    },
+  });
+}
+
+//Main Event filter
 
 
 

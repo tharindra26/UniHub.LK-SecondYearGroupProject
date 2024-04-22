@@ -1049,8 +1049,14 @@ public function viewUser(){
   public function events()
   {
     $event = $this->eventModel->getAllEvents();
+    $totalEvents = $this->eventModel->totalEventCount();
+    $ongoingEvents = $this->eventModel->ongoingCount();
+    $dueEvents = $this->eventModel->dueCount();
     $data = [
-      'events' => $event
+      'events' => $event,
+      'totalEvents' => $totalEvents,
+      'ongoingEvents' => $ongoingEvents,
+      'dueEvents' => $dueEvents,
     ];
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {

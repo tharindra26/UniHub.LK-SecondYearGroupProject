@@ -21,7 +21,7 @@ function openPopup(confirm) {
       },
       success: function (response) {
         // Handle the success response
-        console.log("AJAX request successful:", response);
+        //console.log("AJAX request successful:", response);
   
         // Update the text content on success
         // interestedBtn.find('span').text(response);
@@ -51,7 +51,7 @@ function openPopup(confirm) {
       },
       success: function (response) {
         // Handle the success response
-        console.log("AJAX request successful:", response);
+        //console.log("AJAX request successful:", response);
   
         // Update the text content on success
         // interestedBtn.find('span').text(response);
@@ -67,7 +67,7 @@ function openPopup(confirm) {
         console.error("AJAX request failed:", error);
       },
     });
-    // if (popup) popup.classList.remove("open-popup");
+   
   }
   
   function updateUser(confirm) {
@@ -80,7 +80,7 @@ function openPopup(confirm) {
       },
       success: function (response) {
         // Handle the success response
-        console.log("AJAX request successful:", response);
+        //console.log("AJAX request successful:", response);
   
         $("#main-id").html(response);
       },

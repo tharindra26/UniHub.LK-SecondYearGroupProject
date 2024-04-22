@@ -42,7 +42,7 @@ function confirmDeactivate(confirm) {
     },
     success: function (response) {
       // Handle the success response
-      console.log("AJAX request successful:", response);
+      //console.log("AJAX request successful:", response);
 
       // Update the text content on success
       // interestedBtn.find('span').text(response);
@@ -72,7 +72,7 @@ function confirmActivate(confirm) {
     },
     success: function (response) {
       // Handle the success response
-      console.log("AJAX request successful:", response);
+      //console.log("AJAX request successful:", response);
 
       // Update the text content on success
       // interestedBtn.find('span').text(response);
@@ -101,7 +101,7 @@ function updateUser(userId) {
     },
     success: function (response) {
       // Handle the success response
-      console.log("AJAX request successful:", response);
+      //console.log("AJAX request successful:", response);
 
       $("#main-id").html(response);
     },
@@ -125,7 +125,7 @@ function updateContent() {
       keyword: keyword
     },
     success: function (response) {
-      console.log(response);
+      //console.log(response);
       $("#filter-table").html(response);
     },
     error: function (error) {

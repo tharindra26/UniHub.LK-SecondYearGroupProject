@@ -420,6 +420,39 @@ class Events extends Controller
     }
   }
 
+  public function deactivateEvent()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $event_id = $_POST['event_id'];
+      $data = [
+        'event_id' => $event_id
+      ];
+      if ($this->userModel->DeactivateEvent($data)) {
+        echo 1;
+      } else {
+        echo 0;
+      }
+
+    }
+  }
+
+  public function activateEvent()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $event_id = $_POST['event_id'];
+      $data = [
+        'event_id' => $event_id
+      ];
+      if ($this->userModel->activateEvent($data)) {
+        echo 1;
+      } else {
+        echo 0;
+      }
+
+    }
+  }
 
   public function show($id) 
   {
@@ -480,6 +513,84 @@ class Events extends Controller
     }
   }
 
+  public function approvalFilter(){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+      // Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      // var_dump($_POST);
+      // die();
+
+      $approvalType = $_POST['type'];
+
+      if($approvalType == ""){
+        $events = $this->eventModel->getAllEvents();
+      }else{
+        $events = $this->eventModel->getEventsByApprovalType($approvalType);
+      }
+
+      $data = [
+        'events' => $events,
+      ];
+
+      $this->view('users/admin/eventfilter', $data);
+
+    }
+  }
+
+  public function statusFilter(){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+      // Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      // var_dump($_POST);
+      // die();
+      $events = [];
+      $status = $_POST['status'];
+
+      if($status == ""){
+        $events = $this->eventModel->getAllEvents();
+      }elseif($status == "active"){
+        $events = $this->eventModel->getActiveEvents();
+      }elseif($status == "deactived"){
+        $events = $this->eventModel->getDeactivedEvents();
+      }
+
+      $data = [
+        'events' => $events,
+      ];
+
+      $this->view('users/admin/eventfilter', $data);
+
+    }
+  }
+
+  public function dueEventsFilterilter(){
+    // Sanitize post data
+    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    // var_dump($_POST);
+    // die();
+
+    $type = $_POST['value'];
+
+    if($type == "all"){
+      $events = $this->eventModel->getAllEvents();
+    }
+    elseif($type == "ongoing"){
+      $events = $this->eventModel->getOngoingEvents($type);
+    }
+    elseif($type == "due"){
+      $events = $this->eventModel->getDueEvents($type);
+    }
+
+    $data = [
+      'events' => $events,
+    ];
+
+    $this->view('users/admin/eventfilter', $data);
+
+  }
+  
 
   public function checkEventParticipation()
   {
