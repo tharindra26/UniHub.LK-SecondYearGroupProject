@@ -423,10 +423,12 @@ class Events extends Controller
 
   public function show($id) 
   {
+    $addView = $this->eventModel->addEventView($id);
     $event = $this->eventModel->getEventById($id);
     $announcements = $this->eventModel->getAnnouncementsByEventId($id);
     $user = $this->userModel->getUserById($event->user_id);
     $reviews = $this->eventModel->getReviewsByEventId($id);
+    
     $data = [
       'event' => $event,
       'user' => $user,

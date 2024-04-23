@@ -7,11 +7,13 @@ class Users extends Controller
   public function __construct()
   {
     $this->userModel = $this->model('User');
-    $this->organizationalModel = $this->model('Organization');
+    $this->organizationModel = $this->model('Organization');
     $this->universityModel = $this->model('University');
     $this->eventModel = $this->model('Event');
     $this->postModel = $this->model('Post');
+    $this->opportunityModel = $this->model('Opportunity');
     $this->notificationModel = $this->model('Notification');
+    $this->statModel = $this->model('Stat');
   }
 
 
@@ -398,6 +400,7 @@ class Users extends Controller
   // }
   public function show($id)
   {
+    $addView = $this->userModel->addUserView($id);
     $user = $this->userModel->getUserById($id);
     $university = $this->universityModel->getUniversityById($user->university_id);
     $event = $this->eventModel->getEventByUser($id);
@@ -421,6 +424,14 @@ class Users extends Controller
     ];
 
     if ($user->type == 'admin') {
+      $logindata= $this->statModel-> getLoginCountsLast30Days();
+      $data['loginData'] = $logindata;
+      $data['usersCount'] =$this->userModel->getUsersCount();
+      $data['eventsCount'] =$this->eventModel->getEventsCount();
+      $data['organizationsCount'] =$this->organizationModel->getOrganizationsCount();
+      $data['opportunitiesCount'] =$this->opportunityModel->getOpportunitiesCount();
+      $data['postsCount'] =$this->postModel->getPostsCount();
+      $data['universityBaseUsers'] =$this->statModel->getUsersByUniversity();
       $this->view('users/admin/adminprofile', $data);
     } else if ($user->type == 'unirep') {
       $this->view('users/unirep/profile', $data);
@@ -915,6 +926,14 @@ class Users extends Controller
     $data = [
 
     ];
+
+    $logindata= $this->statModel-> getLoginCountsLast30Days();
+      $data['loginData'] = $logindata;
+      $data['usersCount'] =$this->userModel->getUsersCount();
+      $data['eventsCount'] =$this->eventModel->getEventsCount();
+      $data['organizationsCount'] =$this->organizationModel->getOrganizationsCount();
+      $data['opportunitiesCount'] =$this->opportunityModel->getOpportunitiesCount();
+      $data['postsCount'] =$this->postModel->getPostsCount();
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $this->view('users/admin/dashboard', $data);

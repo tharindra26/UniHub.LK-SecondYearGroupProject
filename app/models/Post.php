@@ -8,6 +8,24 @@ class Post
         $this->db = new Database;
     }
 
+    public function addPostView($postId) {
+        $this->db->query('INSERT INTO post_views (post_id) VALUES (:postId)');
+        $this->db->bind(':postId', $postId);
+
+        // Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getPostsCount() {
+        $this->db->query('SELECT COUNT(*) AS post_count FROM posts');
+        $row = $this->db->single();
+        return $row->post_count;
+    }
+
     public function addPost($data)
     {
         // var_dump($data);

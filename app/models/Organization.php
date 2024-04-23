@@ -8,6 +8,24 @@ class Organization
         $this->db = new Database;
     }
 
+    public function addOrganizationView($organizationId) {
+        $this->db->query('INSERT INTO organization_views (organization_id) VALUES (:organizationId)');
+        $this->db->bind(':organizationId', $organizationId);
+
+        // Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getOrganizationsCount() {
+        $this->db->query('SELECT COUNT(*) AS organization_count FROM organizations');
+        $row = $this->db->single();
+        return $row->organization_count;
+    }
+
     public function getOrganizations()
     {
         $this->db->query('SELECT * FROM organizations;');
@@ -16,6 +34,8 @@ class Organization
         // die();
         return $results;
     }
+
+    
 
     public function getOrganizationById($organization_id)
     {
