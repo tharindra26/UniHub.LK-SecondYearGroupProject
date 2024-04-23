@@ -8,6 +8,24 @@ class Opportunity
         $this->db = new Database;
     }
 
+    public function addOpportunityView($opportunityId) {
+        $this->db->query('INSERT INTO opportunity_views (opportunity_id) VALUES (:opportunityId)');
+        $this->db->bind(':opportunityId', $opportunityId);
+
+        // Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getOpportunitiesCount() {
+        $this->db->query('SELECT COUNT(*) AS opportunity_count FROM opportunities');
+        $row = $this->db->single();
+        return $row->opportunity_count;
+    }
+
     public function getOpportunityById($id)
     {
         $query = 'SELECT 

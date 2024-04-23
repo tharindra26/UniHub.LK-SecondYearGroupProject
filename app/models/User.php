@@ -9,6 +9,24 @@ class User
         $this->db = new Database;
     }
 
+    public function addUserView($userId) {
+        $this->db->query('INSERT INTO user_views (user_id) VALUES (:userId)');
+        $this->db->bind(':userId', $userId);
+
+        // Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getUsersCount() {
+        $this->db->query('SELECT COUNT(*) AS user_count FROM users');
+        $row = $this->db->single();
+        return $row->user_count;
+    }
+
     //Register the user
     public function register($data)
     {
