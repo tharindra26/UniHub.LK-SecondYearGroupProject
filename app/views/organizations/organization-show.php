@@ -64,7 +64,8 @@
                     Follow us
                 </div>
             </div>
-            <a href="" class="profile-dashboard">
+            <a href="<?php echo URLROOT ?>/organizations/settings/<?php echo $data['organization']->organization_id ?>"
+                class="profile-dashboard">
                 <i class="fa-solid fa-bars"></i>
                 <div class="dashboard-txt">
                     Dashboard
@@ -108,6 +109,16 @@
                         <?php if (empty($activity->activity_image)): ?>
                             <!-- HTML structure for activity with image -->
                             <div class="activity-title"><?php echo $activity->activity_title ?></div>
+                            <div class="activity-options">
+                                <a href="<?php echo URLROOT ?>/organizations/updateActivity/<?php echo $activity->activity_id ?>"
+                                    class="activity-update">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                                <div class="activity-delete"
+                                    onclick="openPopup('activityDelete-popup-<?php echo $activity->activity_id ?>')">
+                                    <i class="fa-solid fa-square-minus"></i>
+                                </div>
+                            </div>
                             <div class="activity-content">
                                 <div class="activity-description-plain">
                                     <?php echo $activity->activity_description ?>
@@ -116,7 +127,19 @@
                             <hr>
                         <?php elseif ($activity->activity_id % 2 == 0): ?>
                             <!-- HTML structure for odd indexes -->
-                            <div class="activity-title"><?php echo $activity->activity_title ?></div>
+                            <div class="activity-title">
+                                <?php echo $activity->activity_title ?>
+                            </div>
+                            <div class="activity-options">
+                                <a href="<?php echo URLROOT ?>/organizations/updateActivity/<?php echo $activity->activity_id ?>"
+                                    class="activity-update">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                                <div class="activity-delete"
+                                    onclick="openPopup('activityDelete-popup-<?php echo $activity->activity_id ?>')">
+                                    <i class="fa-solid fa-square-minus"></i>
+                                </div>
+                            </div>
                             <div class="activity-content">
                                 <div class="activity-description-left">
                                     <?php echo $activity->activity_description ?>
@@ -129,7 +152,19 @@
                             <hr>
                         <?php else: ?>
                             <!-- HTML structure for even indexes -->
-                            <div class="activity-title"><?php echo $activity->activity_title ?></div>
+                            <div class="activity-title">
+                                <?php echo $activity->activity_title ?>
+                            </div>
+                            <div class="activity-options">
+                                <a href="<?php echo URLROOT ?>/organizations/updateActivity/<?php echo $activity->activity_id ?>"
+                                    class="activity-update">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                                <div class="activity-delete"
+                                    onclick="openPopup('activityDelete-popup-<?php echo $activity->activity_id ?>')">
+                                    <i class="fa-solid fa-square-minus"></i>
+                                </div>
+                            </div>
                             <div class="activity-content">
                                 <div class="activity-image">
                                     <img src="<?php echo URLROOT ?>/img/organizations/activity_images/<?php echo $activity->activity_image ?>"
@@ -141,12 +176,33 @@
                             </div>
                             <hr>
                         <?php endif; ?>
+                        <!-- popupModal -->
+
+                        <span class="overlay"></span>
+                        <div class="modal-box" id="activityDelete-popup-<?php echo $activity->activity_id ?>">
+                            <i class="fa-solid fa-trash-can"></i>
+                            <h2>Delete Organization Activity</h2>
+                            <h3>Activity:
+                                <?php echo $activity->activity_id ?>
+                            </h3>
+
+                            <div class="buttons">
+                                <button class="close-btn"
+                                    onclick="deleteActivity(<?php echo $activity->activity_id ?>)">Ok,Delete</button>
+                            </div>
+                        </div>
+
+                        <!-- popupModal -->
                     <?php endforeach; ?>
                 <?php else: ?>
                     <p>No past activities & events are available.</p>
                     <hr>
                 <?php endif; ?>
             </div>
+
+
+
+
 
             <div class="news-feed">
                 <div class="news-feed-title">
@@ -155,12 +211,37 @@
                 <?php if (!empty($data['organization_news'][0]->news_id)): ?>
                     <?php foreach ($data['organization_news'] as $news): ?>
                         <div class="news">
-                            <div class="news-title"><?php echo $news->news_title ?></div>
-                            <div class="news-timestamp"><?php echo date('F j, Y g:i A', strtotime($news->news_timestamp)) ?>
+                            <div class="news-title">
+                                <?php echo $news->news_title ?>
+                            </div>
+                            <div class="news-timestamp">
+                                <?php echo date('F j, Y g:i A', strtotime($news->news_timestamp)) ?>
+                            </div>
+                            <div class="news-options">
+                                <a href="<?php echo URLROOT ?>/organizations/updateNews/<?php echo $news->news_id ?>" class="news-update"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <div class="news-delete" onclick="openPopup('newsDelete-popup-<?php echo $news->news_id ?>')"><i class="fa-solid fa-square-minus"></i></div>
                             </div>
                             <div class="news-text"><?php echo $news->news_text ?></div>
                         </div>
                         <hr>
+
+                        <!-- popupModal -->
+
+                        <span class="overlay"></span>
+                        <div class="modal-box" id="newsDelete-popup-<?php echo $news->news_id ?>">
+                            <i class="fa-solid fa-trash-can"></i>
+                            <h2>Delete OrganizationNews</h2>
+                            <h3>News:
+                                <?php echo $news->news_id ?>
+                            </h3>
+
+                            <div class="buttons">
+                                <button class="close-btn"
+                                    onclick="deleteNews(<?php echo $news->news_id ?>)">Ok,Delete</button>
+                            </div>
+                        </div>
+
+                        <!-- popupModal -->
                     <?php endforeach; ?>
                 <?php else: ?>
                     <p>No news available.</p>
@@ -183,6 +264,87 @@
     <?php else: ?>
         var currentUserId = -1;
     <?php endif; ?>
+
+    // popup modal script
+    const overlay = document.querySelector(".overlay");
+    const modalBox = document.querySelector(".modal-box");
+
+    function openPopup(popupId) {
+        var element = document.getElementById(popupId);
+        if (element) {
+            element.classList.add("active");
+            overlay.classList.add("active");
+        }
+    }
+
+    function closePopup(popupId) {
+        var element = document.getElementById(popupId);
+        if (element) {
+            element.classList.remove("active");
+            overlay.classList.remove("active");
+        }
+    }
+    overlay.addEventListener("click", () => {
+        // Find all elements with the "active" class
+        var activeElements = document.querySelectorAll('.active');
+
+        // Remove the "active" class from each element
+        activeElements.forEach(function (element) {
+            element.classList.remove("active");
+        });
+    });
+
+    // popup modal script
+
+
+
+    // Function to handle the deletion of a category
+    function deleteActivity(activityId) {
+        // Send an AJAX request to the server to delete the category
+        $.ajax({
+            type: 'POST',
+            url: URLROOT + '/organizations/deleteActivity', // Replace with the URL of your server-side script
+            data: {
+                activityId: activityId
+            }, // Pass the ID of the category to delete
+            success: function (response) {
+                if (response == true) {
+                    console.log('Organization Activity deleted successfully');
+                    closePopup('activityDelete-popup-' + activityId);
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 500); // 1000 milliseconds delay (1 second)
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Error deleting activity:', error);
+            }
+        });
+    }
+
+    function deleteNews(newsId) {
+        // Send an AJAX request to the server to delete the category
+        $.ajax({
+            type: 'POST',
+            url: URLROOT + '/organizations/deleteNews', // Replace with the URL of your server-side script
+            data: {
+                newsId: newsId
+            }, // Pass the ID of the category to delete
+            success: function (response) {
+                if (response == true) {
+                    console.log('Organization News deleted successfully');
+                    closePopup('newsDelete-popup-' + newsId);
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 500); // 1000 milliseconds delay (1 second)
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Error deleting activity:', error);
+            }
+        });
+    }
+
 
     $(document).ready(function () {
         // Function to handle liking a post via AJAX
