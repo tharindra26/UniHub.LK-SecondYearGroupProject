@@ -1,7 +1,6 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/admin/typefilter_style.css">
 <h1 class="section-title"></h1>
-<?php echo var_dump($data['events']->id) ?>
 <table class="user-table">
         <thead>
             <tr>
