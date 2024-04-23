@@ -26,24 +26,25 @@ initializeCount();
 
 $(document).ready(function () {
   function updateContent() {
-      var keyword = document.getElementById("search-bar-input").value;
-      var university = document.querySelector('.select-uni select[name="university"]').value;
-      var approval = document.querySelector('.option.filter select[name="approval"]').value;
-      var status = document.querySelector('.option.filter select[name="status"]').value;
+    var keyword = document.getElementById("search-bar-input").value;
+    var university = document.getElementById("uni-filter-value").value;
+    var category = document.getElementById("category-filter-value").value;
+    var status = document.getElementById("status-filter-value").value;
+
 
       // Send an AJAX request with the filter values
       $.ajax({
-          url: "http://localhost/unihub/events/filterEvents",
+          url: "http://localhost/unihub/organizations/filterOrganizations",
           method: "POST",
           data: {
               keyword: keyword,
               university: university,
-              approval: approval,
+              category: category,
               status: status,
           },
           success: function (data) {
               // Update the content section with the retrieved data
-              $("#events-filter-table").html(data);
+              $("#organizations-filter-table").html(data);
           },
       });
   }
@@ -62,7 +63,7 @@ $(document).ready(function () {
     .addEventListener("change", updateContent);
 
   document
-    .getElementById("approval-filter-value")
+    .getElementById("category-filter-value")
     .addEventListener("change", updateContent);
 
   document
@@ -80,7 +81,7 @@ $(document).ready(function () {
     document.getElementById("uni-filter-value").value = "";
     
     // Reset approval filter to default
-    document.getElementById("approval-filter-value").value = "";
+    document.getElementById("category-filter-value").value = "";
     
     // Reset status filter to default
     document.getElementById("status-filter-value").value = "";
@@ -92,26 +93,26 @@ $(document).ready(function () {
 
 //approval filter
 
-  function selectData(approvalType){
+  function selectCategory(category){
 
     var keyword = document.getElementById("search-bar-input").value;
     var university = document.getElementById("uni-filter-value").value;
-    //var approval = document.getElementById("approval-filter-value").value;
+    //var category = document.getElementById("category-filter-value").value;
     var status = document.getElementById("status-filter-value").value;
 
     $.ajax({
-      url: "http://localhost/unihub/events/filterEvents",
+      url: "http://localhost/unihub/organizations/filterOrganizations",
       //url: URLROOT +"/events/searchEvents",
       method: "POST",
       data: {
         keyword: keyword,
         university: university,
-        approval: approvalType,
+        category: category,
         status: status,
       },
       success: function (data) {
         // Update the content section with the retrieved data
-        $("#events-filter-table").html(data);
+        $("#organizations-filter-table").html(data);
       },
     });
 
@@ -126,22 +127,22 @@ function selectUni(uni_id){
 
   var keyword = document.getElementById("search-bar-input").value;
   //var university = document.getElementById("uni-filter-value").value;
-  var approval = document.getElementById("approval-filter-value").value;
+  var category = document.getElementById("category-filter-value").value;
   var status = document.getElementById("status-filter-value").value;
 
   $.ajax({
-    url: "http://localhost/unihub/events/filterEvents",
+    url: "http://localhost/unihub/organizations/filterOrganizations",
     //url: URLROOT +"/events/searchEvents",
     method: "POST",
     data: {
       keyword: keyword,
       university: uni_id,
-      approval: approval,
+      category: category,
       status: status,
     },
     success: function (data) {
       // Update the content section with the retrieved data
-      $("#events-filter-table").html(data);
+      $("#organizations-filter-table").html(data);
     },
   });
   updateContent();
@@ -152,22 +153,22 @@ function selectUni(uni_id){
 function selectStatus(status){
   var keyword = document.getElementById("search-bar-input").value;
   var university = document.getElementById("uni-filter-value").value;
-  var approval = document.getElementById("approval-filter-value").value;
+  var category = document.getElementById("category-filter-value").value;
   //var status = document.getElementById("status-filter-value").value;
 
   $.ajax({
-    url: "http://localhost/unihub/events/filterEvents",
+    url: "http://localhost/unihub/organizations/filterOrganizations",
     //url: URLROOT +"/events/searchEvents",
     method: "POST",
     data: {
       keyword: keyword,
       university: university,
-      approval: approval,
+      category: category,
       status: status,
     },
     success: function (data) {
       // Update the content section with the retrieved data
-      $("#events-filter-table").html(data);
+      $("#organizations-filter-table").html(data);
     },
   });
   updateContent();
@@ -185,26 +186,26 @@ function resetOtherFilters() {
   document.getElementById("uni-filter-value").value = "";
   
   // Reset approval filter to default
-  document.getElementById("approval-filter-value").value = "";
+  document.getElementById("category-filter-value").value = "";
   
   // Reset status filter to default
   document.getElementById("status-filter-value").value = "";
 }
 
 //Main Event filter
-function mainEventFilter(type) {
+function mainOrganizationFilter(type) {
   // Reset other filters to default values
   resetOtherFilters();
   // Make AJAX request with the selected filter type
   $.ajax({
-      url: "http://localhost/unihub/events/dueEventsFilterilter",
+      url: "http://localhost/unihub/organizations/totalOrgFilter",
       type: "POST",
       data: {
           value: type,
       },
       success: function (response) {
           // Update the content section with the retrieved data
-          $("#events-filter-table").html(response);
+          $("#organizations-filter-table").html(response);
       },
       error: function (error) {
           console.error("Error:", error);

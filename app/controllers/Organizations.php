@@ -262,6 +262,7 @@ class Organizations extends Controller
 
   public function searchOrganizations()
   {
+    
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
       // Sanitize post data
@@ -290,6 +291,53 @@ class Organizations extends Controller
     ];
     $this->view('organizations/organization-show', $data);
   }
+
+  
+  public function filterOrganizations()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+      // Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      // var_dump($_POST);
+      // die();
+
+      // $keyword = $_POST['keyword'];
+      // $date = $_POST['date'];
+      $organizations = $this->organizationModel->getFilterOrganizations($_POST);
+
+      $data = [
+        'organizations' => $organizations,
+      ];
+
+      $this->view('users/admin/organizationfilter', $data);
+
+    }
+  }
+
+  public function totalOrgFilter(){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    // Sanitize post data
+    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+    $type = $_POST['value'];
+
+    if($type == "all"){
+      $organizations = $this->organizationModel->getAllOrganizations();
+    }
+   
+
+    $data = [
+      'organizations' => $organizations,
+    ];
+
+    $this->view('users/admin/organizationfilter', $data);
+
+  }
+  }
+
+
 }
 
 

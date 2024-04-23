@@ -49,14 +49,12 @@
     </div>
      <!-- university-filter -->
     <div class="option select-uni filter">
-        <select name="university" id="uni-filter-value" onchange="selectData(this.options[this.selectedIndex].value)" placeholder="Approval" class="dropdown-menu">
+        <select name="university" id="uni-filter-value" onchange="selectUni(this.options[this.selectedIndex].value)" placeholder="Approval" class="dropdown-menu">
          <option value="">All Universities</option>
             <?php if (!empty($data['universities'])) : ?> 
                 <?php foreach ($data['universities'] as $uni) : ?>    
                     <option value="<?php echo $uni->id ?>"><?php echo $uni->name ?></option>
                 <?php endforeach; ?>
-                ?php else : ?>
-                <option value="">No universities found</option>
             <?php endif; ?>
            
         </select>         
@@ -72,7 +70,7 @@
         </div>
     </div>
     <div class="option filter">
-        <select name="approval" id="approval-filter-value" onchange="selectUni(this.options[this.selectedIndex].value)" placeholder="Approval" class="dropdown-menu">
+        <select name="approval" id="approval-filter-value" onchange="selectData(this.options[this.selectedIndex].value)" placeholder="Approval" class="dropdown-menu">
             <option value="">All Events</option>
             <option value="approved">Approved</option>
             <option value="pending">Pending</option>

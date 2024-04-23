@@ -1066,11 +1066,18 @@ class Users extends Controller
       $this->view('users/admin/events', $data);
     }
   }
-
+  
   public function organizations()
   {
+    $event = $this->organizationalModel->getAllOrganizations();
+    $totalOrganizations = $this->organizationalModel->totalOrganizationCount();
+    $universities = $this->userModel->getAllUniversities();
+    $categories = $this->organizationalModel->getOrganizationCategories();
     $data = [
-
+      'organization' => $event,
+      'totalOrganizations' => $totalOrganizations,
+      'universities' => $universities,
+      'categories' => $categories
     ];
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {

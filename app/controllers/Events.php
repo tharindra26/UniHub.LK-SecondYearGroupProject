@@ -566,6 +566,8 @@ class Events extends Controller
   }
 
   public function dueEventsFilterilter(){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
     // Sanitize post data
     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
     // var_dump($_POST);
@@ -590,7 +592,7 @@ class Events extends Controller
     $this->view('users/admin/eventfilter', $data);
 
   }
-  
+}
 
   public function checkEventParticipation()
   {

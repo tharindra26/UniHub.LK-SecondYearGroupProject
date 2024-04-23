@@ -17,6 +17,20 @@ class Organization
         return $results;
     }
 
+    public function getAllOrganizations(){
+        $this->db->query('SELECT 
+                        o.*,
+                        u_table.name AS university_name,
+                        GROUP_CONCAT(oc.category_name) AS category_names
+                        FROM organizations o
+                        LEFT JOIN organization_category_mapping ocm ON o.organization_id = ocm.organization_id
+                        LEFT JOIN universities u_table ON o.university = u_table.id 
+                        LEFT JOIN organization_categories oc ON ocm.organization_category_id = oc.category_id
+                        GROUP BY o.organization_id');
+            $results = $this->db->resultSet();
+            return $results;
+      }
+
     public function getOrganizationById($organization_id)
     {
         $this->db->query('SELECT * 
@@ -183,5 +197,83 @@ class Organization
         return $row;
     }
 
+    public function totalOrganizationCount(){
+        $this->db->query('SELECT COUNT(*) AS total_organizations FROM organizations;');
+
+        $row = $this->db->single();
+
+        return $row;
+    }
+
+    public function getFilterOrganizations($data)
+    {
+        $keyword = $data['keyword'];
+        $university = $data['university'];
+        $category = $data['category'];
+        $status = $data['status'];
+
+        $query = 'SELECT 
+                    o.*,
+                    GROUP_CONCAT(c.category_name) AS category_names
+                    FROM organizations o
+                    INNER JOIN users u ON o.user_id = u.id
+                    LEFT JOIN organization_category_mapping m ON o.organization_id = m.organization_id
+                    -- LEFT JOIN universities u_table ON e.university_id = u_table.id 
+                    LEFT JOIN organization_categories c ON m.organization_category_id = c.category_id
+                    WHERE 1=1';
+
+        if (!empty($keyword)) {
+            $query .= " AND o.organization_name LIKE :keyword";
+        }
+
+        if (!empty($university)) {
+            //$query .= " AND u_table.id = :uni_id";
+            $query .= " AND o.university = :university"; 
+        }
+
+        if (!empty($category)) {
+            $query .= " AND c.category_id = :category";
+        }
+
+        if (!empty($status)) {
+            $query .= " AND o.status = :status";
+        }
+
+        $query .= " GROUP BY o.organization_id";
+
+        // Prepare the query
+        $this->db->query($query);
+
+        // Bind values to the placeholders
+        if (!empty($keyword)) {
+            $this->db->bind(':keyword', '%' . $keyword . '%');
+        }
+
+        if (!empty($university)) {
+            $this->db->bind(':university', $university);
+        }
+
+        if (!empty($category)) {
+            $this->db->bind(':category', $category);
+        }
+
+        if (!empty($status)) {
+            if($status == 'active')
+                $this->db->bind(':status', 1);
+            elseif($status == 'deactivated'){
+                $this->db->bind(':status', 0);
+            }
+        }
+        
+        // Execute the query
+        $this->db->execute();
+
+        // Fetch the results
+        $row = $this->db->resultSet();
+        return $row;
+
+
+
+    }
 
 }
