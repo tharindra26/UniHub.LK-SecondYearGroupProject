@@ -1,0 +1,36 @@
+.requests-type{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.requests-type .items{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: calc(100% / 4 - 30px);
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    cursor: pointer;
+    height: 50px;
+}
+
+.req-type{
+    font-weight: 500;
+}
+
+.requests-type #events{
+    border-left: 10px solid blue;
+}
+
+.requests-type #posts{
+    border-left: 10px solid yellow;
+}
+
+.requests-type #organizations{
+    border-left: 10px solid orange;
+}
+
+.requests-type #opportunities{
+    border-left: 10px solid green;
+}

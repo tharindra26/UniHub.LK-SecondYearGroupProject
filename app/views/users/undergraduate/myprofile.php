@@ -32,10 +32,15 @@
                     <?php if($data['user']->id == $_SESSION['user_id']): ?>
                         <a href="<?php echo URLROOT ?>/users/updatemyprofile/<?php echo $data['user']->id ?>" class="follow-btn">Profile Settings</a>
                         <a href="<?php echo URLROOT ?>/users/showFriends/<?php echo $data['user']->id ?>" class="msg-btn">Friends</a> 
-                    <?php else: ?>
-                        <a href="#" class="follow-btn" id="friendBtn" onclick = "profileFriendBtnOption()"></a>
-                        <a href="#" class="msg-btn">Report</a>
-                    <?php endif; ?> 
+                    <?php else:
+                        if($_SESSION['user_type'] == 'undergraduate'): ?>
+                            <a href="#" class="follow-btn" id="friendBtn" onclick = "profileFriendBtnOption()"></a>
+                            <a href="#" class="msg-btn">Report</a>
+                        <?php elseif($_SESSION['user_type'] == 'admin'): ?>
+                            <a href="#" class="follow-btn" id="friendBtn">Update Profile</a>
+                            <a href="#" class="msg-btn">Report</a>
+                    <?php endif;
+                endif; ?> 
                     </div>
                     <div class="current-work">
                         <ul class="work-list">
@@ -541,7 +546,23 @@ checkFriendStatus();
         }
 
         else if(btnText == "Friends"){
-            
+            $.ajax({
+                url: "http://localhost/unihub/users/unfollowFriend",
+                type: "POST",
+                data: {
+                    friendId: <?php echo $data['user']->id ?>,
+                    userId: <?php echo $_SESSION['user_id'] ?>
+
+                },
+
+                success: function (response) {
+                    console.log("AJAX request successful:", response);
+                },
+                error: function (error) {
+                    // Handle the error response
+                    console.error("AJAX request failed:", error);
+                },
+            });
         }
         setTimeout(function () {
                             window.location.reload();

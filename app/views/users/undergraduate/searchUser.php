@@ -7,7 +7,7 @@
             <div class="profile-pic">
                 <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $users->profile_image ?>" alt="">
             </div>
-            <div class="profile-name"><?php echo $users->fname , " " , $users->lname ?></div>
+            <div class="account-name"><?php echo $users->fname , " " , $users->lname ?></div>
         </div> 
         </a>
         <hr>

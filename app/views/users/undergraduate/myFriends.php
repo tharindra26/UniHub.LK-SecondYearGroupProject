@@ -32,7 +32,7 @@
                                             $uni = $friends->university_name;
                                             $string = strip_tags($uni);
                                             if(strlen($string) > 30):
-                                                $stringCut = substr($string, 0, 26);
+                                                $stringCut = substr($string, 0, 24);
                                                 $endPoint = strrpos($stringCut, '');
                                                 $string = $endPoint?substr($stringCut, 0, $endPoint):substr($stringCut,0);
                                                 echo $string;

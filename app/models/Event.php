@@ -10,11 +10,15 @@ class Event
 
     public function getAllEvents()
     {
-        $this->db->query('SELECT * FROM events
+        $this->db->query('SELECT events.*,
+                        GROUP_CONCAT(categories.category_name) AS category_names
+                        FROM events
                         INNER JOIN events_categories
                         ON events_categories.event_id = events.id
-                        INNER JOIN categories 
+                        LEFT JOIN categories 
                         ON categories.id = events_categories.category_id
+                        WHERE 1=1
+                        GROUP BY events.id
                         ORDER BY events.created_at DESC
                         ');
         $results = $this->db->resultSet();
@@ -159,6 +163,34 @@ class Event
         }
     }
 
+    public function DeactivateEvent($data){
+        $this->db->query("UPDATE events SET status = :status  WHERE id= :id");
+        //Bind values
+        $this->db->bind(':id', $data['event_id']);
+        $this->db->bind('status', 0);
+
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function activateEvent($data){
+        $this->db->query("UPDATE events SET status = :status  WHERE id= :id");
+        //Bind values
+        $this->db->bind(':id', $data['event_id']);
+        $this->db->bind('status', 1);
+
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function getEventById($id) 
     {
         $this->db->query(
@@ -185,6 +217,137 @@ class Event
         return $announcements;
     }
 
+    public function getEventsByApprovalType($data){
+        $this->db->query('SELECT e.*,
+                        GROUP_CONCAT(c.category_name) AS category_names
+                        FROM events e
+                        LEFT JOIN events_categories ec ON e.id = ec.event_id
+                        LEFT JOIN universities u_table ON e.university_id = u_table.id 
+                        LEFT JOIN categories c ON ec.category_id = c.id 
+                        WHERE e.approval = :approval
+                        GROUP BY e.id');
+        
+        $this->db->bind(':approval', $data);
+
+        $this->db->execute();
+
+        $results = $this->db->resultSet();
+        return $results;
+    }
+
+
+    public function getActiveEvents(){
+        $this->db->query('SELECT e.*,
+                        GROUP_CONCAT(c.category_name) AS category_names
+                        FROM events e
+                        LEFT JOIN events_categories ec ON e.id = ec.event_id
+                        LEFT JOIN universities u_table ON e.university_id = u_table.id 
+                        LEFT JOIN categories c ON ec.category_id = c.id 
+                        WHERE e.status = :status
+                        GROUP BY e.id');
+        
+        $this->db->bind(':status', 1);
+
+        $this->db->execute();
+
+        $results = $this->db->resultSet();
+        return $results;
+    }
+
+    public function getDeactivedEvents(){
+        $this->db->query('SELECT e.*,
+                        GROUP_CONCAT(c.category_name) AS category_names
+                        FROM events e
+                        LEFT JOIN events_categories ec ON e.id = ec.event_id
+                        LEFT JOIN universities u_table ON e.university_id = u_table.id 
+                        LEFT JOIN categories c ON ec.category_id = c.id 
+                        WHERE e.status = :status
+                        GROUP BY e.id');
+        
+        $this->db->bind(':status', 0);
+
+        $this->db->execute();
+
+        $results = $this->db->resultSet();
+        return $results;
+    }
+
+    public function totalEventCount(){
+        $this->db->query('SELECT COUNT(*) AS total_events FROM events;');
+
+        $row = $this->db->single();
+
+        return $row;
+    }
+
+    public function ongoingCount(){
+        $currentDateTime = date('Y-m-d H:i:s');
+        $this->db->query('SELECT COUNT(*) AS ongoing_events 
+                        FROM events
+                        WHERE end_datetime >= :current_datetime;');
+
+        $this->db->bind(':current_datetime', $currentDateTime );
+
+        $row = $this->db->single();
+
+        return $row;
+    }
+
+    public function dueCount(){
+        $currentDateTime = date('Y-m-d H:i:s');
+        $this->db->query('SELECT COUNT(*) AS due_events 
+                        FROM events
+                        WHERE end_datetime < :current_datetime
+                        AND start_datetime < :current_datetime;');
+        
+        $this->db->bind(':current_datetime', $currentDateTime );
+
+        $row = $this->db->single();
+
+        return $row;
+    }
+    
+    
+    public function getOngoingEvents(){
+        $currentDateTime = date('Y-m-d H:i:s');
+
+        $this->db->query('SELECT e.*,
+                        GROUP_CONCAT(c.category_name) AS category_names
+                        FROM events e
+                        LEFT JOIN events_categories ec ON e.id = ec.event_id
+                        LEFT JOIN universities u_table ON e.university_id = u_table.id 
+                        LEFT JOIN categories c ON ec.category_id = c.id 
+                        WHERE e.end_datetime >= :current_datetime
+                        GROUP BY e.id');
+        
+        $this->db->bind(':current_datetime', $currentDateTime );
+
+        $this->db->execute();
+
+        $results = $this->db->resultSet();
+        return $results;
+    }
+
+    public function getDueEvents(){
+        $currentDateTime = date('Y-m-d H:i:s');
+
+        $this->db->query('SELECT e.*,
+                        GROUP_CONCAT(c.category_name) AS category_names
+                        FROM events e
+                        LEFT JOIN events_categories ec ON e.id = ec.event_id
+                        LEFT JOIN universities u_table ON e.university_id = u_table.id 
+                        LEFT JOIN categories c ON ec.category_id = c.id 
+                        WHERE e.end_datetime < :current_datetime
+                        AND e.start_datetime < :current_datetime
+                        GROUP BY e.id');
+        
+        $this->db->bind(':current_datetime', $currentDateTime );
+
+        $this->db->execute();
+
+        $results = $this->db->resultSet();
+        return $results;
+    }
     public function getEventsBySearch($data)
     {
         $keyword = $data['keyword'];
@@ -255,6 +418,78 @@ class Event
 
 
     }
+
+    public function getFilterEvents($data)
+    {
+        $keyword = $data['keyword'];
+        $university = $data['university'];
+        $approval = $data['approval'];
+        $status = $data['status'];
+
+        $query = 'SELECT 
+                    e.*,
+                    GROUP_CONCAT(c.category_name) AS category_names
+                    FROM events e
+                    INNER JOIN users u ON e.user_id = u.id
+                    LEFT JOIN events_categories ec ON e.id = ec.event_id
+                    LEFT JOIN universities u_table ON e.university_id = u_table.id 
+                    LEFT JOIN categories c ON ec.category_id = c.id
+                    WHERE 1=1';
+
+        if (!empty($keyword)) {
+            $query .= " AND e.title LIKE :keyword";
+        }
+
+        if (!empty($university)) {
+            $query .= " AND u_table.id = :uni_id";
+        }
+
+        if (!empty($approval)) {
+            $query .= " AND e.approval = :approval";
+        }
+
+        if (!empty($status)) {
+            $query .= " AND e.status = :status";
+        }
+
+        $query .= " GROUP BY e.id";
+
+        // Prepare the query
+        $this->db->query($query);
+
+        // Bind values to the placeholders
+        if (!empty($keyword)) {
+            $this->db->bind(':keyword', '%' . $keyword . '%');
+        }
+
+        if (!empty($university)) {
+            $this->db->bind(':uni_id', $university);
+        }
+
+        if (!empty($approval)) {
+            $this->db->bind(':approval', $approval);
+        }
+
+        if (!empty($status)) {
+            if($status == 'active')
+                $this->db->bind(':status', 1);
+            elseif($status == 'deactivated'){
+                $this->db->bind(':status', 0);
+            }
+        }
+        
+        // Execute the query
+        $this->db->execute();
+
+        // Fetch the results
+        $row = $this->db->resultSet();
+        return $row;
+
+
+
+    }
+
+
 
     public function getEventsByShortcut($data) //$_POST
     {
