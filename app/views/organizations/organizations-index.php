@@ -2,17 +2,6 @@
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/organizations/organizations-index_style.css">
 
-<!-- Search-bar -->
-<div class="search-bar-container">
-    <div class="container">
-        <form action="" class="search-bar">
-            <input type="text" name="" id="" placeholder="Search anything">
-            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </form>
-    </div>
-</div>
-<!-- Search-bar -->
-
 <!-- Slider -->
 <div class="slider-container">
     <div class="slider">
@@ -73,114 +62,112 @@
 </div>
 <!-- Slider -->
 
+<!-- Search-bar -->
+<div class="container">
+    <div class="search-bar-container">
+        <form action="" class="search-bar">
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <input type="text" name="searchInput" placeholder="Explore Opportunities" id="search-bar-input">
+
+        </form>
+    </div>
+</div>
+<!-- Search-bar -->
+
 <!-- Quick-shortcut-bar -->
 <div class="container">
     <div class="shortcut-bar">
-        <div class="section-name">Organizations</div>
+        <!-- <div class="section-name">Opportunities</div> -->
         <div class="shortcut-options">
-            <div class="option">All</div>
-            <div class="option">Academic</div>
-            <div class="option">Community Service</div>
-            <div class="option">Media</div>
-            <div class="option">Multi Cutural</div>
-            <div class="option">Sports</div>
-            <div class="option">Perforaming Arts</div>
+            <h3>Sort:</h3>
+            <div class="shortcut-options-outer-box">
+                <div class="option" onclick="quickShortcut('all')">All
+                    <hr>
+                </div>
+                <div class="option" onclick="quickShortcut('hackathon')">Hackathons
+                    <hr>
+                </div>
+                <div class="option" onclick="quickShortcut('entertainment')">Entertainment
+                    <hr>
+                </div>
+                <div class="option" onclick="quickShortcut('workshop')">Workshops
+                    <hr>
+                </div>
+            </div>
         </div>
+
     </div>
 </div>
 <!-- Quick-shortcut-bar -->
 
-<!-- organizations-showing-section -->
+<!-- organization-showing-section -->
 <div class="container">
     <div class="outer-body-container">
+
         <!-- filters-section -->
         <div class="filters-section">
-                <a href="<?php echo URLROOT ?>/organizations/add">
-                    <div class="add-organization-button">
-                        <i class="fa-solid fa-plus"></i>
-                    <span>Add Organization</span>
-                    </div>
-                </a>
-
-                <!-- university-filter -->
-                <div class="uni-filter">
-                    <div class="select-btn">
-                        <span>Select University</span>
-                        <i class="fa-solid fa-angle-down"></i>
-                    </div>
-                    <div class="uni-filter-content">
-                        <div class="reset-btn">Reset</div>
-                        <div class="uni-filter-search">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                            <input type="text" placeholder="Search" id="">
-                        </div>
-                        <ul class="uni-filter-options">
-                        </ul>
-                    </div>     
+            <a href="<?php echo URLROOT ?>/organizations/add">
+                <div class="add-event-button">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>Request Organization</span>
                 </div>
-                <!-- university-filter -->
+            </a>
 
-                <!-- category filter -->
-                <div class="category-filter">
-                    <div class="category-select-btn">
-                        <span class="category-btn-txt">Select Category</span>
-                        <span class="arrow-dwn">
-                            <i class="fa-solid fa-angle-down"></i>
-                        </span> 
-                    </div>
-
-                    <ul class="list-items">
-                        <div class="category-reset-btn">Reset</div>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">Hackathon</span>
-                        </li>
-
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">Musical Show</span>
-                        </li>
-                    </ul>
+            <!-- university-filter -->
+            <div class="uni-filter ">
+                <div class="select-btn">
+                    <span id="universitySpan">Select University</span>
+                    <i class="fa-solid fa-angle-down"></i>
                 </div>
-                <!-- category filter -->
+                <div class="uni-filter-content">
+                    <div class="uni-reset-btn">Reset</div>
+                    <div class="uni-filter-search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Search" id="">
+                    </div>
+                    <ul class="uni-filter-options"></ul>
+                </div>
             </div>
-            <!-- filters-section -->
+            <!-- university-filter -->
 
-        <!-- organizations-card-section -->
-        <div class="organizations-section">
-            <?php if (!empty($data['organizations'][0]->organization_id)): ?>
-                <?php foreach ($data['organizations'] as $organization): ?>
-                    <div class="item-container">
-                        <div class="item-image-container">
-                            <img src="<?php echo URLROOT ?>/img/organizations/organization_logos/<?php echo $organization->logo ?>"
-                                alt="organization logo">
-                        </div>
-                        <div class="item-content">
-                            <div class="organization-name">
-                                <?php echo $organization->name ?>
-                            </div>
-                            <div class="line"></div>
-                            <div class="organization-university">
-                                <?php echo $organization->university ?>
-                            </div>
-                        </div>
-                        <div class="membership">
-                            <div class="number" m-number="<?php echo $organization->member_count ?>">0</div>
-                            <a href="<?php echo URLROOT ?>/organizations/organizations-show.php<?php echo $organization->organization_id ?>" class ="view-org-btn">View Organization</a>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p>No organizations available.</p>
-            <?php endif; ?>
+            <!-- category filter -->
+            <div class="category-filter">
+                <div class="category-select-btn">
+                    <span class="category-btn-txt">Select Category</span>
+                    <span class="arrow-dwn">
+                        <i class="fa-solid fa-angle-down"></i>
+                    </span>
+                </div>
+
+                <ul class="list-items" id="category-list">
+                    <div class="category-reset-btn">Reset</div>
+                    <?php foreach ($data['organization_categories'] as $category): ?>
+                        <li class="item">
+                            <span class="checkbox">
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </span>
+                            <span class="item-text"><?php echo $category->category_name ?></span>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <!-- category filter -->
+
+
         </div>
-        <!-- organizations-card-section -->
+        <!-- filters-section -->
+
+        <!-- organization-card-section -->
+        <div class="content-section" id="content-section">
+           
+
+        </div>
+        <!-- organization-card-section -->
+
     </div>
 </div>
-<!-- organizations-showing-section -->
+<!-- organization-showing-section -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="<?php echo URLROOT ?>/js/organizations/organizations-index.js"></script>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

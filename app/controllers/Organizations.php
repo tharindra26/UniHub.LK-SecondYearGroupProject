@@ -9,15 +9,16 @@ class Organizations extends Controller
 
     $this->organizationModel = $this->model('Organization');
     $this->userModel = $this->model('User');
+    $this->universityModel = $this->model('University');
   }
   public function index()
   {
     //get Posts
-    $organizations = $this->organizationModel->getOrganizations();
+    $organizationCategories = $this->organizationModel->getOrganizationCategories();
     // var_dump($organizations);
     // die();
     $data = [
-      'organizations' => $organizations
+      'organization_categories' => $organizationCategories
     ];
 
     $this->view('organizations/organizations-index', $data);
@@ -25,136 +26,115 @@ class Organizations extends Controller
   public function add()
   {
 
+
+    $universities = $this->universityModel->getUniversities();
+    $organizationCategories = $this->organizationModel->getOrganizationCategories();
     //check the user is a registered user
     if (!isLoggedIn()) {
-      redirect('/users/login');
+      redirect('users/login');
     }
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       //process form
 
-      $navigation = trim($_POST['map_navigation']);
       //Sanitize post data
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
       //Init data
       $data = [
-        'title' => trim($_POST['title']),
-        'university' => (trim($_POST['university']) == 'Select University' ? '' : trim($_POST['university'])),
-        'organized_by' => trim($_POST['organized_by']),
-        'venue' => trim($_POST['venue']),
-        'email' => trim($_POST['email']),
-        'contact_number' => trim($_POST['contact_number']),
-        'map_navigation' => $navigation,
-        'start_datetime' => trim($_POST['start_datetime']),
-        'end_datetime' => trim($_POST['end_datetime']),
+        'organization_name' => trim($_POST['organization_name']),
+        'short_caption' => trim($_POST['short_caption']),
         'description' => trim($_POST['description']),
-        'category' => trim($_POST['category']),
-        'event_profile_image' => '',
-        'event_cover_image' => '',
+        'university' => (trim($_POST['university']) == 'Select University' ? '' : trim($_POST['university'])),
+        'categories' => isset($_POST['categories']) ? $_POST['categories'] : [],
+        'website_url' => trim($_POST['website_url']),
+        'contact_email' => trim($_POST['contact_email']),
+        'contact_number' => trim($_POST['contact_number']),
+        'instagram' => trim($_POST['instagram']),
+        'facebook' => trim($_POST['facebook']),
+        'linkedin' => trim($_POST['linkedin']),
+        'number_of_members' => trim($_POST['number_of_members']),
+        'organization_profile_image' => '',
+        'organization_cover_image' => '',
+        'board_members_image' => '',
 
-        'title_err' => '',
-        'university_err' => '',
-        'organized_by_err' => '',
-        'venue_err' => '',
-        'email_err' => '',
-        'contact_number_err' => '',
-        'map_navigation_err' => '',
-        'start_datetime_err' => '',
-        'end_datetime_err' => '',
+
+
+        'organization_name_err' => '',
+        'short_caption_err' => '',
         'description_err' => '',
-        'category_err' => '',
-        'event_profile_image_err' => '',
-        'event_cover_image_err' => '',
+        'university_err' => '',
+        'categories_err' => '',
+        'website_url_err' => '',
+        'contact_email_err' => '',
+        'contact_number_err' => '',
+        'instagram_err' => '',
+        'facebook_err' => '',
+        'linkedin_err' => '',
+        'number_of_members_err' => '',
+        'organization_profile_image_err' => '',
+        'organization_cover_image_err' => '',
+        'board_members_image_err' => '',
 
       ];
 
 
 
-      if (empty($data['title'])) {
-        $data['title_err'] = 'Pleae enter event title';
+      if (empty($data['organization_name'])) {
+        $data['organization_name_err'] = 'Please enter the organization name';
       }
-      if (empty($data['university'])) {
-        $data['university_err'] = 'Pleae select the university';
+
+      if (empty($data['short_caption'])) {
+        $data['short_caption_err'] = 'Please enter the short caption';
       }
-      if (empty($data['organized_by'])) {
-        $data['organized_by_err'] = 'Pleae enter the organization entity';
-      }
-      if (empty($data['venue'])) {
-        $data['venue_err'] = 'Pleae enter the venue';
-      }
-      if (empty($data['email'])) {
-        $data['email_err'] = 'Pleae enter the email';
-      }
-      if (empty($data['contact_number'])) {
-        $data['contact_number_err'] = 'Pleae enter the contact number';
-      }
-      if (empty($data['map_navigation'])) {
-        $data['map_navigation_err'] = 'Pleae enter the embed Google map link';
-      }
-      if (empty($data['start_datetime'])) {
-        $data['start_datetime_err'] = 'Pleae enter the starting date & time';
-      }
-      if (empty($data['end_datetime'])) {
-        $data['end_datetime_err'] = 'Pleae enter the ending date & time';
-      }
+
       if (empty($data['description'])) {
-        $data['description_err'] = 'Pleae enter the description';
-      }
-      if (empty($data['category'])) {
-        $data['category_err'] = 'Pleae enter the event category';
+        $data['description_err'] = 'Please enter the description';
       }
 
+      if (empty($data['university'])) {
+        $data['university_err'] = 'Please enter the university';
+      }
+
+      if (empty($data['categories'])) {
+        $data['categories_err'] = 'Please select at least one category';
+      }
+
+      if (empty($data['contact_email'])) {
+        $data['contact_email_err'] = 'Please enter the contact email';
+      }
+
+      if (empty($data['contact_number'])) {
+        $data['contact_number_err'] = 'Please enter the contact number';
+      }
 
 
+      if (empty($data['number_of_members'])) {
+        $data['number_of_members_err'] = 'Please enter the number of members';
+      }
+
+      
+      ;
       // Make sure errors are empty
-      if (empty($data['title_err']) && empty($data['university_err']) && empty($data['organized_by_err']) && empty($data['map_navigation_err']) && empty($data['start_datetime_err']) && empty($data['end_datetime_err']) && empty($data['description_datetime_err']) && empty($data['category_err'])) {
+      if (
+        empty($data['organization_name_err']) &&
+        empty($data['short_caption_err']) &&
+        empty($data['description_err']) &&
+        empty($data['categories_err']) &&
+        empty($data['website_url_err']) &&
+        empty($data['contact_email_err']) &&
+        empty($data['contact_number_err']) &&
+        empty($data['number_of_members_err'])
+      ) {
         //Validated
-
-        //event-card image adding
-        if (isset($_FILES['event_profile_image']['name']) and !empty($_FILES['event_profile_image']['name'])) {
-
-
-          $img_name = $_FILES['event_profile_image']['name'];
-          $tmp_name = $_FILES['event_profile_image']['tmp_name'];
-          $error = $_FILES['event_profile_image']['error'];
-
-          // if($error === 0){
-          //    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-          //    $img_ex_to_lc = strtolower($img_ex);
-
-          //    $allowed_exs = array('jpg', 'jpeg', 'png');
-          //    if(in_array($img_ex_to_lc, $allowed_exs)){
-          //       $new_img_name = $data['event_title'] . '-event-card-image.' . $img_ex_to_lc;
-          //       $img_upload_path = "../public/img/event-card-images/".$new_img_name;
-          //       move_uploaded_file($tmp_name, $img_upload_path);
-
-          //       $data['event_card_image']=$new_img_name;
-          //    }
-          // }
-          if ($error === 0) {
-            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-            $img_ex_to_lc = strtolower($img_ex);
-
-            $allowed_exs = array('jpg', 'jpeg', 'png');
-            if (in_array($img_ex_to_lc, $allowed_exs)) {
-              $new_img_name = $data['title'] . '_event_profile_' . time() . '.' . $img_ex_to_lc;
-              $img_upload_path = "../public/img/events/events_profile_images/" . $new_img_name;
-              move_uploaded_file($tmp_name, $img_upload_path);
-
-              $data['event_profile_image'] = $new_img_name;
-            }
-          }
-        }
+        
+        //organization-profile image adding
+        if (isset($_FILES['organization_profile_image']['name']) and !empty($_FILES['organization_profile_image']['name'])) {
 
 
-        //event-cover image adding
-        if (isset($_FILES['event_cover_image']['name']) and !empty($_FILES['event_cover_image']['name'])) {
-
-
-          $img_name = $_FILES['event_cover_image']['name'];
-          $tmp_name = $_FILES['event_cover_image']['tmp_name'];
-          $error = $_FILES['event_cover_image']['error'];
+          $img_name = $_FILES['organization_profile_image']['name'];
+          $tmp_name = $_FILES['organization_profile_image']['tmp_name'];
+          $error = $_FILES['organization_profile_image']['error'];
 
           if ($error === 0) {
             $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
@@ -162,26 +142,74 @@ class Organizations extends Controller
 
             $allowed_exs = array('jpg', 'jpeg', 'png');
             if (in_array($img_ex_to_lc, $allowed_exs)) {
-              $new_img_name = $data['title'] . '_event_cover_' . time() . '.' . $img_ex_to_lc;
-              $img_upload_path = "../public/img/events/events_cover_images/" . $new_img_name;
+              $new_img_name = $data['organization_name'] . '_organization_profile_' . time() . '.' . $img_ex_to_lc;
+              $img_upload_path = "../public/img/organizations/organization_profile_images/" . $new_img_name;
               move_uploaded_file($tmp_name, $img_upload_path);
 
-              $data['event_cover_image'] = $new_img_name;
+              $data['organization_profile_image'] = $new_img_name;
             }
           }
         }
 
 
-        $data['category_id'] = $this->categoryModel->getCategoryIdByName($data['category']);
-        $data['university_id'] = $this->universityModel->getUniIdByName($data['university']);
+        //organization-cover image adding
+        if (isset($_FILES['organization_cover_image']['name']) and !empty($_FILES['organization_cover_image']['name'])) {
 
-        if ($this->eventModel->addEvent($data)) {
+
+          $img_name = $_FILES['organization_cover_image']['name'];
+          $tmp_name = $_FILES['organization_cover_image']['tmp_name'];
+          $error = $_FILES['organization_cover_image']['error'];
+
+          if ($error === 0) {
+            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+            $img_ex_to_lc = strtolower($img_ex);
+
+            $allowed_exs = array('jpg', 'jpeg', 'png');
+            if (in_array($img_ex_to_lc, $allowed_exs)) {
+              $new_img_name = $data['organization_name'] . '_organization_cover_' . time() . '.' . $img_ex_to_lc;
+              $img_upload_path = "../public/img/organizations/organization_cover_images/" . $new_img_name;
+              move_uploaded_file($tmp_name, $img_upload_path);
+
+              $data['organization_cover_image'] = $new_img_name;
+            }
+          }
+        }
+
+
+        //organization-cover image adding
+        if (isset($_FILES['board_members_image']['name']) and !empty($_FILES['board_members_image']['name'])) {
+
+
+          $img_name = $_FILES['board_members_image']['name'];
+          $tmp_name = $_FILES['board_members_image']['tmp_name'];
+          $error = $_FILES['board_members_image']['error'];
+
+          if ($error === 0) {
+            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+            $img_ex_to_lc = strtolower($img_ex);
+
+            $allowed_exs = array('jpg', 'jpeg', 'png');
+            if (in_array($img_ex_to_lc, $allowed_exs)) {
+              $new_img_name = $data['organization_name'] . '_board_members_' . time() . '.' . $img_ex_to_lc;
+              $img_upload_path = "../public/img/organizations/board_members_images/" . $new_img_name;
+              move_uploaded_file($tmp_name, $img_upload_path);
+
+              $data['board_members_image'] = $new_img_name;
+            }
+          }
+        }
+
+        
+        if ($this->organizationModel->addOrganization($data)) {
           // flash('event_message', "Event Added Successfully");
-          redirect('events');
+          
+          redirect('organizations');
         }
       } else {
         //load view with error
-        $this->view('events/event-add', $data);
+        $data['universities']=$universities;
+        $data['organizationCategories']=$organizationCategories;
+        $this->view('organizations/organization-add', $data);
 
       }
 
@@ -189,41 +217,80 @@ class Organizations extends Controller
     } else {
       // Init data
       $data = [
-        'title' => '',
-        'university' => '',
-        'organized_by' => '',
-        'venue' => '',
-        'email' => '',
-        'contact_number' => '',
-        'map_navigation' => '',
-        'start_datetime' => '',
-        'end_datetime' => '',
+        'organization_name' => '',
+        'short_caption' => '',
         'description' => '',
-        'category' => '',
-        'event_profile_image' => '',
-        'event_cover_image' => '',
+        'university' => '',
+        'categories' => [],
+        'website_url' => '',
+        'contact_email' => '',
+        'contact_number' => '',
+        'instagram' => '',
+        'facebook' => '',
+        'linkedin' => '',
+        'number_of_members' => '',
+        'organization_profile_image' => '',
+        'organization_cover_image' => '',
+        'board_members_image' => '',
 
-        'title_err' => '',
-        'university_err' => '',
-        'organized_by_err' => '',
-        'venue_err' => '',
-        'email_err' => '',
-        'contact_number_err' => '',
-        'map_navigation_err' => '',
-        'start_datetime_err' => '',
-        'end_datetime_err' => '',
+
+
+        'organization_name_err' => '',
+        'short_caption_err' => '',
         'description_err' => '',
-        'category_err' => '',
-        'event_profile_image_err' => '',
-        'event_cover_image_err' => '',
+        'university_err' => '',
+        'categories_err' => '',
+        'website_url_err' => '',
+        'contact_email_err' => '',
+        'contact_number_err' => '',
+        'instagram_err' => '',
+        'facebook_err' => '',
+        'linkedin_err' => '',
+        'number_of_members_err' => '',
+        'organization_profile_image_err' => '',
+        'organization_cover_image_err' => '',
+        'board_members_image_err' => '',
 
       ];
 
       // Load view
-      $this->view('events/event-add', $data);
+      $data['universities']=$universities;
+      $data['organizationCategories']=$organizationCategories;
+      $this->view('organizations/organization-add', $data);
     }
   }
+
+  public function searchOrganizations()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+      // Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      $organizations = $this->organizationModel->getOrganizationsBySearch($_POST);
+
+      $data = [
+        'organizations' => $organizations,
+      ];
+
+      $this->view('organizations/filter-organizations', $data);
+
+    }
+  }
+
+  public function show($id) 
+  {
+    $organization = $this->organizationModel->getOrganizationById($id);
+    $organization_activties = $this->organizationModel->getActivitiesByOrganizationId($id);
+    // $organizationAccount = $this->userModel->getUserByEmail($organization->contact_email);
+    // $events = $this->eventModel->getEventById($id);
+    $data = [
+      'organization' => $organization,
+      'organization_activities' => $organization_activties,
+    ];
+    $this->view('organizations/organization-show', $data);
+  }
 }
-  
+
 
 

@@ -228,6 +228,7 @@ class Post
                 p.*,
                 u.fname,
                 u.lname,
+                u.profile_image AS user_profile_image,
                 GROUP_CONCAT(DISTINCT pt.tag_text) AS tags,
                 GROUP_CONCAT(DISTINCT pc.category_name) AS categories,
                 GROUP_CONCAT(DISTINCT pl.user_id) AS liked_users,
@@ -331,5 +332,99 @@ class Post
             return false;
         }
     }
+
+    public function getPostCategories()
+    {
+        $this->db->query('SELECT * FROM post_categories');
+
+        $rows = $this->db->resultSet();
+
+        return $rows;
+    }
+
+    public function deletePostById($id)
+    {
+        // Construct the query to update the status field to 0
+        $query = "UPDATE posts SET status = 0 WHERE post_id = :post_id";
+
+        // Prepare the query
+        $this->db->query($query);
+
+        // Bind the post ID parameter
+        $this->db->bind(':post_id', $id);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true; // Post status updated successfully
+        } else {
+            return false; // Failed to update post status
+        }
+    }
+
+    public function updatePost($data)
+    {
+        $this->db->query("UPDATE posts SET 
+        post_title = :post_title,
+        post_description = :post_description,
+        post_profile_image = :post_profile_image, 
+        post_cover_image = :post_cover_image, 
+        material_link = :material_link 
+        WHERE post_id = :post_id");
+
+        //Bind values
+        $this->db->bind(':post_title', $data['post_title']);
+        $this->db->bind(':post_description', $data['post_description']);
+        $this->db->bind(':post_profile_image', $data['post_profile_image']);
+        $this->db->bind(':post_cover_image', $data['post_cover_image']);
+        $this->db->bind(':material_link', $data['material_link']);
+        $this->db->bind(':post_id', $data['post_id']);
+
+        // Execute the query
+        if (!$this->db->execute()) {
+            return false;
+        }
+
+        // Delete existing categories for the post
+        $this->db->query("DELETE FROM post_categories_mapping WHERE post_id = :post_id");
+        $this->db->bind(':post_id', $data['post_id']);
+        if (!$this->db->execute()) {
+            return false;
+        }
+
+        // Insert updated categories for the post
+        foreach ($data['category_ids'] as $category_id) {
+            $this->db->query("INSERT INTO post_categories_mapping (post_id, category_id) VALUES (:post_id, :category_id)");
+            $this->db->bind(':post_id', $data['post_id']);
+            $this->db->bind(':category_id', $category_id);
+            if (!$this->db->execute()) {
+                return false;
+            }
+        }
+
+        // Delete existing tags for the post
+        $this->db->query("DELETE FROM post_tags WHERE post_id = :post_id");
+        $this->db->bind(':post_id', $data['post_id']);
+        if (!$this->db->execute()) {
+            return false;
+        }
+
+        // Insert updated tags for the post
+        $tags = explode(',', $data['tags']);
+        $tags = array_map('trim', $tags);
+        $tags = array_filter($tags); // Remove empty elements
+
+        foreach ($tags as $tag) {
+            $this->db->query("INSERT INTO post_tags (post_id, tag_text) VALUES (:post_id, :tag_text)");
+            $this->db->bind(':post_id', $data['post_id']);
+            $this->db->bind(':tag_text', $tag);
+            if (!$this->db->execute()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
 
 }

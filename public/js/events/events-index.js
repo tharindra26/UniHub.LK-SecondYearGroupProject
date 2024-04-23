@@ -1,5 +1,5 @@
 // Get the value inside the urlRootValue div
-var URLROOT = document.querySelector('.urlRootValue').textContent.trim();
+var URLROOT = document.querySelector(".urlRootValue").textContent.trim();
 
 $(document).ready(function () {
   function updateContent() {
@@ -47,39 +47,7 @@ $(document).ready(function () {
 
   // Trigger the initial update when the page loads
   updateContent();
-
-//   function fetchEventCategories() {
-//     $.ajax({
-//       url: "http://localhost/unihub/events/getEventCategories", // Replace 'fetch_categories.php' with your server endpoint
-//       type: "GET",
-//       dataType: "json",
-//       success: function (response) {
-//         // Iterate over the categories and populate the list
-//         console.log(response);
-//         response.forEach(function (category) {
-//           var listItem =
-//             '<li class="item">' +
-//             '<span class="checkbox">' +
-//             '<i class="fa-solid fa-check check-icon"></i>' +
-//             "</span>" +
-//             '<span class="item-text">' +
-//             category.category_name +
-//             "</span>" +
-//             "</li>";
-//           $("#category-list").append(listItem);
-//         });
-//       },
-//       error: function (xhr, status, error) {
-//         console.error("Error fetching categories:", error);
-//       },
-//     });
-//   }
-
-//   // Call the function to fetch and populate categories
-//   fetchEventCategories();
- });
-
-
+});
 
 //university filter
 const uniFilter = document.querySelector(".uni-filter"),
@@ -140,7 +108,7 @@ function updateName(selectedLi) {
 
   // Send an AJAX request with the filter value
   $.ajax({
-    url: URLROOT +"/events/searchEvents",
+    url: URLROOT + "/events/searchEvents",
     method: "POST",
     data: {
       keyword: keyword,
@@ -189,7 +157,7 @@ uniResetBtn.addEventListener("click", () => {
     .map((item) => item.querySelector(".checkbox + span").innerText);
 
   $.ajax({
-    url: URLROOT +"/events/searchEvents",
+    url: URLROOT + "/events/searchEvents",
     method: "POST",
     data: {
       keyword: keyword,
@@ -268,7 +236,7 @@ function updateCategoryFilter() {
 
   // Send an AJAX request with the filter values
   $.ajax({
-    url: URLROOT +"/events/searchEvents",
+    url: URLROOT + "/events/searchEvents",
     method: "POST",
     data: {
       keyword: keyword,
@@ -282,8 +250,6 @@ function updateCategoryFilter() {
     },
   });
 }
-
-
 
 // slider js
 var counter = 1;
@@ -299,7 +265,7 @@ function quickShortcut(category) {
   // console.log(category);
 
   $.ajax({
-    url: URLROOT +"/events/quickShortcut",
+    url: URLROOT + "/events/quickShortcut",
     type: "POST",
     data: {
       value: category,

@@ -123,14 +123,20 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <!-- content-showing-section -->
 <div class="container">
-    <div class="left-main-section" id="content-section">
+    <div class="content-outer-container">
+        <div class="left-main-section" id="content-section">
 
 
-        <!-- conetent-section -->
+            <!-- conetent-section -->
 
+        </div>
+        <div class="right-main-section">
+            <a href="<?php echo URLROOT ?>/users/changePostInterest">Set Post Interest</a>
+        </div>
     </div>
+
 </div>
-<div class="right-section"></div>
+
 </div>
 <!-- content-showing-section -->
 

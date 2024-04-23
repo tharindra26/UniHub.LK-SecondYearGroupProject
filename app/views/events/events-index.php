@@ -176,6 +176,21 @@
                 </ul>
             </div>
             <!-- category filter -->
+
+            <!-- customize-feed-option -->
+            <div class="customize-feed-option">
+                <hr>
+                <div class="customize-feed-text">Pick Your Interests! Enhance your experience by selecting categories
+                    that matter most to you. Start personalizing now!</div>
+                <a href="<?php echo URLROOT ?>/users/changeEventInterest" class="customize-feed-btn">
+                    <i class="fa-solid fa-list-check"></i>
+                    <div class="customize-feed-btn-txt">
+                        Customize Event Feed
+                    </div>
+                </a>
+            </div>
+            <!-- customize-feed-option -->
+            
         </div>
         <!-- filters-section -->
 

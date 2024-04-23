@@ -68,9 +68,7 @@ overpass */
 
 }
 
-.category {
-    width: 45%;
-}
+
 
 #selection {
     padding-left: 10px;
@@ -93,6 +91,11 @@ overpass */
 .select-box {
     border: none;
     padding-left: 0;
+    /* border: 1px solid red; */
+}
+.category {
+    width: 45%;
+    height: 150px;
 }
 
 .add-event-form .column {
@@ -177,6 +180,32 @@ overpass */
     display: none;
 }
 
+
+#custom-board-img-btn {
+    padding: 10px;
+    color: white;
+    background: #34495e;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid black;
+    margin-top: 8px;
+    width: 30%;
+}
+
+#custom-board-img-btn:hover {
+    background: #2c3e50;
+}
+
+#board-img-txt {
+    color: #7f8c8d;
+}
+
+#boardImageUpload {
+    display: none;
+}
+
+
 .image-section {
     display: flex;
     align-items: center;
@@ -204,3 +233,10 @@ overpass */
 }
 
 /* error message */
+
+
+@media screen and (max-width: 500px){
+    .form .column{
+        flex-wrap: wrap;
+    }
+}
