@@ -1,6 +1,6 @@
 /* dashboard css starts */
 .dashboard-area{
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .dashboard-area .summary{
@@ -12,7 +12,7 @@
     width: 100%;
     flex-flow: wrap;
     margin: 15px 0;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     overflow: hidden;
 }
 
