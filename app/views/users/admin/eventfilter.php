@@ -1,7 +1,7 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/admin/typefilter_style.css">
 <h1 class="section-title"></h1>
-
+<?php echo var_dump($data['events']->id) ?>
 <table class="user-table">
         <thead>
             <tr>
@@ -60,11 +60,11 @@
                                             class="fa-solid fa-bell"></i></a>
                                     <!-- popupModal -->
                                 <span class="overlay"></span>
-                                <div class="modal-box" id="<?php echo $friend_id; ?>">
+                                <div class="modal-box" id="<?php echo $eventId; ?>">
                                     <!-- <i class="fa-solid fa-xmark"></i> -->
                                     <i class="fa-solid fa-circle-check"></i>
                                     <h2>Confirm Activation</h2>
-                                    <p>Are you sure you want to active the Event. EventId:<?php echo $event->title ?> </p>
+                                    <p>Are you sure you want to active the Event. EventId:<?php echo $event->id ?> </p>
                                 <div class="btn">
                                     <button class="confirm-btn"
                                                 onclick="confirmActivate('<?php echo $eventId; ?>')">Activate</button>

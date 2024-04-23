@@ -47,24 +47,21 @@
         </div>        
                 
     </div>
-    <div class="option select-uni">
-        <!-- university-filter -->
-        <div class="uni-filter ">
-                <div class="select-btn">
-                    <span id="universitySpan">Select University</span>
-                    <i class="fa-solid fa-angle-down"></i>
-                </div>
-                <div class="uni-filter-content">
-                    <div class="uni-reset-btn">Reset</div>
-                    <div class="uni-filter-search">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" placeholder="Search" id="">
-                    </div>
-                    <ul class="uni-filter-options"></ul>
-                </div>
-            </div>
-            <!-- university-filter -->
+     <!-- university-filter -->
+    <div class="option select-uni filter">
+        <select name="university" id="uni-filter-value" onchange="selectData(this.options[this.selectedIndex].value)" placeholder="Approval" class="dropdown-menu">
+         <option value="">All Universities</option>
+            <?php if (!empty($data['universities'])) : ?> 
+                <?php foreach ($data['universities'] as $uni) : ?>    
+                    <option value="<?php echo $uni->id ?>"><?php echo $uni->name ?></option>
+                <?php endforeach; ?>
+                ?php else : ?>
+                <option value="">No universities found</option>
+            <?php endif; ?>
+           
+        </select>         
     </div>
+    
     
 </div>
 
@@ -75,15 +72,15 @@
         </div>
     </div>
     <div class="option filter">
-        <select name="approval" onchange="selectData(this.options[this.selectedIndex].value)" placeholder="Approval" class="dropdown-menu">
-            <option value="">Recent Events</option>
+        <select name="approval" id="approval-filter-value" onchange="selectUni(this.options[this.selectedIndex].value)" placeholder="Approval" class="dropdown-menu">
+            <option value="">All Events</option>
             <option value="approved">Approved</option>
             <option value="pending">Pending</option>
             <option value="rejected">Rejected</option>
         </select>
     </div>
     <div class="option filter">
-        <select name="status" onchange="selectStatus(this.options[this.selectedIndex].value)" class="dropdown-menu"> 
+        <select name="status" id="status-filter-value" onchange="selectStatus(this.options[this.selectedIndex].value)" class="dropdown-menu"> 
             <option value="">All Events</option>
             <option value="active">Active</option>
             <option value="deactivated">Deactivated</option>

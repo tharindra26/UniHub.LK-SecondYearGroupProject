@@ -26,187 +26,117 @@ initializeCount();
 
 $(document).ready(function () {
   function updateContent() {
-    var keyword = document.getElementById("search-bar-input").value;
-    var university =
-      selectBtn.firstElementChild.innerText != "Select University"
-        ? selectBtn.firstElementChild.innerText
-        : "";
+      var keyword = document.getElementById("search-bar-input").value;
+      var university = document.querySelector('.select-uni select[name="university"]').value;
+      var approval = document.querySelector('.option.filter select[name="approval"]').value;
+      var status = document.querySelector('.option.filter select[name="status"]').value;
 
-    // Send an AJAX request with the filter value
-    $.ajax({
-      url: "http://localhost/unihub/events/filterEvents",
-      //url: URLROOT + "/events/searchEvents",
-      method: "POST",
-      data: {
-        keyword: keyword,
-        date: '',
-        university: university,
-        categories: [],
-      },
-      success: function (data) {
-        // Update the content section with the retrieved data
-        $("#events-filter-table").html(data);
-      },
-    });
+      // Send an AJAX request with the filter values
+      $.ajax({
+          url: "http://localhost/unihub/events/filterEvents",
+          method: "POST",
+          data: {
+              keyword: keyword,
+              university: university,
+              approval: approval,
+              status: status,
+          },
+          success: function (data) {
+              // Update the content section with the retrieved data
+              $("#events-filter-table").html(data);
+          },
+      });
   }
 
   // Attach keyup event listener to the search bar input
+  document.getElementById("search-bar-input").addEventListener("keyup", updateContent);
+
+  // Attach change event listeners to the select inputs
   document
     .getElementById("search-bar-input")
     .addEventListener("keyup", updateContent);
 
+  // Attach change event listener to university input
+  document
+    .getElementById("uni-filter-value")
+    .addEventListener("change", updateContent);
+
+  document
+    .getElementById("approval-filter-value")
+    .addEventListener("change", updateContent);
+
+  document
+    .getElementById("status-filter-value")
+    .addEventListener("change", updateContent);
+
   // Trigger the initial update when the page loads
   updateContent();
 
- });
-
-
-
-//university filter
-const uniFilter = document.querySelector(".uni-filter"),
-  selectBtn = uniFilter.querySelector(".select-btn"),
-  searchInput = uniFilter.querySelector("input"),
-  uniResetBtn = uniFilter.querySelector(".uni-reset-btn");
-uniFilterOptions = uniFilter.querySelector(".uni-filter-options");
-var searchBarInput = document.getElementById("search-bar-input").value;
-
-let universities = [
-  "University of Colombo",
-  "University of Peradeniya",
-  "University of Moratuwa",
-  "University of Kelaniya",
-  "University of Sri Jayewardenepura",
-  "University of Ruhuna",
-  "University of Jaffna",
-  "University of Sabaragamuwa",
-  "Eastern University, Sri Lanka",
-  "South Eastern University of Sri Lanka",
-  "Rajarata University of Sri Lanka",
-  "Wayamba University of Sri Lanka",
-  "Uva Wellassa University",
-  "University of the Visual and Performing Arts",
-  "Sabaragamuwa University of Sri Lanka",
-  "Open University of Sri Lanka",
-  "General Sir John Kotelawala Defence University",
-  "Sri Lanka Institute of Information Technology (SLIIT)",
-  "Informatics Institute of Technology (IIT)",
-  "General Sir John Kotelawala Defence University - Southern Campus",
-];
-
-function addUniversity(selectedUniversity) {
-  uniFilterOptions.innerHTML = "";
-  universities.forEach((university) => {
-    //if selected university and university value is asame then add selected class
-    let isSelected = university == selectedUniversity ? "selected" : "";
-    //adding each university inside li and inserting all li inside uni-filter-options
-    let li = `<li onclick="updateName(this)" class="${isSelected}" > ${university} </li>`;
-    uniFilterOptions.insertAdjacentHTML("beforeend", li);
-  });
+  function resetOtherFilters() {
+    // Reset search input
+    document.getElementById("search-bar-input").value = "";
+    
+    // Reset university filter to default
+    document.getElementById("uni-filter-value").value = "";
+    
+    // Reset approval filter to default
+    document.getElementById("approval-filter-value").value = "";
+    
+    // Reset status filter to default
+    document.getElementById("status-filter-value").value = "";
 }
-addUniversity();
-
-function updateName(selectedLi) {
-  searchInput.value = "";
-  addUniversity(selectedLi.innerText);
-  uniFilter.classList.remove("uni-filter-active");
-  selectBtn.firstElementChild.innerText = selectedLi.innerText;
-
-  var keyword = document.getElementById("search-bar-input").value;
-  var university =
-    selectedLi.innerTex != "Select University" ? selectedLi.innerText : "";
-  
-  // Send an AJAX request with the filter value
-  $.ajax({
-    url: "http://localhost/unihub/events/filterEvents",
-    //url: URLROOT +"/events/searchEvents",
-    method: "POST",
-    data: {
-      keyword: keyword,
-      date: '',
-      university: university,
-      categories: [],
-    },
-    success: function (data) {
-      // Update the content section with the retrieved data
-      $("#events-filter-table").html(data);
-    },
-  });
-}
-
-searchInput.addEventListener("keyup", () => {
-  // console.log(searchInput.value);
-  let arr = []; //creating empty array
-  let searchedVal = searchInput.value.toLowerCase();
-  //returning all universities from array which are start with user search value
-  //and mapping returned university with li and joining them
-  arr = universities
-    .filter((data) => {
-      return data.toLowerCase().startsWith(searchedVal);
-    })
-    .map((data) => `<li onclick="updateName(this)" > ${data} </li>`)
-    .join("");
-  console.log(arr);
-  uniFilterOptions.innerHTML = arr ? arr : `<p>Oops! University not found</p>`;
 });
 
-selectBtn.addEventListener("click", () => {
-  uniFilter.classList.toggle("uni-filter-active");
-});
 
-uniResetBtn.addEventListener("click", () => {
-  searchInput.value = "";
-  addUniversity();
-  uniFilter.classList.remove("uni-filter-active");
-  selectBtn.firstElementChild.innerText = `Select University`;
 
-  var keyword = document.getElementById("search-bar-input").value;
-  var university = "";
- 
-  $.ajax({
-    url: "http://localhost/unihub/events/filterEvents",
-    //url: URLROOT +"/events/searchEvents",
-    method: "POST",
-    data: {
-      keyword: keyword,
-      date: '',
-      university: university,
-      categories: [],
-    },
-    success: function (data) {
-      // Update the content section with the retrieved data
-      $("#events-filter-table").html(data);
-    },
-  });
-});
-//university filter
 
 //approval filter
 
   function selectData(approvalType){
+
+    var keyword = document.getElementById("search-bar-input").value;
+    var university = document.document.getElementById("uni-filter-value").value;
+    //var approval = document.getElementById("approval-filter-value").value;
+    var status = document.getElementById("status-filter-value").value;
+
     $.ajax({
-      url: "http://localhost/unihub/events/approvalFilter",
+      url: "http://localhost/unihub/events/filterEvents",
       //url: URLROOT +"/events/searchEvents",
       method: "POST",
       data: {
-        type: approvalType,
+        keyword: keyword,
+        university: university,
+        approval: approvalType,
+        status: status,
       },
       success: function (data) {
         // Update the content section with the retrieved data
         $("#events-filter-table").html(data);
       },
     });
+
+    updateContent();
   }
   
  
 //approval filter
 
 //status filter
-function selectStatus(status){
+function selectUni(uni_id){
+
+  var keyword = document.getElementById("search-bar-input").value;
+  //var university = document.document.getElementById("uni-filter-value").value;
+  var approval = document.getElementById("approval-filter-value").value;
+  var status = document.getElementById("status-filter-value").value;
+
   $.ajax({
-    url: "http://localhost/unihub/events/statusFilter",
+    url: "http://localhost/unihub/events/filterEvents",
     //url: URLROOT +"/events/searchEvents",
     method: "POST",
     data: {
+      keyword: keyword,
+      university: uni_id,
+      approval: approval,
       status: status,
     },
     success: function (data) {
@@ -214,26 +144,74 @@ function selectStatus(status){
       $("#events-filter-table").html(data);
     },
   });
+  updateContent();
+}
+//status filter
+
+//status filter
+function selectStatus(status){
+  var keyword = document.getElementById("search-bar-input").value;
+  var university = document.document.getElementById("uni-filter-value").value;
+  var approval = document.getElementById("approval-filter-value").value;
+  //var status = document.getElementById("status-filter-value").value;
+
+  $.ajax({
+    url: "http://localhost/unihub/events/filterEvents",
+    //url: URLROOT +"/events/searchEvents",
+    method: "POST",
+    data: {
+      keyword: keyword,
+      university: university,
+      approval: approval,
+      status: status,
+    },
+    success: function (data) {
+      // Update the content section with the retrieved data
+      $("#events-filter-table").html(data);
+    },
+  });
+  updateContent();
 }
 //status filter
 
 //Main Event filter
-function mainEventFilter(type) {
-  //console.log(type);
 
+// Function to reset other filters to default values
+function resetOtherFilters() {
+  // Reset search input
+  document.getElementById("search-bar-input").value = "";
+  
+  // Reset university filter to default
+  document.getElementById("uni-filter-value").value = "";
+  
+  // Reset approval filter to default
+  document.getElementById("approval-filter-value").value = "";
+  
+  // Reset status filter to default
+  document.getElementById("status-filter-value").value = "";
+}
+
+//Main Event filter
+function mainEventFilter(type) {
+  // Reset other filters to default values
+  resetOtherFilters();
+  // Make AJAX request with the selected filter type
   $.ajax({
-    url: "http://localhost/unihub/events/dueEventsFilterilter",
-    type: "POST",
-    data: {
-      value: type,
-    },
-    success: function (response) {
-      $("#events-filter-table").html(response);
-    },
-    error: function (error) {
-      console.error("Error:", error);
-    },
+      url: "http://localhost/unihub/events/dueEventsFilterilter",
+      type: "POST",
+      data: {
+          value: type,
+      },
+      success: function (response) {
+          // Update the content section with the retrieved data
+          $("#events-filter-table").html(response);
+      },
+      error: function (error) {
+          console.error("Error:", error);
+      },
   });
+
+updateContent();
 }
 
 //Main Event filter

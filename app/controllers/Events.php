@@ -502,7 +502,7 @@ class Events extends Controller
 
       // $keyword = $_POST['keyword'];
       // $date = $_POST['date'];
-      $events = $this->eventModel->getEventsBySearch($_POST);
+      $events = $this->eventModel->getFilterEvents($_POST);
 
       $data = [
         'events' => $events,

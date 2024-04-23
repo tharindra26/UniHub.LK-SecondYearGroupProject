@@ -419,6 +419,78 @@ class Event
 
     }
 
+    public function getFilterEvents($data)
+    {
+        $keyword = $data['keyword'];
+        $university = $data['university'];
+        $approval = $data['approval'];
+        $status = $data['status'];
+
+        $query = 'SELECT 
+                    e.*,
+                    GROUP_CONCAT(c.category_name) AS category_names
+                    FROM events e
+                    INNER JOIN users u ON e.user_id = u.id
+                    LEFT JOIN events_categories ec ON e.id = ec.event_id
+                    LEFT JOIN universities u_table ON e.university_id = u_table.id 
+                    LEFT JOIN categories c ON ec.category_id = c.id
+                    WHERE 1=1';
+
+        if (!empty($keyword)) {
+            $query .= " AND e.title LIKE :keyword";
+        }
+
+        if (!empty($university)) {
+            $query .= " AND u_table.id = :uni_id";
+        }
+
+        if (!empty($approval)) {
+            $query .= " AND e.approval = :approval";
+        }
+
+        if (!empty($status)) {
+            $query .= " AND e.status = :status";
+        }
+
+        $query .= " GROUP BY e.id";
+
+        // Prepare the query
+        $this->db->query($query);
+
+        // Bind values to the placeholders
+        if (!empty($keyword)) {
+            $this->db->bind(':keyword', '%' . $keyword . '%');
+        }
+
+        if (!empty($university)) {
+            $this->db->bind(':uni_id', $university);
+        }
+
+        if (!empty($approval)) {
+            $this->db->bind(':approval', $approval);
+        }
+
+        if (!empty($status)) {
+            if($status == 'active')
+                $this->db->bind(':status', 1);
+            elseif($status == 'deactivated'){
+                $this->db->bind(':status', 0);
+            }
+        }
+        
+        // Execute the query
+        $this->db->execute();
+
+        // Fetch the results
+        $row = $this->db->resultSet();
+        return $row;
+
+
+
+    }
+
+
+
     public function getEventsByShortcut($data) //$_POST
     {
         $shortcut = $data['value'];
