@@ -27,7 +27,7 @@ class Posts extends Controller
 
   public function show($id)
   {
-
+    $addView = $this->postModel->addPostView($id);
     $post = $this->postModel->getPostById($id);
     $data = [
       'post' => $post

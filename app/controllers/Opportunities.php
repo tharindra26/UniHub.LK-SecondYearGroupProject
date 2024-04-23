@@ -28,7 +28,7 @@ class Opportunities extends Controller
   public function show($id) //14
   {
 
-
+    $addView = $this->opportunityModel->addOpportunityView($id);
     $opportunity = $this->opportunityModel->getOpportunityById($id);
     $data = [
       'opportunity' => $opportunity,

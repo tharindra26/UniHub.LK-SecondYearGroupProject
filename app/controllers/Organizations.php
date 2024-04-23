@@ -281,6 +281,7 @@ class Organizations extends Controller
 
   public function show($id)
   {
+    $addView = $this->organizationModel->addOrganizationView($id);
     $organization = $this->organizationModel->getOrganizationById($id);
     $organization_activties = $this->organizationModel->getActivitiesByOrganizationId($id);
     $organization_news = $this->organizationModel->getNewsByOrganizationId($id);

@@ -25,6 +25,24 @@ class Event
         return $results;
     }
 
+    public function addEventView($eventId) {
+        $this->db->query('INSERT INTO event_views (event_id) VALUES (:eventId)');
+        $this->db->bind(':eventId', $eventId);
+
+        // Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getEventsCount() {
+        $this->db->query('SELECT COUNT(*) AS event_count FROM events');
+        $row = $this->db->single();
+        return $row->event_count;
+    }
+
     public function getEvents()
     {
         $this->db->query('SELECT *,
