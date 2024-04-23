@@ -46,7 +46,11 @@
                 <span><i class="fa-solid fa-grip"></i></span>
                 <h3>Opportunities</h3>
             </a>
-            <a href="#" id="rquests-btn">
+            <a href="#" id="university-btn" >
+                <span><i class="fa-solid fa-graduation-cap"></i></span>
+                <h3>Universities</h3>
+            </a>
+            <a href="#" id="rquests-btn" >
                 <span><i class="fa-solid fa-grip"></i></span>
                 <h3>Requests</h3>
                 <span class="rq_count">14</span>

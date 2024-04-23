@@ -488,6 +488,23 @@ class Users extends Controller
     }
   }
 
+  public function unfollowFriend(){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $follower_id = $_POST['userId'];
+      $following_id = $_POST['friendId'];
+      $data = [
+        'follower_id' => $follower_id,
+        'following_id' => $following_id
+      ];
+      if ($this->userModel->cancelRequest($data)) {
+        echo 1;
+      } else {
+        echo 0;
+      }
+    }
+  }
+
   public function acceptRequest()
   {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -1051,8 +1068,17 @@ class Users extends Controller
   public function events()
   {
     $event = $this->eventModel->getAllEvents();
+    $totalEvents = $this->eventModel->totalEventCount();
+    $ongoingEvents = $this->eventModel->ongoingCount();
+    $dueEvents = $this->eventModel->dueCount();
+    $universities = $this->userModel->getAllUniversities();
+
     $data = [
-      'events' => $event
+      'events' => $event,
+      'totalEvents' => $totalEvents,
+      'ongoingEvents' => $ongoingEvents,
+      'dueEvents' => $dueEvents,
+      'universities' => $universities
     ];
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -1095,8 +1121,9 @@ class Users extends Controller
 
   public function requests()
   {
+    $requests = $this->userModel->getAllRequests();
     $data = [
-
+      'requests' => $requests
     ];
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -1164,7 +1191,7 @@ class Users extends Controller
 
         if ($this->userModel->updateContactDetails($data)) {
           // 
-          echo "success";
+          redirect('users/show/' . $id);
         }
 
 
@@ -1237,7 +1264,7 @@ class Users extends Controller
         //Validated
         if ($this->userModel->updateDescription($data)) {
           // 
-          echo "success";
+          redirect('users/show/' . $id);
         }
       } else {
 

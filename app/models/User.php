@@ -200,6 +200,12 @@ class User
         return $results;
     }
 
+    public function getAllUniversities(){
+        $this->db->query('SELECT * FROM universities');
+        $results = $this->db->resultSet();
+        return $results;
+    }
+
     //Find user by email
     public function findUserByEmail($email)
     {
@@ -693,6 +699,13 @@ class User
         $this->db->execute();
         $rows = $this->db->resultSet();
         return $rows;
+    }
+
+    public function getAllRequests(){
+        $this->db->query('SELECT * FROM events, posts, organizations, opportunities
+                        WHERE events.approval == :event_approval
+                        OR posts.approval == :posts_approval
+                        AND  ');
     }
 
     public function DeactivateAccount($data)

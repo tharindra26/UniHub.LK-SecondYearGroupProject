@@ -2,30 +2,35 @@
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/admin/adminprofile_style.css">
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/admin/events_style.css">
 <h1 class="section-title">Events</h1>
-
 <div class="summary">
-    <div class="box total">
+    <div class="box total" id="all" onclick = "mainEventFilter('all');">
         <div class="box-content">
-            <h1>Total Events</h1>
-            <span class="tot" data-val="2240">0000</span>
+            <h3>All Events</h3>
+        </div>
+        <div class="">
+            <span class="tot" data-val="<?php echo $data['totalEvents']->total_events;?>">0000</span>
         </div>
         <div class="box-icon">
             <i class="fa-solid fa-calendar-days"></i>
         </div>
     </div>
-    <div class="box active">
+    <div class="box ongoing" id="ongoing" onclick = "mainEventFilter('ongoing');">
         <div class="box-content">
-            <h1>Active Events</h1>
-            <span class="tot" data-val="2240">0000</span>
+            <h3>Ongoing Events</h3>
+        </div>
+        <div class="">
+            <span class="tot" data-val="<?php echo $data['ongoingEvents']->ongoing_events;?>">0000</span>
         </div>
         <div class="box-icon">
             <i class="fa-solid fa-calendar-check"></i>
         </div>
     </div>
-    <div class="box due">
+    <div class="box due" id="due" onclick = "mainEventFilter('due');">
         <div class="box-content">
-            <h1>Due Events</h1>
-            <span class="tot" data-val="2240">0000</span>
+            <h3>Due Events</h3>
+        </div>
+        <div class="">
+            <span class="tot" data-val="<?php echo $data['dueEvents']->due_events;?>">0000</span>
         </div>
         <div class="box-icon">
             <i class="fa-solid fa-calendar-xmark"></i>
@@ -42,88 +47,55 @@
         </div>        
                 
     </div>
-    <div class="option btn">
-        <a href="#">
-            <div class="view-all-button">
-                <i class="fa-solid fa-eye"></i>
-                <span>View All Events</span>
-            </div>
-        </a>        
+     <!-- university-filter -->
+    <div class="option select-uni filter">
+        <select name="university" id="uni-filter-value" onchange="selectData(this.options[this.selectedIndex].value)" placeholder="Approval" class="dropdown-menu">
+         <option value="">All Universities</option>
+            <?php if (!empty($data['universities'])) : ?> 
+                <?php foreach ($data['universities'] as $uni) : ?>    
+                    <option value="<?php echo $uni->id ?>"><?php echo $uni->name ?></option>
+                <?php endforeach; ?>
+                ?php else : ?>
+                <option value="">No universities found</option>
+            <?php endif; ?>
+           
+        </select>         
     </div>
-    <div class="option btn">
-        <a href="#">
-            <div class="view-all-button">
-                <i class="fa-solid fa-calendar-plus"></i>
-                <span>Add New Event</span>
-            </div>
-        </a>                    
-    </div>
-</div>
-
-<div class="summary">
+    
     
 </div>
 
-
-<div class="user-info">
-            <div class="user-head">
-                <h2>Recent Events</h2>
-            </div>
-
-            
-            <table class="user-table">
-                <thead>
-                    <tr>
-                        <th>Event Title</th>
-                        <th>User ID</th>
-                        <th>Category</th>
-                        <th>Contact</th>
-                        <th>Approval</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php if (!empty($data['events'][0]->id)) : ?> 
-                        <?php for ($i = 0; $i < 6; $i++ ) : 
-                            $event = $data['events'][$i]; 
-                            if (empty($event)):
-                                break;
-                            endif;?>
-                            <tr>
-                                <td><?php echo $event->title ?></td>
-                                <td><?php echo $event->user_id ?></td>
-                                <td><?php echo $event->category_name ?></td>
-                                <td><?php echo $event->contact_number ?></td>
-                                <td><?php
-                                    if ($event->approval == 1):
-                                        echo "Approved";
-                                    else:
-                                        echo "Pending";
-                                    endif;
-                                ?></td>
-                                <td><?php
-                                    if ($event->status == 1):
-                                        echo "Active";
-                                    else:
-                                        echo "Deactivated";
-                                    endif;
-                                ?></td>
-                                <td>
-                                    <a href="#" class="view"><i class="fa-solid fa-eye"></i></a>
-                                    <a href="#" class="update"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <a href="#" class="delete"><i class="fa-solid fa-trash-can"></i></a>
-                                </td>
-                            </tr>
-
-                        <?php endfor; ?>
-                    <?php endif; ?>
-                   
-                </tbody>
-            </table>
+<div class="summary">
+    <div class="option table-heading">
+        <div class="user-head">
+            <h2>Recent Events</h2>
         </div>
+    </div>
+    <div class="option filter">
+        <select name="approval" id="approval-filter-value" onchange="selectUni(this.options[this.selectedIndex].value)" placeholder="Approval" class="dropdown-menu">
+            <option value="">All Events</option>
+            <option value="approved">Approved</option>
+            <option value="pending">Pending</option>
+            <option value="rejected">Rejected</option>
+        </select>
+    </div>
+    <div class="option filter">
+        <select name="status" id="status-filter-value" onchange="selectStatus(this.options[this.selectedIndex].value)" class="dropdown-menu"> 
+            <option value="">All Events</option>
+            <option value="active">Active</option>
+            <option value="deactivated">Deactivated</option>
+        </select>
+    </div>
+</div>
 
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="<?php echo URLROOT ?>/js/users/admin/events.js"></script>
+<!-- <div class="user-info"> -->
+            
+<div class="users" id="events-filter-table">           
+   
+</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="<?php echo URLROOT ?>/js/users/admin/events.js"></script>
 </body>
 </html>

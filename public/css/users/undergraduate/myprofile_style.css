@@ -113,11 +113,11 @@ body{
     color: #7f8c8d;
 }
 
-.profile-name{
+.account-name{
     padding: 0 20px;
     display: flex;
-    /* align-items: center;
-    justify-content: center; */
+    align-items: center;
+    justify-content: center;
 }
 .profile-pic{
     width: 40px;
