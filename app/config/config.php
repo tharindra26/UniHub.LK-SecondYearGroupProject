@@ -15,6 +15,7 @@ define('APPROOT',dirname(dirname(__FILE__))); //deparak danne file root eka depa
 
 //URL root
 define('URLROOT','http://localhost/unihub');
+// define('URLROOT',$_SERVER['REQUEST_URL'] . '/unihub');
 // define('URLROOT','https://338b-2402-d000-8118-3536-584-dcac-d52a-e919.ngrok-free.app/unihub');
 
 

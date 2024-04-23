@@ -33,11 +33,15 @@ class Organization
 
     public function getOrganizationById($organization_id)
     {
-        $this->db->query('SELECT * 
+        $this->db->query('SELECT o.*,
+        u_table.name AS university_name,
+        GROUP_CONCAT(DISTINCT oc.category_name) AS category_names,
+        GROUP_CONCAT(DISTINCT of.follower_id) AS organization_followers
         FROM organizations o
         LEFT JOIN organization_category_mapping ocm ON o.organization_id = ocm.organization_id
         LEFT JOIN universities u_table ON o.university = u_table.id 
         LEFT JOIN organization_categories oc ON ocm.organization_category_id = oc.category_id
+        LEFT JOIN organization_followers of ON o.organization_id =of.organization_id
         WHERE o.organization_id= :organization_id');
 
         $this->db->bind(':organization_id', $organization_id);
@@ -57,6 +61,7 @@ class Organization
         short_caption,
         description, 
         university, 
+        contact_number, 
         website_url,
         contact_email,
         facebook,
@@ -65,13 +70,14 @@ class Organization
         organization_profile_image,
         organization_cover_image,
         board_members_image,
-        number_of_members ) VALUES(:user_id, :organization_name, :short_caption, :description, :university, :website_url, :contact_email, :facebook, :instagram, :linkedin, :organization_profile_image, :organization_cover_image, :board_members_image, :number_of_members)");
+        number_of_members ) VALUES(:user_id, :organization_name, :short_caption, :description, :university, :contact_number, :website_url, :contact_email, :facebook, :instagram, :linkedin, :organization_profile_image, :organization_cover_image, :board_members_image, :number_of_members)");
         //Bind values
         $this->db->bind(':user_id', $_SESSION['user_id']);
         $this->db->bind(':organization_name', $data['organization_name']);
         $this->db->bind(':short_caption', $data['short_caption']);
         $this->db->bind(':description', $data['description']);
         $this->db->bind(':university', $data['university']);
+        $this->db->bind(':contact_number', $data['contact_number']);
         $this->db->bind(':website_url', $data['website_url']);
         $this->db->bind(':contact_email', $data['contact_email']);
         $this->db->bind(':facebook', $data['facebook']);
@@ -190,10 +196,15 @@ class Organization
 
     }
 
-    public function getActivitiesByOrganizationId($organizationId){
+    public function getActivitiesByOrganizationId($organizationId)
+    {
         $this->db->query('SELECT * FROM organization_activities WHERE organization_id = :organization_id');
         $this->db->bind(':organization_id', $organizationId);
-        $row = $this->db->single();
+        // Execute the query
+        $this->db->execute();
+
+        // Fetch the results
+        $row = $this->db->resultSet();
         return $row;
     }
 
@@ -264,16 +275,307 @@ class Organization
                 $this->db->bind(':status', 0);
             }
         }
-        
+    }    
+    public function getActivityByActivityId($activityId)
+    {
+        $this->db->query('SELECT * FROM organization_activities WHERE activity_id = :activity_id');
+
+        $this->db->bind(':activity_id', $activityId);
+
+        // Execute the query
+        $row = $this->db->single();
+
+        // Check if there is a post with the given ID
+        if ($this->db->rowCount() > 0) {
+            return $row;
+        } else {
+            return null; // Post not found
+        }
+    }
+
+    public function getNewsByNewsId($newsId)
+    {
+        $this->db->query('SELECT * FROM organization_news WHERE news_id = :news_id');
+
+        $this->db->bind(':news_id', $newsId);
+
+        // Execute the query
+        $row = $this->db->single();
+
+        // Check if there is a post with the given ID
+        if ($this->db->rowCount() > 0) {
+            return $row;
+        } else {
+            return null; // Post not found
+        }
+    }
+
+    public function getNewsByOrganizationId($organizationId)
+    {
+        $this->db->query('SELECT * FROM organization_news WHERE organization_id = :organization_id');
+        $this->db->bind(':organization_id', $organizationId);
         // Execute the query
         $this->db->execute();
 
         // Fetch the results
         $row = $this->db->resultSet();
         return $row;
+    }
 
+    public function addActivity($data)
+    {
+        $this->db->query('INSERT INTO organization_activities (organization_id, activity_title, activity_description, activity_image) 
+        VALUES (:organization_id, :activity_title, :activity_description, :activity_image)');
+        $this->db->bind(':organization_id', $data['organization_id']);
+        $this->db->bind(':activity_title', $data['activity_title']);
+        $this->db->bind(':activity_description', $data['activity_description']);
+        $this->db->bind(':activity_image', $data['activity_image']);
+        return $this->db->execute();
+    }
 
+    public function updateActivity($data)
+    {
+        $this->db->query("UPDATE organization_activities SET activity_title = :activity_title, activity_description = :activity_description, activity_image = :activity_image WHERE activity_id = :activity_id");
+        $this->db->bind(':activity_id', $data['activity_id']);
+        $this->db->bind(':activity_title', $data['activity_title']);
+        $this->db->bind(':activity_description', $data['activity_description']);
+        $this->db->bind(':activity_image', $data['activity_image']);
 
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function addNews($data)
+    {
+        $this->db->query('INSERT INTO organization_news (organization_id, news_title, news_text, sharing_option) 
+        VALUES (:organization_id, :news_title, :news_text, :sharing_option)');
+        $this->db->bind(':organization_id', $data['organization_id']);
+        $this->db->bind('news_title', $data['news_title']);
+        $this->db->bind(':news_text', $data['news_text']);
+        $this->db->bind(':sharing_option', $data['sharing_option']);
+        return $this->db->execute();
+    }
+
+    public function updateNews($data)
+    {
+        $this->db->query("UPDATE organization_news SET news_title = :news_title, news_text = :news_text, sharing_option = :sharing_option WHERE news_id = :news_id");
+        $this->db->bind(':news_id', $data['news_id']);
+        $this->db->bind(':news_title', $data['news_title']);
+        $this->db->bind(':news_text', $data['news_text']);
+        $this->db->bind(':sharing_option', $data['sharing_option']);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function checkUserOrganizationFollow($data)
+    {
+        $this->db->query("SELECT * FROM organization_followers WHERE follower_id = :follower_id AND organization_id = :organization_id");
+        $this->db->bind(':follower_id', $data['followerId']);
+        $this->db->bind(':organization_id', $data['organizationId']);
+
+        $this->db->single(); // Assuming you have a method like this to fetch a single row
+
+        return $this->db->rowCount() > 0;
+    }
+
+    public function addUserOrganizationFollow($data)
+    {
+        $this->db->query("INSERT INTO organization_followers (follower_id, organization_id) VALUES(:follower_id, :organization_id)");
+        $this->db->bind(':follower_id', $data['followerId']);
+        $this->db->bind(':organization_id', $data['organizationId']);
+
+        if ($this->db->execute()) {
+            return true;
+        }
+    }
+
+    public function deleteUserOrganizationFollow($data)
+    {
+        $this->db->query("DELETE FROM organization_followers WHERE follower_id = :follower_id AND organization_id = :organization_id");
+        $this->db->bind(':follower_id', $data['followerId']);
+        $this->db->bind(':organization_id', $data['organizationId']);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function updateGeneralDetails($data)
+    {
+        $this->db->query("UPDATE organizations SET organization_name = :organization_name, short_caption = :short_caption, description = :description, university = :university, contact_number= :contact_number, number_of_members = :number_of_members WHERE organization_id = :organization_id");
+        $this->db->bind(':organization_id', $data['organization_id']);
+        $this->db->bind(':organization_name', $data['organization_name']);
+        $this->db->bind(':short_caption', $data['short_caption']);
+        $this->db->bind(':description', $data['description']);
+        $this->db->bind(':university', $data['university']);
+        $this->db->bind(':contact_number', $data['contact_number']);
+        $this->db->bind(':number_of_members', $data['number_of_members']);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function updateProfileImage($data)
+    {
+        $this->db->query("UPDATE organizations SET organization_profile_image = :organization_profile_image, organization_cover_image = :organization_cover_image, board_members_image = :board_members_image WHERE organization_id = :organization_id");
+        $this->db->bind(':organization_id', $data['organization_id']);
+        $this->db->bind(':organization_profile_image', $data['organization_profile_image']);
+        $this->db->bind(':organization_cover_image', $data['organization_cover_image']);
+        $this->db->bind(':board_members_image', $data['board_members_image']);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function updateSocialMedia($data)
+    {
+        $this->db->query("UPDATE organizations SET website_url = :website_url, facebook = :facebook, instagram = :instagram, linkedin= :linkedin WHERE organization_id = :organization_id");
+        $this->db->bind(':organization_id', $data['organization_id']);
+        $this->db->bind(':website_url', $data['website_url']);
+        $this->db->bind(':facebook', $data['facebook']);
+        $this->db->bind(':instagram', $data['instagram']);
+        $this->db->bind(':linkedin', $data['linkedin']);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getOrganizationCategoriesById($organizationId)
+    {
+        $this->db->query("SELECT ocm.*,
+        oc.category_name AS category_name,
+        ocm.id AS category_record_id
+        FROM organization_category_mapping ocm
+        LEFT JOIN organization_categories oc ON ocm.organization_category_id = oc.category_id
+        WHERE ocm.organization_id = :organization_id"
+        );
+
+        $this->db->bind(':organization_id', $organizationId);
+
+        // Execute the query
+        $this->db->execute();
+
+        // Fetch the result set
+        $categories = $this->db->resultSet();
+
+        return $categories;
+    }
+
+    public function addOrganizationCategory($data)
+    {
+        $query = 'INSERT INTO organization_category_mapping (organization_id, organization_category_id) VALUES (:organization_id, :organization_category_id)';
+
+        // Bind the parameters
+        $this->db->query($query);
+        $this->db->bind(':organization_id', $data['organizationId']);
+        $this->db->bind(':organization_category_id', $data['categoryId']);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function deleteOrganizationCategory($data)
+    {
+        $query = 'DELETE FROM organization_category_mapping WHERE id = :id';
+
+        // Bind the parameter
+        $this->db->query($query);
+        $this->db->bind(':id', $data['categoryId']);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getOrganizationStatusById($organizationId)
+    {
+        $this->db->query("SELECT status FROM organizations WHERE organization_id = :organization_id");
+        $this->db->bind(':organization_id', $organizationId);
+
+        $result = $this->db->single(); // Assuming you have a method like this to fetch a single row
+
+        if ($result) {
+            return $result->status;
+        } else {
+            return null; // Return null if the organization with the given ID is not found
+        }
+    }
+
+    public function deactivateOrganizationById($organizationId)
+    {
+
+        $this->db->query("UPDATE organizations SET status = 0 WHERE organization_id = :organization_id");
+        $this->db->bind(':organization_id', $organizationId);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public function activateOrganizationById($organizationId)
+    {
+
+        $this->db->query("UPDATE organizations SET status = 1 WHERE organization_id = :organization_id");
+        $this->db->bind(':organization_id', $organizationId);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public function deleteActivityByActivityId($data)
+    {
+        $this->db->query("UPDATE organization_activities SET status = 0 WHERE activity_id = :activity_id");
+        $this->db->bind(':activity_id', $data['activityId']);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function deleteNewsByNewsId($data)
+    {
+        $this->db->query("UPDATE organization_news SET status = 0 WHERE news_id = :news_id");
+        $this->db->bind(':news_id', $data['newsId']);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

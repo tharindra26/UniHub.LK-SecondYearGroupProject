@@ -8,41 +8,37 @@ ExtraBold 800
 lora
 overpass */
 
-.inner-container{
-    margin: 10px 0;
+.inner-container {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    flex-direction: column;
-    background-color: white;
+    margin-top: 10px;
     border-radius: 10px;
-    border: 1px solid red;
-
 }
-
-.title-text{
-    width: 70%;
-    height: 100px;
-    /* border: 1px solid red; */
+.top-part{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: 500;
-    font-size: 30px;
-    letter-spacing: 3px;
+    background-color: white;
 }
+
+.top-part header{
+    text-align: center;
+    font-weight: 500;
+    color: #2c3e50;
+    font-size: 30px;
+}
+
 .bottom-part{
     display: flex;
     flex-direction: row;
-    min-height: 500px;
+    /* border: 1px solid red; */
+    background-color: white;
 }
 
-.left-box{
-    width: 70%;
+.bottom-left{
     display: flex;
-    flex-wrap: wrap; 
-    padding: 0 10px;
-    justify-content: space-around;
-    border: 1px solid red;
+    width: 70%;
 }
 
 .image-box {
@@ -58,31 +54,17 @@ overpass */
     display: block;
 }
 
-
-
-.form-outer-box{
+.add-event-form {
     position: relative;
     width: 100%;
     background-color: white;
     padding: 25px;
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    margin: 20px 20px 20px 0;
-    /* background-image: url('../../img/events/event-add/event-add-image.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center; */
-    /* border: 1px solid red; */
+    margin: 20px;
 }
 
-.form-outer-box header {
-    text-align: center;
-    font-weight: 500;
-    color: #2c3e50;
-    font-size: 30px;
-}
-
-.form-outer-box .form {
+.add-event-form .form {
     margin-top: 30px;
     /* border: 1px solid red; */
 }
@@ -115,12 +97,50 @@ overpass */
 }
 
 
-.form-outer-box .column {
-    display: flex;
-    column-gap: 15px;
-    /* border:1px solid red */
+
+#selection {
+    padding-left: 10px;
 }
 
+#eventDescription {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: poppins;
+    font-size: 16px;
+    color: #7f8c8d;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    resize: vertical;
+    outline: none;
+}
+
+.select-box {
+    border: none;
+    padding-left: 0;
+    /* border: 1px solid red; */
+}
+.category {
+    width: 45%;
+    height: 150px;
+}
+
+.add-event-form .column {
+    display: flex;
+    column-gap: 15px;
+}
+
+.select-box select {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: none;
+    color: #7f8c8d;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #bdc3c7;
+}
 
 .submit-btn {
     height: 55px;
@@ -140,7 +160,7 @@ overpass */
     background: #2980b9;
 }
 
-#custom-profile-img-btn {
+#custom-activity-img-btn {
     padding: 10px;
     color: white;
     background: #34495e;
@@ -152,39 +172,15 @@ overpass */
     width: 30%;
 }
 
-#custom-profile-img-btn:hover {
+#custom-activity-img-btn:hover {
     background: #2c3e50;
 }
 
-#profile-img-txt {
+#activity-img-txt {
     color: #7f8c8d;
 }
 
-#profileImageUpload {
-    display: none;
-}
-
-#custom-cover-img-btn {
-    padding: 10px;
-    color: white;
-    background: #34495e;
-    outline: none;
-    border-radius: 5px;
-    cursor: pointer;
-    border: 1px solid black;
-    margin-top: 8px;
-    width: 30%;
-}
-
-#custom-cover-img-btn:hover {
-    background: #2c3e50;
-}
-
-#cover-img-txt {
-    color: #7f8c8d;
-}
-
-#coverImageUpload {
+#activityImageUpload {
     display: none;
 }
 
@@ -206,30 +202,30 @@ overpass */
     height: auto;
 }
 
-
-
-
-/* profile image and cover image css */
-.profile-img-box img,
-.cover-img-box img{
-  width: 100%; /* Make images responsive */
-  max-width: 100%;
-  height: auto;
-  display: flex;
+.form .radio-option-box{
+    margin-top: 20px;
 }
 
-.profile-img-box {
-  width: 200px; /* Set width for profile image */
-  height: auto;
-  margin-bottom: 20px;
+.radio-option-box h3{
+    font-weight: 400;
+    font-size: 16px;
+    margin-bottom: 8px;
 }
 
-.cover-img-box {
-  width: 75%; /* Set width for cover image */
-  height: auto;
-  margin-bottom: 20px;
+
+.form :where(.radio-options, .radio-option){
+    display: flex;
+    align-items: center;
+    column-gap: 50px;
 }
 
+.form .radio-option{
+    column-gap: 5px;
+}
+
+.form :where(.radio-option input, .radio-option label){
+    cursor: pointer;
+}
 
 /* error message */
 .error-message {
@@ -240,3 +236,10 @@ overpass */
 }
 
 /* error message */
+
+
+@media screen and (max-width: 500px){
+    .form .column{
+        flex-wrap: wrap;
+    }
+}

@@ -6,6 +6,7 @@ customProfileImgBtn.addEventListener("click", function () {
   profileImageUpload.click();
 });
 
+
 profileImageUpload.addEventListener("change", function () {
   var fileInput = this;
 
@@ -13,10 +14,7 @@ profileImageUpload.addEventListener("change", function () {
     // Display the file name when an image is chosen
     profileImgTxt.innerHTML = "File chosen: " + fileInput.files[0].name;
   }
-
 });
-
-
 
 const coverImageUpload = document.getElementById("coverImageUpload"), //original button
   customCoverImgBtn = document.getElementById("custom-cover-img-btn"), //duplicate button view for us
@@ -36,7 +34,6 @@ coverImageUpload.addEventListener("change", function () {
 });
 
 
-
 const boardImageUpload = document.getElementById("boardImageUpload"), //original button
   customBoardImgBtn = document.getElementById("custom-board-img-btn"), //duplicate button view for us
   boardImgTxt = document.getElementById("board-img-txt");
@@ -54,3 +51,60 @@ boardImageUpload.addEventListener("change", function () {
   }
 });
 
+
+
+
+
+// dynamically uploaded images uploading functions
+
+// Function to update profile image preview
+function updateProfileImagePreview(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            $('.profile-img-box img').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+// Function to update cover image preview
+function updateCoverImagePreview(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            $('.cover-img-box img').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function updateBoardImagePreview(input) {
+  if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+          $('.board-img-box img').attr('src', e.target.result);
+      }
+
+      reader.readAsDataURL(input.files[0]);
+  }
+}
+
+// Trigger updateProfileImagePreview function when profile image input changes
+$('#profileImageUpload').change(function() {
+    updateProfileImagePreview(this);
+});
+
+// Trigger updateCoverImagePreview function when cover image input changes
+$('#coverImageUpload').change(function() {
+    updateCoverImagePreview(this);
+});
+
+$('#boardImageUpload').change(function() {
+  updateBoardImagePreview(this);
+});

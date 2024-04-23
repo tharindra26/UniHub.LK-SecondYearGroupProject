@@ -1,0 +1,230 @@
+.inner-container{
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+
+}
+
+.settings-text{
+    width: 70%;
+    height: 100px;
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-size: 30px;
+    letter-spacing: 3px;
+}
+.bottom-part{
+    display: flex;
+    flex-direction: row;
+    height: auto;
+}
+
+.options-box{
+    width: 60%;
+    display: flex;
+    flex-wrap: wrap; 
+    padding: 0 10px;
+    justify-content: flex-start;
+    /* border: 1px solid red; */
+}
+
+.option-link{
+    text-decoration: none;
+    color: inherit;
+}
+
+.option{
+    width:180px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    /* border:1px solid red; */
+    margin: 20px;
+    border-radius: 10px;
+    background-color: #2880b9;
+    padding-left: 10px;
+}
+
+.activation-option{
+    width:180px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    /* border:1px solid red; */
+    margin: 20px;
+    border-radius: 10px;
+    background-color: #e74c3c;
+    padding-left: 10px;
+}
+
+.deactivated{
+    background-color: #27ae60;
+}
+
+.option {
+    transition: transform 0.3s ease-in-out;
+}
+
+.option:hover {
+    transform: scale(1.2);
+}
+
+
+
+
+.option-icon{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 40%;
+    /* border: 1px solid red; */
+    border-radius: 8px;
+    font-size: 20px;
+    color: white;
+    /* background-color: white; */
+}
+.option-text{
+    height: 60%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; 
+    font-size: 16px;   
+    /* border: 1px solid red; */
+    line-height: 18px;
+    text-align: left;
+    color: white;
+}
+.option-1{
+    background-color: #2ecc71;
+}
+
+.option-2{
+    background-color: #f39c12;
+}
+
+.option-3{
+    background-color: #9b59b6;
+}
+
+.option-4{
+    background-color: #e74c3c;
+}
+
+.option-5{
+    background-color: #1abc9c;
+}
+
+.image-box {
+    max-width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid red; */
+}
+
+.image-box img {
+    width: 80%;
+    height: auto;
+    display: block;
+}
+
+
+/* popup-modal css */
+.modal-box.active .show-modal{
+    display: none;
+}
+
+.overlay{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.modal-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    left: 50vw;
+    top: 50vh;
+    max-width: 380px;
+    width: 100%;
+    border-radius: 24px;
+    background-color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px 20px;
+    pointer-events: none;
+    transition: all 0.3s ease-in-out;
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 0;
+    z-index: 20;
+}
+
+.overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-box.active{
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-box .fa-toggle-off{
+    font-size: 70px;
+    color: black;
+}
+
+.modal-box h2{
+    margin-top: 15px;
+    font-size: 25px;
+    font-weight: 500;
+    color: #34495e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-box h3{
+    font-size: 16px;
+    font-weight: 400;
+    color: #34495e;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close-btn{
+    font-size: 15px;
+    font-weight: 400;
+    padding: 5px 10px;
+    border-radius: 6px;
+    border-style: none;
+    color: white;
+    background-color: #2880b9;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.close-btn:hover{
+    background-color: #1f628f;
+}
+
+/* popup-modal css */
+
+

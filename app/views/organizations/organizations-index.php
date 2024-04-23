@@ -153,6 +153,8 @@
             </div>
             <!-- category filter -->
 
+            .
+
 
         </div>
         <!-- filters-section -->
