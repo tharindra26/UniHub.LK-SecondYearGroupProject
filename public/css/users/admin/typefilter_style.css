@@ -192,3 +192,11 @@
 }
 
 /* popup-modal css */
+
+.fa-toggle-off{
+    color: #e74c3c !important;
+}
+
+.fa-toggle-on{
+    color: #27ae60 !important;
+}

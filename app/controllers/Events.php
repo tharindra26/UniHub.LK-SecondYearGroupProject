@@ -138,7 +138,7 @@ class Events extends Controller
           $img_name = $_FILES['event_profile_image']['name'];
           $tmp_name = $_FILES['event_profile_image']['tmp_name'];
           $error = $_FILES['event_profile_image']['error'];
-          
+
           if ($error === 0) {
             $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
             $img_ex_to_lc = strtolower($img_ex);
@@ -454,14 +454,14 @@ class Events extends Controller
     }
   }
 
-  public function show($id) 
+  public function show($id)
   {
     $addView = $this->eventModel->addEventView($id);
     $event = $this->eventModel->getEventById($id);
     $announcements = $this->eventModel->getAnnouncementsByEventId($id);
     $user = $this->userModel->getUserById($event->user_id);
     $reviews = $this->eventModel->getReviewsByEventId($id);
-    
+
     $data = [
       'event' => $event,
       'user' => $user,
@@ -515,7 +515,8 @@ class Events extends Controller
     }
   }
 
-  public function approvalFilter(){
+  public function approvalFilter()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
       // Sanitize post data
@@ -525,9 +526,9 @@ class Events extends Controller
 
       $approvalType = $_POST['type'];
 
-      if($approvalType == ""){
+      if ($approvalType == "") {
         $events = $this->eventModel->getAllEvents();
-      }else{
+      } else {
         $events = $this->eventModel->getEventsByApprovalType($approvalType);
       }
 
@@ -540,7 +541,8 @@ class Events extends Controller
     }
   }
 
-  public function statusFilter(){
+  public function statusFilter()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
       // Sanitize post data
@@ -550,11 +552,11 @@ class Events extends Controller
       $events = [];
       $status = $_POST['status'];
 
-      if($status == ""){
+      if ($status == "") {
         $events = $this->eventModel->getAllEvents();
-      }elseif($status == "active"){
+      } elseif ($status == "active") {
         $events = $this->eventModel->getActiveEvents();
-      }elseif($status == "deactived"){
+      } elseif ($status == "deactived") {
         $events = $this->eventModel->getDeactivedEvents();
       }
 
@@ -577,13 +579,11 @@ class Events extends Controller
 
     $type = $_POST['value'];
 
-    if($type == "all"){
+    if ($type == "all") {
       $events = $this->eventModel->getAllEvents();
-    }
-    elseif($type == "ongoing"){
+    } elseif ($type == "ongoing") {
       $events = $this->eventModel->getOngoingEvents($type);
-    }
-    elseif($type == "due"){
+    } elseif ($type == "due") {
       $events = $this->eventModel->getDueEvents($type);
     }
 
@@ -945,9 +945,10 @@ class Events extends Controller
     }
   }
 
-  public function editCategories($id){
+  public function editCategories($id)
+  {
     $eventCategories = $this->eventModel->getEventCategoriesByEventId($id);
-    $data= [
+    $data = [
       'id' => $id,
       'eventCategories' => $eventCategories
     ];
@@ -1027,7 +1028,7 @@ class Events extends Controller
         $data['event_cover_image_err'] = 'Pleae add a event cover image';
       }
 
-    
+
       // Make sure errors are empty
       if (empty($data['event_profile_image_err']) && empty($data['event_cover_image_err'])) {
         //Validated
@@ -1129,13 +1130,14 @@ class Events extends Controller
     }
   }
 
-  public function deleteEventCategory(){
+  public function deleteEventCategory()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
       $eventId = $_POST['eventId'];
       $categoryId = $_POST['categoryId'];
 
-      $data=[
+      $data = [
         'event_id' => $eventId,
         'category_id' => $categoryId
       ];
@@ -1148,7 +1150,8 @@ class Events extends Controller
     }
   }
 
-  public function addEventCategory(){
+  public function addEventCategory()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
       $eventId = $_POST['eventId'];
@@ -1158,7 +1161,7 @@ class Events extends Controller
 
 
 
-      $data=[
+      $data = [
         'eventId' => $eventId,
         'categoryId' => $categoryId
       ];
@@ -1171,7 +1174,8 @@ class Events extends Controller
     }
   }
 
-  public function editCountdown($id){
+  public function editCountdown($id)
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       //process form
       $main_button_link = trim($_POST['main_button_link']);
@@ -1254,15 +1258,17 @@ class Events extends Controller
     }
   }
 
-  public function editAnnouncements($id){
+  public function editAnnouncements($id)
+  {
     $announcements = $this->eventModel->getAnnouncementsByEventId($id);
-    $data=[
-      'announcements'=> $announcements,
+    $data = [
+      'announcements' => $announcements,
     ];
     $this->view('events/editAnnouncements', $data);
   }
 
-  public function deleteAnnouncement(){
+  public function deleteAnnouncement()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
       $id = $_POST['announcementId'];
@@ -1275,14 +1281,15 @@ class Events extends Controller
     }
   }
 
-  public function updateAnnouncement(){
+  public function updateAnnouncement()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
       $id = $_POST['announcementId'];
       $announcementText = $_POST['announcementText'];
 
-      $data =[
-        'announcementId'=> $id,
+      $data = [
+        'announcementId' => $id,
         'announcementText' => $announcementText
       ];
 
@@ -1292,6 +1299,29 @@ class Events extends Controller
         echo false;
       }
     }
+  }
+
+  public function changeActivation()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $eventId = $_POST['eventId'];
+      $data = [
+        'eventId' => $eventId
+      ];
+
+      if($this->eventModel->checkStatusByEventId($eventId)==true) {
+        if ($this->eventModel->deactivateEventById($eventId)) {
+          echo 'deactivated';
+        }
+      }else{
+        if ($this->eventModel->activateEventById($eventId)) {
+          echo 'activated';
+        } 
+      }
+
+    }
+
   }
 
 
