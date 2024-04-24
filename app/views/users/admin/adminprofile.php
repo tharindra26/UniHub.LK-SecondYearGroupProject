@@ -40,7 +40,7 @@
             </a>
             <a href="#" id="knowledge-hub-btn">
                 <span><i class="fa-solid fa-grip"></i></span>
-                <h3>Knowledge Hub</h3>
+                <h3>Posts</h3>
             </a>
             <a href="#" id="opportunities-btn">
                 <span><i class="fa-solid fa-grip"></i></span>
@@ -57,7 +57,7 @@
             </a>
             <a href="#" id="reports-btn">
                 <span><i class="fa-solid fa-circle-exclamation"></i></span>
-                <h3>Reports</h3>
+                <h3>Inqueries</h3>
                 <span class="rq_count">20</span>
             </a>
             <a href="#" id="settings-btn">

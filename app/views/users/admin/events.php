@@ -1,5 +1,5 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
-<link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/admin/adminprofile_style.css">
+<!-- <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/admin/adminprofile_style.css"> -->
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/admin/events_style.css">
 <h1 class="section-title">Events</h1>
 <div class="summary">
@@ -49,16 +49,17 @@
     </div>
     <!-- university-filter -->
     <div class="option select-uni filter">
-        <select name="university" id="uni-filter-value" "
-            placeholder=" Approval" class="dropdown-menu">
-            <option value="">None</option>
-            <?php if (!empty($data['universities'])): ?>
-                <?php foreach ($data['universities'] as $uni): ?>
-                    <option value="<?php echo $uni->id ?>"><?php echo $uni->name ?></option>
-                <?php endforeach; ?>
-            <?php endif; ?>
+        <div class="filter-text">University:</div>
+            <select name="university" id="uni-filter-value" placeholder=" Approval" class="dropdown-menu">
+                <option value="">None</option>
+                <?php if (!empty($data['universities'])): ?>
+                    <?php foreach ($data['universities'] as $uni): ?>
+                        <option value="<?php echo $uni->id ?>"><?php echo $uni->name ?></option>
+                    <?php endforeach; ?>
+                <?php endif; ?>
 
-        </select>
+            </select>
+
     </div>
 
 
@@ -70,7 +71,8 @@
             <h2>Recent Events</h2>
         </div>
     </div>
-    <div class="option filter">
+    <div class="option filter filter1">
+        <div class="filter-text">Approval:</div>
         <select name="approval" id="approval-filter-value" placeholder="Approval" class="dropdown-menu">
             <option value="">None</option>
             <option value="approved">Approved</option>
@@ -78,7 +80,8 @@
             <option value="rejected">Rejected</option>
         </select>
     </div>
-    <div class="option filter">
+    <div class="option filter filter1">
+        <div class="filter-text">Status:</div>
         <select name="status" id="status-filter-value" class="dropdown-menu">
             <option value="">None</option>
             <option value="1">Active</option>
@@ -96,6 +99,28 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="<?php echo URLROOT ?>/js/users/admin/events.js"></script>
+<script>
+    // Counter starts
+    function initializeCount() {
+        totalValue = document.querySelectorAll(".tot");
+        let timeinterval = 200;
+
+        totalValue.forEach((valueDisplay) => {
+            let startValue = 0;
+            let endValue = parseInt(valueDisplay.getAttribute("data-val"));
+            let duration = Math.floor(timeinterval / endValue);
+            let counter = setInterval(() => {
+                startValue += 1;
+                valueDisplay.textContent = startValue;
+                if (startValue === endValue) {
+                    clearInterval(counter);
+                }
+            }, duration);
+        });
+    }
+
+    initializeCount();
+</script>
 <script>
     var URLROOT = document.querySelector('.urlRootValue').textContent.trim();
     // Function to gather and handle all filter inputs
@@ -126,11 +151,12 @@
         $.ajax({
             type: 'POST',
             url: URLROOT + '/events/filterEvents',
-            data: { keyword: searchInputValue,
+            data: {
+                keyword: searchInputValue,
                 university: selectedUniversity,
-                approval:selectedApproval,
-                status: selectedStatus   
-             },
+                approval: selectedApproval,
+                status: selectedStatus
+            },
             success: function (response) {
                 // Update the like count in the DOM
                 $("#events-filter-table").html(response);
@@ -161,4 +187,41 @@
     $('#status-filter-value').on('change', function () {
         handleFilters();
     });
+</script>
+<script>
+    // Function to reset other filters to default values
+    function resetOtherFilters() {
+        // Reset search input
+        document.getElementById("search-bar-input").value = "";
+
+        // Reset university filter to default
+        document.getElementById("uni-filter-value").value = "";
+
+        // Reset approval filter to default
+        document.getElementById("category-filter-value").value = "";
+
+        // Reset status filter to default
+        document.getElementById("status-filter-value").value = "";
+    }
+    function mainEventFilter(type) {
+        // Reset other filters to default values
+        //resetOtherFilters();
+        // Make AJAX request with the selected filter type
+        $.ajax({
+            url: URLROOT + '/events/dueEventsFilterilter',
+            type: "POST",
+            data: {
+                value: type,
+            },
+            success: function (response) {
+                // Update the content section with the retrieved data
+                $("#events-filter-table").html(response);
+            },
+            error: function (error) {
+                console.error("Error:", error);
+            },
+        });
+
+        updateContent();
+    }
 </script>
