@@ -216,4 +216,5 @@
 <script src="<?php echo URLROOT ?>/js/events/events-index.js"></script>
 
 
+
 <?php require APPROOT . '/views/inc/footer.php'; ?>

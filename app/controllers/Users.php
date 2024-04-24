@@ -135,7 +135,7 @@ class Users extends Controller
 
           $user = $this->userModel->getUserByEmail($data['email']); // Get user ID
           $user_id = $user->id; // Get user ID
-          $last_authentication_date = date('Y-m-d H:i:s'); // Current date and time
+          $last_authentication_date = date('Y-m-d H:i:s', strtotime('-8 days'));
 
           // Add record to user_authentication table
           if ($this->userModel->addUserAuthenticationRecord($user_id, $last_authentication_date)) {
@@ -297,12 +297,14 @@ class Users extends Controller
         // $status = $this->userModel->getUserStatusByEmail($data['email']);
 
         if ($user->type == 'undergraduate') {
+          
           $lastAuthDate = new DateTime($user->last_authentication_date);
           $currentDate = new DateTime();
           $interval = $currentDate->diff($lastAuthDate);
 
           // Check if it's been more than 7 days since the last authentication
           if ($interval->days >= 7) {
+            
             // Set google_auth_required flag to true
             $this->userModel->setGoogleAuthRequired($user->id, true);
             $data = [
@@ -358,6 +360,7 @@ class Users extends Controller
 
   public function createUserSession($user)
   {
+    
     $_SESSION['user_id'] = $user->id;
     $_SESSION['user_email'] = $user->email;
     $_SESSION['user_name'] = $user->fname;
@@ -1738,7 +1741,7 @@ class Users extends Controller
 
             $allowed_exs = array('jpg', 'jpeg', 'png');
             if (in_array($img_ex_to_lc, $allowed_exs)) {
-              $new_img_name = $user->title . '_user_profile_' . time() . '.' . $img_ex_to_lc;
+              $new_img_name = $user->fname . '_user_profile_' . time() . '.' . $img_ex_to_lc;
               $img_upload_path = "../public/img/users/users_profile_images/" . $new_img_name;
               move_uploaded_file($tmp_name, $img_upload_path);
 
@@ -1760,7 +1763,7 @@ class Users extends Controller
 
             $allowed_exs = array('jpg', 'jpeg', 'png');
             if (in_array($img_ex_to_lc, $allowed_exs)) {
-              $new_img_name = $data['title'] . '_user_cover_' . time() . '.' . $img_ex_to_lc;
+              $new_img_name = $user->fname . '_user_cover_' . time() . '.' . $img_ex_to_lc;
               $img_upload_path = "../public/img/users/users_cover_images/" . $new_img_name;
               move_uploaded_file($tmp_name, $img_upload_path);
 

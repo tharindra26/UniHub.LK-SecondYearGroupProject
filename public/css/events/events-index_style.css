@@ -700,11 +700,13 @@ li.selected {
     overflow: hidden;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
 .image-section img {
     width: 100%;
     height: auto;
+    object-fit: cover;
 }
 
 .details-section {
