@@ -297,14 +297,14 @@ class Users extends Controller
         // $status = $this->userModel->getUserStatusByEmail($data['email']);
 
         if ($user->type == 'undergraduate') {
-          
+
           $lastAuthDate = new DateTime($user->last_authentication_date);
           $currentDate = new DateTime();
           $interval = $currentDate->diff($lastAuthDate);
 
           // Check if it's been more than 7 days since the last authentication
           if ($interval->days >= 7) {
-            
+
             // Set google_auth_required flag to true
             $this->userModel->setGoogleAuthRequired($user->id, true);
             $data = [
@@ -360,7 +360,7 @@ class Users extends Controller
 
   public function createUserSession($user)
   {
-    
+
     $_SESSION['user_id'] = $user->id;
     $_SESSION['user_email'] = $user->email;
     $_SESSION['user_name'] = $user->fname;
@@ -428,14 +428,14 @@ class Users extends Controller
     ];
 
     if ($user->type == 'admin') {
-      $logindata= $this->statModel-> getLoginCountsLast30Days();
+      $logindata = $this->statModel->getLoginCountsLast30Days();
       $data['loginData'] = $logindata;
-      $data['usersCount'] =$this->userModel->getUsersCount();
-      $data['eventsCount'] =$this->eventModel->getEventsCount();
-      $data['organizationsCount'] =$this->organizationModel->getOrganizationsCount();
-      $data['opportunitiesCount'] =$this->opportunityModel->getOpportunitiesCount();
-      $data['postsCount'] =$this->postModel->getPostsCount();
-      $data['universityBaseUsers'] =$this->statModel->getUsersByUniversity();
+      $data['usersCount'] = $this->userModel->getUsersCount();
+      $data['eventsCount'] = $this->eventModel->getEventsCount();
+      $data['organizationsCount'] = $this->organizationModel->getOrganizationsCount();
+      $data['opportunitiesCount'] = $this->opportunityModel->getOpportunitiesCount();
+      $data['postsCount'] = $this->postModel->getPostsCount();
+      $data['universityBaseUsers'] = $this->statModel->getUsersByUniversity();
       $this->view('users/admin/adminprofile', $data);
     } else if ($user->type == 'unirep') {
       $this->view('users/unirep/profile', $data);
@@ -492,7 +492,8 @@ class Users extends Controller
     }
   }
 
-  public function unfollowFriend(){
+  public function unfollowFriend()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
       $follower_id = $_POST['userId'];
@@ -948,13 +949,13 @@ class Users extends Controller
 
     ];
 
-    $logindata= $this->statModel-> getLoginCountsLast30Days();
-      $data['loginData'] = $logindata;
-      $data['usersCount'] =$this->userModel->getUsersCount();
-      $data['eventsCount'] =$this->eventModel->getEventsCount();
-      $data['organizationsCount'] =$this->organizationModel->getOrganizationsCount();
-      $data['opportunitiesCount'] =$this->opportunityModel->getOpportunitiesCount();
-      $data['postsCount'] =$this->postModel->getPostsCount();
+    $logindata = $this->statModel->getLoginCountsLast30Days();
+    $data['loginData'] = $logindata;
+    $data['usersCount'] = $this->userModel->getUsersCount();
+    $data['eventsCount'] = $this->eventModel->getEventsCount();
+    $data['organizationsCount'] = $this->organizationModel->getOrganizationsCount();
+    $data['opportunitiesCount'] = $this->opportunityModel->getOpportunitiesCount();
+    $data['postsCount'] = $this->postModel->getPostsCount();
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $this->view('users/admin/dashboard', $data);
@@ -1089,14 +1090,14 @@ class Users extends Controller
       $this->view('users/admin/events', $data);
     }
   }
-  
+
   public function organizations()
   {
     $event = $this->organizationModel->getAllOrganizations();
     $totalOrganizations = $this->organizationModel->totalOrganizationCount();
     $universities = $this->userModel->getAllUniversities();
     $categories = $this->organizationModel->getOrganizationCategories();
-    
+
     $data = [
       'organization' => $event,
       'totalOrganizations' => $totalOrganizations,
@@ -1138,9 +1139,7 @@ class Users extends Controller
       'requests' => $requests
     ];
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      $this->view('users/admin/requests', $data);
-    }
+    $this->view('users/admin/requests', $data);
   }
 
   public function reports()
@@ -1973,7 +1972,8 @@ class Users extends Controller
     }
   }
 
-  public function deleteEventInterestCategory(){
+  public function deleteEventInterestCategory()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
       $categoryId = $_POST['categoryId'];
@@ -2022,7 +2022,8 @@ class Users extends Controller
     }
   }
 
-  public function deletePostInterestCategory(){
+  public function deletePostInterestCategory()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
       $categoryId = $_POST['categoryId'];
@@ -2038,10 +2039,5 @@ class Users extends Controller
       }
     }
   }
-
-
-
-
-
 
 }
