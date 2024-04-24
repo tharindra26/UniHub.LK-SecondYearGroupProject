@@ -21,27 +21,60 @@
             </select>
         </div>
     </div>
+    <div id="event-request-content" class="event-request-content">
+
+    </div>
 </div>
 <div class="organization-requests-section"></div>
 <div class="post-requests-section"></div>
 <script>
-    $("#requests-content").on("click", function (e) {
-        //
-        e.preventDefault(); // Prevent the default link behavior
-        // // Your AJAX function here
-        $.ajax({
-            url: 'http://localhost/unihub/requests/eventRequests',
-            type: 'POST', // or 'GET' depending on your needs
-            data: {
+    function handleFilters() {
+        // var searchInputValue = $('#search-bar-input').val();
+        // var selectedUniversity = $('#uni-filter-value').val();
+        var selectedApproval = $('#approval-filter-value').val();
+        // var selectedStatus = $('#status-filter-value').val();
 
+        // if (searchInputValue === "") {
+        //     searchInputValue = null;
+        // }
+
+        // Check if the selected values are "None" and set them to null
+        // if (selectedUniversity === "None") {
+        //     selectedUniversity = null;
+        // }
+        if (selectedApproval === "None") {
+            selectedApproval = null;
+        }
+        // if (selectedStatus === "None") {
+        //     selectedStatus = null;
+        // }
+        console.log(selectedApproval);
+
+        // Perform any action you need with these values
+        // For example, make an AJAX request to fetch filtered events based on these inputs
+        // You can pass these values as parameters to your AJAX request
+        $.ajax({
+            type: 'POST',
+            url: URLROOT + '/events/filterEventsByApproval',
+            data: {
+                keyword: '',
+                university: '',
+                approval: selectedApproval,
+                status: '0'
             },
-            success: function (response) { //echo 1   
-                // console.log("AJAX request successful:", response);
-                $("#requests-content").html(response);
+            success: function (response) {
+                // Update the like count in the DOM
+                $("#event-request-content").html(response);
             },
-            error: function (error) {
-                // console.error("AJAX request failed:", error);
+            error: function (xhr, status, error) {
+                console.error('Fail to retreive:', error);
             }
         });
+    }
+    // Listen for changes in the approval dropdown
+    $('#approval-filter-value').on('change', function () {
+        handleFilters();
     });
+
+
 </script>
