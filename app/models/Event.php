@@ -879,8 +879,36 @@ class Event
         }
     }
 
+    public function checkStatusByEventId($eventId){
+        $this->db->query("SELECT status FROM events WHERE id = :eventId");
+        $this->db->bind(':eventId', $eventId);
 
+        $row = $this->db->single();
+        return $row->status;
+    }
 
+    public function activateEventById($eventId){
+        $this->db->query("UPDATE events SET status = 1 WHERE id = :eventId");
+        $this->db->bind(':eventId', $eventId);
 
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function deactivateEventById($eventId){
+        $this->db->query("UPDATE events SET status = 0 WHERE id = :eventId");
+        $this->db->bind(':eventId', $eventId);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }
