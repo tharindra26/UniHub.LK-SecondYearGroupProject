@@ -489,7 +489,7 @@ class Event
         }
 
         if (!empty($status)) {
-            if($status == 'active')
+            if($status == 'activated')
                 $this->db->bind(':status', 1);
             elseif($status == 'deactivated'){
                 $this->db->bind(':status', 0);

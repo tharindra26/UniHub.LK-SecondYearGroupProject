@@ -73,6 +73,8 @@ foreach ($period as $date) {
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="<?php echo URLROOT ?>/js/users/admin/dashboard.js"></script>
 <script>
+
+    var URLROOT = document.querySelector('.urlRootValue').textContent.trim();
     function initializeCharts() {
         const loginDataChart = document.getElementById('loginDataChart');
 
@@ -98,7 +100,8 @@ foreach ($period as $date) {
             }
         });
 
-     
+        var URLROOT = document.querySelector('.urlRootValue').textContent.trim();
+
 
 
     }

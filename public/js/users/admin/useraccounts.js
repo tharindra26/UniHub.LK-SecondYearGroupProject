@@ -128,27 +128,3 @@ function highlightIndexButton() {
     "active"
   );
 }
-// popup modal script
-const overlay = document.querySelector(".overlay");
-const modalBox = document.querySelector(".modal-box");
-
-function openPopup(popupId) {
-  alert(popupId);
-  var element = document.getElementById(popupId);
-  if (element) {
-    element.classList.add("active");
-    overlay.classList.add("active");
-  }
-}
-
-function closePopup(popupId) {
-  var element = document.getElementById(popupId);
-  if (element) {
-    element.classList.remove("active");
-    overlay.classList.remove("active");
-  }
-}
-overlay.addEventListener("click", () => {
-  modalBox.classList.remove("active");
-  overlay.classList.remove("active");
-});

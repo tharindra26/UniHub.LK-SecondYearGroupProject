@@ -83,9 +83,9 @@
     <div class="option filter filter1">
         <div class="filter-text">Status:</div>
         <select name="status" id="status-filter-value" class="dropdown-menu">
-            <option value="">None</option>
-            <option value="1">Active</option>
-            <option value="0">Deactivated</option>
+            <option value="0">None</option>
+            <option value="activated">Activated</option>
+            <option value="deactivated">Deactivated</option>
         </select>
     </div>
 </div>
@@ -123,6 +123,7 @@
 </script>
 <script>
     var URLROOT = document.querySelector('.urlRootValue').textContent.trim();
+    
     // Function to gather and handle all filter inputs
     function handleFilters() {
         var searchInputValue = $('#search-bar-input').val();
@@ -144,6 +145,7 @@
         if (selectedStatus === "None") {
             selectedStatus = null;
         }
+        console.log(selectedStatus);
 
         // Perform any action you need with these values
         // For example, make an AJAX request to fetch filtered events based on these inputs

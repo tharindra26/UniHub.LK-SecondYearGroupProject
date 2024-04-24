@@ -46,11 +46,11 @@
                 <span><i class="fa-solid fa-grip"></i></span>
                 <h3>Opportunities</h3>
             </a>
-            <a href="#" id="university-btn" >
+            <a href="#" id="university-btn">
                 <span><i class="fa-solid fa-graduation-cap"></i></span>
                 <h3>Universities</h3>
             </a>
-            <a href="#" id="rquests-btn" >
+            <a href="#" id="requests-btn">
                 <span><i class="fa-solid fa-grip"></i></span>
                 <h3>Requests</h3>
                 <span class="rq_count">14</span>
@@ -83,6 +83,10 @@
 <script src="<?php echo URLROOT ?>/js/users/admin/adminprofile.js"></script>
 
 <script>
+
+    
+
+
     $(document).ready(function () {
         // Add click event to the button
         $("#dashboard-btn").on("click", function (e) {
@@ -206,7 +210,7 @@
             });
         });
 
-        $("#rquests-btn").on("click", function (e) {
+        $("#requests-btn").on("click", function (e) {
 
             e.preventDefault(); // Prevent the default link behavior
             // // Your AJAX function here
