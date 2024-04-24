@@ -389,7 +389,7 @@ class Users extends Controller
   //   if($user->user_type=='admin'){
   //     $this->view('users/users-show-admin', $data);
   //   }else if($user->user_type=='org'){
-  //     $organization = $this->organizationalModel->getOrganizationByUserId($user->id);
+  //     $organization = $this->organizationModel->getOrganizationByUserId($user->id);
   //     $user = $this->userModel->getUserById($organization->user_id);
   //     $data =[
   //       'organization' =>$organization,
@@ -411,6 +411,7 @@ class Users extends Controller
     $education = $this->userModel->getEducationByUserId($id);
     $qualifications = $this->userModel->getQualificationByUserId($id);
     $skills = $this->userModel->getSkillsByUserId($id);
+    $organizations = $this->userModel->getFollowingOrganizations($id);
     $requests = $this->userModel->getFriendRequestsById($id);
     // $friends = $this->userModel->getFriendsByUserId($user->id);
 
@@ -1088,11 +1089,19 @@ class Users extends Controller
       $this->view('users/admin/events', $data);
     }
   }
-
+  
   public function organizations()
   {
+    $event = $this->organizationModel->getAllOrganizations();
+    $totalOrganizations = $this->organizationModel->totalOrganizationCount();
+    $universities = $this->userModel->getAllUniversities();
+    $categories = $this->organizationModel->getOrganizationCategories();
+    
     $data = [
-
+      'organization' => $event,
+      'totalOrganizations' => $totalOrganizations,
+      'universities' => $universities,
+      'categories' => $categories
     ];
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {

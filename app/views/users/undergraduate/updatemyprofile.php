@@ -5,7 +5,7 @@
 <div class="container">
     <div class="inner-container">
         <div class="settings-text">
-            <p>Manage Event</p>
+            <p>Update Profile</p>
         </div>
         <div class="bottom-part">
             <div class="options-box">

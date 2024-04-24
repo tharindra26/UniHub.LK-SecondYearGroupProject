@@ -56,8 +56,6 @@
                 <?php foreach ($data['universities'] as $uni): ?>
                     <option value="<?php echo $uni->id ?>"><?php echo $uni->name ?></option>
                 <?php endforeach; ?>
-                ?php else : ?>
-                <option value="">No universities found</option>
             <?php endif; ?>
 
         </select>
