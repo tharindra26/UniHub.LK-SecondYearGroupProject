@@ -7,44 +7,6 @@
         <div class="bottom-part">
             <div class="options-box">
 
-                <a href="#" class="option-link" id="profile_image">
-                    <div class="option">
-                        <div class="option-icon">
-                            <i class="fa-regular fa-images"></i>
-                        </div>
-                        <div class="option-text">Profile Image & Cover Image</div>
-                    </div>
-                </a>
-
-            <!-- <a href="#" class="option-link" id="contact" > -->
-                    <div class="option" id="contact">
-                        <div class="option-icon">
-                            <i class="fa-solid fa-address-card"></i>
-                        </div>
-                        <div class="option-text">Contact Details</div>
-                    </div>
-                <!-- </a> -->
-
-
-                <a href="#" class="option-link">
-                    <div class="option">
-                        <div class="option-icon">
-                            <i class="fa-brands fa-squarespace"></i>
-                        </div>
-                        <div class="option-text">Title</div>
-                    </div>
-                </a>
-
-                <a href="#" class="option-link">
-                    <div class="option">
-                        <div class="option-icon">
-                            <i class="fa-solid fa-align-right"></i>
-                        </div>
-                        <div class="option-text">Description</div>
-                    </div>
-                </a>
-
-
                 <a href="#" class="option-link">
                     <div class="option">
                         <div class="option-icon">

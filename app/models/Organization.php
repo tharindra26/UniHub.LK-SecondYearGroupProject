@@ -38,11 +38,11 @@ class Organization
     public function getAllOrganizations(){
         $this->db->query('SELECT 
                         o.*,
-                        u_table.name AS university_name,
+                        -- u_table.name AS university_name,
                         GROUP_CONCAT(oc.category_name) AS category_names
                         FROM organizations o
                         LEFT JOIN organization_category_mapping ocm ON o.organization_id = ocm.organization_id
-                        LEFT JOIN universities u_table ON o.university = u_table.id 
+                        -- LEFT JOIN universities u_table ON o.university = u_table.id 
                         LEFT JOIN organization_categories oc ON ocm.organization_category_id = oc.category_id
                         GROUP BY o.organization_id');
             $results = $this->db->resultSet();
@@ -248,7 +248,7 @@ class Organization
                     FROM organizations o
                     INNER JOIN users u ON o.user_id = u.id
                     LEFT JOIN organization_category_mapping m ON o.organization_id = m.organization_id
-                    -- LEFT JOIN universities u_table ON e.university_id = u_table.id 
+                    LEFT JOIN universities u_table ON e.university_id = u_table.id 
                     LEFT JOIN organization_categories c ON m.organization_category_id = c.category_id
                     WHERE 1=1';
 
@@ -280,7 +280,7 @@ class Organization
         }
 
         if (!empty($university)) {
-            $this->db->bind(':university', $university);
+            $this->db->bind(':uni_id', $university);
         }
 
         if (!empty($category)) {

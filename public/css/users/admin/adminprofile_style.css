@@ -195,19 +195,22 @@ main .section-title{
 main .sub-menu{
     display: flex;
     justify-content: space-between;
+    border: none;
+    background-color: #ededed;
 }
 
 main .sub-menu .items{
     display: flex;
-    flex-direction: column;
-    width: calc(100% / 4 - 30px);
+    flex-direction: row;
+    width: calc(100% / 5 - 30px);
     border-radius: 10px;
     background-color: white;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     padding: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     cursor: pointer;
+    max-height: 60px;
 
 }
 
@@ -215,11 +218,20 @@ main .sub-menu .items .icons{
     display: flex;
     border-radius: 50%;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-    height: 80px;
-    width: 80px;
+    height: 50px;
+    width: 50px;
     align-items: center;
     justify-content: center;
 }
+
+#all{
+    border-bottom: 10px solid #4188ff;
+}
+
+#all .icons{
+    background-color: #4188ff;
+}
+
 
 #und{
     border-bottom: 10px solid #4188ff;
@@ -254,10 +266,15 @@ main .sub-menu .items .icons{
 }
 
 main .sub-menu .items i{
-    font-size: 40px;
+    font-size: 30px;
     color: white;
 }
-
+main .sub-menu .item-header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .num{
     padding: 5px;
     font-weight: 600;
@@ -400,52 +417,6 @@ main a{
     color: black;
 }
 
-.del-popup{
-    display: flex;
-    width: 600px;
-    background: white;
-    border-radius: 6px;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.1);
-    text-align: center;
-    padding: 30px;
-    visibility: hidden;
-    transition: transform 0.4s, top 0.4s;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-}
-.open-popup{
-    visibility: visible;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(1);
-}
-.del-popup h2{
-    font-size: 30px;
-    font-weight: 500;
-    margin: 10px;
-}
-.del-popup .del-content{
-    width: 50%;
-}
-.del-popup .del-img{
-    width: 50%;
-    border: 1px solid red;
-}
-
-.del-popup .del-img img{
-    width: 250px;
-}
-
-.del-popup .confirm-btn{
-    padding: 10px 20px;
-    background-color: #3498DB;
-    border-radius: 10px;
-    border: none;
-    font-size: 15px;
-    color: white;
-    margin: 20px;
-}
 
 .paging{
     margin-top: 25px;
@@ -475,60 +446,66 @@ main a{
 
 
 
+
 /* popup-modal css */
-body.active .show-modal{
+.modal-box.active .show-modal{
     display: none;
 }
 
 .overlay{
-    position: absolute;
+    position: fixed;
     height: 100%;
-    width:100%;
+    width: 100%;
+    top: 0;
+    left: 0;
     background-color: rgba(0, 0, 0, 0.3);
     opacity: 0;
     pointer-events: none;
+    z-index: 10;
 }
 
-#modal-box1{
+.modal-box{
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: absolute;
+    position: fixed;
     left: 50%;
     top: 50%;
-    max-width: 380px;
-    width: 100%;
+    padding: 30px;
+    width: fit-content;
     border-radius: 24px;
     background-color: white;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     padding: 30px 20px;
     pointer-events: none;
-    transition: all 0.3s ease;
-    transform: translate(-50%, -50%) scale(1.2);
+    transition: all 0.3s ease-in-out;
+    transform: translate(-50%, -50%) scale(1.3);
     opacity: 0;
+    z-index: 20;
 }
 
-body.active .overlay{
+.overlay.active {
     opacity: 1;
     pointer-events: auto;
 }
 
-body.active .modal-box{
+.modal-box.active{
     opacity: 1;
     pointer-events: auto;
     transform: translate(-50%, -50%) scale(1);
 }
 
-.modal-box i{
+.modal-box .fa-xmark{
     font-size: 70px;
-    color: #2980b9;
+    /* color: #e74c3c; */
 }
 
 .modal-box h2{
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: 25px;
     font-weight: 500;
     color: #34495e;
+    /* border: 1px solid red; */
 }
 
 .modal-box h3{
@@ -537,6 +514,24 @@ body.active .modal-box{
     color: #34495e;
     text-align: center;
 }
+
+.close-btn{
+    font-size: 15px;
+    font-weight: 400;
+    padding: 5px 10px;
+    border-radius: 6px;
+    border-style: none;
+    color: white;
+    background-color: #2880b9;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.close-btn:hover{
+    background-color: #1f628f;
+}
+
 /* popup-modal css */
 
 /* Responsive */
