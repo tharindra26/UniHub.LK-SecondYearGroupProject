@@ -1110,14 +1110,21 @@ class Users extends Controller
     }
   }
 
-  public function knowledgehub()
+  public function posts()
   {
+    $post = $this->postModel->getAllPosts();
+    $totalPosts = $this->postModel->getPostsCount();
+    $universities = $this->userModel->getAllUniversities();
+    $categories = $this->postModel->getPostCategories();
     $data = [
-
+      'post' => $post,
+      'totalPosts' => $totalPosts,
+      'universities' => $universities,
+      'categories' => $categories
     ];
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      $this->view('users/admin/knowledgehub', $data);
+      $this->view('users/admin/posts', $data);
     }
   }
 

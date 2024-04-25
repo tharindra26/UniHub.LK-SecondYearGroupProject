@@ -118,6 +118,7 @@
                 keyword: searchInputValue,
                 university: selectedUniversity,
                 category: selectedCategory,
+                approval: "",
                 status: selectedStatus,
             },
             success: function (response) {

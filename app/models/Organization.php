@@ -290,7 +290,7 @@ class Organization
         }
 
         if (!empty($university)) {
-            $this->db->bind(':uni_id', $university);
+            $this->db->bind(':university', $university);
         }
 
         if (!empty($category)) {

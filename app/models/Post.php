@@ -28,6 +28,21 @@ class Post
         return $row->post_count;
     }
 
+    public function getAllPosts()
+    {
+        $this->db->query('SELECT 
+                            *,
+                            GROUP_CONCAT(pc.category_name) AS categories
+                            FROM posts p
+                            LEFT JOIN post_categories_mapping pcm ON p.post_id = pcm.post_id
+                            LEFT JOIN post_categories pc ON pcm.category_id = pc.category_id
+                            LEFT JOIN users u ON p.user_id = u.id
+                            GROUP BY p.post_id');
+        $results = $this->db->resultSet();
+        return $results;
+    }
+    
+
     public function addPost($data)
     {
         // var_dump($data);
@@ -455,7 +470,7 @@ class Post
         $endDate = $data['end_date'];
 
         $query = 'SELECT 
-                o.*,
+                p.*,
                 GROUP_CONCAT(c.category_name) AS category_names
                 FROM posts p
                 INNER JOIN users u ON p.user_id = u.id

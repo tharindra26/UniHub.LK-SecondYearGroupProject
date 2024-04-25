@@ -26,7 +26,7 @@
                     <td><?php echo $organization->organization_name ?></td>
                     <td><?php echo $organization->category_names ?></td>
                     <td><?php echo $organization->contact_email ?></td>
-                    <td><?php echo $organization->university ?></td>
+                    <td><?php echo $organization->university_name ?></td>
                     <td>
                         <div class="<?php echo ($organization->status == 1) ? 'activated' : 'deactivated'; ?>"><?php
                                  if ($organization->status == 1):
