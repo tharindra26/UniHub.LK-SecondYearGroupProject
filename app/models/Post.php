@@ -445,7 +445,7 @@ class Post
         return true;
     }
 
-    public function getFilterOrganizations($data)
+    public function getFilterPosts($data)
     {
         $keyword = $data['keyword'];
         $category = $data['category'];
@@ -455,13 +455,13 @@ class Post
         $endDate = $data['end_date'];
 
         $query = 'SELECT 
-                    o.*,
-                    GROUP_CONCAT(c.category_name) AS category_names,
-                    FROM posts p
-                    INNER JOIN users u ON p.user_id = u.id
-                    LEFT JOIN post_category_mapping m ON p.posts_id = m.posts_id
-                    LEFT JOIN posts_categories c ON m.category_id = c.category_id
-                    WHERE 1=1';
+                o.*,
+                GROUP_CONCAT(c.category_name) AS category_names
+                FROM posts p
+                INNER JOIN users u ON p.user_id = u.id
+                LEFT JOIN post_category_mapping m ON p.posts_id = m.posts_id
+                LEFT JOIN posts_categories c ON m.category_id = c.category_id
+                WHERE 1=1';
 
         if (!empty($keyword)) {
             $query .= " AND p.post_title LIKE :keyword";
@@ -479,9 +479,13 @@ class Post
             $query .= " AND p.approval = :approval";
         }
 
-        // Add date range condition
+        // Add date range conditions
         if (!empty($startDate) && !empty($endDate)) {
             $query .= " AND p.timestamp_column >= :start_date AND p.timestamp_column <= :end_date";
+        } elseif (!empty($startDate)) {
+            $query .= " AND p.timestamp_column >= :start_date";
+        } elseif (!empty($endDate)) {
+            $query .= " AND p.timestamp_column <= :end_date";
         }
 
         $query .= " GROUP BY p.post_id";
@@ -493,7 +497,6 @@ class Post
         if (!empty($keyword)) {
             $this->db->bind(':keyword', '%' . $keyword . '%');
         }
-
 
         if (!empty($category)) {
             $this->db->bind(':category', $category);
@@ -509,6 +512,16 @@ class Post
             elseif ($status == 'deactivated') {
                 $this->db->bind(':status', 0);
             }
+        }
+
+        // Bind date range values
+        if (!empty($startDate) && !empty($endDate)) {
+            $this->db->bind(':start_date', $startDate);
+            $this->db->bind(':end_date', $endDate);
+        } elseif (!empty($startDate)) {
+            $this->db->bind(':start_date', $startDate);
+        } elseif (!empty($endDate)) {
+            $this->db->bind(':end_date', $endDate);
         }
 
         // Execute the query
