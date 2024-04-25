@@ -569,32 +569,33 @@ class Events extends Controller
     }
   }
 
-  public function dueEventsFilterilter(){
+  public function dueEventsFilterilter()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    // Sanitize post data
-    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    // var_dump($_POST);
-    // die();
+      // Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      // var_dump($_POST);
+      // die();
 
-    $type = $_POST['value'];
+      $type = $_POST['value'];
 
-    if ($type == "all") {
-      $events = $this->eventModel->getAllEvents();
-    } elseif ($type == "ongoing") {
-      $events = $this->eventModel->getOngoingEvents($type);
-    } elseif ($type == "due") {
-      $events = $this->eventModel->getDueEvents($type);
+      if ($type == "all") {
+        $events = $this->eventModel->getAllEvents();
+      } elseif ($type == "ongoing") {
+        $events = $this->eventModel->getOngoingEvents($type);
+      } elseif ($type == "due") {
+        $events = $this->eventModel->getDueEvents($type);
+      }
+
+      $data = [
+        'events' => $events,
+      ];
+
+      $this->view('users/admin/eventfilter', $data);
+
     }
-
-    $data = [
-      'events' => $events,
-    ];
-
-    $this->view('users/admin/eventfilter', $data);
-
   }
-}
 
   public function checkEventParticipation()
   {
@@ -1310,14 +1311,59 @@ class Events extends Controller
         'eventId' => $eventId
       ];
 
-      if($this->eventModel->checkStatusByEventId($eventId)==true) {
+      if ($this->eventModel->checkStatusByEventId($eventId) == true) {
         if ($this->eventModel->deactivateEventById($eventId)) {
           echo 'deactivated';
         }
-      }else{
+      } else {
         if ($this->eventModel->activateEventById($eventId)) {
           echo 'activated';
-        } 
+        }
+      }
+
+    }
+
+  }
+
+  public function filterEventsByApproval()
+  {
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+      // Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      // var_dump($_POST);
+      // die();
+
+      // $keyword = $_POST['keyword'];
+      // $date = $_POST['date'];
+      $events = $this->eventModel->getFilterEvents($_POST);
+
+      $data = [
+        'events' => $events,
+      ];
+
+      $this->view('users/admin/eventApprovalfilter', $data);
+
+    }
+
+  }
+
+  public function changeApproval()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $eventId = $_POST['eventId'];
+      $selectedApproval = $_POST['selectedApproval'];
+      $data = [
+        'eventId' => $eventId,
+        'selectedApproval' => $selectedApproval,
+      ];
+
+      if ($this->eventModel->changeApproval($data)) {
+        echo true;
+      } else {
+        echo false;
       }
 
     }

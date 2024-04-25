@@ -8,7 +8,8 @@ class Post
         $this->db = new Database;
     }
 
-    public function addPostView($postId) {
+    public function addPostView($postId)
+    {
         $this->db->query('INSERT INTO post_views (post_id) VALUES (:postId)');
         $this->db->bind(':postId', $postId);
 
@@ -20,7 +21,8 @@ class Post
         }
     }
 
-    public function getPostsCount() {
+    public function getPostsCount()
+    {
         $this->db->query('SELECT COUNT(*) AS post_count FROM posts');
         $row = $this->db->single();
         return $row->post_count;
@@ -441,6 +443,93 @@ class Post
         }
 
         return true;
+    }
+
+    public function getFilterPosts($data)
+    {
+        $keyword = $data['keyword'];
+        $category = $data['category'];
+        $status = $data['status'];
+        $approval = $data['approval'];
+        $startDate = $data['start_date']; // Assuming start_date and end_date are provided in $data
+        $endDate = $data['end_date'];
+
+        $query = 'SELECT 
+                o.*,
+                GROUP_CONCAT(c.category_name) AS category_names
+                FROM posts p
+                INNER JOIN users u ON p.user_id = u.id
+                LEFT JOIN post_category_mapping m ON p.posts_id = m.posts_id
+                LEFT JOIN posts_categories c ON m.category_id = c.category_id
+                WHERE 1=1';
+
+        if (!empty($keyword)) {
+            $query .= " AND p.post_title LIKE :keyword";
+        }
+
+        if (!empty($category)) {
+            $query .= " AND c.category_id = :category";
+        }
+
+        if (!empty($status)) {
+            $query .= " AND p.status = :status";
+        }
+
+        if (!empty($approval)) {
+            $query .= " AND p.approval = :approval";
+        }
+
+        // Add date range conditions
+        if (!empty($startDate) && !empty($endDate)) {
+            $query .= " AND p.timestamp_column >= :start_date AND p.timestamp_column <= :end_date";
+        } elseif (!empty($startDate)) {
+            $query .= " AND p.timestamp_column >= :start_date";
+        } elseif (!empty($endDate)) {
+            $query .= " AND p.timestamp_column <= :end_date";
+        }
+
+        $query .= " GROUP BY p.post_id";
+
+        // Prepare the query
+        $this->db->query($query);
+
+        // Bind values to the placeholders
+        if (!empty($keyword)) {
+            $this->db->bind(':keyword', '%' . $keyword . '%');
+        }
+
+        if (!empty($category)) {
+            $this->db->bind(':category', $category);
+        }
+
+        if (!empty($approval)) {
+            $this->db->bind(':approval', $approval);
+        }
+
+        if (!empty($status)) {
+            if ($status == 'active')
+                $this->db->bind(':status', 1);
+            elseif ($status == 'deactivated') {
+                $this->db->bind(':status', 0);
+            }
+        }
+
+        // Bind date range values
+        if (!empty($startDate) && !empty($endDate)) {
+            $this->db->bind(':start_date', $startDate);
+            $this->db->bind(':end_date', $endDate);
+        } elseif (!empty($startDate)) {
+            $this->db->bind(':start_date', $startDate);
+        } elseif (!empty($endDate)) {
+            $this->db->bind(':end_date', $endDate);
+        }
+
+        // Execute the query
+        $this->db->execute();
+
+        // Fetch the results
+        $row = $this->db->resultSet();
+        return $row;
     }
 
 

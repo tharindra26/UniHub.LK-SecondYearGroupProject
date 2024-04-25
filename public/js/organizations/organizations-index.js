@@ -204,6 +204,10 @@ categoryResetBtn.addEventListener("click", () => {
   updateCategoryFilter();
 });
 
+
+
+
+
 $(document).ready(function () {
   function updateContent() {
     var keyword = document.getElementById("search-bar-input").value;
@@ -225,10 +229,10 @@ $(document).ready(function () {
         university: university,
         categories: checkedCategories
       },
-      success: function (data) {
-        console.log(data);
+      success: function (response) {
+        console.log(response);
         // Update the content section with the retrieved data
-        $("#content-section").html(data);
+        $("#content-section").html(response);
       },
     });
   }

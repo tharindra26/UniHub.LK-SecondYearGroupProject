@@ -911,4 +911,17 @@ class Event
         }
     }
 
+    public function changeApproval($data){
+        $this->db->query("UPDATE events SET approval = :approval WHERE id = :eventId");
+        $this->db->bind(':eventId', $data['eventId']);
+        $this->db->bind(':approval', $data['selectedApproval']);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

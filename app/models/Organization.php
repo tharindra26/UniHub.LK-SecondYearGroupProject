@@ -8,7 +8,8 @@ class Organization
         $this->db = new Database;
     }
 
-    public function addOrganizationView($organizationId) {
+    public function addOrganizationView($organizationId)
+    {
         $this->db->query('INSERT INTO organization_views (organization_id) VALUES (:organizationId)');
         $this->db->bind(':organizationId', $organizationId);
 
@@ -20,7 +21,8 @@ class Organization
         }
     }
 
-    public function getOrganizationsCount() {
+    public function getOrganizationsCount()
+    {
         $this->db->query('SELECT COUNT(*) AS organization_count FROM organizations');
         $row = $this->db->single();
         return $row->organization_count;
@@ -35,7 +37,8 @@ class Organization
         return $results;
     }
 
-    public function getAllOrganizations(){
+    public function getAllOrganizations()
+    {
         $this->db->query('SELECT 
                         o.*,
                         -- u_table.name AS university_name,
@@ -45,10 +48,10 @@ class Organization
                         -- LEFT JOIN universities u_table ON o.university = u_table.id 
                         LEFT JOIN organization_categories oc ON ocm.organization_category_id = oc.category_id
                         GROUP BY o.organization_id');
-            $results = $this->db->resultSet();
-            return $results;
-      }
-    
+        $results = $this->db->resultSet();
+        return $results;
+    }
+
 
     public function getOrganizationById($organization_id)
     {
@@ -58,7 +61,7 @@ class Organization
         GROUP_CONCAT(DISTINCT of.follower_id) AS organization_followers
         FROM organizations o
         LEFT JOIN organization_category_mapping ocm ON o.organization_id = ocm.organization_id
-        LEFT JOIN universities u_table ON o.university = u_table.id 
+        LEFT JOIN universities u_table ON o.university_id = u_table.id 
         LEFT JOIN organization_categories oc ON ocm.organization_category_id = oc.category_id
         LEFT JOIN organization_followers of ON o.organization_id =of.organization_id
         WHERE o.organization_id= :organization_id');
@@ -79,7 +82,7 @@ class Organization
         organization_name,
         short_caption,
         description, 
-        university, 
+        university_id, 
         contact_number, 
         website_url,
         contact_email,
@@ -89,13 +92,13 @@ class Organization
         organization_profile_image,
         organization_cover_image,
         board_members_image,
-        number_of_members ) VALUES(:user_id, :organization_name, :short_caption, :description, :university, :contact_number, :website_url, :contact_email, :facebook, :instagram, :linkedin, :organization_profile_image, :organization_cover_image, :board_members_image, :number_of_members)");
+        number_of_members ) VALUES(:user_id, :organization_name, :short_caption, :description, :university_id, :contact_number, :website_url, :contact_email, :facebook, :instagram, :linkedin, :organization_profile_image, :organization_cover_image, :board_members_image, :number_of_members)");
         //Bind values
         $this->db->bind(':user_id', $_SESSION['user_id']);
         $this->db->bind(':organization_name', $data['organization_name']);
         $this->db->bind(':short_caption', $data['short_caption']);
         $this->db->bind(':description', $data['description']);
-        $this->db->bind(':university', $data['university']);
+        $this->db->bind(':university_id', $data['university']);
         $this->db->bind(':contact_number', $data['contact_number']);
         $this->db->bind(':website_url', $data['website_url']);
         $this->db->bind(':contact_email', $data['contact_email']);
@@ -170,7 +173,7 @@ class Organization
                     GROUP_CONCAT(oc.category_name) AS category_names
                     FROM organizations o
                     LEFT JOIN organization_category_mapping ocm ON o.organization_id = ocm.organization_id
-                    LEFT JOIN universities u_table ON o.university = u_table.id 
+                    LEFT JOIN universities u_table ON o.university_id = u_table.id 
                     LEFT JOIN organization_categories oc ON ocm.organization_category_id = oc.category_id
                     WHERE 1=1';
 
@@ -227,7 +230,8 @@ class Organization
         return $row;
     }
 
-    public function totalOrganizationCount(){
+    public function totalOrganizationCount()
+    {
         $this->db->query('SELECT COUNT(*) AS total_organizations FROM organizations;');
 
         $row = $this->db->single();
@@ -236,68 +240,82 @@ class Organization
     }
 
     public function getFilterOrganizations($data)
-{
-    $keyword = $data['keyword'];
-    $university = $data['university'];
-    $category = $data['category'];
-    $status = $data['status'];
+    {
+        $keyword = $data['keyword'];
+        $university = $data['university'];
+        $category = $data['category'];
+        $status = $data['status'];
+        $approval = $data['approval'];
 
-    $query = 'SELECT 
-                o.*,
-                GROUP_CONCAT(c.category_name) AS category_names
-                FROM organizations o
-                INNER JOIN users u ON o.user_id = u.id
-                LEFT JOIN organization_category_mapping m ON o.organization_id = m.organization_id
-                LEFT JOIN universities u_table ON o.university = u_table.id 
-                LEFT JOIN organization_categories c ON m.organization_category_id = c.category_id
-                WHERE 1=1';
+        $query = 'SELECT 
+                    o.*,
+                    GROUP_CONCAT(c.category_name) AS category_names,
+                    u_table.name AS university_name
+                    FROM organizations o
+                    INNER JOIN users u ON o.user_id = u.id
+                    LEFT JOIN organization_category_mapping m ON o.organization_id = m.organization_id
+                    LEFT JOIN universities u_table ON o.university_id = u_table.id 
+                    LEFT JOIN organization_categories c ON m.organization_category_id = c.category_id
+                    WHERE 1=1';
 
-    if (!empty($keyword)) {
-        $query .= " AND o.organization_name LIKE :keyword";
-    }
-
-    if (!empty($university)) {
-        //$query .= " AND u_table.id = :uni_id";
-        $query .= " AND o.university = :university"; 
-    }
-
-    if (!empty($category)) {
-        $query .= " AND c.category_id = :category";
-    }
-
-    if (!empty($status)) {
-        $query .= " AND o.status = :status";
-    }
-
-    $query .= " GROUP BY o.organization_id";
-
-    // Prepare the query
-    $this->db->query($query);
-
-    // Bind values to the placeholders
-    if (!empty($keyword)) {
-        $this->db->bind(':keyword', '%' . $keyword . '%');
-    }
-
-    if (!empty($university)) {
-        $this->db->bind(':university', $university);
-    }
-
-    if (!empty($category)) {
-        $this->db->bind(':category', $category);
-    }
-
-    if (!empty($status)) {
-        if($status == 'active')
-            $this->db->bind(':status', 1);
-        elseif($status == 'deactivated'){
-            $this->db->bind(':status', 0);
+        if (!empty($keyword)) {
+            $query .= " AND o.organization_name LIKE :keyword";
         }
-    }
 
-    // Execute the query
-    return $this->db->resultSet();
-}
+        if (!empty($university)) {
+            //$query .= " AND u_table.id = :uni_id";
+            $query .= " AND o.university_id = :university";
+        }
+
+        if (!empty($category)) {
+            $query .= " AND c.category_id = :category";
+        }
+
+        if (!empty($status)) {
+            $query .= " AND o.status = :status";
+        }
+
+        if (!empty($approval)) {
+            $query .= " AND o.approval = :approval";
+        }
+
+        $query .= " GROUP BY o.organization_id";
+
+        // Prepare the query
+        $this->db->query($query);
+
+        // Bind values to the placeholders
+        if (!empty($keyword)) {
+            $this->db->bind(':keyword', '%' . $keyword . '%');
+        }
+
+        if (!empty($university)) {
+            $this->db->bind(':uni_id', $university);
+        }
+
+        if (!empty($category)) {
+            $this->db->bind(':category', $category);
+        }
+
+        if (!empty($approval)) {
+            $this->db->bind(':approval', $approval);
+        }
+
+        if (!empty($status)) {
+            if ($status == 'active')
+                $this->db->bind(':status', 1);
+            elseif ($status == 'deactivated') {
+                $this->db->bind(':status', 0);
+            }
+        }
+
+        // Execute the query
+        $this->db->execute();
+
+        // Fetch the results
+        $row = $this->db->resultSet();
+        return $row;
+    }
     public function getActivityByActivityId($activityId)
     {
         $this->db->query('SELECT * FROM organization_activities WHERE activity_id = :activity_id');
@@ -593,6 +611,20 @@ class Organization
         $this->db->query("UPDATE organization_news SET status = 0 WHERE news_id = :news_id");
         $this->db->bind(':news_id', $data['newsId']);
 
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function changeApproval($data)
+    {
+        $this->db->query("UPDATE organizations SET approval = :approval WHERE organization_id = :organization_id");
+        $this->db->bind(':organization_id', $data['organizationId']);
+        $this->db->bind(':approval', $data['selectedOrganizationApproval']);
+
+        // Execute the query
         if ($this->db->execute()) {
             return true;
         } else {
