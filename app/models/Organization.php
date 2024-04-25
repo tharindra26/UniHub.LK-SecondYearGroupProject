@@ -632,4 +632,18 @@ class Organization
         }
     }
 
+    public function checkOrganizationExist($email){
+        $this->db->query("SELECT * FROM organizations WHERE contact_email = :contact_email");
+        $this->db->bind(':contact_email', $email);
+
+        $row = $this->db->single();
+
+        //check row
+        if ($this->db->rowCount() > 0) {
+            return $row;
+        } else {
+            return false;
+        }
+    }
+
 }

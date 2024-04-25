@@ -84,10 +84,12 @@
 
 <script>
 
-    
-
 
     $(document).ready(function () {
+        // Get the value inside the urlRootValue div
+
+
+        // popup modal script
         // Add click event to the button
         $("#dashboard-btn").on("click", function (e) {
             //

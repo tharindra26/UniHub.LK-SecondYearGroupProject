@@ -1,6 +1,7 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <!-- <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/admin/adminprofile_style.css"> -->
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/admin/events_style.css">
+<link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/admin/posts_style.css">
 <h1 class="section-title">Posts</h1>
 <div class="summary">
     <div class="box total" id="all" onclick="mainPostsFilter('all');">
@@ -103,151 +104,266 @@
 </div>
 
 <h1 class="section-title">Posts Domains</h1>
+<div class="summary">
+    <div class="option search">
+        <div class="search-bar-container">
+            <form action="" class="search-bar">
+                <input type="text" name="searchInput" placeholder="Search Post Domains" id="search-bar-post-domain">
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+        </div>
+    </div>
+    <div class="add-post-domain-btn" onclick="addDomainForm()">
+        <i class="fa-regular fa-square-plus"></i>
+        <div class="add-post-domain-btn-txt">Post Domain</div>
+    </div>
 
-s
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="<?php echo URLROOT ?>/js/users/admin/posts.js"></script>
+</div>
+<div id="post-domain-content" class="post-domain-content">
 
-<script>
-    var URLROOT = document.querySelector('.urlRootValue').textContent.trim();
 
-    // Function to gather and handle all filter inputs
-    function handlePostFilters() {
-        var searchInputValue = $('#search-bar-post').val();
-        var selectedCategory = $('#category-filter-post').val();
-        var selectedApproval = $('#approval-filter-post').val();
-        var selectedStatus = $('#status-filter-post').val();
-        var startDate = $('#start-date-post').val(); 
-        var endDate = $('#end-date-post').val();
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        if (searchInputValue === "") {
-            searchInputValue = null;
-        }
+    <script>
 
-        // Check if the selected values are "None" and set them to null
-        if (selectedCategory === "None") {
-            selectedCategory = null;
-        }
-        if (selectedApproval === "None") {
-            selectedApproval = null;
-        }
-        if (selectedStatus === "None") {
-            selectedStatus = null;
-        }
+        var URLROOT = document.querySelector('.urlRootValue').textContent.trim();
 
-        // Perform any action you need with these values
-        // For example, make an AJAX request to fetch filtered events based on these inputs
-        // You can pass these values as parameters to your AJAX request
-        $.ajax({
-            type: 'POST',
-            url: URLROOT + '/posts/filterPosts',
-            data: {
-                keyword: searchInputValue,
-                university: "",
-                category: selectedCategory,
-                approval: selectedApproval,
-                status: selectedStatus,
-                startDate: startDate,
-                endDate: endDate
-            },
-            success: function (response) {
-                // Update the like count in the DOM
-                $("#posts-filter-table").html(response);
-            },
-            error: function (xhr, status, error) {
-                console.error('Fail to retreive:', error);
+
+
+        // Function to gather and handle all filter inputs
+        function handlePostFilters() {
+            var searchInputValue = $('#search-bar-post').val();
+            var selectedCategory = $('#category-filter-post').val();
+            var selectedApproval = $('#approval-filter-post').val();
+            var selectedStatus = $('#status-filter-post').val();
+            var startDate = $('#start-date-post').val();
+            var endDate = $('#end-date-post').val();
+
+            console.log(searchInputValue, selectedCategory, selectedApproval, selectedStatus, startDate, endDate);
+
+            if (searchInputValue === "") {
+                searchInputValue = null;
             }
-        });
-    }
-    handlePostFilters();
 
-    // Listen for changes in the search input
-    $('#search-bar-post').on('input', function () {
-        handlePostFilters();
-    });
+            // Check if the selected values are "None" and set them to null
+            if (selectedCategory === "None") {
+                selectedCategory = null;
+            }
+            if (selectedApproval === "None") {
+                selectedApproval = null;
+            }
+            if (selectedStatus === "None") {
+                selectedStatus = null;
+            }
+            if (startDate === "None") {
+                startDate = null;
+            }
+            if (endDate === "None") {
+                endDate = null;
+            }
 
-    // Listen for changes in the university dropdown
-    $('#category-filter-post').on('change', function () {
-        handlePostFilters();
-    });
-
-    // Listen for changes in the approval dropdown
-    $('#approval-filter-post').on('change', function () {
-        handlePostFilters();
-    });
-
-    // Listen for changes in the status dropdown
-    $('#status-filter-post').on('change', function () {
-        handlePostFilters();
-    });
-
-    $('#start-date-post').on('change', function () {
-        handlePostFilters();
-    });
-
-    $('#end-date-post').on('change', function () {
-        handlePostFilters();
-    });
-</script>
-
-<script>
-    // Function to reset other filters to default values
-    function resetOtherPostFilters() {
-        // Reset search input
-        document.getElementById("search-bar-post").value = "";
-
-        // Reset university filter to default
-        document.getElementById("category-filter-post").value = "";
-
-        // Reset approval filter to default
-        document.getElementById("approval-filter-post").value = "";
-
-        // Reset status filter to default
-        document.getElementById("status-filter-post").value = ""; // Fixed element ID here
-    }
-
-    function mainPostsFilter(type) {
-        // Reset other filters to default values
-        resetOtherPostFilters();
-        // Make AJAX request with the selected filter type
-        $.ajax({
-            url: URLROOT + '/posts/totalPostsFilter',
-            type: "POST",
-            data: {
-                value: type,
-            },
-            success: function (response) {
-                // Update the content section with the retrieved data
-                $("#posts-filter-table").html(response);
-            },
-            error: function (error) {
-                console.error("Error:", error);
-            },
-        });
-    }
-</script>
-
-<script>
-    // Counter starts
-    function initializeCount() {
-        totalValue = document.querySelectorAll(".tot");
-        let timeinterval = 200;
-
-        totalValue.forEach((valueDisplay) => {
-            let startValue = 0;
-            let endValue = parseInt(valueDisplay.getAttribute("data-val"));
-            let duration = Math.floor(timeinterval / endValue);
-            let counter = setInterval(() => {
-                startValue += 1;
-                valueDisplay.textContent = startValue;
-                if (startValue === endValue) {
-                    clearInterval(counter);
+            // Perform any action you need with these values
+            // For example, make an AJAX request to fetch filtered events based on these inputs
+            // You can pass these values as parameters to your AJAX request
+            $.ajax({
+                type: 'POST',
+                url: URLROOT + '/posts/filterPosts',
+                data: {
+                    keyword: searchInputValue,
+                    university: "",
+                    category: selectedCategory,
+                    approval: selectedApproval,
+                    status: selectedStatus,
+                    startDate: startDate,
+                    endDate: endDate
+                },
+                success: function (response) {
+                    // Update the like count in the DOM
+                    $("#posts-filter-table").html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Fail to retreive:', error);
                 }
-            }, duration);
-        });
-    }
+            });
+        }
+        handlePostFilters();
 
-    initializeCount();
-</script>
+        // Listen for changes in the search input
+        $('#search-bar-post').on('input', function () {
+            handlePostFilters();
+        });
+
+        // Listen for changes in the university dropdown
+        $('#category-filter-post').on('change', function () {
+            handlePostFilters();
+        });
+
+        // Listen for changes in the approval dropdown
+        $('#approval-filter-post').on('change', function () {
+            handlePostFilters();
+        });
+
+        // Listen for changes in the status dropdown
+        $('#status-filter-post').on('change', function () {
+            handlePostFilters();
+        });
+
+        $('#start-date-post').on('change', function () {
+            handlePostFilters();
+        });
+
+        $('#end-date-post').on('change', function () {
+            handlePostFilters();
+        });
+
+        // Function to reset other filters to default values
+        function resetOtherPostFilters() {
+            // Reset search input
+            document.getElementById("search-bar-post").value = "";
+
+            // Reset university filter to default
+            document.getElementById("category-filter-post").value = "";
+
+            // Reset approval filter to default
+            document.getElementById("approval-filter-post").value = "";
+
+            // Reset status filter to default
+            document.getElementById("status-filter-post").value = ""; // Fixed element ID here
+        }
+
+        function mainPostsFilter(type) {
+            // Reset other filters to default values
+            resetOtherPostFilters();
+            // Make AJAX request with the selected filter type
+            $.ajax({
+                url: URLROOT + '/posts/totalPostsFilter',
+                type: "POST",
+                data: {
+                    value: type,
+                },
+                success: function (response) {
+                    // Update the content section with the retrieved data
+                    $("#posts-filter-table").html(response);
+                },
+                error: function (error) {
+                    console.error("Error:", error);
+                },
+            });
+        }
+
+        // Counter starts
+        function initializeCount() {
+            totalValue = document.querySelectorAll(".tot");
+            let timeinterval = 200;
+
+            totalValue.forEach((valueDisplay) => {
+                let startValue = 0;
+                let endValue = parseInt(valueDisplay.getAttribute("data-val"));
+                let duration = Math.floor(timeinterval / endValue);
+
+                // If endValue is zero, set the text content immediately and return
+                if (endValue === 0) {
+                    valueDisplay.textContent = 0;
+                    return;
+                }
+
+                let counter = setInterval(() => {
+                    startValue += 1;
+                    valueDisplay.textContent = startValue;
+                    if (startValue === endValue) {
+                        clearInterval(counter);
+                    }
+                }, duration);
+            });
+        }
+
+        initializeCount();
+
+        function addDomain() {
+            // Retrieve values of website and domain inputs
+            var website = document.getElementById("website").value.trim();
+            var domain = document.getElementById("domain").value.trim();
+
+            // Get error spans
+            var websiteError = document.querySelector("#add-domain-popup .website-error-message");
+            var domainError = document.querySelector("#add-domain-popup .domain-error-message");
+
+            // Reset previous error messages
+            websiteError.textContent = "";
+            domainError.textContent = "";
+
+            // Check if either input is empty
+            var isValid = true;
+            if (website === "") {
+                websiteError.textContent = "Website is required.";
+                isValid = false;
+            }
+            if (domain === "") {
+                domainError.textContent = "Domain is required.";
+                isValid = false;
+            }
+
+            // If both inputs are filled, proceed
+            if (isValid) {
+                // Perform your action here, e.g., make AJAX request to add the domain
+                console.log("Website:", website);
+                console.log("Domain:", domain);
+
+                // Close the modal or do any other action if needed
+            }
+        }
+
+        function handleDomainFilters() {
+            var searchInputValue = $('#search-bar-post-domain').val();
+            console.log(searchInputValue);
+
+            if (searchInputValue === "") {
+                searchInputValue = null;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: URLROOT + '/posts/filterDomains',
+                data: {
+                    keyword: searchInputValue
+                },
+                success: function (response) {
+                    // Update the like count in the DOM
+                    $("#post-domain-content").html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Fail to retreive:', error);
+                }
+            });
+        }
+
+        $('#search-bar-post-domain').on('input', function () {
+            handleDomainFilters();
+        });
+
+        handleDomainFilters();
+
+        function addDomainForm() {
+            $.ajax({
+                url: URLROOT + '/posts/addDomainForm',
+                type: "POST",
+                data: {
+
+                },
+                success: function (response) {
+                    // Update the content section with the retrieved data
+                    $("#post-domain-content").html(response);
+                },
+                error: function (error) {
+
+                    console.error("Error:", error);
+                },
+            });
+        }
+
+
+
+
+    </script>

@@ -9,7 +9,8 @@ class User
         $this->db = new Database;
     }
 
-    public function addUserView($userId) {
+    public function addUserView($userId)
+    {
         $this->db->query('INSERT INTO user_views (user_id) VALUES (:userId)');
         $this->db->bind(':userId', $userId);
 
@@ -21,7 +22,8 @@ class User
         }
     }
 
-    public function getUsersCount() {
+    public function getUsersCount()
+    {
         $this->db->query('SELECT COUNT(*) AS user_count FROM users');
         $row = $this->db->single();
         return $row->user_count;
@@ -46,6 +48,115 @@ class User
         $this->db->bind(':description', "default_description");
         $this->db->bind(':profile_image', "default_profile_image.jpg");
         $this->db->bind(':cover_image', "default_cover_image.jpg");
+
+
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function getUserByEmail($email)
+    {
+        $this->db->query('SELECT u.*, ua.last_authentication_date, ua.google_auth_required, ua.successfully_authenticated 
+        FROM users u 
+        LEFT JOIN user_authentication ua ON u.id = ua.user_id WHERE email = :email');
+        $this->db->bind(':email', $email);
+
+        $row = $this->db->single();
+
+        //check row
+        if ($this->db->rowCount() > 0) {
+            return $row;
+        } else {
+            return false;
+        }
+    }
+
+    public function createAdmin($data){
+        $primaryUser= $this->getUserByEmail($data['secondaryEmail']);
+
+        $this->db->query("INSERT INTO users (email,secondary_email,type,password,status,verification_code,fname,lname,dob,university_id,contact_number,description,profile_image,cover_image) VALUES(:email, :secondary_email, :type,:password,:status,:verification_code,:fname,:lname,:dob,:university_id,:contact_number,:description,:profile_image,:cover_image)");
+        //Bind values
+        $this->db->bind(':email', $data['email']);
+        $this->db->bind(':secondary_email', $data['secondaryEmail']);
+        $this->db->bind(':type', "admin");
+        $this->db->bind(':password', $data['password']);
+        $this->db->bind(':status', true);
+        $this->db->bind(':verification_code', '');
+        $this->db->bind(':fname', $primaryUser->fname);
+        $this->db->bind(':lname', $primaryUser->lname);
+        $this->db->bind(':dob', $primaryUser->dob);
+        $this->db->bind(':university_id', $primaryUser->university_id);
+        $this->db->bind(':contact_number', $primaryUser->contact_number);
+        $this->db->bind(':description', $primaryUser->description);
+        $this->db->bind(':profile_image', $primaryUser->profile_image);
+        $this->db->bind(':cover_image', $primaryUser->cover_image);
+
+
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function createUniRep($data){
+        $primaryUser= $this->getUserByEmail($data['secondaryEmail']);
+
+        $this->db->query("INSERT INTO users (email,secondary_email,type,password,status,verification_code,fname,lname,dob,university_id,contact_number,description,profile_image,cover_image) VALUES(:email, :secondary_email, :type,:password,:status,:verification_code,:fname,:lname,:dob,:university_id,:contact_number,:description,:profile_image,:cover_image)");
+        //Bind values
+        $this->db->bind(':email', $data['email']);
+        $this->db->bind(':secondary_email', $data['secondaryEmail']);
+        $this->db->bind(':type', "unirep");
+        $this->db->bind(':password', $data['password']);
+        $this->db->bind(':status', true);
+        $this->db->bind(':verification_code', '');
+        $this->db->bind(':fname', $primaryUser->fname);
+        $this->db->bind(':lname', $primaryUser->lname);
+        $this->db->bind(':dob', $primaryUser->dob);
+        $this->db->bind(':university_id', $primaryUser->university_id);
+        $this->db->bind(':contact_number', $primaryUser->contact_number);
+        $this->db->bind(':description', $primaryUser->description);
+        $this->db->bind(':profile_image', $primaryUser->profile_image);
+        $this->db->bind(':cover_image', $primaryUser->cover_image);
+
+
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getOrganizationByEmail($email){
+        $this->db->query('SELECT * FROM organizations WHERE contact_email = :contact_email');
+        $this->db->bind(':contact_email', $email);
+        $row = $this->db->single();
+        return $row;
+    }
+
+    public function creatOrgRep($data){
+        $organization= $this->getOrganizationByEmail($data['email']);
+        $this->db->query("INSERT INTO users (email,secondary_email,type,password,status,verification_code,fname,lname,dob,university_id,contact_number,description,profile_image,cover_image) VALUES(:email, :secondary_email, :type,:password,:status,:verification_code,:fname,:lname,:dob,:university_id,:contact_number,:description,:profile_image,:cover_image)");
+        //Bind values
+        $this->db->bind(':email', $data['email']);
+        $this->db->bind(':secondary_email', $data['email']);
+        $this->db->bind(':type', "orgrep");
+        $this->db->bind(':password', $data['password']);
+        $this->db->bind(':status', true);
+        $this->db->bind(':verification_code', '');
+        $this->db->bind(':fname', $organization->organization_name);
+        $this->db->bind(':lname', $organization->organization_name);
+        $this->db->bind(':dob', '');
+        $this->db->bind(':university_id', $organization->university_id);
+        $this->db->bind(':contact_number', $organization->contact_email);
+        $this->db->bind(':description', $organization->description);
+        $this->db->bind(':profile_image', $organization->organization_profile_image);
+        $this->db->bind(':cover_image', $organization->organization_cover_image);
 
 
         //Execute the query
@@ -200,7 +311,8 @@ class User
         return $results;
     }
 
-    public function getAllUniversities(){
+    public function getAllUniversities()
+    {
         $this->db->query('SELECT * FROM universities');
         $results = $this->db->resultSet();
         return $results;
@@ -222,22 +334,7 @@ class User
         }
     }
 
-    public function getUserByEmail($email)
-    {
-        $this->db->query('SELECT u.*, ua.last_authentication_date, ua.google_auth_required, ua.successfully_authenticated 
-        FROM users u 
-        LEFT JOIN user_authentication ua ON u.id = ua.user_id WHERE email = :email');
-        $this->db->bind(':email', $email);
-
-        $row = $this->db->single();
-
-        //check row
-        if ($this->db->rowCount() > 0) {
-            return $row;
-        } else {
-            return false;
-        }
-    }
+    
 
     public function getUserByName($name)
     {
@@ -579,7 +676,8 @@ class User
         return $row;
     }
 
-    public function getFollowingOrganizations($user_id){
+    public function getFollowingOrganizations($user_id)
+    {
         // $this->db->query('SELECT * FROM user_organizations
         //                 INNER JOIN
         //                 WHERE user_id = :user_id');
@@ -646,46 +744,55 @@ class User
     public function filterUsers($data)
     {
         $keyword = $data['keyword'];
-        //$date = $data['date'];
-        //$university = trim($data['university']);
+        $type = isset($data['type']) ? $data['type'] : null;
+        $status = isset($data['status']) ? $data['status'] : null;
+        $universityId = isset($data['university_id']) ? $data['university_id'] : null;
+
+
 
         $query = 'SELECT *
                     FROM users 
                     WHERE 1=1';
 
         if (!empty($keyword)) {
-            $query .= " AND email LIKE :keyword
-                        OR type LIKE :keyword
-                        OR fname LIKE :keyword
-                        OR lname LIKE :keyword";
-
+            $query .= " AND (email LIKE :keyword
+                    OR type LIKE :keyword
+                    OR fname LIKE :keyword
+                    OR lname LIKE :keyword)";
+        }
+        if (!empty($type)) {
+            $query .= " AND type = :type";
+        }
+        if (!empty($status)) {
+            $query .= " AND status = :status";
+        }
+        if (!empty($universityId)) {
+            $query .= " AND university_id = :university_id";
         }
 
-        // if (!empty($date)) {
-        //     $formattedDate = date('Y-m-d', strtotime($date));
-        //     $query .= " AND DATE(e.start_datetime) = :formattedDate";
-        // }
 
-        // if (!empty($university)) {
-        //     $query .= " AND u_table.name = :university";
-        // }
-
-
-        // Prepare the query
         $this->db->query($query);
 
         // Bind values to the placeholders
         if (!empty($keyword)) {
             $this->db->bind(':keyword', '%' . $keyword . '%');
         }
-
-        // if (!empty($date)) {
-        //     $this->db->bind(':formattedDate', $formattedDate);
-        // }
-
-        // if (!empty($university)) {
-        //     $this->db->bind(':university', $university);
-        // }
+        if (!empty($type)) {
+            $this->db->bind(':type', $type);
+        }
+        if (!empty($status)) {
+            if($status == 'activated')
+                $this->db->bind(':status', 1);
+            elseif($status == 'deactivated'){
+                $this->db->bind(':status', 0);
+            }
+        }
+        if (!empty($approval)) {
+            $this->db->bind(':approval', $approval);
+        }
+        if (!empty($universityId)) {
+            $this->db->bind(':university_id', $universityId);
+        }
 
 
         // Execute the query
@@ -713,7 +820,8 @@ class User
         return $rows;
     }
 
-    public function getAllRequests(){
+    public function getAllRequests()
+    {
         $this->db->query('SELECT * FROM events, posts, organizations, opportunities
                         WHERE events.approval == :event_approval
                         OR posts.approval == :posts_approval
