@@ -2,10 +2,9 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/admin/adminprofile_style.css">
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/admin/requests_style.css">
-<h1 class="section-title">Requests</h1>
 
-<div class="event-requests-section">
-    <div class="event-requests-title">Event Requests</div>
+
+<div class="event-requests-section approval-main-section">
     <div class="summary">
         <div class="option table-heading">
             <div class="user-head">
@@ -24,11 +23,10 @@
     <div id="event-request-content" class="event-request-content">
 
     </div>
+
 </div>
 
-
-
-<div class="organization-requests-section">
+<div class="organization-requests-section approval-main-section">
     <div class="summary">
         <div class="option table-heading">
             <div class="user-head">
@@ -48,7 +46,7 @@
 
     </div>
 </div>
-<div class="post-requests-section">
+<div class="post-requests-section approval-main-section">
     <div class="summary">
         <div class="option table-heading">
             <div class="user-head">
@@ -69,7 +67,7 @@
 </div>
 
 
-<div class="opportunity-requests-section">
+<div class="opportunity-requests-section approval-main-section">
     <div class="summary">
         <div class="option table-heading">
             <div class="user-head">
@@ -240,15 +238,13 @@
             url: URLROOT + '/opportunities/filterOpportunitiesByApproval',
             data: {
                 keyword: '',
-                category: '',
-                approval: selectedPostFilterValue,
+                opportunityType: '',
+                approval: selectedOpportunityFilterValue,
                 status: '0',
-                startDate: '',
-                endDate: ''
             },
             success: function (response) {
                 // Update the like count in the DOM
-                $("#post-request-content").html(response);
+                $("#opportunity-request-content").html(response);
             },
             error: function (xhr, status, error) {
                 console.error('Fail to retreive:', error);
@@ -257,10 +253,10 @@
 
     }
 
-    handlePostFilters();
+    handleOpportunityFilters();
     // Listen for changes in the approval dropdown
-    $('#post-filter-value').on('change', function () {
-        handlePostFilters();
+    $('#opportunity-filter-value').on('change', function () {
+        handleOpportunityFilters();
     });
 
 
