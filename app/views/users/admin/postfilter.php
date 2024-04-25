@@ -50,7 +50,7 @@
                                  ?></div>
                     </td>
                     <td class="action">
-                        <a href="<?php echo URLROOT ?>/posts/show/<?php echo $post->id ?>" class="view">
+                        <a href="<?php echo URLROOT ?>/posts/show/<?php echo $post->post_id ?>" class="view">
                             <i class="fa-solid fa-eye"></i>
                         </a>
                         <a href="<?php echo URLROOT ?>/posts/settings/<?php echo $post->id ?>" class="update">

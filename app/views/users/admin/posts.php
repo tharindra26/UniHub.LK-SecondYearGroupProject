@@ -1,7 +1,7 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <!-- <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/admin/adminprofile_style.css"> -->
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/admin/events_style.css">
-<h1 class="section-title">Events</h1>
+<h1 class="section-title">Posts</h1>
 <div class="summary">
     <div class="box total" id="all" onclick="mainPostsFilter('all');">
         <div class="box-content">
@@ -101,6 +101,10 @@
 <div class="users" id="posts-filter-table">
 
 </div>
+
+<h1 class="section-title">Posts Domains</h1>
+
+s
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
