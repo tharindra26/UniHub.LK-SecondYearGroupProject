@@ -412,6 +412,86 @@ class Opportunity
         }
     }
 
+    public function getFilterOpportunities($data)
+    {
+        $keyword = $data['keyword'];
+        $opportunityType = $data['opportunityType'];
+        $approval = $data['approval'];
+        $status = $data['status'];
+
+        $query = 'SELECT 
+                    o.*,
+                    GROUP_CONCAT(ot.tag) AS opportunity_tags,
+                    GROUP_CONCAT(otp.title_position) AS title_positions
+                    FROM opportunities o
+                    LEFT JOIN opportunity_tags ot ON o.id = ot.opportunity_id
+                    LEFT JOIN opportunity_title_positions otp ON o.id = otp.opportunity_id 
+                    WHERE 1=1';
+
+        if (!empty($keyword)) {
+            $query .= " AND o.opportunity_title LIKE :keyword";
+        }
+
+        if (!empty($opportunityType)) {
+            $query .= " AND o.opportunity_type = :opportunity_type";
+        }
+
+        if (!empty($approval)) {
+            $query .= " AND o.approval = :approval";
+        }
+
+        if (!empty($status)) {
+            $query .= " AND o.status = :status";
+        }
+
+        $query .= " GROUP BY o.id";
+
+        // Prepare the query
+        $this->db->query($query);
+
+        // Bind values to the placeholders
+        if (!empty($keyword)) {
+            $this->db->bind(':keyword', '%' . $keyword . '%');
+        }
+
+        if (!empty($opportunityType)) {
+            $this->db->bind(':opportunity_type', $opportunityType);
+        }
+
+        if (!empty($approval)) {
+            $this->db->bind(':approval', $approval);
+        }
+
+        if (!empty($status)) {
+            if($status == 'activated')
+                $this->db->bind(':status', 1);
+            elseif($status == 'deactivated'){
+                $this->db->bind(':status', 0);
+            }
+        }
+        
+        // Execute the query
+        $this->db->execute();
+
+        // Fetch the results
+        $row = $this->db->resultSet();
+        return $row;
+
+    }
+
+    public function changeApproval($data){
+        $this->db->query("UPDATE opportunities SET approval = :approval WHERE id = :id");
+        $this->db->bind(':id', $data['opportunityId']);
+        $this->db->bind(':approval', $data['selectedOpportunityApproval']);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 
 

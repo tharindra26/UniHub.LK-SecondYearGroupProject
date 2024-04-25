@@ -709,5 +709,44 @@ class Opportunities extends Controller
     }
   }
 
+  public function filterOpportunitiesByApproval()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+      // Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      $opportunities = $this->opportunityModel->getFilterOpportunities($_POST);
+
+      $data = [
+        'opportunities' => $opportunities,
+      ];
+
+      $this->view('users/admin/opportunityApprovalfilter', $data);
+
+    }
+  }
+
+  public function changeApproval()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $opportunityId = $_POST['opportunityId'];
+      $selectedOpportunityApproval = $_POST['selectedOpportunityApproval'];
+      $data = [
+        'opportunityId' => $opportunityId,
+        'selectedOpportunityApproval' => $selectedOpportunityApproval,
+      ];
+
+      if ($this->opportunityModel->changeApproval($data)) {
+        echo true;
+      } else {
+        echo false;
+      }
+
+    }
+
+  }
+
 }
 
