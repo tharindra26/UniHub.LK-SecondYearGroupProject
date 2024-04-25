@@ -236,65 +236,68 @@ class Organization
     }
 
     public function getFilterOrganizations($data)
-    {
-        $keyword = $data['keyword'];
-        $university = $data['university'];
-        $category = $data['category'];
-        $status = $data['status'];
+{
+    $keyword = $data['keyword'];
+    $university = $data['university'];
+    $category = $data['category'];
+    $status = $data['status'];
 
-        $query = 'SELECT 
-                    o.*,
-                    GROUP_CONCAT(c.category_name) AS category_names
-                    FROM organizations o
-                    INNER JOIN users u ON o.user_id = u.id
-                    LEFT JOIN organization_category_mapping m ON o.organization_id = m.organization_id
-                    LEFT JOIN universities u_table ON e.university_id = u_table.id 
-                    LEFT JOIN organization_categories c ON m.organization_category_id = c.category_id
-                    WHERE 1=1';
+    $query = 'SELECT 
+                o.*,
+                GROUP_CONCAT(c.category_name) AS category_names
+                FROM organizations o
+                INNER JOIN users u ON o.user_id = u.id
+                LEFT JOIN organization_category_mapping m ON o.organization_id = m.organization_id
+                LEFT JOIN universities u_table ON o.university = u_table.id 
+                LEFT JOIN organization_categories c ON m.organization_category_id = c.category_id
+                WHERE 1=1';
 
-        if (!empty($keyword)) {
-            $query .= " AND o.organization_name LIKE :keyword";
+    if (!empty($keyword)) {
+        $query .= " AND o.organization_name LIKE :keyword";
+    }
+
+    if (!empty($university)) {
+        //$query .= " AND u_table.id = :uni_id";
+        $query .= " AND o.university = :university"; 
+    }
+
+    if (!empty($category)) {
+        $query .= " AND c.category_id = :category";
+    }
+
+    if (!empty($status)) {
+        $query .= " AND o.status = :status";
+    }
+
+    $query .= " GROUP BY o.organization_id";
+
+    // Prepare the query
+    $this->db->query($query);
+
+    // Bind values to the placeholders
+    if (!empty($keyword)) {
+        $this->db->bind(':keyword', '%' . $keyword . '%');
+    }
+
+    if (!empty($university)) {
+        $this->db->bind(':university', $university);
+    }
+
+    if (!empty($category)) {
+        $this->db->bind(':category', $category);
+    }
+
+    if (!empty($status)) {
+        if($status == 'active')
+            $this->db->bind(':status', 1);
+        elseif($status == 'deactivated'){
+            $this->db->bind(':status', 0);
         }
+    }
 
-        if (!empty($university)) {
-            //$query .= " AND u_table.id = :uni_id";
-            $query .= " AND o.university = :university"; 
-        }
-
-        if (!empty($category)) {
-            $query .= " AND c.category_id = :category";
-        }
-
-        if (!empty($status)) {
-            $query .= " AND o.status = :status";
-        }
-
-        $query .= " GROUP BY o.organization_id";
-
-        // Prepare the query
-        $this->db->query($query);
-
-        // Bind values to the placeholders
-        if (!empty($keyword)) {
-            $this->db->bind(':keyword', '%' . $keyword . '%');
-        }
-
-        if (!empty($university)) {
-            $this->db->bind(':uni_id', $university);
-        }
-
-        if (!empty($category)) {
-            $this->db->bind(':category', $category);
-        }
-
-        if (!empty($status)) {
-            if($status == 'active')
-                $this->db->bind(':status', 1);
-            elseif($status == 'deactivated'){
-                $this->db->bind(':status', 0);
-            }
-        }
-    }    
+    // Execute the query
+    return $this->db->resultSet();
+}
     public function getActivityByActivityId($activityId)
     {
         $this->db->query('SELECT * FROM organization_activities WHERE activity_id = :activity_id');

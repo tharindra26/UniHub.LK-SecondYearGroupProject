@@ -1093,13 +1093,13 @@ class Users extends Controller
 
   public function organizations()
   {
-    $event = $this->organizationModel->getAllOrganizations();
+    $organization = $this->organizationModel->getAllOrganizations();
     $totalOrganizations = $this->organizationModel->totalOrganizationCount();
     $universities = $this->userModel->getAllUniversities();
     $categories = $this->organizationModel->getOrganizationCategories();
 
     $data = [
-      'organization' => $event,
+      'organization' => $organization,
       'totalOrganizations' => $totalOrganizations,
       'universities' => $universities,
       'categories' => $categories

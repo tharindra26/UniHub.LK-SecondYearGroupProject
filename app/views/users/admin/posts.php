@@ -5,7 +5,7 @@
 <div class="summary">
     <div class="box total" id="all" onclick="mainEventFilter('all');">
         <div class="box-content">
-            <h3>All Events</h3>
+            <h3>Total Posts</h3>
         </div>
         <div class="">
             <span class="tot" data-val="<?php echo $data['totalEvents']->total_events; ?>">0000</span>
@@ -16,7 +16,7 @@
     </div>
     <div class="box ongoing" id="ongoing" onclick="mainEventFilter('ongoing');">
         <div class="box-content">
-            <h3>Ongoing Events</h3>
+            <h3>Published Posts</h3>
         </div>
         <div class="">
             <span class="tot" data-val="<?php echo $data['ongoingEvents']->ongoing_events; ?>">0000</span>
@@ -27,7 +27,7 @@
     </div>
     <div class="box due" id="due" onclick="mainEventFilter('due');">
         <div class="box-content">
-            <h3>Due Events</h3>
+            <h3>Pending Posts</h3>
         </div>
         <div class="">
             <span class="tot" data-val="<?php echo $data['dueEvents']->due_events; ?>">0000</span>
