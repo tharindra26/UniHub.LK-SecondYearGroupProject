@@ -187,14 +187,14 @@ li.selected {
 
 .summary .table-heading{
     width: calc(100% / 2 - 10px);
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .summary .filter{
     width: calc(100% / 4 - 10px);
     align-items: center;
     justify-content: center;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .dropdown-menu{
@@ -208,3 +208,8 @@ li.selected {
 }
 
 /* Events css ends */
+
+
+.approval-main-section{
+    margin-bottom: 60px;
+}
