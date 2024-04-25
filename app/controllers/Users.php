@@ -965,8 +965,10 @@ class Users extends Controller
   public function useraccounts()
   {
     $user = $this->userModel->getRecentlyLoggedInUsers();
+    $universities = $this->userModel->getAllUniversities();
     $data = [
-      'user' => $user
+      'user' => $user,
+      'universities' => $universities
     ];
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -2050,6 +2052,66 @@ class Users extends Controller
         echo false;
       }
     }
+  }
+
+  public function addUserForm()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $data = [
+      ];
+      $this->view('users/admin/addUserForm', $data);
+    }
+  }
+
+  public function checkUserExist()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $email = $_POST['email'];
+      if ($this->userModel->findUserByEmail($email)) {
+        echo true;
+      } else {
+        echo false;
+      }
+
+    }
+  }
+
+  public function addSpecialUser(){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $email = $_POST['email'];
+      $secondary_email = $_POST['secondaryEmail'];
+      $type = $_POST['userType'];
+      $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    }
+    $data=[
+      'email'=>$email,
+      'secondaryEmail'=>$secondary_email,
+      'password'=> $password,
+    ];
+    if($type=='admin'){
+      
+      if ($this->userModel->createAdmin($data)) {
+        echo 'success';
+        echo true;
+      } else {
+        echo false;
+      }
+    }else if($type=='orgrep'){
+      if ($this->userModel->creatOrgRep($data)) {
+        echo true;
+      } else {
+        echo false;
+      }
+    }else{
+      if ($this->userModel->createUniRep($data)) {
+        echo true;
+      } else {
+        echo false;
+      }
+    }
+      
   }
 
 }

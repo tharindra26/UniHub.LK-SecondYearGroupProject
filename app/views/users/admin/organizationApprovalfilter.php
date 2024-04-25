@@ -24,7 +24,7 @@
                 <tr>
                     <td><?php echo $organization->organization_id ?></td>
                     <td><?php echo $organization->organization_name ?></td>
-                    <td><?php echo $organization->contact_email ?></td>
+                    <td class="email-column" data-full-text="long.email.address@example.com"><?php echo $organization->contact_email ?></td>
                     <td><?php echo $organization->university_name ?></td>
                     <td><?php echo $organization->contact_number ?></td>
                     <td>
@@ -58,6 +58,12 @@
                             </select>
 
                         </div>
+
+                    </td>
+                    <td>
+                        <a href="<?php echo URLROOT ?>/Organizations/show/<?php echo $organization->organization_id ?>" class="view-btn">
+                            <i class="fa-solid fa-eye"></i>
+                        </a>
 
                     </td>
                 </tr>
