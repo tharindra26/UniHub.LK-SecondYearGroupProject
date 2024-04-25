@@ -140,7 +140,7 @@
             success: function (response) {
                 // Update the like count in the DOM
                 console.log(response);
-                $('#approval-filter-value').val('');
+                $('#approval-filter-value').val('pending');
                 // Manually trigger the change event to apply the selection
                 $('#approval-filter-value').change();
             },

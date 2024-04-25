@@ -45,7 +45,7 @@ class Organizations extends Controller
         'organization_name' => trim($_POST['organization_name']),
         'short_caption' => trim($_POST['short_caption']),
         'description' => trim($_POST['description']),
-        'university' => (trim($_POST['university']) == 'Select University' ? '' : trim($_POST['university'])),
+        'university' => trim($_POST['university']),
         'categories' => isset($_POST['categories']) ? $_POST['categories'] : [],
         'website_url' => trim($_POST['website_url']),
         'contact_email' => trim($_POST['contact_email']),
@@ -314,6 +314,28 @@ class Organizations extends Controller
       ];
 
       $this->view('users/admin/organizationfilter', $data);
+
+    }
+  }
+
+  public function filterOrganizationsByApproval()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+      // Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      // var_dump($_POST);
+      // die();
+
+      // $keyword = $_POST['keyword'];
+      // $date = $_POST['date'];
+      $organizations = $this->organizationModel->getFilterOrganizations($_POST);
+
+      $data = [
+        'organizations' => $organizations,
+      ];
+
+      $this->view('users/admin/organizationApprovalfilter', $data);
 
     }
   }
@@ -1155,6 +1177,27 @@ class Organizations extends Controller
         echo false;
       }
     }
+  }
+
+  public function changeApproval()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $organizationId = $_POST['organizationId'];
+      $selectedOrganizationApproval = $_POST['selectedOrganizationApproval'];
+      $data = [
+        'organizationId' => $organizationId,
+        'selectedOrganizationApproval' => $selectedOrganizationApproval,
+      ];
+
+      if ($this->organizationModel->changeApproval($data)) {
+        echo true;
+      } else {
+        echo false;
+      }
+
+    }
+
   }
 
 

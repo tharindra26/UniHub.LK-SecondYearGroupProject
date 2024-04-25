@@ -389,7 +389,7 @@ class Posts extends Controller
 
       //Init data
       $data = [
-        'post_id'=>$postId,
+        'post_id' => $postId,
         'post_title' => trim($_POST['post_title']),
         'post_description' => trim($_POST['post_description']),
         'material_link' => trim($_POST['material_link']),
@@ -510,7 +510,7 @@ class Posts extends Controller
     } else {
       // Init data
       $data = [
-        'post_id'=>$postId,
+        'post_id' => $postId,
         'post_title' => $post->post_title,
         'post_description' => $post->post_description,
         'material_link' => $post->material_link,
@@ -532,6 +532,29 @@ class Posts extends Controller
 
       // Load view
       $this->view('posts/post-update', $data);
+    }
+  }
+
+
+  public function filterPostsByApproval()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+      // Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      // var_dump($_POST);
+      // die();
+
+      // $keyword = $_POST['keyword'];
+      // $date = $_POST['date'];
+      $organizations = $this->postsModel->getFilterPosts($_POST);
+
+      $data = [
+        'organizations' => $organizations,
+      ];
+
+      $this->view('users/admin/postsApprovalfilter', $data);
+
     }
   }
 
