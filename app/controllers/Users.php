@@ -1093,13 +1093,13 @@ class Users extends Controller
 
   public function organizations()
   {
-    $event = $this->organizationModel->getAllOrganizations();
+    $organization = $this->organizationModel->getAllOrganizations();
     $totalOrganizations = $this->organizationModel->totalOrganizationCount();
     $universities = $this->userModel->getAllUniversities();
     $categories = $this->organizationModel->getOrganizationCategories();
 
     $data = [
-      'organization' => $event,
+      'organization' => $organization,
       'totalOrganizations' => $totalOrganizations,
       'universities' => $universities,
       'categories' => $categories
@@ -1110,14 +1110,26 @@ class Users extends Controller
     }
   }
 
-  public function knowledgehub()
+  public function posts()
   {
-    $data = [
+    $post = $this->postModel->getAllPosts();
+    $totalPosts = $this->postModel->getPostsCount();
+    $universities = $this->userModel->getAllUniversities();
+    $categories = $this->postModel->getPostCategories();
+    $publishedCount = $this->postModel->getPublishedPostCount();
+    $pendingCount = $this->postModel->getPendingPostCount();
 
+    $data = [
+      'post' => $post,
+      'totalPosts' => $totalPosts,
+      'universities' => $universities,
+      'categories' => $categories,
+      'publishedPostsCount' => $publishedCount,
+      'pendingPostsCount' => $pendingCount
     ];
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      $this->view('users/admin/knowledgehub', $data);
+      $this->view('users/admin/posts', $data);
     }
   }
 

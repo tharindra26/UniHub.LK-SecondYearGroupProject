@@ -1,4 +1,3 @@
-
   
   function updateUser(confirm) {
     // // Your AJAX function here

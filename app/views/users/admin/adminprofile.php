@@ -38,9 +38,9 @@
                 <span><i class="fa-solid fa-grip"></i></span>
                 <h3>Organizations</h3>
             </a>
-            <a href="#" id="knowledge-hub-btn">
+            <a href="#" id="posts-btn">
                 <span><i class="fa-solid fa-grip"></i></span>
-                <h3>Knowledge Hub</h3>
+                <h3>Posts</h3>
             </a>
             <a href="#" id="opportunities-btn">
                 <span><i class="fa-solid fa-grip"></i></span>
@@ -57,7 +57,7 @@
             </a>
             <a href="#" id="reports-btn">
                 <span><i class="fa-solid fa-circle-exclamation"></i></span>
-                <h3>Reports</h3>
+                <h3>Inqueries</h3>
                 <span class="rq_count">20</span>
             </a>
             <a href="#" id="settings-btn">
@@ -170,12 +170,12 @@
             });
         });
 
-        $("#knowledge-hub-btn").on("click", function (e) {
+        $("#posts-btn").on("click", function (e) {
 
             e.preventDefault(); // Prevent the default link behavior
             // // Your AJAX function here
             $.ajax({
-                url: 'http://localhost/unihub/users/knowledgehub',
+                url: 'http://localhost/unihub/users/posts',
                 type: 'POST', // or 'GET' depending on your needs
                 data: {
 

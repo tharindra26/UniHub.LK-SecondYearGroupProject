@@ -8,7 +8,8 @@ class Organization
         $this->db = new Database;
     }
 
-    public function addOrganizationView($organizationId) {
+    public function addOrganizationView($organizationId)
+    {
         $this->db->query('INSERT INTO organization_views (organization_id) VALUES (:organizationId)');
         $this->db->bind(':organizationId', $organizationId);
 
@@ -20,7 +21,8 @@ class Organization
         }
     }
 
-    public function getOrganizationsCount() {
+    public function getOrganizationsCount()
+    {
         $this->db->query('SELECT COUNT(*) AS organization_count FROM organizations');
         $row = $this->db->single();
         return $row->organization_count;
@@ -35,7 +37,8 @@ class Organization
         return $results;
     }
 
-    public function getAllOrganizations(){
+    public function getAllOrganizations()
+    {
         $this->db->query('SELECT 
                         o.*,
                         -- u_table.name AS university_name,
@@ -45,10 +48,10 @@ class Organization
                         -- LEFT JOIN universities u_table ON o.university = u_table.id 
                         LEFT JOIN organization_categories oc ON ocm.organization_category_id = oc.category_id
                         GROUP BY o.organization_id');
-            $results = $this->db->resultSet();
-            return $results;
-      }
-    
+        $results = $this->db->resultSet();
+        return $results;
+    }
+
 
     public function getOrganizationById($organization_id)
     {
@@ -227,7 +230,8 @@ class Organization
         return $row;
     }
 
-    public function totalOrganizationCount(){
+    public function totalOrganizationCount()
+    {
         $this->db->query('SELECT COUNT(*) AS total_organizations FROM organizations;');
 
         $row = $this->db->single();
@@ -260,7 +264,7 @@ class Organization
 
         if (!empty($university)) {
             //$query .= " AND u_table.id = :uni_id";
-            $query .= " AND o.university_id = :university"; 
+            $query .= " AND o.university_id = :university";
         }
 
         if (!empty($category)) {
@@ -286,7 +290,7 @@ class Organization
         }
 
         if (!empty($university)) {
-            $this->db->bind(':uni_id', $university);
+            $this->db->bind(':university', $university);
         }
 
         if (!empty($category)) {
@@ -298,9 +302,9 @@ class Organization
         }
 
         if (!empty($status)) {
-            if($status == 'active')
+            if ($status == 'active')
                 $this->db->bind(':status', 1);
-            elseif($status == 'deactivated'){
+            elseif ($status == 'deactivated') {
                 $this->db->bind(':status', 0);
             }
         }
@@ -311,7 +315,7 @@ class Organization
         // Fetch the results
         $row = $this->db->resultSet();
         return $row;
-    }    
+    }
     public function getActivityByActivityId($activityId)
     {
         $this->db->query('SELECT * FROM organization_activities WHERE activity_id = :activity_id');
@@ -614,7 +618,8 @@ class Organization
         }
     }
 
-    public function changeApproval($data){
+    public function changeApproval($data)
+    {
         $this->db->query("UPDATE organizations SET approval = :approval WHERE organization_id = :organization_id");
         $this->db->bind(':organization_id', $data['organizationId']);
         $this->db->bind(':approval', $data['selectedOrganizationApproval']);

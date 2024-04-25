@@ -262,7 +262,7 @@ class Organizations extends Controller
 
   public function searchOrganizations()
   {
-    
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
       // Sanitize post data
@@ -295,7 +295,7 @@ class Organizations extends Controller
     $this->view('organizations/organization-show', $data);
   }
 
-  
+
   public function filterOrganizations()
   {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -343,23 +343,23 @@ class Organizations extends Controller
   public function totalOrgFilter(){
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    // Sanitize post data
-    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      // Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-    $type = $_POST['value'];
+      $type = $_POST['value'];
 
-    if($type == "all"){
-      $organizations = $this->organizationModel->getAllOrganizations();
+      if ($type == "all") {
+        $organizations = $this->organizationModel->getAllOrganizations();
+      }
+
+
+      $data = [
+        'organizations' => $organizations,
+      ];
+
+      $this->view('users/admin/organizationfilter', $data);
+
     }
-   
-
-    $data = [
-      'organizations' => $organizations,
-    ];
-
-    $this->view('users/admin/organizationfilter', $data);
-
-  }
   }
 
 
@@ -636,7 +636,7 @@ class Organizations extends Controller
     // if (!isLoggedIn()) {
     //   redirect('/users/login');
     // }
-    $news= $this-> organizationModel->getNewsByNewsId($id);
+    $news = $this->organizationModel->getNewsByNewsId($id);
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       //process form
@@ -731,7 +731,7 @@ class Organizations extends Controller
 
   public function settings($id)
   {
-    $organization=$this->organizationModel->getOrganizationById($id);
+    $organization = $this->organizationModel->getOrganizationById($id);
     $data = [
       'id' => $id,
       'organization' => $organization
@@ -1038,8 +1038,8 @@ class Organizations extends Controller
         empty($data['website_url_err']) &&
         empty($data['facebook_err']) &&
         empty($data['instagram_err']) &&
-        empty($data['linkedin_err']) ) 
-        {
+        empty($data['linkedin_err'])
+      ) {
         //Validated
         if ($this->organizationModel->updateSocialMedia($data)) {
           redirect('organizations/show/' . $organizationId);
@@ -1056,7 +1056,7 @@ class Organizations extends Controller
 
     } else {
       //get existing post from model
-      
+
 
       // Init data
       $data = [
@@ -1077,7 +1077,8 @@ class Organizations extends Controller
     }
   }
 
-  public function changeOrganizationCategories($organizationId){
+  public function changeOrganizationCategories($organizationId)
+  {
     $organizationCategories = $this->organizationModel->getOrganizationCategoriesById($organizationId);
     $allCategories = $this->organizationModel->getOrganizationCategories();
     $data = [
@@ -1108,7 +1109,8 @@ class Organizations extends Controller
     }
   }
 
-  public function deleteOrganizationCategory(){
+  public function deleteOrganizationCategory()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
       $categoryId = $_POST['categoryId'];
@@ -1131,21 +1133,22 @@ class Organizations extends Controller
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
       $id = $_POST['organizationId'];
 
-      $organizationStatus= $this->organizationModel->getOrganizationStatusById($id);
+      $organizationStatus = $this->organizationModel->getOrganizationStatusById($id);
 
       if ($organizationStatus == 1) {
-        if($this->organizationModel->deactivateOrganizationById($id)){
+        if ($this->organizationModel->deactivateOrganizationById($id)) {
           echo 'deactivated';
         }
       } else {
-        if($this->organizationModel->activateOrganizationById($id)){
+        if ($this->organizationModel->activateOrganizationById($id)) {
           echo 'activated';
         }
       }
     }
   }
 
-  public function deleteActivity(){
+  public function deleteActivity()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
       $activityId = $_POST['activityId'];
@@ -1162,7 +1165,8 @@ class Organizations extends Controller
     }
   }
 
-  public function deleteNews(){
+  public function deleteNews()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
       $newsId = $_POST['newsId'];
@@ -1201,6 +1205,9 @@ class Organizations extends Controller
   }
 
 
+ 
+
+  
 
 }
 
