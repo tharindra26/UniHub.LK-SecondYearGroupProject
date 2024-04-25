@@ -62,7 +62,7 @@
     </tbody>
 </table>
 
-<script src="<?php echo URLROOT ?>/js/users/admin/organizationfilter.js"></script>
+
 
 <script>
     var URLROOT = document.querySelector('.urlRootValue').textContent.trim();

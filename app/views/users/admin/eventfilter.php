@@ -79,8 +79,6 @@
     </tbody>
 </table>
 
-<script src="<?php echo URLROOT ?>/js/users/admin/eventfilter.js"></script>
-
 <script>
     var URLROOT = document.querySelector('.urlRootValue').textContent.trim();
 
