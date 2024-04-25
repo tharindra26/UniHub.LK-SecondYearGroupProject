@@ -451,16 +451,16 @@ class Post
         $category = $data['category'];
         $status = $data['status'];
         $approval = $data['approval'];
-        $startDate = $data['start_date']; // Assuming start_date and end_date are provided in $data
-        $endDate = $data['end_date'];
+        $startDate = $data['startDate']; // Assuming start_date and end_date are provided in $data
+        $endDate = $data['endDate'];
 
         $query = 'SELECT 
-                o.*,
+                p.*,
                 GROUP_CONCAT(c.category_name) AS category_names
                 FROM posts p
                 INNER JOIN users u ON p.user_id = u.id
-                LEFT JOIN post_category_mapping m ON p.posts_id = m.posts_id
-                LEFT JOIN posts_categories c ON m.category_id = c.category_id
+                LEFT JOIN post_categories_mapping m ON p.post_id = m.post_id
+                LEFT JOIN post_categories c ON m.category_id = c.category_id
                 WHERE 1=1';
 
         if (!empty($keyword)) {
@@ -530,6 +530,19 @@ class Post
         // Fetch the results
         $row = $this->db->resultSet();
         return $row;
+    }
+
+    public function changeApproval($data){
+        $this->db->query("UPDATE posts SET approval = :approval WHERE post_id = :post_id");
+        $this->db->bind(':post_id', $data['postId']);
+        $this->db->bind(':approval', $data['selectedPostApproval']);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
