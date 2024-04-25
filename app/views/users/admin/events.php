@@ -98,30 +98,9 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="<?php echo URLROOT ?>/js/users/admin/events.js"></script>
 <script>
-    // Counter starts
-    function initializeCount() {
-        totalValue = document.querySelectorAll(".tot");
-        let timeinterval = 200;
+   
 
-        totalValue.forEach((valueDisplay) => {
-            let startValue = 0;
-            let endValue = parseInt(valueDisplay.getAttribute("data-val"));
-            let duration = Math.floor(timeinterval / endValue);
-            let counter = setInterval(() => {
-                startValue += 1;
-                valueDisplay.textContent = startValue;
-                if (startValue === endValue) {
-                    clearInterval(counter);
-                }
-            }, duration);
-        });
-    }
-
-    initializeCount();
-</script>
-<script>
     var URLROOT = document.querySelector('.urlRootValue').textContent.trim();
     
     // Function to gather and handle all filter inputs
@@ -189,8 +168,7 @@
     $('#status-filter-value').on('change', function () {
         handleFilters();
     });
-</script>
-<script>
+
     // Function to reset other filters to default values
     function resetOtherFilters() {
         // Reset search input
@@ -213,7 +191,7 @@
             url: URLROOT + '/events/dueEventsFilterilter',
             type: "POST",
             data: {
-                value: type,
+                value: type
             },
             success: function (response) {
                 // Update the content section with the retrieved data
