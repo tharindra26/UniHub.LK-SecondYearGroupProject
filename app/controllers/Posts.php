@@ -547,10 +547,10 @@ class Posts extends Controller
 
       // $keyword = $_POST['keyword'];
       // $date = $_POST['date'];
-      $organizations = $this->postsModel->getFilterPosts($_POST);
+      $posts = $this->postModel->getFilterPosts($_POST);
 
       $data = [
-        'organizations' => $organizations,
+        'posts' => $posts,
       ];
 
       $this->view('users/admin/postsApprovalfilter', $data);
@@ -558,7 +558,8 @@ class Posts extends Controller
     }
   }
 
-  public function filterPosts(){
+  public function filterPosts()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
       // Sanitize post data
@@ -575,12 +576,34 @@ class Posts extends Controller
       ];
 
       $this->view('users/admin/postfilter', $data);
+
+    }
+
   }
 
-}
+  public function changeApproval()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $postId = $_POST['postId'];
+      $selectedPostApproval = $_POST['selectedPostApproval'];
+      $data = [
+        'postId' => $postId,
+        'selectedPostApproval' => $selectedPostApproval,
+      ];
 
-public function totalPostsFilter(){
+      if ($this->postModel->changeApproval($data)) {
+        echo true;
+      } else {
+        echo false;
+      }
 
-}
+    }
+  }
+
+  public function totalPostsFilter()
+  {
+
+  }
 
 }
