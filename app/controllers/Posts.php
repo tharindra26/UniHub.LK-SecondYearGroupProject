@@ -603,7 +603,30 @@ class Posts extends Controller
 
   public function totalPostsFilter()
   {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+      // Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      $type = $_POST['value'];
+
+      if ($type == "all") {
+        $post = $this->postModel->getAllPosts();
+      }
+      elseif($type == "published"){
+        $post = $this->postModel->getPublishedPosts();
+      }
+      elseif($type == "pending"){
+        $post = $this->postModel->getPendingPosts();
+      }
+
+      $data = [
+        'post' => $post,
+      ];
+
+      $this->view('users/admin/postfilter', $data);
+
+    }
   }
 
 }

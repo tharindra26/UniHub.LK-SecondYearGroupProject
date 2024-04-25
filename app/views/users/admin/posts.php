@@ -8,7 +8,7 @@
             <h3>Total Posts</h3>
         </div>
         <div class="">
-            <span class="tot" data-val="<?php echo $data['totalPosts']->post_count; ?>">0000</span>
+            <span class="tot" data-val="<?php echo $data['totalPosts']; ?>">0000</span>
         </div>
         <div class="box-icon">
             <i class="fa-solid fa-calendar-days"></i>
@@ -19,7 +19,7 @@
             <h3>Published Posts</h3>
         </div>
         <div class="">
-            <span class="tot" data-val="<?php echo $data['publishedPosts']->published_posts; ?>">0000</span>
+            <span class="tot" data-val="<?php echo $data['publishedPostsCount']; ?>">0</span>
         </div>
         <div class="box-icon">
             <i class="fa-solid fa-calendar-check"></i>
@@ -30,7 +30,7 @@
             <h3>Pending Posts</h3>
         </div>
         <div class="">
-            <span class="tot" data-val="<?php echo $data['pendingPosts']->pending_posts; ?>">0000</span>
+            <span class="tot" data-val="<?php echo $data['pendingPostsCount']; ?>">0000</span>
         </div>
         <div class="box-icon">
             <i class="fa-solid fa-calendar-xmark"></i>
@@ -64,11 +64,19 @@
 </div>
 
 <div class="summary">
-    <div class="option table-heading">
-        <div class="user-head">
-            <h2>Recent Posts</h2>
+    <div class="option filter filter1">
+        <div class="filter-text">Start:</div>
+        <div class="date-filter">
+            <input type="date" name="" id="start-date-post">
         </div>
     </div>
+    <div class="option filter filter1">
+        <div class="filter-text">End:</div>
+        <div class="date-filter">
+            <input type="date" name="" id="end-date-post">
+        </div>
+    </div>
+
     <div class="option filter filter1">
         <div class="filter-text">Approval:</div>
         <select name="approval" id="approval-filter-post" placeholder="Approval" class="dropdown-menu">
@@ -82,7 +90,7 @@
         <div class="filter-text">Status:</div>
         <select name="status" id="status-filter-post" class="dropdown-menu">
             <option value="0">None</option>
-            <option value="activated">Activated</option>
+            <option value="active">Activated</option>
             <option value="deactivated">Deactivated</option>
         </select>
     </div>
@@ -107,6 +115,8 @@
         var selectedCategory = $('#category-filter-post').val();
         var selectedApproval = $('#approval-filter-post').val();
         var selectedStatus = $('#status-filter-post').val();
+        var startDate = $('#start-date-post').val(); 
+        var endDate = $('#end-date-post').val();
 
         if (searchInputValue === "") {
             searchInputValue = null;
@@ -118,6 +128,9 @@
         }
         if (selectedApproval === "None") {
             selectedApproval = null;
+        }
+        if (selectedStatus === "None") {
+            selectedStatus = null;
         }
 
         // Perform any action you need with these values
@@ -132,8 +145,8 @@
                 category: selectedCategory,
                 approval: selectedApproval,
                 status: selectedStatus,
-                start_date: "", // Fixed typo here
-                end_date: ""
+                startDate: startDate,
+                endDate: endDate
             },
             success: function (response) {
                 // Update the like count in the DOM
@@ -163,6 +176,14 @@
 
     // Listen for changes in the status dropdown
     $('#status-filter-post').on('change', function () {
+        handlePostFilters();
+    });
+
+    $('#start-date-post').on('change', function () {
+        handlePostFilters();
+    });
+
+    $('#end-date-post').on('change', function () {
         handlePostFilters();
     });
 </script>

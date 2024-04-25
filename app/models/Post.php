@@ -28,11 +28,36 @@ class Post
         return $row->post_count;
     }
 
+    public function getPublishedPostCount()
+    {
+        $this->db->query('SELECT COUNT(*) AS published_count 
+                        FROM posts 
+                        WHERE approval = :approval
+                        AND status = :status');
+
+        $this->db->bind(':approval', 'approved');
+        $this->db->bind(':status', 1);
+
+        $row = $this->db->single();
+        return $row->published_count;
+    }
+
+    public function getPendingPostCount(){
+        $this->db->query('SELECT COUNT(*) AS pending_count 
+                        FROM posts 
+                        WHERE approval = :approval');
+
+        $this->db->bind(':approval', 'pending');
+
+        $row = $this->db->single();
+        return $row->pending_count;
+    }
+
     public function getAllPosts()
     {
         $this->db->query('SELECT 
                             *,
-                            GROUP_CONCAT(pc.category_name) AS categories
+                            GROUP_CONCAT(pc.category_name) AS category_names
                             FROM posts p
                             LEFT JOIN post_categories_mapping pcm ON p.post_id = pcm.post_id
                             LEFT JOIN post_categories pc ON pcm.category_id = pc.category_id
@@ -41,7 +66,45 @@ class Post
         $results = $this->db->resultSet();
         return $results;
     }
-    
+
+    public function getPublishedPosts()
+    {
+        $this->db->query('SELECT 
+                        *,
+                        GROUP_CONCAT(pc.category_name) AS category_names
+                        FROM posts p
+                        LEFT JOIN post_categories_mapping pcm ON p.post_id = pcm.post_id
+                        LEFT JOIN post_categories pc ON pcm.category_id = pc.category_id
+                        LEFT JOIN users u ON p.user_id = u.id
+                        WHERE p.approval = :approval
+                        AND p.status = :status
+                        GROUP BY p.post_id');
+
+        $this->db->bind(':approval', 'approved');
+        $this->db->bind(':status', 1);
+
+        $results = $this->db->resultSet();
+        return $results;
+    }
+
+    public function getPendingPosts()
+    {
+        $this->db->query('SELECT 
+                        *,
+                        GROUP_CONCAT(pc.category_name) AS category_names
+                        FROM posts p
+                        LEFT JOIN post_categories_mapping pcm ON p.post_id = pcm.post_id
+                        LEFT JOIN post_categories pc ON pcm.category_id = pc.category_id
+                        LEFT JOIN users u ON p.user_id = u.id
+                        WHERE p.approval = :approval
+                        GROUP BY p.post_id');
+
+        $this->db->bind(':approval', 'pending');
+
+        $results = $this->db->resultSet();
+        return $results;
+    }
+
 
     public function addPost($data)
     {
@@ -496,11 +559,11 @@ class Post
 
         // Add date range conditions
         if (!empty($startDate) && !empty($endDate)) {
-            $query .= " AND p.timestamp_column >= :start_date AND p.timestamp_column <= :end_date";
+            $query .= " AND p.post_timestamp_created >= :start_date AND p.post_timestamp_created <= :end_date";
         } elseif (!empty($startDate)) {
-            $query .= " AND p.timestamp_column >= :start_date";
+            $query .= " AND p.post_timestamp_created >= :start_date";
         } elseif (!empty($endDate)) {
-            $query .= " AND p.timestamp_column <= :end_date";
+            $query .= " AND p.post_timestamp_created <= :end_date";
         }
 
         $query .= " GROUP BY p.post_id";
@@ -547,7 +610,8 @@ class Post
         return $row;
     }
 
-    public function changeApproval($data){
+    public function changeApproval($data)
+    {
         $this->db->query("UPDATE posts SET approval = :approval WHERE post_id = :post_id");
         $this->db->bind(':post_id', $data['postId']);
         $this->db->bind(':approval', $data['selectedPostApproval']);

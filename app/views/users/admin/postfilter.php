@@ -6,7 +6,7 @@
         <tr>
             <th>Post ID</th>
             <th>Post Title</th>
-            <th>User Name</th>
+            <th>User ID</th>
             <th>Category</th>
             <th>Approval</th>
             <th>Status</th>
@@ -24,7 +24,7 @@
                 <tr>
                     <td><?php echo $post->post_id ?></td>
                     <td><?php echo $post->post_title ?></td>
-                    <td><?php echo $post->user_name?></td>
+                    <td><?php echo $post->user_id?></td>
                     <td><?php echo $post->category_names ?></td>
                     <td>
                         <div

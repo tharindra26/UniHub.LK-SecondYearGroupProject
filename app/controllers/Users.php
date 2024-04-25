@@ -1116,11 +1116,16 @@ class Users extends Controller
     $totalPosts = $this->postModel->getPostsCount();
     $universities = $this->userModel->getAllUniversities();
     $categories = $this->postModel->getPostCategories();
+    $publishedCount = $this->postModel->getPublishedPostCount();
+    $pendingCount = $this->postModel->getPendingPostCount();
+
     $data = [
       'post' => $post,
       'totalPosts' => $totalPosts,
       'universities' => $universities,
-      'categories' => $categories
+      'categories' => $categories,
+      'publishedPostsCount' => $publishedCount,
+      'pendingPostsCount' => $pendingCount
     ];
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
