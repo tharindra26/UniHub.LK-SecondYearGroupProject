@@ -67,7 +67,7 @@
                     </div>
                 </a>
 
-                <a href="<?php echo URLROOT ?>/users/editOrganizations/<?php echo $data['id'] ?>" class="option-link">
+                <a href="<?php echo URLROOT ?>/users/showOrganizations/<?php echo $data['id'] ?>" class="option-link">
                     <div class="option">
                         <div class="option-icon">
                             <i class="fa-solid fa-hourglass-half"></i>

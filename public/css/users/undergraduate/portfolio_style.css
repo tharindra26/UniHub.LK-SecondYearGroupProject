@@ -1,0 +1,51 @@
+.print-portfolio{
+    border: 1px solid red;
+    display: flex;
+    padding: 20px;
+}
+
+.leftbar{
+    border: 1px solid blue;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.profile-photo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height:200px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px rgba(1, 10, 96, 0.814);
+    transition: box-shadow 0.5s;
+    overflow: hidden;
+}
+
+.profile-photo .profile-img{
+    width: 200px;
+}
+
+.contact{
+    border: 1px solid black;
+    width: 80%;
+}
+
+.contact .address{
+    display: flex;
+}
+
+.personal-info{
+    border: 1px solid black;
+    width: 80%;
+}
+
+.rightbar{
+    border: 1px solid green;
+    width: 70%;
+    padding: 20px;
+}

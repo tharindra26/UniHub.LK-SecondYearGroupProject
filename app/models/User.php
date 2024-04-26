@@ -477,6 +477,68 @@ class User
         }
     }
 
+    public function getAllLikedPostsByUserId($user_id)
+    {
+        $this->db->query('SELECT posts.* , post_likes.*
+                        FROM posts
+                        JOIN post_likes
+                        ON posts.post_id = post_likes.post_id
+                        WHERE post_likes.user_id = :user_id
+                        ORDER BY post_likes.post_timestamp_liked DESC');
+
+        $this->db->bind(':user_id', $user_id);
+
+        $row = $this->db->resultSet();
+
+        return $row;
+    }
+
+    public function RemoveLikedPosts($data)
+    {
+        $this->db->query("DELETE FROM post_likes   
+                        WHERE post_like_id= :post_like_id");
+        //Bind values
+        $this->db->bind(':post_like_id', $data['post_like_id']);
+
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getAllFollowingOrganizationsByUserId($user_id)
+    {
+        $this->db->query('SELECT organizations.* , organization_followers.* , universities.name AS uni_name
+                        FROM organizations
+                        JOIN organization_followers
+                        ON organizations.organization_id = organization_followers.organization_id
+                        JOIN universities
+                        ON universities.id = organizations.university_id
+                        WHERE organization_followers.follower_id = :user_id');
+
+        $this->db->bind(':user_id', $user_id);
+
+        $row = $this->db->resultSet();
+
+        return $row;
+    }
+
+    public function removeFollowingOrganization($data)
+    {
+        $this->db->query("DELETE FROM organization_followers   
+                        WHERE id= :id");
+        //Bind values
+        $this->db->bind('id', $data['id']);
+
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function getFriendsByUserId($user_id)
     {
         // First query: Fetching users followed by the given user
@@ -689,18 +751,105 @@ class User
         return $row;
     }
 
+    public function getOrganizationByUserId($user_id)
+    {
+        $this->db->query('SELECT user_organizations.*, universities.id AS uni_id, universities.name AS uni_name 
+                        FROM user_organizations 
+                        INNER JOIN universities 
+                        ON universities.id = user_organizations.organization_university
+                        WHERE user_id = :user_id
+                        AND status = :status');
+
+        $this->db->bind(':user_id', $user_id);
+        $this->db->bind(':status', 1);
+
+        $row = $this->db->resultSet();
+
+        return $row;
+    }
+
+    public function getOrganizationById($id)
+    {
+        $this->db->query('SELECT user_organizations.*, universities.name AS uni_name, organizations.organization_name AS organization
+                        FROM user_organizations 
+                        INNER JOIN universities 
+                        ON universities.id = user_organizations.organization_university
+                        INNER JOIN organizations
+                        ON user_organizations.organization_id = organizations.organization_id
+                        WHERE user_organizations.id = :id
+                        AND user_organizations.status = :status');
+
+        $this->db->bind(':id', $id);
+        $this->db->bind(':status', 1);
+
+        $row = $this->db->single();
+
+        return $row;
+    }
+
+    public function getAllOrganizations()
+    {
+        $this->db->query('SELECT *  FROM organizations
+                        WHERE status = :status');
+
+        $this->db->bind(':status', 1);
+
+        $row = $this->db->resultSet();
+
+        return $row;
+    }
+
     public function getFollowingOrganizations($user_id)
     {
-        // $this->db->query('SELECT * FROM user_organizations
-        //                 INNER JOIN
-        //                 WHERE user_id = :user_id');
+        $this->db->query('SELECT * FROM user_organizations 
+                        INNER JOIN universities 
+                        ON user_organizations.organization_university = universities.id
+                        WHERE user_id = :user_id');
 
-        // $this->db->bind(':user_id', $user_id);
+        $this->db->bind(':user_id', $user_id);
 
-        // $row = $this->db->resultSet();
+        $row = $this->db->resultSet();
 
-        // return $row;
+        return $row;
     }
+
+    public function getPassword($id){
+        $this->db->query('SELECT password FROM users WHERE id = :id');
+        $this->db->bind(':id', $id);
+    
+        $row = $this->db->single();
+    
+        return $row;
+    }
+    
+    public function passwordReset($data) {
+        // First, verify the user's current password before proceeding
+        $user = $this->getUserById($data['user_id']); // Retrieve user data from the database
+    
+        // Verify if the current password matches the one stored in the database
+        if (password_verify($data['current_password'], $user->password)) {
+            // If the current password matches, proceed with updating the password
+    
+            // Hash the new password
+            $hashed_password = password_hash($data['new_password'], PASSWORD_DEFAULT);
+    
+            // Update the user's password in the database
+            $this->db->query("UPDATE users SET password = :password WHERE id = :id");
+            $this->db->bind(':id', $data['user_id']);
+            $this->db->bind(':password', $hashed_password);
+    
+            // Execute the query
+            if ($this->db->execute()) {
+                return true; // Password successfully updated
+            } else {
+                return false; // Failed to update password
+            }
+        } else {
+            // If the current password does not match, return false
+            return false;
+        }
+    }
+    
 
     public function getUsersByType($data)
     {
@@ -1072,6 +1221,22 @@ class User
             return false;
         }
     }
+
+    public function deleteOrganization($data)
+    {
+        $this->db->query("UPDATE user_organizations SET status = :status  WHERE id= :organization_id");
+        //Bind values
+        $this->db->bind(':organization_id', $data['organization_id']);
+        $this->db->bind('status', 0);
+
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     public function addQualification($data)
     {
