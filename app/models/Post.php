@@ -624,6 +624,31 @@ class Post
         }
     }
 
+    
+    public function getlikedPostsByUser($id) {
+        // Prepare the query to select posts liked by the user
+        $this->db->query('SELECT posts.* 
+                        FROM posts
+                        JOIN post_likes
+                        ON posts.post_id = post_likes.post_id
+                        WHERE post_likes.user_id = :user_id
+                        ORDER BY post_likes.post_timestamp_liked DESC
+                        LIMIT 3');
+        
+        // Bind the user ID parameter
+        $this->db->bind(':user_id', $id);
+    
+        // Execute the query
+        $this->db->execute();
+    
+        // Fetch the results
+        $rows = $this->db->resultSet();
+    
+        return $rows; 
+    }
+    
+
+
 
 
 }

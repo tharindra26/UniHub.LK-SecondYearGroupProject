@@ -350,6 +350,29 @@ class Organization
         }
     }
 
+    public function getFollowingOrganizationsByUser($user_id){
+        // Prepare the query to select posts liked by the user
+        $this->db->query('SELECT organizations.* , universities.name AS uni_name
+                        FROM organizations
+                        JOIN organization_followers
+                        ON organizations.organization_id = organization_followers.organization_id
+                        JOIN universities
+                        ON universities.id = organizations.university_id
+                        WHERE organization_followers.follower_id = :user_id
+                        LIMIT 3');
+        
+        // Bind the user ID parameter
+        $this->db->bind(':user_id', $user_id);
+    
+        // Execute the query
+        $this->db->execute();
+    
+        // Fetch the results
+        $rows = $this->db->resultSet();
+    
+        return $rows;
+    }
+
     public function getNewsByOrganizationId($organizationId)
     {
         $this->db->query('SELECT * FROM organization_news WHERE organization_id = :organization_id');

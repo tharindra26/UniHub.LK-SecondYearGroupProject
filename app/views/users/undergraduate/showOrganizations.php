@@ -26,10 +26,11 @@
                                     $organization_id = $organization->id; ?>
                                 <div class="content">
                                     <div class="edu-info">
-                                        <h4><?php echo $organization->organization_name ?> - <?php echo $organization->name ?></h4>
+                                        <h4><?php echo $organization->organization_name ?> - <?php echo $organization->uni_name ?></h4>
                                         <p><?php echo $organization->role ?></p>
                                         <p>Duration: <?php echo $organization->start_date ?> - <?php echo $organization->end_date ?></p>
                                     </div>
+                                    <?php echo $organization->id ?>
                                     <div class="edu-btn">
                                         <a href="<?php echo URLROOT ?>/users/editOrganization/<?php echo $organization->id; ?>" class="button">Update</a>
                                         <a href="#" class="button" onclick="openPopup('<?php echo $organization->id; ?>')">Delete</a>

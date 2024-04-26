@@ -1,16 +1,16 @@
 const overlay = document.querySelector(".overlay");
 const modalBox = document.querySelector(".modal-box");
 
-function openPopup(organizarion_id) {
-  let element = document.getElementById(organizarion_id);
+function openPopup(organization_id) {
+  let element = document.getElementById(organization_id);
   if (element) {
     element.classList.add("active");
     overlay.classList.add("active");
   }
 }
 
-function closePopup(organizarion_id) {
-  let element = document.getElementById(organizarion_id);
+function closePopup(organization_id) {
+  let element = document.getElementById(organization_id);
   if (element) {
     element.classList.remove("active");
     overlay.classList.remove("active");
@@ -21,7 +21,7 @@ overlay.addEventListener("click", () => {
   overlay.classList.remove("active");
 });
 //popup
-function addEducation(user_id) {
+function addOrganization(user_id) {
   let element = document.getElementById(user_id);
   let overlay = document.querySelector(".overlay");
   // // Your AJAX function here
@@ -48,15 +48,15 @@ function addEducation(user_id) {
 }
 
 
-function updateEducation(organizarion_id) {
-    let element = document.getElementById(organizarion_id);
+function updateOrganization(organization_id) {
+    let element = document.getElementById(organization_id);
     let overlay = document.querySelector(".overlay");
     // // Your AJAX function here
     $.ajax({
       url: "http://localhost/unihub/users/editOrganization",
       type: "POST", // or 'GET' depending on your needs
       data: {
-        organizarion_id: organizarion_id,
+        organization_id: organization_id,
       },
       success: function (response) {
         // Handle the success response
@@ -74,13 +74,13 @@ function updateEducation(organizarion_id) {
     // if (popup) popup.classList.remove("open-popup");
   }
 
-  function confirmDelete(organizarion_id) {
+  function confirmDelete(organization_id) {
     // // Your AJAX function here
     $.ajax({
       url: "http://localhost/unihub/users/deleteOrganization",
       type: "POST", // or 'GET' depending on your needs
       data: {
-        organizarion_id: organizarion_id,
+        organization_id: organization_id,
       },
       success: function (response) {
         // Handle the success response
@@ -90,7 +90,7 @@ function updateEducation(organizarion_id) {
         // interestedBtn.find('span').text(response);
         if (response === "1") {
             // let element = document.getElementById(edu_id);
-            closePopup(organizarion_id);
+            closePopup(organization_id);
         }
         //else {
         //     confirmBtn.addClass("new-class");
