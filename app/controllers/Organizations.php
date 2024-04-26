@@ -285,8 +285,6 @@ class Organizations extends Controller
     $organization = $this->organizationModel->getOrganizationById($id);
     $organization_activties = $this->organizationModel->getActivitiesByOrganizationId($id);
     $organization_news = $this->organizationModel->getNewsByOrganizationId($id);
-    // $organizationAccount = $this->userModel->getUserByEmail($organization->contact_email);
-    // $events = $this->eventModel->getEventById($id);
     $data = [
       'organization' => $organization,
       'organization_activities' => $organization_activties,
@@ -1132,19 +1130,21 @@ class Organizations extends Controller
   {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-      $id = $_POST['organizationId'];
+      $organizationId = $_POST['organizationId'];
+      $data=[
+        'organizationId' => $organizationId
+      ];
 
-      $organizationStatus = $this->organizationModel->getOrganizationStatusById($id);
-
-      if ($organizationStatus == 1) {
-        if ($this->organizationModel->deactivateOrganizationById($id)) {
+      if ($this->organizationModel->checkStatusByOrganizationId($organizationId) == true) {
+        if ($this->organizationModel->deactivateOrganizationById($organizationId)) {
           echo 'deactivated';
         }
       } else {
-        if ($this->organizationModel->activateOrganizationById($id)) {
+        if ($this->organizationModel->activateOrganizationById($organizationId)) {
           echo 'activated';
         }
       }
+
     }
   }
 

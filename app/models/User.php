@@ -29,6 +29,19 @@ class User
         return $row->user_count;
     }
 
+    public function getNumberOfAllUsers(){
+        $this->db->query('SELECT COUNT(*) AS total_users FROM users;');
+        $row = $this->db->single();
+        return $row->total_users;
+    }
+
+    public function getUserCountByType($type){
+        $this->db->query('SELECT COUNT(*) AS user_count FROM users WHERE type = :type');
+        $this->db->bind(':type', $type);
+        $row = $this->db->single();
+        return $row->user_count;
+    }
+
     //Register the user
     public function register($data)
     {
@@ -1190,6 +1203,38 @@ class User
         // Bind the parameter
         $this->db->query($query);
         $this->db->bind(':id', $data['categoryId']);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function checkStatusByUserId($userId){
+        $this->db->query("SELECT status FROM users WHERE id = :userId");
+        $this->db->bind(':userId', $userId);
+
+        $row = $this->db->single();
+        return $row->status;
+    }
+
+    public function activateUserById($userId){
+        $this->db->query("UPDATE users SET status = 1 WHERE id = :userId");
+        $this->db->bind(':userId', $userId);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function deactivateUserById($userId){
+        $this->db->query("UPDATE users SET status = 0 WHERE id = :userId");
+        $this->db->bind(':userId', $userId);
 
         // Execute the query
         if ($this->db->execute()) {

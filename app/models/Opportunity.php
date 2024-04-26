@@ -8,6 +8,7 @@ class Opportunity
         $this->db = new Database;
     }
 
+
     public function addOpportunityView($opportunityId) {
         $this->db->query('INSERT INTO opportunity_views (opportunity_id) VALUES (:opportunityId)');
         $this->db->bind(':opportunityId', $opportunityId);
@@ -18,6 +19,13 @@ class Opportunity
         } else {
             return false;
         }
+    }
+
+    public function getOpportunityCountByApproval($approval){
+        $this->db->query('SELECT COUNT(*) AS opportunity_count FROM opportunities WHERE approval = :approval');
+        $this->db->bind(':approval', $approval);
+        $row = $this->db->single();
+        return $row->opportunity_count;
     }
 
     public function getOpportunitiesCount() {
@@ -483,6 +491,38 @@ class Opportunity
         $this->db->query("UPDATE opportunities SET approval = :approval WHERE id = :id");
         $this->db->bind(':id', $data['opportunityId']);
         $this->db->bind(':approval', $data['selectedOpportunityApproval']);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function checkStatusByOpportunityId($opportunityId){
+        $this->db->query("SELECT status FROM opportunities WHERE id = :opportunityId");
+        $this->db->bind(':opportunityId', $opportunityId);
+
+        $row = $this->db->single();
+        return $row->status;
+    }
+
+    public function activateOpportunityById($opportunityId){
+        $this->db->query("UPDATE opportunities SET status = 1 WHERE id = :opportunityId");
+        $this->db->bind(':opportunityId', $opportunityId);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function deactivateOpportunityById($opportunityId){
+        $this->db->query("UPDATE opportunities SET status = 0 WHERE id = :opportunityId");
+        $this->db->bind(':opportunityId', $opportunityId);
 
         // Execute the query
         if ($this->db->execute()) {

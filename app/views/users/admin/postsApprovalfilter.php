@@ -60,6 +60,12 @@
                         </div>
 
                     </td>
+                    <td>
+                        <a href="<?php echo URLROOT ?>/posts/show/<?php echo $post->post_id ?>" class="view-btn">
+                            <i class="fa-solid fa-eye"></i>
+                        </a>
+
+                    </td>
                 </tr>
 
             <?php endforeach;

@@ -552,47 +552,6 @@ class Organization
         }
     }
 
-    public function getOrganizationStatusById($organizationId)
-    {
-        $this->db->query("SELECT status FROM organizations WHERE organization_id = :organization_id");
-        $this->db->bind(':organization_id', $organizationId);
-
-        $result = $this->db->single(); // Assuming you have a method like this to fetch a single row
-
-        if ($result) {
-            return $result->status;
-        } else {
-            return null; // Return null if the organization with the given ID is not found
-        }
-    }
-
-    public function deactivateOrganizationById($organizationId)
-    {
-
-        $this->db->query("UPDATE organizations SET status = 0 WHERE organization_id = :organization_id");
-        $this->db->bind(':organization_id', $organizationId);
-
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-
-    public function activateOrganizationById($organizationId)
-    {
-
-        $this->db->query("UPDATE organizations SET status = 1 WHERE organization_id = :organization_id");
-        $this->db->bind(':organization_id', $organizationId);
-
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
 
     public function deleteActivityByActivityId($data)
     {
@@ -641,6 +600,38 @@ class Organization
         //check row
         if ($this->db->rowCount() > 0) {
             return $row;
+        } else {
+            return false;
+        }
+    }
+
+    public function checkStatusByOrganizationId($organizationId){
+        $this->db->query("SELECT status FROM organizations WHERE organization_id = :organizationId");
+        $this->db->bind(':organizationId', $organizationId);
+
+        $row = $this->db->single();
+        return $row->status;
+    }
+
+    public function activateOrganizationById($organizationId){
+        $this->db->query("UPDATE organizations SET status = 1 WHERE organization_id = :organizationId");
+        $this->db->bind(':organizationId', $organizationId);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function deactivateOrganizationById($organizationId){
+        $this->db->query("UPDATE organizations SET status = 0 WHERE organization_id = :organizationId");
+        $this->db->bind(':organizationId', $organizationId);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
         } else {
             return false;
         }

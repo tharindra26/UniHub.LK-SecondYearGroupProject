@@ -10,14 +10,6 @@
                 <span><i class="fa-solid fa-xmark sidebar-close"></i></span>
                 <span><i class="fa-solid fa-bars sidebar-toggle"></i></span>
             </div>
-            <!-- <div class="admin-logo">
-                <span><i class="fa-solid fa-user-gear"></i></span>
-            </div> 
-            <div class="profile-head">
-                <h2><span class="heading">ADMIN PROFILE</span></h2>
-            </div>
-             -->
-
         </div>
         <!--end top -->
 
@@ -26,39 +18,10 @@
                 <span><i class="fa-solid fa-grip"></i></span>
                 <h3>Dashboard</h3>
             </a>
-            <a href="#" id="user-accounts-btn">
-                <span><i class="fa-solid fa-users-gear"></i></span>
-                <h3>User Accounts</h3>
-            </a>
-            <a href="#" id="events-btn">
-                <span><i class="fa-solid fa-grip"></i></span>
-                <h3>Events</h3>
-            </a>
-            <a href="#" id="organizations-btn">
-                <span><i class="fa-solid fa-grip"></i></span>
-                <h3>Organizations</h3>
-            </a>
-            <a href="#" id="posts-btn">
-                <span><i class="fa-solid fa-grip"></i></span>
-                <h3>Posts</h3>
-            </a>
-            <a href="#" id="opportunities-btn">
-                <span><i class="fa-solid fa-grip"></i></span>
-                <h3>Opportunities</h3>
-            </a>
-            <a href="#" id="university-btn">
-                <span><i class="fa-solid fa-graduation-cap"></i></span>
-                <h3>Universities</h3>
-            </a>
             <a href="#" id="requests-btn">
                 <span><i class="fa-solid fa-grip"></i></span>
                 <h3>Requests</h3>
                 <span class="rq_count">14</span>
-            </a>
-            <a href="#" id="reports-btn">
-                <span><i class="fa-solid fa-circle-exclamation"></i></span>
-                <h3>Inqueries</h3>
-                <span id="rq_count" class="rq_count">20</span>
             </a>
             <a href="#" id="settings-btn">
                 <span><i class="fa-solid fa-gear"></i></span>
@@ -237,7 +200,7 @@
             e.preventDefault(); // Prevent the default link behavior
             // // Your AJAX function here
             $.ajax({
-                url: 'http://localhost/unihub/users/requests',
+                url: 'http://localhost/unihub/users/unireprequests',
                 type: 'POST', // or 'GET' depending on your needs
                 data: {
 

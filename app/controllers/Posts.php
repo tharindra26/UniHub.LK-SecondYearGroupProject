@@ -687,4 +687,24 @@ class Posts extends Controller
     }
   }
 
+  public function changeActivation()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $postId = $_POST['postId'];
+
+      if ($this->postModel->checkStatusByPostId($postId) == true) {
+        if ($this->postModel->deactivatePostById($postId)) {
+          echo 'deactivated';
+        }
+      } else {
+        if ($this->postModel->activatePostById($postId)) {
+          echo 'activated';
+        }
+      }
+
+    }
+
+  }
+
 }

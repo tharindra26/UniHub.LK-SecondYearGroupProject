@@ -7,14 +7,14 @@
 <div class="sub-menu">
     <div class="items" id="all" onclick="typeFilter('');">
         <div class="item-header">
-            <span class="tot" data-val="100">0000</span>
+            <span class="tot" data-val="<?php echo $data['numberOfAllUsers'] ?>">0000</span>
             <h3>All Users</h3>
         </div>
         <div class="icons"><i class="fa-solid fa-user-graduate"></i></div>
     </div>
     <div class="items" id="und" onclick="typeFilter('undergraduate');">
         <div class="item-header">
-            <span class="tot" data-val="100">0000</span>
+            <span class="tot" data-val="<?php echo $data['numberOfUndergraduates'] ?>">0000</span>
             <h3>Undergraduates</h3>
         </div>
         <div class="icons"><i class="fa-solid fa-user-graduate"></i></div>
@@ -22,7 +22,7 @@
 
     <div class="items" id="uni-rep" onclick="typeFilter('unirep');">
         <div class="item-header">
-            <span class="tot" data-val="340">000</span>
+            <span class="tot" data-val="<?php echo $data['numberOfUnireps'] ?>">000</span>
             <h3>Uni Representors</h3>
         </div>
         <div class="icons"><i class="fa-solid fa-users-gear"></i></div>
@@ -31,7 +31,7 @@
 
     <div class="items" id="org-rep" onclick="typeFilter('orgrep');">
         <div class="item-header">
-            <span class="tot" data-val="250">000</span>
+            <span class="tot" data-val="<?php echo $data['numberOfOrgreps'] ?>">000</span>
             <h3>Org Representors</h3>
         </div>
         <div class="icons"><i class="fa-solid fa-users"></i></div>
@@ -39,7 +39,7 @@
 
     <div class="items" id="admin" onclick="typeFilter('admin');">
         <div class="item-header">
-            <span class="tot" data-val="12">00</span>
+            <span class="tot" data-val="<?php echo $data['numberOfAdmins'] ?>">00</span>
             <h3>Administrators</h3>
         </div>
         <div class="icons"><i class="fa-solid fa-user-gear"></i></div>
@@ -171,7 +171,7 @@
         });
     }
 
-    function handleFilters() {
+    function handleUserFilters() {
         var searchInputValue = $('#search-bar-input').val();
         var selectedUniversity = $('#uni-filter-value').val();
         var selectedStatus = $('#status-filter-value').val();
@@ -211,25 +211,25 @@
             }
         });
     }
-    handleFilters();
+    handleUserFilters();
 
     // Listen for changes in the search input
     $('#search-bar-input').on('input', function () {
-        handleFilters();
+        handleUserFilters();
     });
 
     // Listen for changes in the university dropdown
     $('#uni-filter-value').on('change', function () {
-        handleFilters();
+        handleUserFilters();
     });
 
     // Listen for changes in the status dropdown
     $('#status-filter-value').on('change', function () {
-        handleFilters();
+        handleUserFilters();
     });
 
     $('#type-filter-value').on('change', function () {
-        handleFilters();
+        handleUserFilters();
     });
 
     // Function to reset other filters to default values

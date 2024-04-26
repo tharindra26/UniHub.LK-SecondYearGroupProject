@@ -1,0 +1,106 @@
+/* Events css starts */
+.summary{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summary .box{
+    display: flex;
+    flex-direction: row;
+    width: calc(100% / 3 - 40px);
+    height: 50px;
+    justify-content: space-evenly;
+    align-items: center; 
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; 
+    border-radius: 10px;
+    background-color: white;
+    cursor: pointer;
+}
+
+
+.summary .total{
+    border-left: 10px solid #3498db;
+    
+}
+
+.summary #all{
+    border-bottom: none;
+}
+
+.summary .ongoing{
+    border-left: 10px solid #e67e22;    
+}
+
+.summary .due{
+    border-left: 10px solid #2c3e50;    
+}
+
+.summary .box h1{
+    color: black;
+    margin: 20px;
+    /* font-family: Overpass; */
+}
+
+.summary .box .tot{
+    color: black;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.summary .search{
+    width: calc(100% / 2 );
+    /* border: 1px solid red; */
+}
+
+.summary .search .search-bar-container{
+    width: 100%;
+    margin:  10px 0;
+}
+
+.summary .option{
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+}
+
+
+.summary .table-heading{
+    width: calc(100% / 3);;
+}
+
+.summary .filter{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter1{
+    width: calc(100% / 3 - 10px);
+}
+.summary .select-uni{
+    width: calc(100% / 2);
+    /* border: 1px solid red; */
+}
+
+.filter-text{
+    /* border: 1px solid green; */
+    margin: 10px;
+}
+
+.filter-div{
+    /* border: 1px solid black; */
+}
+.dropdown-menu{
+    width: 350px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 15px;
+    border: none;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Events css ends */

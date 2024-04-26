@@ -4,35 +4,37 @@
 <table class="user-table">
     <thead>
         <tr>
-            <th>Post ID</th>
-            <th>Post Title</th>
-            <th>User ID</th>
-            <th>Time Stamp</th>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Organization Name</th>
+            <th>Email</th>
+            <th>Mobile</th>
             <th>Approval</th>
             <th>Status</th>
             <th>Action</th>
         </tr>
     </thead>
     <tbody>
-        <?php if (!empty($data['post'][0]->post_id)): ?>
-            <?php foreach ($data['post'] as $post):
-                if (empty($post)):
+        <?php if (!empty($data['opportunities'][0]->id)): ?>
+            <?php foreach ($data['opportunities'] as $opp):
+                if (empty($opp)):
                     break;
                 endif;
                 // $popupId = "popup" . $user->id; 
-                $postId = $post->post_id; ?>
+                $opportunityId = $opp->id; ?>
                 <tr>
-                    <td><?php echo $post->post_id ?></td>
-                    <td><?php echo $post->post_title ?></td>
-                    <td><?php echo $post->user_id ?></td>
-                    <td><?php echo date('d M, Y h:i A', strtotime($post->post_timestamp_created)); ?></td>
+                    <td><?php echo $opp->id ?></td>
+                    <td><?php echo $opp->opportunity_title ?></td>
+                    <td><?php echo $opp->organization_name ?></td>
+                    <td><?php echo $opp->contact_email ?></td>
+                    <td><?php echo $opp->contact_phone ?></td>
                     <td>
                         <div
-                            class="<?php echo ($post->approval == "approved") ? 'approved' : (($post->approval == "rejected") ? 'rejected' : 'pending'); ?>">
+                            class="<?php echo ($opp->approval == "approved") ? 'approved' : (($opp->approval == "rejected") ? 'rejected' : 'pending'); ?>">
                             <?php
-                            if ($post->approval == "approved"):
+                            if ($opp->approval == "approved"):
                                 echo "Approved";
-                            elseif ($post->approval == "rejected"):
+                            elseif ($opp->approval == "rejected"):
                                 echo "Rejected";
                             else:
                                 echo "Pending";
@@ -41,8 +43,8 @@
                         </div>
                     </td>
                     <td>
-                        <div class="<?php echo ($post->status == 1) ? 'activated' : 'deactivated'; ?>"><?php
-                                 if ($post->status == 1):
+                        <div class="<?php echo ($opp->status == 1) ? 'activated' : 'deactivated'; ?>"><?php
+                                 if ($opp->status == 1):
                                      echo "Active";
                                  else:
                                      echo "Deactivated";
@@ -50,17 +52,18 @@
                                  ?></div>
                     </td>
                     <td class="action">
-                        <a href="<?php echo URLROOT ?>/posts/show/<?php echo $post->post_id ?>" class="view">
+                        <a href="<?php echo URLROOT ?>/opportunities/show/<?php echo $opp->id ?>" class="view">
                             <i class="fa-solid fa-eye"></i>
                         </a>
-                        <a href="<?php echo URLROOT ?>/posts/settings/<?php echo $post->id ?>" class="update">
+                        <a href="<?php echo URLROOT ?>/opportunities/settings/<?php echo $opp->id ?>" class="update">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
 
-                        <div class="activation-option" data-status="<?php echo $post->status ?>"
-                            data-post-id="<?php echo $post->post_id ?>">
+                        <div class="activation-option" data-status="<?php echo $opp->status ?>"
+                            data-opp-id="<?php echo $opp->id ?>">
                             <!-- <i class="fa-solid fa-toggle-off"></i> -->
                         </div>
+
                     </td>
                 </tr>
 
@@ -68,7 +71,7 @@
         else: ?>
             <tr>
                 <td colspan="7" class="null-text">
-                    No posts found.
+                    No opportunities found.
                 </td>
             </tr>
         <?php endif; ?>
@@ -77,20 +80,23 @@
 </table>
 
 <script>
-    function changePostActivation(postId) {
+    var URLROOT = document.querySelector('.urlRootValue').textContent.trim();
+
+    function changeOpportunityActivation(opportunityId) {
         $.ajax({
             type: 'POST',
-            url: URLROOT + '/posts/changeActivation',
-            data: { postId: postId },
+            url: URLROOT + '/opportunities/changeActivation',
+            data: { opportunityId: opportunityId },
             success: function (response) {
                 // Update the like count in the DOM
-                var activationOption = $('.activation-option[data-post-id="' + postId + '"]');
+                console.log(response);
+                var activationOption = $('.activation-option[data-opp-id="' + opportunityId + '"]');
                 if (response == 'deactivated') {
                     activationOption.html('<i class="fa-solid fa-toggle-off"></i>');
-                    handlePostFilters();
+                    handleOpportunityFilters()
                 } else {
                     activationOption.html('<i class="fa-solid fa-toggle-on"></i>');
-                    handlePostFilters();
+                    handleOpportunityFilters()
                 }
             },
             error: function (xhr, status, error) {
@@ -101,22 +107,23 @@
 
     // Attach click event listener to like buttons
     $('.activation-option').click(function () {
-        var postId = $(this).data('post-id');
-        changePostActivation(postId);
+        var opportunityId = $(this).data('opp-id');
+        changeOpportunityActivation(opportunityId);
     });
 
     // Check if the user has liked each post and update the heart icon accordingly
 
 
     $('.activation-option').each(function () {
-        var postId = $(this).data('post-id');
-        var postStatus = $(this).data('status');
+        var opportunityId = $(this).data('opp-id');
+        var opportunityStatus = $(this).data('status');
 
-        var activationOption = $('.activation-option[data-post-id="' + postId + '"]');
-        if (postStatus == 1) {
+        var activationOption = $('.activation-option[data-opp-id="' + opportunityId + '"]');
+        if (opportunityStatus == 1) {
             activationOption.html('<i class="fa-solid fa-toggle-on"></i>');
         } else {
             activationOption.html('<i class="fa-solid fa-toggle-off"></i>');
         }
     });
+
 </script>

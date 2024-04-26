@@ -14,6 +14,7 @@ class Users extends Controller
     $this->opportunityModel = $this->model('Opportunity');
     $this->notificationModel = $this->model('Notification');
     $this->statModel = $this->model('Stat');
+    $this->universityModel = $this->model('University');
   }
 
 
@@ -365,6 +366,7 @@ class Users extends Controller
     $_SESSION['user_email'] = $user->email;
     $_SESSION['user_name'] = $user->fname;
     $_SESSION['user_type'] = $user->type;
+    $_SESSION['university_id'] = $user->university_id;
     $_SESSION['user_profile_image'] = $user->profile_image;
     redirect('pages');
   }
@@ -437,10 +439,21 @@ class Users extends Controller
       $data['postsCount'] = $this->postModel->getPostsCount();
       $data['universityBaseUsers'] = $this->statModel->getUsersByUniversity();
       $this->view('users/admin/adminprofile', $data);
+
     } else if ($user->type == 'unirep') {
-      $this->view('users/unirep/profile', $data);
+
+      $logindata = $this->statModel->getLoginCountsLast30Days();
+      $data['loginData'] = $logindata;
+      $data['usersCount'] = $this->userModel->getUsersCount();
+      $data['eventsCount'] = $this->eventModel->getEventsCount();
+      $data['organizationsCount'] = $this->organizationModel->getOrganizationsCount();
+      $data['opportunitiesCount'] = $this->opportunityModel->getOpportunitiesCount();
+      $data['postsCount'] = $this->postModel->getPostsCount();
+      $data['universityBaseUsers'] = $this->statModel->getUsersByUniversity();
+      $this->view('users/unirep/unirepprofile', $data);
+
     } else if ($user->type == 'orgrep') {
-      $this->view('users/orgrep/profile', $data);
+      $this->view('users/orgrep/orgrepprofile', $data);
     } else {
       $this->view('users/undergraduate/myprofile', $data);
     }
@@ -966,9 +979,19 @@ class Users extends Controller
   {
     $user = $this->userModel->getRecentlyLoggedInUsers();
     $universities = $this->userModel->getAllUniversities();
+    $numberOfAllUsers = $this->userModel->getUsersCount();
+    $numberOfAdmins = $this->userModel->getUserCountByType('admin');
+    $numberOfUnireps = $this->userModel->getUserCountByType('unirep');
+    $numberOfOrgreps = $this->userModel->getUserCountByType('orgrep');
+    $numberOfUndergraduates = $this->userModel->getUserCountByType('undergraduate');
     $data = [
       'user' => $user,
-      'universities' => $universities
+      'universities' => $universities,
+      'numberOfUnireps' => $numberOfUnireps,
+      'numberOfAdmins' => $numberOfAdmins,
+      'numberOfOrgreps' => $numberOfOrgreps,
+      'numberOfUndergraduates' => $numberOfUndergraduates,
+      'numberOfAllUsers' => $numberOfAllUsers
     ];
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -1137,8 +1160,13 @@ class Users extends Controller
 
   public function opportunities()
   {
+    $totalOpportunities = $this->opportunityModel->getOpportunitiesCount();
+    $publishedOpportunities = $this->opportunityModel->getOpportunityCountByApproval('approved');
+    $pendingOpportunities = $this->opportunityModel->getOpportunityCountByApproval('pending');
     $data = [
-
+      'totalOpportunities' => $totalOpportunities,
+      'publishedOpportunities' => $publishedOpportunities,
+      'pendingOpportunities' => $pendingOpportunities
     ];
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -1146,6 +1174,23 @@ class Users extends Controller
     }
   }
 
+  public function universities()
+  {
+    $totalUniversities = $this->universityModel->getTotalUniversities();
+    $totalDomains = $this->universityModel->getTotalDomains();
+    $universities = $this->userModel->getAllUniversities();
+    $data = [
+      'totalUniversities' => $totalUniversities,
+      'totalDomains' => $totalDomains,
+      'universities' => $universities
+    ];
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $this->view('users/admin/universities', $data);
+    }
+  }
+
+  
   public function requests()
   {
     $requests = $this->userModel->getAllRequests();
@@ -1154,6 +1199,16 @@ class Users extends Controller
     ];
 
     $this->view('users/admin/requests', $data);
+  }
+
+  public function unireprequests()
+  {
+    $requests = $this->userModel->getAllRequests();
+    $data = [
+      'requests' => $requests
+    ];
+
+    $this->view('users/unirep/requests', $data);
   }
 
   public function reports()
@@ -2077,7 +2132,8 @@ class Users extends Controller
     }
   }
 
-  public function addSpecialUser(){
+  public function addSpecialUser()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
       $email = $_POST['email'];
@@ -2085,33 +2141,59 @@ class Users extends Controller
       $type = $_POST['userType'];
       $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     }
-    $data=[
-      'email'=>$email,
-      'secondaryEmail'=>$secondary_email,
-      'password'=> $password,
+    $data = [
+      'email' => $email,
+      'secondaryEmail' => $secondary_email,
+      'password' => $password,
     ];
-    if($type=='admin'){
-      
+    if ($type == 'admin') {
+
       if ($this->userModel->createAdmin($data)) {
         echo 'success';
         echo true;
       } else {
         echo false;
       }
-    }else if($type=='orgrep'){
+    } else if ($type == 'orgrep') {
       if ($this->userModel->creatOrgRep($data)) {
         echo true;
       } else {
         echo false;
       }
-    }else{
+    } else {
       if ($this->userModel->createUniRep($data)) {
         echo true;
       } else {
         echo false;
       }
     }
-      
+  }
+
+  public function changeActivation()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $userId = $_POST['userId'];
+      $data = [
+        'userId' => $userId
+      ];
+
+      if ($this->userModel->checkStatusByUserId($userId) == true) {
+        if ($this->userModel->deactivateUserById($userId)) {
+          echo 'deactivated';
+        }
+      } else {
+        if ($this->userModel->activateUserById($userId)) {
+          echo 'activated';
+        }
+      }
+
+    }
+
+  }
+
+  public function getAdminPendingRequestCount(){
+    echo 21;
   }
 
 }

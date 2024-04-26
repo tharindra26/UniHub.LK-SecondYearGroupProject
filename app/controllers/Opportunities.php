@@ -727,6 +727,23 @@ class Opportunities extends Controller
     }
   }
 
+  public function filterOpportunities(){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+      // Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      $opportunities = $this->opportunityModel->getFilterOpportunities($_POST);
+
+      $data = [
+        'opportunities' => $opportunities,
+      ];
+
+      $this->view('users/admin/opportunityfilter', $data);
+
+    }
+  }
+
   public function changeApproval()
   {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -747,6 +764,30 @@ class Opportunities extends Controller
     }
 
   }
+
+  public function changeActivation()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $opportunityId = $_POST['opportunityId'];
+      $data = [
+        'opportunityId' => $opportunityId
+      ];
+
+      if ($this->opportunityModel->checkStatusByOpportunityId($opportunityId) == true) {
+        if ($this->opportunityModel->deactivateOpportunityById($opportunityId)) {
+          echo 'deactivated';
+        }
+      } else {
+        if ($this->opportunityModel->activateOpportunityById($opportunityId)) {
+          echo 'activated';
+        }
+      }
+
+    }
+
+  }
+
 
 }
 

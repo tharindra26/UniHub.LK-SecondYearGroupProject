@@ -681,6 +681,38 @@ class Post
         }
     }
 
+    public function checkStatusByPostId($postId){
+        $this->db->query("SELECT status FROM posts WHERE post_id = :postId");
+        $this->db->bind(':postId', $postId);
+
+        $row = $this->db->single();
+        return $row->status;
+    }
+
+    public function activatePostById($postId){
+        $this->db->query("UPDATE posts SET status = 1 WHERE post_id = :postId");
+        $this->db->bind(':postId', $postId);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function deactivatePostById($postId){
+        $this->db->query("UPDATE posts SET status = 0 WHERE post_id = :postId");
+        $this->db->bind(':postId', $postId);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 
 

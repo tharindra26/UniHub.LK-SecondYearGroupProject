@@ -1,0 +1,14 @@
+.add-university-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 50px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+.add-university-btn-txt{
+    margin-left: 10px;
+}
