@@ -490,7 +490,7 @@ input[type = "radio"]{
     height: 4.5px; 
     background-color: #3498db;
     border-radius: 20px;
-    width: 25%;
+    width: 33%;
     z-index: 1;
     left: 0;
     bottom: 0;
@@ -499,16 +499,14 @@ input[type = "radio"]{
 }
 
 #going_events:checked ~ nav .nav-slider{
-    left:25%;
+    left:33%;
 }
 
 #interest:checked ~ nav .nav-slider{
-    left:50%;
+    left: 66%;
 }
 
-#watch_later:checked ~ nav .nav-slider{
-    left:75%;
-}
+
 
 #liked_materials:checked ~ nav .liked_materials{
     color: #3498db;
@@ -521,9 +519,6 @@ input[type = "radio"]{
     color: #3498db;
 }
 
-#watch_later:checked ~ nav .watch_later{
-    color: #3498db;
-}
 
 .tab-content{
     position: relative;
@@ -590,6 +585,10 @@ input[type = "radio"]{
 .material-content p{
     padding: 0 10px;
     color: black;
+}
+
+.org-logo{
+    border-radius: 50%;
 }
 
 .show-more-link{

@@ -408,11 +408,13 @@ class Users extends Controller
     $university = $this->universityModel->getUniversityById($user->university_id);
     $event = $this->eventModel->getEventByUser($id);
     $interestEvents = $this->eventModel->getInterestEventsByUser($id);
+    $likedPosts = $this->postModel->getlikedPostsByUser($id);
     $education = $this->userModel->getEducationByUserId($id);
     $qualifications = $this->userModel->getQualificationByUserId($id);
     $skills = $this->userModel->getSkillsByUserId($id);
     $organizations = $this->userModel->getFollowingOrganizations($id);
     $requests = $this->userModel->getFriendRequestsById($id);
+    $followingOrganizations = $this->organizationModel->getFollowingOrganizationsByUser($id);
     // $friends = $this->userModel->getFriendsByUserId($user->id);
 
     $data = [
@@ -420,10 +422,13 @@ class Users extends Controller
       'university' => $university,
       'event' => $event,
       'interestEvents' => $interestEvents,
+      'likedPosts' => $likedPosts,
       'education' => $education,
       'qualifications' => $qualifications,
       'skills' => $skills,
-      'requests' => $requests
+      'organizations'=> $organizations,
+      'requests' => $requests,
+      'followingOrganizations' => $followingOrganizations
       // 'friends' => $friends
     ];
 
@@ -444,6 +449,26 @@ class Users extends Controller
     } else {
       $this->view('users/undergraduate/myprofile', $data);
     }
+  }
+
+  public function generatePortfolio($id){
+    $user = $this->userModel->getUserById($id);
+    $university = $this->universityModel->getUniversityById($user->university_id);
+    $education = $this->userModel->getEducationByUserId($id);
+    $qualifications = $this->userModel->getQualificationByUserId($id);
+    $skills = $this->userModel->getSkillsByUserId($id);
+    $organizations = $this->userModel->getFollowingOrganizations($id);
+
+    $data = [
+      'user' => $user,
+      'university' => $university,
+      'education' => $education,
+      'qualifications' => $qualifications,
+      'skills' => $skills,
+      'organizations'=> $organizations
+    ];
+
+    $this->view('users/undergraduate/portfolio', $data);
   }
 
   public function showFriends($user_id)
@@ -605,6 +630,59 @@ class Users extends Controller
         'participation_id' => $participation_id
       ];
       if ($this->userModel->RemoveInterestedEvent($data)) {
+        echo 1;
+      } else {
+        echo 0;
+      }
+
+    }
+  }
+
+  public function showAllFollowingOrganizations($id)
+  {
+    $followingOrg = $this->userModel->getAllFollowingOrganizationsByUserId($id);
+    $data = [
+      'organizations' => $followingOrg
+    ];
+
+    $this->view('users/undergraduate/showFollowingOrganizations', $data);
+  }
+
+  public function removeFollowingOrganization()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $org_id = $_POST['id'];
+      $data = [
+        'id' => $org_id
+      ];
+      if ($this->userModel->RemoveFollowingOrganization($data)) {
+        echo 1;
+      } else {
+        echo 0;
+      }
+
+    }
+  }
+  public function showAllLikedPosts($id)
+  {
+    $likedPosts = $this->userModel->getAllLikedPostsByUserId($id);
+    $data = [
+      'posts' => $likedPosts
+    ];
+
+    $this->view('users/undergraduate/showLikedPosts', $data);
+  }
+
+  public function removeLikedPost()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $post_like_id = $_POST['likedPostsId'];
+      $data = [
+        'post_like_id' => $post_like_id
+      ];
+      if ($this->userModel->RemoveLikedPosts($data)) {
         echo 1;
       } else {
         echo 0;
@@ -1507,6 +1585,206 @@ class Users extends Controller
 
       // Load view
       $this->view('users/undergraduate/addQualification', $data);
+    }
+  }
+
+  //Update Organization
+  
+  public function showOrganizations($id)
+  {
+    $organizations = $this->userModel->getOrganizationByUserId($id);
+    $user = $this->userModel->getUserById($id);
+
+    $data = [
+      'organizations' => $organizations,
+      'user' => $user
+    ];
+
+
+    $this->view('users/undergraduate/showOrganizations', $data);
+  }
+
+  public function deleteOrganization()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $organization_id = $_POST['organization_id'];
+      $data = [
+        'organization_id' => $organization_id
+      ];
+      if ($this->userModel->deleteOrganization($data)) {
+        echo 1;
+      } else {
+        echo 0;
+      }
+
+    }
+  }
+
+  public function editOrganization($id)
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      //process form
+      $organization_name = trim($_POST['organization_name']);
+      $role = trim($_POST['role']);
+      $organization_university = trim($_POST['organization_university']);
+      $organization_id = trim($_POST['organization_id']);
+      $start_date = trim($_POST['start_date']);
+      $end_date = trim($_POST['end_date']);
+
+      //Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      //Init data
+      $data = [
+
+        'id' => $id,
+        'organization_name' => $organization_name,
+        'role' => $role,
+        'organization_university' => $organization_university,
+        'start_date' => $start_date,
+        'end_date' => $end_date,
+
+        'organization_name_err' => '',
+        'role_err' => '',
+        'organization_university_err' => '',
+        'start_date_err' => '',
+        'end_date_err' => '',
+      ];
+
+      if (empty($data['organization_name'])) {
+        $data['organization_name_err'] = 'Pleae enter the organization_name';
+      }
+
+      if (empty($data['organization_university'])) {
+        $data['organization_university_err'] = 'Pleae select the organization university';
+      }
+
+      if (empty($data['start_date'])) {
+        $data['start_date_err'] = 'Pleae enter the start date';
+      }
+
+
+      // Make sure errors are empty
+      if (empty($data['organization_name_err']) && empty($data['organization_university_err']) && empty($data['start_date_err'])) {
+        //Validated
+        if ($this->userModel->updateOrganization($data)) {
+          // 
+          redirect('users/showOrganizations/' . $_SESSION['user_id']);
+        }
+      } else {
+
+        //load view with errors
+        $this->view('users/undergraduate/editOrganization', $data);
+
+      }
+    } else {
+      //get existing post from model
+      $organization = $this->userModel->getOrganizationById($id);
+      $universities = $this->userModel->getAllUniversities();
+      $organizations = $this->userModel->getAllOrganizations();
+
+      // Init data
+      $data = [
+        'id' => $organization->id,
+        'organization_name' => $organization->organization_name,
+        'role' => $organization->role,
+        'organization_university' => $organization->organization_university,
+        'start_date' => $organization->start_date,
+        'end_date' => $organization->end_date,
+        'universities' => $universities,
+        'organizations' => $organizations,
+
+        'organization_name_err' => '',
+        'role_err' => '',
+        'organization_university_err' => '',
+        'start_date_err' => '',
+        'end_date_err' => '',
+      ];
+
+      // Load view
+      $this->view('users/undergraduate/editOrganization', $data);
+    }
+  }
+  
+  //Password Reset
+  public function passwordReset($user_id)
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      //process form
+      $current_password = trim($_POST['current_password']);
+      $new_password = trim($_POST['new_password']);
+      $confirm_password = trim($_POST['confirm_password']);
+
+      //Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      //Init data
+      $data = [
+
+        'user_id' => $user_id,
+        'current_password' => $current_password,
+        'new_password' => $new_password,
+        'confirm_password' => $confirm_password,
+
+        'current_password_err' => '',
+        'new_password_err' => '',
+        'confirm_password_err' => ''
+      ];
+
+      if (empty($data['current_password'])) {
+        $data['current_password_err'] = 'Pleae enter the current password';
+      }
+    
+
+      if (empty($data['new_password'])) {
+        $data['new_password_err'] = 'Please enter new password';
+      } elseif (strlen($data['new_password']) < 6) {
+        $data['new_password_err'] = 'Password must be at least 6 characters';
+      }
+
+      // Validate Confirm Password
+      if (empty($data['confirm_password'])) {
+        $data['confirm_password_err'] = 'Please confirm password';
+      } else {
+        if ($data['new_password'] != $data['confirm_password']) {
+          $data['confirm_password_err'] = 'Passwords do not match';
+        }
+      }
+
+      // Make sure errors are empty
+      if (empty($data['current_password_err']) && empty($data['new_password_err']) && empty($data['confirm_password_err'])) {
+
+        //Validated
+        if ($this->userModel->passwordReset($data)) {
+          // 
+          redirect('users/show/' . $_SESSION['user_id']);
+        }
+      } else {
+
+        //load view with errors
+        $this->view('users/undergraduate/passwordReset', $data);
+
+      }
+    }
+     else {
+      //get existing post from model
+      //$education = $this->userModel->getEducationById($education_id);
+
+      // Init data
+      $data = [
+        'user_id' => $user_id,
+        'current_password' => '',
+        'new_password' => '',
+        'confirm_password' => '',
+
+        'current_password_err' => '',
+        'new_password_err' => '',
+        'confirm_password_err' => ''
+      ];
+
+      // Load view
+      $this->view('users/undergraduate/passwordReset', $data);
     }
   }
 
