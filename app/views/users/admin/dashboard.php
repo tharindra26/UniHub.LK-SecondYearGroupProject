@@ -79,11 +79,11 @@ foreach ($period as $date) {
         const loginDataChart = document.getElementById('loginDataChart');
 
         new Chart(loginDataChart, {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: <?php echo json_encode($labels); ?>,
                 datasets: [{
-                    label: 'Login Data',
+                    label: 'Site Traffic',
                     data: <?php echo json_encode($logins); ?>,
                     borderWidth: 3,
                     borderColor: 'rgb(75, 192, 192)',

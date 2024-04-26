@@ -60,6 +60,13 @@
                         </div>
 
                     </td>
+
+                    <td>
+                        <a href="<?php echo URLROOT ?>/opportunities/show/<?php echo $opportunity->id ?>" class="view-btn">
+                            <i class="fa-solid fa-eye"></i>
+                        </a>
+
+                    </td>
                 </tr>
 
             <?php endforeach;

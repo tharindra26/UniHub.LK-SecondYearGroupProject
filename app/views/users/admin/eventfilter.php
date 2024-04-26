@@ -92,8 +92,10 @@
                 var activationOption = $('.activation-option[data-event-id="' + eventId + '"]');
                 if (response == 'deactivated') {
                     activationOption.html('<i class="fa-solid fa-toggle-off"></i>');
+                    handleFilters();
                 } else {
                     activationOption.html('<i class="fa-solid fa-toggle-on"></i>');
+                    handleFilters();
                 }
             },
             error: function (xhr, status, error) {

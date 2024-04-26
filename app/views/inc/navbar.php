@@ -65,7 +65,7 @@
                             <div class="notification-text">Notification1</div>
                             <hr>
                         </div>
-                        
+
                         <!-- Add more notification items as needed -->
                     </div>
                 </div>
@@ -94,8 +94,14 @@
                     <div class="sub-menu">
                         <a href="<?php echo URLROOT ?>/users/show/<?php echo $_SESSION['user_id'] ?>" class="user-info">
                             <div class="sub-menu-profile-image">
-                                <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $_SESSION["user_profile_image"] ?>"
-                                    alt="not found">
+                                <?php
+                                if ($_SESSION['user_type'] === 'orgrep') {
+                                    echo '<img src="' . URLROOT . '/img/organizations/organization_profile_images/'. $_SESSION["user_profile_image"] . '" alt="not found">';
+                                } else {
+                                    echo '<img src="' . URLROOT . '/img/users/users_profile_images/'. $_SESSION["user_profile_image"] . '" alt="not found">';
+                                }
+                                ?>
+
                             </div>
                             <div class="sub-menu-profile-name">
                                 <div class="sub-menu-user-name"><?php echo $_SESSION["user_name"] ?></div>

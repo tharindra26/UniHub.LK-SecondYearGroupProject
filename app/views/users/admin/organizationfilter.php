@@ -6,7 +6,7 @@
         <tr>
             <th>organization ID</th>
             <th>organization Title</th>
-            <th>Category</th>
+            <!-- <th>Category</th> -->
             <th>Contact Email</th>
             <th>University</th>
             <th>Status</th>
@@ -24,7 +24,7 @@
                 <tr>
                     <td><?php echo $organization->organization_id ?></td>
                     <td><?php echo $organization->organization_name ?></td>
-                    <td><?php echo $organization->category_names ?></td>
+                    <!-- <td><?php echo $organization->category_names ?></td> -->
                     <td><?php echo $organization->contact_email ?></td>
                     <td><?php echo $organization->university_name ?></td>
                     <td>
@@ -43,7 +43,7 @@
                                     class="update"><i class="fa-solid fa-pen-to-square"></i></a>
 
                                 <div class="activation-option" data-status="<?php echo $organization->status ?>"
-                                    data-organization-id="<?php echo $organization->id ?>">
+                                    data-organization-id="<?php echo $organization->organization_id ?>">
                                     <!-- <i class="fa-solid fa-toggle-off"></i> -->
                                 </div>
 
@@ -77,8 +77,10 @@
                 var activationOption = $('.activation-option[data-organization-id="' + organizationId + '"]');
                 if (response == 'deactivated') {
                     activationOption.html('<i class="fa-solid fa-toggle-off"></i>');
+                    handleOrganizationFilters();
                 } else {
                     activationOption.html('<i class="fa-solid fa-toggle-on"></i>');
+                    handleOrganizationFilters();
                 }
             },
             error: function (xhr, status, error) {
@@ -87,24 +89,25 @@
         });
     }
 
-    // Attach click event listener to activation options
-$('.activation-option').click(function () {
-    var organizationId = $(this).data('organization-id'); // Use organizationId here
-    changeOrganizationActivation(organizationId);
-});
+    // Attach click event listener to like buttons
+    $('.activation-option').click(function () {
+        var organizationId = $(this).data('organization-id');
+        changeOrganizationActivation(organizationId);
+    });
 
-// Check and update the initial status of each organization
-$('.activation-option').each(function () {
-    var organizationId = $(this).data('organization-id');
-    var organizationStatus = $(this).data('status');
+    // Check if the user has liked each post and update the heart icon accordingly
 
-    var activationOption = $('.activation-option[data-organization-id="' + organizationId + '"]');
-    if (organizationStatus == 1) {
-        activationOption.html('<i class="fa-solid fa-toggle-on"></i>');
-    } else {
-        activationOption.html('<i class="fa-solid fa-toggle-off"></i>');
-    }
-});
 
+    $('.activation-option').each(function () {
+        var organizationId = $(this).data('organization-id');
+        var organizationStatus = $(this).data('status');
+
+        var activationOption = $('.activation-option[data-organization-id="' + organizationId + '"]');
+        if (organizationStatus == 1) {
+            activationOption.html('<i class="fa-solid fa-toggle-on"></i>');
+        } else {
+            activationOption.html('<i class="fa-solid fa-toggle-off"></i>');
+        }
+    });
 
 </script>
