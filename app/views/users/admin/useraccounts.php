@@ -82,30 +82,3 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="<?php echo URLROOT ?>/js/users/admin/useraccounts.js"></script>
-<script>
-    // popup modal script
-    const overlay = document.querySelector(".overlay");
-    const modalBox = document.querySelector(".modal-box");
-
-    function openPopup1(popupId) {
-        alert("Popup");
-        var element = document.getElementById(popupId);
-        if (element) {
-            element.classList.add("active");
-            overlay.classList.add("active");
-        }
-    }
-
-    function closePopup1(popupId) {
-        var element = document.getElementById(popupId);
-        if (element) {
-            element.classList.remove("active");
-            overlay.classList.remove("active");
-        }
-    }
-    overlay.addEventListener("click", () => {
-        modalBox.classList.remove("active");
-        overlay.classList.remove("active");
-    });
-
-</script>
