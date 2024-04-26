@@ -177,8 +177,8 @@
                         </div>
                     </li>
                     <li>
-                        <input type="radio" name="accordion" id="third">
-                        <label for="third">Skills</label>
+                        <input type="radio" name="accordion" id="fourth">
+                        <label for="fourth">Skills</label>
                         <div class="accordion-content">
                             <?php if (!empty($data['skills'][0]->user_skill_id)): ?>
                                 <?php foreach ($data['skills'] as $skill): ?>
@@ -190,13 +190,16 @@
                         </div>
                     </li>
                     <li>
-                        <input type="radio" name="accordion" id="fourth">
-                        <label for="fourth">Organizations</label>
+                        <input type="radio" name="accordion" id="third">
+                        <label for="third">Organizations</label>
                         <div class="accordion-content">
-                            <?php if (!empty($data['skills'][0]->user_skill_id)): ?>
-                                <?php foreach ($data['skills'] as $skill): ?>
-                                    <h4><?php echo $skill->skill_name ?></h4>
-                                    <p>Proficiency Level : <?php echo $skill->proficiency_level ?></p>
+                            <?php if (!empty($data['organizations'][0]->id)): ?>
+                                <?php foreach ($data['organizations'] as $organization): ?>
+                                    <h4><?php echo $organization->organization_name ?> -
+                                        <?php echo $organization->name?>
+                                    </h4>
+                                    <p><?php echo $organization->role ?></p>
+                                    <p>Duration: <?php echo $organization->start_date ?> - <?php echo $organization->end_date ?></p>
                                     <hr>
                                 <?php endforeach; ?>
                             <?php endif; ?>

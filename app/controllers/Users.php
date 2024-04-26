@@ -423,6 +423,7 @@ class Users extends Controller
       'education' => $education,
       'qualifications' => $qualifications,
       'skills' => $skills,
+      'organizations'=> $organizations,
       'requests' => $requests
       // 'friends' => $friends
     ];
@@ -1508,6 +1509,21 @@ class Users extends Controller
     }
   }
 
+  //Update Organization
+  
+  public function showOrganizations($id)
+  {
+    $organizations = $this->userModel->getOrganizationByUserId($id);
+    $user = $this->userModel->getUserById($id);
+
+    $data = [
+      'organizations' => $organizations,
+      'user' => $user
+    ];
+
+
+    $this->view('users/undergraduate/showOrganizations', $data);
+  }
   //Update Education
   public function showEducation($id)
   {

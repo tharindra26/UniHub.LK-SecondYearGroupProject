@@ -579,16 +579,31 @@ class User
         return $row;
     }
 
+    public function getOrganizationByUserId($user_id){
+        $this->db->query('SELECT * 
+                        FROM user_organizations 
+                        INNER JOIN universities 
+                        ON universities.id = user_organizations.organization_university
+                        WHERE user_id = :user_id');
+
+        $this->db->bind(':user_id', $user_id);
+
+        $row = $this->db->resultSet();
+
+        return $row;
+    }
+
     public function getFollowingOrganizations($user_id){
-        // $this->db->query('SELECT * FROM user_organizations
-        //                 INNER JOIN
-        //                 WHERE user_id = :user_id');
+        $this->db->query('SELECT * FROM user_organizations 
+                        INNER JOIN universities 
+                        ON user_organizations.organization_university = universities.id
+                        WHERE user_id = :user_id');
 
-        // $this->db->bind(':user_id', $user_id);
+        $this->db->bind(':user_id', $user_id);
 
-        // $row = $this->db->resultSet();
+        $row = $this->db->resultSet();
 
-        // return $row;
+        return $row;
     }
 
     public function getUsersByType($data)
