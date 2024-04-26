@@ -77,8 +77,6 @@
     </tbody>
 </table>
 
-<script src="<?php echo URLROOT ?>/js/users/admin/postfilter.js"></script>
-
 <script>
     
 </script>

@@ -340,7 +340,8 @@ class Organizations extends Controller
     }
   }
 
-  public function totalOrgFilter(){
+  public function totalOrgFilter()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
       // Sanitize post data
@@ -1201,15 +1202,26 @@ class Organizations extends Controller
       }
 
     }
-
   }
 
+  public function checkOrganizationExist($email)
+  {
 
- 
-
-  
+    if ($this->organizationModel->checkOrganizationExist($email)) {
+      echo true;
+    } else {
+      echo false;
+    }
+  }
 
 }
+
+
+
+
+
+
+
 
 
 

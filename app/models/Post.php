@@ -42,7 +42,8 @@ class Post
         return $row->published_count;
     }
 
-    public function getPendingPostCount(){
+    public function getPendingPostCount()
+    {
         $this->db->query('SELECT COUNT(*) AS pending_count 
                         FROM posts 
                         WHERE approval = :approval');
@@ -560,9 +561,9 @@ class Post
         // Add date range conditions
         if (!empty($startDate) && !empty($endDate)) {
             $query .= " AND p.post_timestamp_created >= :start_date AND p.post_timestamp_created <= :end_date";
-        } elseif (!empty($startDate)) {
+        } elseif (!empty($startDate) && empty($endDate)) {
             $query .= " AND p.post_timestamp_created >= :start_date";
-        } elseif (!empty($endDate)) {
+        } elseif (!empty($endDate) && empty($startDate)) {
             $query .= " AND p.post_timestamp_created <= :end_date";
         }
 
@@ -596,9 +597,9 @@ class Post
         if (!empty($startDate) && !empty($endDate)) {
             $this->db->bind(':start_date', $startDate);
             $this->db->bind(':end_date', $endDate);
-        } elseif (!empty($startDate)) {
+        } elseif (!empty($startDate) && empty($endDate)) {
             $this->db->bind(':start_date', $startDate);
-        } elseif (!empty($endDate)) {
+        } elseif (!empty($endDate) && empty($startDate)) {
             $this->db->bind(':end_date', $endDate);
         }
 
@@ -647,6 +648,64 @@ class Post
         return $rows; 
     }
     
+    public function addDomain($data)
+    {
+        $this->db->query('INSERT INTO post_domains (website, domain) VALUES (:website, :domain)');
+
+        // Bind the values
+        $this->db->bind(':website', $data['website']);
+        $this->db->bind(':domain', $data['domain']);
+
+        // Execute the query
+        if ($this->db->execute()) {
+            return true; // Return true if the insertion is successful
+        } else {
+            return false; // Return false if there is an error
+        }
+    }
+
+    public function getFilterDomains($data)
+    {
+        $keyword = $data['keyword'];
+
+        $query = 'SELECT 
+            d.*
+            FROM post_domains d
+            WHERE 1=1';
+
+        if (!empty($keyword)) {
+            $query .= " AND (d.website LIKE :keyword OR d.domain LIKE :keyword)";
+        }
+
+        // Prepare the query
+        $this->db->query($query);
+
+        // Bind values to the placeholders
+        if (!empty($keyword)) {
+            $this->db->bind(':keyword', '%' . $keyword . '%');
+        }
+
+        // Execute the query
+        $this->db->execute();
+
+        // Fetch the results
+        $row = $this->db->resultSet();
+        return $row;
+    }
+
+    public function deleteDomain($data){
+        $this->db->query('DELETE FROM post_domains WHERE post_domain_id = :post_domain_id');
+        $this->db->bind(':post_domain_id', $data['domainId']);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
 
 
 

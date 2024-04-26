@@ -60,6 +60,12 @@
                         </div>
 
                     </td>
+                    <td>
+                        <a href="<?php echo URLROOT ?>/events/show/<?php echo $event->id ?>" class="view-btn">
+                            <i class="fa-solid fa-eye"></i>
+                        </a>
+
+                    </td>
                 </tr>
 
             <?php endforeach;
@@ -149,5 +155,6 @@
             }
         });
     }
+
 
 </script>

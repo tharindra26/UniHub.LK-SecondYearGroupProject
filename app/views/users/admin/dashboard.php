@@ -109,4 +109,5 @@ foreach ($period as $date) {
     // Call the function to initialize the charts when the page loads
     initializeCharts();
 
+
 </script>

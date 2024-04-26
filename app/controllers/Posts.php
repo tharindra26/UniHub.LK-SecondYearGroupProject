@@ -612,11 +612,9 @@ class Posts extends Controller
 
       if ($type == "all") {
         $post = $this->postModel->getAllPosts();
-      }
-      elseif($type == "published"){
+      } elseif ($type == "published") {
         $post = $this->postModel->getPublishedPosts();
-      }
-      elseif($type == "pending"){
+      } elseif ($type == "pending") {
         $post = $this->postModel->getPendingPosts();
       }
 
@@ -626,6 +624,66 @@ class Posts extends Controller
 
       $this->view('users/admin/postfilter', $data);
 
+    }
+  }
+
+  public function addDomainForm()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $data = [
+      ];
+      $this->view('users/admin/postDomainForm', $data);
+    }
+  }
+
+  public function addDomain()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $website = $_POST['website'];
+      $domain = $_POST['domain'];
+      $data = [
+        'website' => $website,
+        'domain' => $domain,
+      ];
+
+      if ($this->postModel->addDomain($data)) {
+        echo true;
+      } else {
+        echo false;
+      }
+    }
+  }
+
+  public function filterDomains()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $domains = $this->postModel->getFilterDomains($_POST);
+
+      $data = [
+        'domains' => $domains,
+      ];
+
+      $this->view('users/admin/domainfilter', $data);
+
+    }
+
+  }
+
+  public function deleteDomain()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $domainId = $_POST['domainId'];
+      $data = [
+        'domainId' => $domainId,
+      ];
+      if ($this->postModel->deleteDomain($data)) {
+        echo true;
+      } else {
+        echo false;
+      }
     }
   }
 

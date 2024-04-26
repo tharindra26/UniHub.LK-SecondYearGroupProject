@@ -50,15 +50,15 @@
     <!-- university-filter -->
     <div class="option select-uni filter">
         <div class="filter-text">University:</div>
-            <select name="university" id="uni-filter-value" placeholder=" Approval" class="dropdown-menu">
-                <option value="">None</option>
-                <?php if (!empty($data['universities'])): ?>
-                    <?php foreach ($data['universities'] as $uni): ?>
-                        <option value="<?php echo $uni->id ?>"><?php echo $uni->name ?></option>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+        <select name="university" id="uni-filter-value" placeholder=" Approval" class="dropdown-menu">
+            <option value="">None</option>
+            <?php if (!empty($data['universities'])): ?>
+                <?php foreach ($data['universities'] as $uni): ?>
+                    <option value="<?php echo $uni->id ?>"><?php echo $uni->name ?></option>
+                <?php endforeach; ?>
+            <?php endif; ?>
 
-            </select>
+        </select>
 
     </div>
 
@@ -99,10 +99,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-   
+
 
     var URLROOT = document.querySelector('.urlRootValue').textContent.trim();
-    
+
     // Function to gather and handle all filter inputs
     function handleFilters() {
         var searchInputValue = $('#search-bar-input').val();
@@ -204,4 +204,31 @@
 
         //handleFilters();
     }
+
+    function initializeCount() {
+        totalValue = document.querySelectorAll(".tot");
+        let timeinterval = 200;
+
+        totalValue.forEach((valueDisplay) => {
+            let startValue = 0;
+            let endValue = parseInt(valueDisplay.getAttribute("data-val"));
+            let duration = Math.floor(timeinterval / endValue);
+
+            // If endValue is zero, set the text content immediately and return
+            if (endValue === 0) {
+                valueDisplay.textContent = 0;
+                return;
+            }
+
+            let counter = setInterval(() => {
+                startValue += 1;
+                valueDisplay.textContent = startValue;
+                if (startValue === endValue) {
+                    clearInterval(counter);
+                }
+            }, duration);
+        });
+    }
+
+    initializeCount();
 </script>
