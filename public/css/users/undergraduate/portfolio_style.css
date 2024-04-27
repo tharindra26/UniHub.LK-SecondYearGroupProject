@@ -1,17 +1,30 @@
-.print-portfolio{
-    border: 1px solid red;
-    display: flex;
-    padding: 20px;
+body{
+    font-size: 14px;
 }
-
-.leftbar{
-    border: 1px solid blue;
-    width: 30%;
+.content-container{
+    /* border: 1px solid pink; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+}
+.print-portfolio{
+    /* border: 1px solid red; */
+    display: flex;
+    /* width: 70%; */
+    width: 210mm;
+    /* height: 297mm; */
+}
+
+.leftbar{
+    /* border: 1px solid blue; */
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    background-color: #3498db;
+    padding-top: 50px;
 }
 
 .profile-photo{
@@ -21,31 +34,173 @@
     width: 200px;
     height:200px;
     border-radius: 50%;
-    box-shadow: 0 0 0 5px rgba(1, 10, 96, 0.814);
+    box-shadow: 0 0 0 5px white;
     transition: box-shadow 0.5s;
     overflow: hidden;
+    margin: 20px;
+    /* margin-top: -50px; */
 }
 
 .profile-photo .profile-img{
     width: 200px;
+    border-radius: 50%;
 }
 
 .contact{
-    border: 1px solid black;
-    width: 80%;
+    /* border: 1px solid black; */
+    width: 95%;
+    color: white;
+    margin: 10px;
 }
 
 .contact .address{
     display: flex;
+    align-items: center;
+}
+
+.contact .address p{
+    margin: 10px 0;
+}
+
+.contact .address i{
+    margin: 10px;
 }
 
 .personal-info{
-    border: 1px solid black;
-    width: 80%;
+    /* border: 1px solid black; */
+    width: 95%;
+    margin: 10px;
+}
+
+.info-heading{
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.personal-info .info-list{
+    color: white;
+    margin: 15px 25px;
+}
+
+.skills{
+    /* border: 1px solid black; */
+    width: 95%;
+    margin: 10px;
+}
+
+.skills .skill-list{
+    color: white;
+    margin: 15px 25px;
+}
+
+.skill-list li{
+    display: flex;
+    flex-direction: row;
+}
+
+.languages{
+    /* border: 1px solid black; */
+    width: 95%;
+    margin: 10px;
+}
+
+.languages .language-list{
+    color: white;
+    margin: 15px 25px;
 }
 
 .rightbar{
-    border: 1px solid green;
+    /* border: 1px solid green; */
     width: 70%;
-    padding: 20px;
+    padding: 10px;
+    background-color: white;
+}
+
+.name{
+    /* border: 1px solid black; */
+    width: 95%;
+    margin: 10px;
+}
+
+.name h1{
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 40px;
+    margin-top: 20px;
+}
+
+.about{
+    /* border: 1px solid black; */
+    width: 95%;
+    margin: 10px;
+}
+
+.list-heading{
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 20px;
+    color: rgb(7, 7, 122);
+}
+.qualifications{
+    /* border: 1px solid black; */
+    width: 95%;
+    margin: 10px;
+}
+
+.qualification-list{
+    margin-left: 25px;
+}
+
+.qualification-list ul{
+    margin: 10px 0;
+}
+
+.qualification-list h4{
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.education-list{
+    margin-left: 25px;
+}
+
+.education-list ul{
+    margin: 10px 0;
+}
+
+.education-list h4{
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.ref-item{
+    display: flex;
+    flex-direction: row;
+}
+
+.ref-item h5{
+    font-size: 14px;
+}
+
+.submit-btn {
+    height: 55px;
+    width: 210mm;
+    font-size: 16px;
+    border: none;
+    margin: 30px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: 500;
+    background: #3498db;
+    color: white;
+    transition: all 0.2s ease;
+}
+
+.submit-btn:hover {
+    background: #2980b9;
 }
