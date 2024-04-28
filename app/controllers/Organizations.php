@@ -56,9 +56,9 @@ class Organizations extends Controller
         'facebook' => trim($_POST['facebook']),
         'linkedin' => trim($_POST['linkedin']),
         'number_of_members' => trim($_POST['number_of_members']),
-        'organization_profile_image' => '',
-        'organization_cover_image' => '',
-        'board_members_image' => '',
+        'organization_profile_image' => trim($_POST['organization_profile_image']),
+        'organization_cover_image' => trim($_POST['organization_cover_image']),
+        'board_members_image' => trim($_POST['board_members_image']),
 
 
 
@@ -229,6 +229,39 @@ class Organizations extends Controller
 
         if ($this->organizationModel->addOrganization($data)) {
           // flash('event_message', "Event Added Successfully");
+
+          $admins = $this->userModel->getAdminsEmails();
+          foreach ($admins as $admin) {
+
+            $to = $admin->secondary_email;
+            $sender = 'developer.unihub@gmail.com';
+            $mail_subject = 'New Organization Added - Review Required';
+
+            // Initialize $email_body properly and append to it
+            $email_body = '<p>Hello,</p>';
+            $email_body .= '<p>A new organization has been requested and requires your attention.<br>Please review the organization details and take necessary actions.</p>';
+            $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+            $header = "From: {$sender}\r\n";
+            $header .= "Content-Type: text/html;";
+
+            $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+          }
+
+
+          $to = $data['contact_email'];
+          $sender = 'developer.unihub@gmail.com';
+          $mail_subject = 'Organization Under Approval: ' . $data['organization_name'];
+
+          // Initialize $email_body properly and append to it
+          $email_body = '<p>Hello,</p>';
+          $email_body .= '<p>Your organization is currently under review. We will notify you once the approval process is completed.</p>';
+          $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+          $header = "From: {$sender}\r\n";
+          $header .= "Content-Type: text/html;";
+
+          $send_mail_result = mail($to, $mail_subject, $email_body, $header);
 
           redirect('organizations');
         }
@@ -1258,6 +1291,23 @@ class Organizations extends Controller
       ];
 
       if ($this->organizationModel->changeApproval($data)) {
+        $organization = $this->organizationModel->getOrganizationById($organizationId);
+        $organizationEmail = $organization->contact_email;
+
+        $to = $organizationEmail;
+        $sender = 'developer.unihub@gmail.com';
+        $mail_subject = 'Organization ' . $selectedOrganizationApproval . ': ' . $organization->organization_name;
+
+        // Initialize $email_body properly and append to it
+        $email_body = '<p>Hello,</p>';
+        $email_body .= '<p>Your organization request has been ' . $selectedOrganizationApproval . ' . Thank you for your submission.</p>';
+        $email_body .= '<p>For further information or inquiries, please contact us at developer.unihub@gmail.com</p>';
+        $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+        $header = "From: {$sender}\r\n";
+        $header .= "Content-Type: text/html;";
+
+        $send_mail_result = mail($to, $mail_subject, $email_body, $header);
         echo true;
       } else {
         echo false;

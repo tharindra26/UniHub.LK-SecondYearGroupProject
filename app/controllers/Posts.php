@@ -60,7 +60,7 @@ class Posts extends Controller
         'material_link' => trim($_POST['material_link']),
         'categories' => isset($_POST['categories']) ? $_POST['categories'] : [],
         'tags' => isset($_POST['tags']) ? $_POST['tags'] : [],
-        'post_profile_image' => "",
+        'post_profile_image' => trim($_POST['post_profile_image']),
         'postCategories' => $postCategories,
 
 
@@ -117,6 +117,23 @@ class Posts extends Controller
       }
       if (empty($data['post_profile_image'])) {
         $data['post_profile_image_err'] = 'Please add a image for post';
+      }
+
+      $postDomainsCheck = false;
+      if (!empty($data['university_id']) && !empty($data['email'])) {
+        $universityDomains = $this->universityModel->getDomainsByUniId($data['university_id']);
+        // Check if any part of the email matches any university domain
+        foreach ($universityDomains as $domainObj) {
+          $domain = $domainObj->domain; // Extract domain string from object
+          if (strpos($data['email'], $domain) !== false) {
+            $universityDomainsCheck = true;
+            break;
+          }
+        }
+      }
+
+      if ($universityDomainsCheck === false) {
+        $data['email_err'] = 'Email you entered do not match with any university domain';
       }
 
 

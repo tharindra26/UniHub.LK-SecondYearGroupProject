@@ -105,7 +105,7 @@ class Event
         $this->db->bind(':instagram', $data['instagram']);
         $this->db->bind(':description', $data['description']);
         $this->db->bind(':map_navigation', $data['map_navigation']);
-        $this->db->bind(':approval', 1);
+        $this->db->bind(':approval', 'pending');
         $this->db->bind(':status', 1);
         $this->db->bind(':main_button_action', 'Hang with Us');
         $this->db->bind(':main_button_link', '#');

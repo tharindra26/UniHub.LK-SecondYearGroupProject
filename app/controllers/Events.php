@@ -67,8 +67,8 @@ class Events extends Controller
         'end_datetime' => trim($_POST['end_datetime']),
         'description' => trim($_POST['description']),
         'categories' => isset($_POST['categories']) ? $_POST['categories'] : [],
-        'event_profile_image' => '',
-        'event_cover_image' => '',
+        'event_profile_image' => trim($_POST['event_profile_image']),
+        'event_cover_image' => trim($_POST['event_cover_image']),
         'universities' => $universities,
         'eventCategories' => $eventCategories,
 
@@ -215,6 +215,25 @@ class Events extends Controller
 
             $send_mail_result = mail($to, $mail_subject, $email_body, $header);
           }
+
+
+
+          $to = $data['email'];
+          $sender = 'developer.unihub@gmail.com';
+          $mail_subject = 'Event Under Approval: '. $data['title'];
+
+          // Initialize $email_body properly and append to it
+          $email_body = '<p>Hello,</p>';
+          $email_body .= '<p>Your event is currently under review. We will notify you once the approval process is completed.</p>';
+          $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+          $header = "From: {$sender}\r\n";
+          $header .= "Content-Type: text/html;";
+
+          $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+
+
+
           redirect('events');
         }
       } else {
@@ -1440,6 +1459,24 @@ class Events extends Controller
       ];
 
       if ($this->eventModel->changeApproval($data)) {
+        $event = $this->eventModel->getEventById($eventId);
+        $eventEmail = $event->email;
+
+        $to = $eventEmail;
+        $sender = 'developer.unihub@gmail.com';
+        $mail_subject = 'Event ' . $selectedApproval . ': ' . $event->title;
+
+        // Initialize $email_body properly and append to it
+        $email_body = '<p>Hello,</p>';
+        $email_body .= '<p>Your event has been ' . $selectedApproval . ' . Thank you for your submission.</p>';
+        $email_body .= '<p>For further information or inquiries, please contact us at developer.unihub@gmail.com</p>';
+        $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+        $header = "From: {$sender}\r\n";
+        $header .= "Content-Type: text/html;";
+
+        $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+
         echo true;
       } else {
         echo false;
