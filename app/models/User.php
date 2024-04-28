@@ -742,14 +742,51 @@ class User
 
     public function getSkillsByUserId($user_id)
     {
-        $this->db->query('SELECT * FROM user_skills WHERE user_id = :user_id');
+        $this->db->query('SELECT * FROM user_skills WHERE user_id = :user_id
+                        AND status = :status');
 
         $this->db->bind(':user_id', $user_id);
+        $this->db->bind(':status', 1);
+
 
         $row = $this->db->resultSet();
 
         return $row;
     }
+
+    public function addSkill($data)
+{
+    // Insert skill into the database
+    $this->db->query('INSERT INTO user_skills (user_id, skill_name, proficiency_level) VALUES (:user_id, :skill_name, :proficiency_level)');
+    // Bind values
+    $this->db->bind(':user_id', $_SESSION['user_id']);
+    $this->db->bind(':skill_name', $data['skill_name']);
+    $this->db->bind(':proficiency_level', $data['proficiency_level']);
+
+    // Execute
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+public function deleteSkill($data)
+{
+    $this->db->query("UPDATE user_skills SET status = :status  WHERE user_skill_id= :user_skill_id");
+    //Bind values
+    $this->db->bind(':user_skill_id', $data['user_skill_id']);
+    $this->db->bind('status', 0);
+
+    //Execute the query
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 
     public function getOrganizationByUserId($user_id)
     {
@@ -787,17 +824,17 @@ class User
         return $row;
     }
 
-    public function getAllOrganizations()
-    {
-        $this->db->query('SELECT *  FROM organizations
-                        WHERE status = :status');
+    // public function getAllOrganizations()
+    // {
+    //     $this->db->query('SELECT *  FROM organizations
+    //                     WHERE status = :status');
 
-        $this->db->bind(':status', 1);
+    //     $this->db->bind(':status', 1);
 
-        $row = $this->db->resultSet();
+    //     $row = $this->db->resultSet();
 
-        return $row;
-    }
+    //     return $row;
+    // }
 
     public function getFollowingOrganizations($user_id)
     {
@@ -811,6 +848,69 @@ class User
         $row = $this->db->resultSet();
 
         return $row;
+    }
+
+    public function addOrganization($data)
+    {
+        // var_dump($data['category_ids']);
+        // die();
+        $this->db->query("INSERT INTO user_organizations (
+                        user_id,
+                        organization_name, 
+                        organization_university,
+                        organization_id,
+                        role,
+                        start_date, 
+                        end_date) VALUES(:user_id, :organization_name, :organization_university, :organization_id, :role, :start_date, :end_date)");
+        //Bind values
+        $this->db->bind(':user_id', $_SESSION['user_id']);
+        $this->db->bind(':organization_name', $data['organization_name']);
+        $this->db->bind(':organization_university', $data['organization_university']);
+        $this->db->bind(':organization_id', $data['organization_id']);
+        $this->db->bind(':role', $data['role']);
+        $this->db->bind(':start_date', $data['start_date']);
+        $this->db->bind(':end_date', $data['end_date']);
+
+        // Begin the transaction
+        $this->db->beginTransaction();
+
+        // Execute the first query
+        if (!$this->db->execute()) {
+            // Rollback the transaction if there's an error
+            $this->db->rollBack();
+            return false;
+        }
+
+        // Commit the transaction if everything is successful
+        $this->db->commit();
+        return true;
+    }
+
+    public function updateOrganization($data)
+    {
+        $this->db->query("UPDATE user_organizations SET
+                    organization_name = :organization_name,
+                    organization_university = :organization_university,
+                    organization_id = :organization_id,
+                    role = :role,
+                    start_date = :start_date,
+                    end_date = :end_date
+                    WHERE id = :id");
+        //Bind values
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':organization_name', $data['organization_name']);
+        $this->db->bind(':organization_university', $data['organization_university']);
+        $this->db->bind(':organization_id', $data['organization_id']);
+        $this->db->bind(':role', $data['role']);
+        $this->db->bind(':start_date', $data['start_date']);
+        $this->db->bind(':end_date', $data['end_date']);
+
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function getPassword($id){
