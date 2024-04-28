@@ -36,15 +36,23 @@
                     <i class="fa-regular fa-comment"></i>
                     <div class="comment-text"><?php echo $data['post']->comment_count ?></div>
                 </a>
-                <div class="bookmark-option" data-post-id="<?php echo $data['post']->post_id ?>"
-                    data-bookmarked-users='<?php echo json_encode(explode(',', $data['post']->bookmarked_users)) ?>'>
-                    <i class="fa-regular fa-bookmark"></i>
-                    <div class="bookmark-text">Add Bookmark</div>
-                </div>
-                <a href="<?php echo URLROOT ?>/posts/settings/<?php echo $data['post']->post_id ?>" class="post-settings-option">
+
+                <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'undergraduate')): ?>
+                    <div class="bookmark-option" data-post-id="<?php echo $data['post']->post_id ?>"
+                        data-bookmarked-users='<?php echo json_encode(explode(',', $data['post']->bookmarked_users)) ?>'>
+                        <i class="fa-regular fa-bookmark"></i>
+                        <div class="bookmark-text">Add Bookmark</div>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin' || (isset($_SESSION['user_id']) && $_SESSION['user_id'] === $data['post']->user_id)): ?>
+                <a href="<?php echo URLROOT ?>/posts/settings/<?php echo $data['post']->post_id ?>"
+                    class="post-settings-option">
                     <i class="fa-solid fa-gear"></i>
                     <div class="post-setting-option-text">Settings</div>
                 </a>
+                <?php endif; ?>
+                
                 <a href="<?php echo $data['post']->material_link ?>" class="explore-more-option">
                     <i class="fa-solid fa-rocket"></i>
                     <div class="explore-more-text">Explore More</div>

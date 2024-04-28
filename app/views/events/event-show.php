@@ -52,17 +52,20 @@
                     alt="">
             </div>
         </div>
-        <div class="event-reaction-section">
-            <a href="#" id="interested-btn-id" class="interested-btn">
-                <i class="fa-regular fa-face-grin-hearts"></i>
-                <span>&nbsp Interested</span>
-            </a>
-            <!-- <a href="#" id="going-btn-id" class="going-btn">
+
+        <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'undergraduate')): ?>
+            <div class="event-reaction-section">
+                <a href="#" id="interested-btn-id" class="interested-btn">
+                    <i class="fa-regular fa-face-grin-hearts"></i>
+                    <span>&nbsp Interested</span>
+                </a>
+                <!-- <a href="#" id="going-btn-id" class="going-btn">
                 <i class="fa-regular fa-face-grin-hearts"></i>
                 <span>&nbsp Going</span>
             </a> -->
 
-        </div>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
 
@@ -111,28 +114,32 @@
             <?php endif; ?>
 
 
+            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin' || (isset($_SESSION['user_id']) && $_SESSION['user_id'] === $data['event']->user_id)): ?>
+                <div class="event-announcements">
+                    <a href="<?php echo URLROOT ?>/events/addAnnouncement/<?php echo $data['event']->id ?>"
+                        class="event-announcements-link">
+                        <div class="event-settings-btn">
+                            <i class="fa-solid fa-bullhorn"></i> &nbsp Add Announcement
+                        </div>
+                    </a>
+                </div>
 
-            <div class="event-announcements">
-                <a href="<?php echo URLROOT ?>/events/addAnnouncement/<?php echo $data['event']->id ?>"
-                    class="event-announcements-link">
-                    <div class="event-settings-btn">
-                        <i class="fa-solid fa-bullhorn"></i> &nbsp Add Announcement
-                    </div>
-                </a>
-            </div>
+                <div class="event-settings">
+                    <a href="<?php echo URLROOT ?>/events/settings/<?php echo $data['event']->id ?>"
+                        class="event-settings-link">
+                        <div class="event-settings-btn">
+                            <i class="fa-solid fa-gear"></i> &nbsp Event Settings
+                        </div>
+                    </a>
+                </div>
+            <?php endif; ?>
 
-            <div class="event-settings">
-                <a href="<?php echo URLROOT ?>/events/settings/<?php echo $data['event']->id ?>"
-                    class="event-settings-link">
-                    <div class="event-settings-btn">
-                        <i class="fa-solid fa-gear"></i> &nbsp Event Settings
-                    </div>
-                </a>
-            </div>
 
-            <div class="rating-btn" onClick="openPopup('rating-popup')">
-                <p><i class="fa-solid fa-hands-clapping"></i> Rate Us</p>
-            </div>
+            <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'undergraduate')): ?>
+                <div class="rating-btn" onClick="openPopup('rating-popup')">
+                    <p><i class="fa-solid fa-hands-clapping"></i> Rate Us</p>
+                </div>
+            <?php endif; ?>
 
             <!-- popupModal -->
 

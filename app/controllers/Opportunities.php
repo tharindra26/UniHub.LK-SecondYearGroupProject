@@ -263,6 +263,39 @@ class Opportunities extends Controller
 
         if ($this->opportunityModel->addOpportunity($data)) {
           // flash('event_message', "Event Added Successfully");
+          $admins = $this->userModel->getAdminsEmails();
+
+          foreach ($admins as $admin) {
+
+            $to = $admin->secondary_email;
+            $sender = 'developer.unihub@gmail.com';
+            $mail_subject = 'New Opportunity Added - Review Required:' . $data['opportunity_title'];
+
+            // Initialize $email_body properly and append to it
+            $email_body = '<p>Hello,</p>';
+            $email_body .= '<p>A new opportunity has been added and requires your attention.<br>Please review the opportunity details and take necessary actions.</p>';
+            $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+            $header = "From: {$sender}\r\n";
+            $header .= "Content-Type: text/html;";
+
+            $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+          }
+
+          $to = $data['contact_email'];
+          $sender = 'developer.unihub@gmail.com';
+          $mail_subject = 'Opportunity request Under Approval: ' . $data['opportunity_title'];
+
+          // Initialize $email_body properly and append to it
+          $email_body = '<p>Hello,</p>';
+          $email_body .= '<p>We have received your job opportunity submission, ' . $data['opportunity_title'] . ' and it is currently under review by our team.</p>';
+          $email_body .= '<p>For any further inquiries or information, please don t hesitate to contact us</p>';
+          $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+          $header = "From: {$sender}\r\n";
+          $header .= "Content-Type: text/html;";
+
+          $send_mail_result = mail($to, $mail_subject, $email_body, $header);
           redirect('opportunities');
         }
       } else {
@@ -762,6 +795,24 @@ class Opportunities extends Controller
       ];
 
       if ($this->opportunityModel->changeApproval($data)) {
+
+        $opp = $this->opportunityModel->getOpportunityById($opportunityId);
+        $email = $opp->contact_email;
+
+        $to = $email;
+        $sender = 'developer.unihub@gmail.com';
+        $mail_subject = 'Post ' . $selectedOpportunityApproval . ': ' . $opp->opportunity_title;
+
+        // Initialize $email_body properly and append to it
+        $email_body = '<p>Hello,</p>';
+        $email_body .= '<p>Your opportunity has been ' . $selectedOpportunityApproval . ' . Thank you for your submission.</p>';
+        $email_body .= '<p>For further information or inquiries, please contact us at developer.unihub@gmail.com</p>';
+        $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+        $header = "From: {$sender}\r\n";
+        $header .= "Content-Type: text/html;";
+
+        $send_mail_result = mail($to, $mail_subject, $email_body, $header);
         echo true;
       } else {
         echo false;

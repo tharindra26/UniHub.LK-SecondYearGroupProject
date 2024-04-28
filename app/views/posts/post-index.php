@@ -13,11 +13,14 @@
                     <p>Start reading</p>
                 </a>
 
-                <a href="<?php echo URLROOT ?>/posts/add">
-                    <div class="add-post-btn">
-                        <p><i class="fa-solid fa-bullhorn"></i> Publish Your Work</p>
-                    </div>
-                </a>
+
+                <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'undergraduate')): ?>
+                    <a href="<?php echo URLROOT ?>/posts/add">
+                        <div class="add-post-btn">
+                            <p><i class="fa-solid fa-bullhorn"></i> Publish Your Work</p>
+                        </div>
+                    </a>
+                <?php endif; ?>
 
             </div>
 
@@ -66,10 +69,12 @@
                 Stay informed, stay inspired. Choose your interests and unlock a world of knowledge.
 
             </div>
-            <a href="<?php echo URLROOT ?>/users/changePostInterest" class="interst-setting-btn">
-                Customize Feed
-                <i class="fa-solid fa-chevron-right"></i>
-            </a>
+            <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'undergraduate')): ?>
+                <a href="<?php echo URLROOT ?>/users/changePostInterest" class="interst-setting-btn">
+                    Customize Feed
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+            <?php endif; ?>
         </div>
         <div class="interest-right-side">
             <img src="<?php echo URLROOT ?>/img/posts/interest_image/interest.jpg" alt="">

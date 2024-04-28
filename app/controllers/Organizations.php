@@ -56,9 +56,9 @@ class Organizations extends Controller
         'facebook' => trim($_POST['facebook']),
         'linkedin' => trim($_POST['linkedin']),
         'number_of_members' => trim($_POST['number_of_members']),
-        'organization_profile_image' => trim($_POST['organization_profile_image']),
-        'organization_cover_image' => trim($_POST['organization_cover_image']),
-        'board_members_image' => trim($_POST['board_members_image']),
+        'organization_profile_image' => '',
+        'organization_cover_image' => '',
+        'board_members_image' => '',
 
 
 
@@ -235,7 +235,7 @@ class Organizations extends Controller
 
             $to = $admin->secondary_email;
             $sender = 'developer.unihub@gmail.com';
-            $mail_subject = 'New Organization Added - Review Required';
+            $mail_subject = 'New Organization Added - Review Required:' . $data['organization_name'];
 
             // Initialize $email_body properly and append to it
             $email_body = '<p>Hello,</p>';
@@ -696,6 +696,30 @@ class Organizations extends Controller
 
         if ($this->organizationModel->addNews($data)) {
           // flash('event_message', "Event Added Successfully");
+          if ($data['sharing_option'] === '1') {
+            $followedUsers = $this->organizationModel->getFollowedUsersByOrganizationId($data['organization_id']);
+
+            $organization = $this->organizationModel->getOrganizationById($data['organization_id']);
+            foreach ($followedUsers as $follower) {
+
+              $to = $follower->secondary_email;
+              $sender = 'developer.unihub@gmail.com';
+              $mail_subject = 'New news for ' . $organization->organization_name;
+
+              // Initialize $email_body properly and append to it
+              $email_body = '<p>Hello,</p>';
+              $email_body .= '<p>We are excited to inform you about a new news related to an organization you are followed!</p>';
+              $email_body .= '<p>There is a new news has been published for the organization <strong>' . $organization->organization_name . '</strong></p>';
+              $email_body .= '<p>Please log in to our website to see the full news and stay updated with the latest news.</p>';
+              $email_body .= '<p>' . URLROOT . '/organizations/show/' . $data['organization_id'] . '</p>';
+              $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+              $header = "From: {$sender}\r\n";
+              $header .= "Content-Type: text/html;";
+
+              $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+            }
+          }
           redirect('organizations/show/' . $id);
         }
       } else {
@@ -770,7 +794,31 @@ class Organizations extends Controller
 
 
         if ($this->organizationModel->updateNews($data)) {
-          // flash('event_message', "Event Added Successfully");
+          if ($data['sharing_option'] === '1') {
+            $followedUsers = $this->organizationModel->getFollowedUsersByOrganizationId($news->organization_id);
+
+            $organization = $this->organizationModel->getOrganizationById($news->organization_id);
+
+            foreach ($followedUsers as $follower) {
+
+              $to = $follower->secondary_email;
+              $sender = 'developer.unihub@gmail.com';
+              $mail_subject = 'News update for ' . $organization->organization_name.' :'.$data['news_title'];
+
+              // Initialize $email_body properly and append to it
+              $email_body = '<p>Hello,</p>';
+              $email_body .= '<p>We are excited to inform you about a new new related to an organization you are followed!</p>';
+              $email_body .= '<p>There is a new news has been published for the organization <strong>' . $organization->organization_name . '</strong></p>';
+              $email_body .= '<p>Please log in to our website to see the full news and stay updated with the latest news.</p>';
+              $email_body .= '<p>' . URLROOT . '/organizations/show/' . $data['organization_id'] . '</p>';
+              $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+              $header = "From: {$sender}\r\n";
+              $header .= "Content-Type: text/html;";
+
+              $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+            }
+          }
           redirect('organizations/show/' . $news->organization_id);
         }
       } else {

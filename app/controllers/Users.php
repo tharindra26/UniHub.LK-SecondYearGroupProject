@@ -382,9 +382,9 @@ class Users extends Controller
 
   public function createUserSession($user)
   {
-
     $_SESSION['user_id'] = $user->id;
     $_SESSION['user_email'] = $user->email;
+    $_SESSION['user_secondary_email'] = $user->secondary_email;
     $_SESSION['user_name'] = $user->fname;
     $_SESSION['user_type'] = $user->type;
     $_SESSION['university_id'] = $user->university_id;

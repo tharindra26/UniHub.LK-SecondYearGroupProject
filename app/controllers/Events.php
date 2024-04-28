@@ -67,8 +67,8 @@ class Events extends Controller
         'end_datetime' => trim($_POST['end_datetime']),
         'description' => trim($_POST['description']),
         'categories' => isset($_POST['categories']) ? $_POST['categories'] : [],
-        'event_profile_image' => trim($_POST['event_profile_image']),
-        'event_cover_image' => trim($_POST['event_cover_image']),
+        'event_profile_image' => '',
+        'event_cover_image' => '',
         'universities' => $universities,
         'eventCategories' => $eventCategories,
 
@@ -91,6 +91,7 @@ class Events extends Controller
         'event_cover_image_err' => '',
 
       ];
+
 
       //event-profile image adding
       if (isset($_FILES['event_profile_image']['name']) and !empty($_FILES['event_profile_image']['name'])) {
@@ -203,7 +204,7 @@ class Events extends Controller
 
             $to = $recipient->secondary_email;
             $sender = 'developer.unihub@gmail.com';
-            $mail_subject = 'New Event Added - Review Required';
+            $mail_subject = 'New Event Added - Review Required:' . $data['title'];
 
             // Initialize $email_body properly and append to it
             $email_body = '<p>Hello,</p>';
@@ -220,7 +221,7 @@ class Events extends Controller
 
           $to = $data['email'];
           $sender = 'developer.unihub@gmail.com';
-          $mail_subject = 'Event Under Approval: '. $data['title'];
+          $mail_subject = 'Event Under Approval: ' . $data['title'];
 
           // Initialize $email_body properly and append to it
           $email_body = '<p>Hello,</p>';
@@ -231,7 +232,6 @@ class Events extends Controller
           $header .= "Content-Type: text/html;";
 
           $send_mail_result = mail($to, $mail_subject, $email_body, $header);
-
 
 
           redirect('events');
@@ -729,7 +729,30 @@ class Events extends Controller
 
 
         if ($this->eventModel->addAnnouncement($data)) {
-          // flash('event_message', "Event Added Successfully");
+          if ($data['sharingOption'] === '1') {
+            $eventInterestUsers = $this->eventModel->getEventInterestUsersByEventId($data['event_id']);
+
+            $event = $this->eventModel->getEventById($data['event_id']);
+            foreach ($eventInterestUsers as $recipient) {
+
+              $to = $recipient->secondary_email;
+              $sender = 'developer.unihub@gmail.com';
+              $mail_subject = 'New Announcement for ' . $event->title;
+
+              // Initialize $email_body properly and append to it
+              $email_body = '<p>Hello,</p>';
+              $email_body .= '<p>We are excited to inform you about a new announcement related to an event you are interested in!</p>';
+              $email_body .= '<p>There is a new announcement has been published for the event <strong>' . $event->title . '</strong></p>';
+              $email_body .= '<p>Please log in to our website to read the full announcement and stay updated with the latest news.</p>';
+              $email_body .= '<p>' . URLROOT . '/events/show/' . $data['event_id'] . '</p>';
+              $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+              $header = "From: {$sender}\r\n";
+              $header .= "Content-Type: text/html;";
+
+              $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+            }
+          }
           redirect('events/settings/' . $id);
         }
       } else {
@@ -1394,6 +1417,30 @@ class Events extends Controller
 
       if ($this->eventModel->updateAnnouncementById($data)) {
         echo true;
+        if ($data['sharingOption'] === '1') {
+          $eventInterestUsers = $this->eventModel->getEventInterestUsersByEventId($data['event_id']);
+
+          $event = $this->eventModel->getEventById($data['event_id']);
+          foreach ($eventInterestUsers as $recipient) {
+
+            $to = $recipient->secondary_email;
+            $sender = 'developer.unihub@gmail.com';
+            $mail_subject = 'Announcement has updated in ' . $event->title;
+
+            // Initialize $email_body properly and append to it
+            $email_body = '<p>Hello,</p>';
+            $email_body .= '<p>We are excited to inform you about a new announcement related to an event you are interested in!</p>';
+            $email_body .= '<p>There is an announcement has been updated for the event <strong>' . $event->title . '</strong></p>';
+            $email_body .= '<p>Please log in to our website to read the full announcement and stay updated with the latest news.</p>';
+            $email_body .= '<p>' . URLROOT . '/events/show/' . $data['event_id'] . '</p>';
+            $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+            $header = "From: {$sender}\r\n";
+            $header .= "Content-Type: text/html;";
+
+            $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+          }
+        }
       } else {
         echo false;
       }
@@ -1481,11 +1528,7 @@ class Events extends Controller
       } else {
         echo false;
       }
-
     }
-
   }
-
-
 }
 

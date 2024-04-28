@@ -85,10 +85,12 @@
                     <hr>
                 </div>
 
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <div class="option" onclick="userFollowedOrganizations('<?php echo $_SESSION['user_id'] ?>')">Followed
-                        <hr>
-                    </div>
+                <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'undergraduate')): ?>
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                        <div class="option" onclick="userFollowedOrganizations('<?php echo $_SESSION['user_id'] ?>')">Followed
+                            <hr>
+                        </div>
+                    <?php endif; ?>
                 <?php endif; ?>
 
                 <div class="option" onclick="quickShortcut('Sports')">Sports
@@ -112,13 +114,16 @@
     <div class="outer-body-container">
 
         <!-- filters-section -->
+
         <div class="filters-section">
-            <a href="<?php echo URLROOT ?>/organizations/add">
-                <div class="add-event-button">
-                    <i class="fa-solid fa-envelope"></i>
-                    <span>Request Organization</span>
-                </div>
-            </a>
+            <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'undergraduate')): ?>
+                <a href="<?php echo URLROOT ?>/organizations/add">
+                    <div class="add-event-button">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>Request Organization</span>
+                    </div>
+                </a>
+            <?php endif; ?>
 
             <!-- university-filter -->
             <div class="uni-filter ">
@@ -212,7 +217,7 @@
         });
     }
 
-    
+
 
 </script>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

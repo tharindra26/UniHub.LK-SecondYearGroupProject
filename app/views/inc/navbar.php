@@ -63,7 +63,7 @@
             <li class="hideOnMobile">
                 <div class="notification-icon" onclick="toggleNotificationList()">
                     <i class="fa-solid fa-bell"></i>
-                    <div class="notification-count">50</div>
+                    <div class="notification-count">3</div>
                     <div class="notification-list" id="notification-list">
                         <!-- Notification items will go here -->
                         <div class="notification-item">
