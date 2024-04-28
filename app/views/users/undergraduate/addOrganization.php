@@ -2,24 +2,18 @@
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/events/change-contact-details_style.css">
 
-<!-- Loading Spinner -->
-<div class="spinner" id="spinner"></div>
-
-
 <div class="container">
     <div class="inner-container">
-        <div class="title-text">
-            <p>Change Organization</p>
+    <div class="title-text">
+            <p>Add Qualification</p>
         </div>
         <div class="bottom-part">
 
             <div class="left-box">
                 <div class="form-outer-box">
-
-                    <form class="form" action="<?php echo URLROOT; ?>/users/editOrganization/<?php echo $data['id'] ?>"
-                        method="post" enctype="multipart/form-data">
-
-                        <div class="column">
+            <form class="form" action="<?php echo URLROOT; ?>/users/addOrganization" method="post" enctype="multipart/form-data">
+ 
+            <div class="column">
                             <div class="input-box">
                                 <label for="">organization Name</label>
                                 <input type="text" name="organization_name"
@@ -31,7 +25,8 @@
                             </div>
                             <div class="input-box">
                                 <label for="">Role</label>
-                                <input type="text" name="role" value="<?php echo $data['role'] ?>" id=""
+                                <input type="text" name="role"
+                                    value="<?php echo $data['role'] ?>" id=""
                                     placeholder="Enter the role">
                                 <!-- <?php if (!empty($data['role_err'])): ?>
                                 <span class="error-message"><?php echo $data['role_err']; ?></span>
@@ -47,13 +42,7 @@
                                     <option value="">None</option>
                                     <?php if (!empty($data['organizations'])): ?>
                                         <?php foreach ($data['organizations'] as $org): ?>
-                                            <?php if ($data['organization_id'] == $org->organizati0n_id): ?>
-                                                <option value="<?php echo $org->organization_id ?>" selected>
-                                                    <?php echo $org->organization_name ?></option>
-                                            <?php else: ?>
-                                                <option value="<?php echo $org->organization_id ?>">
-                                                    <?php echo $org->organization_name ?></option>
-                                            <?php endif; ?>
+                                            <option value="<?php echo $org->organization_id ?>"><?php echo $org->organization_name ?></option>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
 
@@ -69,11 +58,7 @@
                                     <option value="">None</option>
                                     <?php if (!empty($data['universities'])): ?>
                                         <?php foreach ($data['universities'] as $uni): ?>
-                                            <?php if ($data['organization_university'] == $uni->id): ?>
-                                            <option value="<?php echo $uni->id ?>" selected><?php echo $uni->name ?></option>
-                                            <?php else: ?>
-                                                <option value="<?php echo $uni->id ?>"><?php echo $uni->name ?></option>
-                                            <?php endif; ?>
+                                            <option value="<?php echo $uni->id ?>"><?php echo $uni->name ?></option>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
 
@@ -103,20 +88,21 @@
                             </div>
                         </div>
 
-
-                        <button class="submit-btn" type="submit">Update</button>
-                    </form>
-                </div>
-            </div>
-
-            <div class="image-box">
-                <img src="<?php echo URLROOT ?>/img/events/announcements/announcement_img.jpg" alt="">
-            </div>
+                <button class="submit-btn" type="submit">Add Organization</button>
+            </form>
         </div>
+            </div>
+            <div class="image-section">
+            <img src="<?php echo URLROOT ?>/img/events/event-add/event-add-image.jpg" alt="" srcset="">
+        </div>
+        </div>
+        
     </div>
+    
+    
 </div>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="<?php echo URLROOT ?>/js/events/changeContactDetails.js"></script>
+
+<script src="<?php echo URLROOT?>/js/events/event-add.js"></script>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
