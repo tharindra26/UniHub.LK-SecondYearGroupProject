@@ -1008,7 +1008,7 @@ public function deleteSkill($data)
         $keyword = $data['keyword'];
         $type = isset($data['type']) ? $data['type'] : null;
         $status = isset($data['status']) ? $data['status'] : null;
-        $universityId = isset($data['university_id']) ? $data['university_id'] : null;
+        $universityId = isset($data['universityId']) ? $data['universityId'] : null;
 
 
 

@@ -65,13 +65,13 @@
 </div>
 
 <div class="summary">
-    <div class="option filter filter1">
+    <div class="option filter filter2">
         <div class="filter-text">Start:</div>
         <div class="date-filter">
             <input type="date" name="" id="start-date-post">
         </div>
     </div>
-    <div class="option filter filter1">
+    <div class="option filter filter2">
         <div class="filter-text">End:</div>
         <div class="date-filter">
             <input type="date" name="" id="end-date-post">
@@ -87,6 +87,15 @@
             <option value="rejected">Rejected</option>
         </select>
     </div>
+</div>
+<div class="summary">
+    <div class="option filter" onclick="generatePostsPDF()">
+        <div class="print-btn">
+            <i class="fa-solid fa-print"></i>
+            <div class="print-btn-txt">Print Table</div>
+        </div>
+    </div>
+
     <div class="option filter filter1">
         <div class="filter-text">Status:</div>
         <select name="status" id="status-filter-post" class="dropdown-menu">
@@ -111,6 +120,12 @@
                 <input type="text" name="searchInput" placeholder="Search Post Domains" id="search-bar-post-domain">
                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
+        </div>
+    </div>
+    <div class="option filter" onclick="generatePostDomainPDF()">
+        <div class="print-btn">
+            <i class="fa-solid fa-print"></i>
+            <div class="print-btn-txt">Print Table</div>
         </div>
     </div>
     <div class="add-post-domain-btn" onclick="addDomainForm()">
@@ -363,6 +378,31 @@
             });
         }
 
+        function generatePostsPDF() {
+            var element = document.getElementById('posts-filter-table'); // Get the table element
+            var opt = {
+                margin: 1,
+                filename: 'posts-table.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'A3', orientation: 'landscape' }
+            };
+            var pdf = new html2pdf(element, opt); // Create HTML2PDF instance
+            pdf.save(); // Save the PDF
+        }
+
+        function generatePostDomainPDF() {
+            var element = document.getElementById('post-domain-content'); // Get the table element
+            var opt = {
+                margin: 1,
+                filename: 'post-domain-table.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'A3', orientation: 'landscape' }
+            };
+            var pdf = new html2pdf(element, opt); // Create HTML2PDF instance
+            pdf.save(); // Save the PDF
+        }
 
 
 

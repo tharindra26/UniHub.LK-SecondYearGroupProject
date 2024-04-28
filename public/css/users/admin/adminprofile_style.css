@@ -380,6 +380,10 @@ main a{
     text-decoration: none;
 }
 
+.users{
+    margin: 20px 0;
+}
+
 .user-table{
     background-color: white;
     width: 100%;
@@ -776,16 +780,6 @@ main a{
 
 
 /* university filter */
-.uni-reset-btn {
-    display: flex;
-    font-size: 13px;
-    align-items: center;
-    justify-content: flex-end;
-    color: #3498db;
-    cursor: pointer;
-    padding-bottom: 7px;
-
-}
 
 .select-btn,
 .uni-filter-options li {
@@ -1003,10 +997,11 @@ li.selected {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px 20px;
-    background-color: black;
+    padding: 10px 20px;
+    background-color: #3498DB;
     color: white;
-    border-radius: 50px;
+    border: 2px solid #3498DB;
+    border-radius: 10px;
     cursor: pointer;
     width: auto;
     margin-right: 20px;
@@ -1014,4 +1009,41 @@ li.selected {
 
 .add-user-btn-txt{
     margin-left: 10px;
+}
+
+.add-user-btn:hover{
+    background-color: white;
+    color: #3498DB;
+    border: 2px solid #3498DB;
+    border-radius: 10px;
+    cursor: pointer;
+    width: auto;
+    margin-right: 20px;
+}
+
+.print-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+    color: #3498DB;
+    border: 2px solid #3498DB;
+    border-radius: 10px;
+    cursor: pointer;
+    width: auto;
+    margin-right: 20px;
+}
+
+.print-btn-txt{
+    margin-left: 10px;
+}
+
+.print-btn:hover{
+    background-color: #3498DB;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    width: auto;
+    margin-right: 20px;
 }

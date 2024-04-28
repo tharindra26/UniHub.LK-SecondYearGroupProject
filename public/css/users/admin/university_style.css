@@ -2,13 +2,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 15px;
-    border-radius: 50px;
-    background-color: black;
+    padding: 10px 20px;
+    background-color: #3498DB;
     color: white;
+    border: 2px solid #3498DB;
+    border-radius: 10px;
     cursor: pointer;
+    width: auto;
 }
 
 .add-university-btn-txt{
     margin-left: 10px;
+}
+
+.add-university-btn:hover{
+    background-color: white;
+    color: #3498DB;
+    border: 2px solid #3498DB;
+    border-radius: 10px;
+    cursor: pointer;
+    width: auto;
+    margin-right: 20px;
 }
