@@ -78,21 +78,23 @@ $formatted_deadline = date_format($deadline, 'd M, Y');
 
 
         <div class="right-main-section">
-            <div class="email-apply-box">
-                <div class="email-box">
-                    <a href="mailto:<?php echo $data['opportunity']->contact_email ?>?subject=Job Application"
-                        target="_blank">
-                        <i class="fa-regular fa-paper-plane"></i>
-                        <p>Apply by email</p>
-                    </a>
-                </div>
+            <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 'undergraduate' || $_SESSION['user_type'] === 'admin')): ?>
+                <div class="email-apply-box">
+                    <div class="email-box">
+                        <a href="mailto:<?php echo $data['opportunity']->contact_email ?>?subject=Job Application"
+                            target="_blank">
+                            <i class="fa-regular fa-paper-plane"></i>
+                            <p>Apply by email</p>
+                        </a>
+                    </div>
 
-                <div class="bookmark-box" id="addBookmarkBtn">
-                    <i class="fa-solid fa-bookmark" id="add-to-calendar"></i>
-                    <p id="bookmarkStatus">Add Bookmark</p>
-                </div>
+                    <div class="bookmark-box" id="addBookmarkBtn">
+                        <i class="fa-solid fa-bookmark" id="add-to-calendar"></i>
+                        <p id="bookmarkStatus">Add Bookmark</p>
+                    </div>
 
-            </div>
+                </div>
+            <?php endif; ?>
 
             <div class="date-box">
                 <div class="countdown">
@@ -103,11 +105,13 @@ $formatted_deadline = date_format($deadline, 'd M, Y');
                 </div>
                 <div class="date">
                     <p><?php echo $formatted_deadline ?></p>
-                    <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=<?php echo urlencode($data['opportunity']->opportunity_title); ?>&dates=<?php echo urlencode(date_format(date_create($data['opportunity']->application_deadline), 'Ymd\THis')); ?>/<?php echo urlencode(date_format(date_create($data['opportunity']->application_deadline), 'Ymd\THis')); ?>&details=Reminder%20for%20opportunity%20published%20in%20unihub.lk"
-                        target="_blank" class="googe-calendar-reminder">
-                        <i class="fa-regular fa-calendar-plus"></i>
-                        <p>Add to Google Calendar</p>
-                    </a>
+                    <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 'undergraduate' || $_SESSION['user_type'] === 'admin')): ?>
+                        <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=<?php echo urlencode($data['opportunity']->opportunity_title); ?>&dates=<?php echo urlencode(date_format(date_create($data['opportunity']->application_deadline), 'Ymd\THis')); ?>/<?php echo urlencode(date_format(date_create($data['opportunity']->application_deadline), 'Ymd\THis')); ?>&details=Reminder%20for%20opportunity%20published%20in%20unihub.lk"
+                            target="_blank" class="googe-calendar-reminder">
+                            <i class="fa-regular fa-calendar-plus"></i>
+                            <p>Add to Google Calendar</p>
+                        </a>
+                    <?php endif; ?>
                 </div>
                 <hr>
                 <div class="working-mod">
@@ -115,12 +119,14 @@ $formatted_deadline = date_format($deadline, 'd M, Y');
                 </div>
             </div>
 
-            <div class="opportunity-settings-box">
-                <a href="<?php echo URLROOT ?>/opportunities/settings/<?php echo $data['opportunity']->id ?>">
-                <i class="fa-solid fa-gear"></i>
-                <p>Settings</p>
-                </a>
-            </div>
+            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin'): ?>
+                <div class="opportunity-settings-box">
+                    <a href="<?php echo URLROOT ?>/opportunities/settings/<?php echo $data['opportunity']->id ?>">
+                        <i class="fa-solid fa-gear"></i>
+                        <p>Settings</p>
+                    </a>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 

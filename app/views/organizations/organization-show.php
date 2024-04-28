@@ -58,20 +58,28 @@
                     <i class="fa-brands fa-linkedin-in"></i>
                 </a>
             </div>
-            <div class="follow-btn" href="#" data-organization-id="<?php echo $data['organization']->organization_id ?>"
-                data-followed-users='<?php echo json_encode(explode(',', $data['organization']->organization_followers)) ?>'>
-                <i class="fa-regular fa-thumbs-up"></i>
-                <div class="follow-btn-txt">
-                    Follow us
+
+            <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'undergraduate')): ?>
+                <div class="follow-btn" href="#" data-organization-id="<?php echo $data['organization']->organization_id ?>"
+                    data-followed-users='<?php echo json_encode(explode(',', $data['organization']->organization_followers)) ?>'>
+                    <i class="fa-regular fa-thumbs-up"></i>
+                    <div class="follow-btn-txt">
+                        Follow us
+                    </div>
                 </div>
-            </div>
-            <a href="<?php echo URLROOT ?>/organizations/settings/<?php echo $data['organization']->organization_id ?>"
-                class="profile-dashboard">
-                <i class="fa-solid fa-bars"></i>
-                <div class="dashboard-txt">
-                    Dashboard
-                </div>
-            </a>
+            <?php endif; ?>
+
+            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin' || (isset($_SESSION['user_email']) && $_SESSION['user_email'] === $data['organization']->contact_email)): ?>
+                <a href="<?php echo URLROOT ?>/organizations/settings/<?php echo $data['organization']->organization_id ?>"
+                    class="profile-dashboard">
+                    <i class="fa-solid fa-bars"></i>
+                    <div class="dashboard-txt">
+                        Dashboard
+                    </div>
+                </a>
+            <?php endif; ?>
+
+
         </div>
         <div class="right-section">
             <div class="about-us">
@@ -101,16 +109,20 @@
                         <?php if (empty($activity->activity_image)): ?>
                             <!-- HTML structure for activity with image -->
                             <div class="activity-title"><?php echo $activity->activity_title ?></div>
-                            <div class="activity-options">
-                                <a href="<?php echo URLROOT ?>/organizations/updateActivity/<?php echo $activity->activity_id ?>"
-                                    class="activity-update">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
-                                <div class="activity-delete"
-                                    onclick="openPopup('activityDelete-popup-<?php echo $activity->activity_id ?>')">
-                                    <i class="fa-solid fa-square-minus"></i>
+
+                            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin' || (isset($_SESSION['user_email']) && $_SESSION['user_email'] === $data['organization']->contact_email)): ?>
+                                <div class="activity-options">
+                                    <a href="<?php echo URLROOT ?>/organizations/updateActivity/<?php echo $activity->activity_id ?>"
+                                        class="activity-update">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <div class="activity-delete"
+                                        onclick="openPopup('activityDelete-popup-<?php echo $activity->activity_id ?>')">
+                                        <i class="fa-solid fa-square-minus"></i>
+                                    </div>
                                 </div>
-                            </div>
+                            <?php endif; ?>
+
                             <div class="activity-content">
                                 <div class="activity-description-plain">
                                     <?php echo $activity->activity_description ?>
@@ -122,16 +134,18 @@
                             <div class="activity-title">
                                 <?php echo $activity->activity_title ?>
                             </div>
-                            <div class="activity-options">
-                                <a href="<?php echo URLROOT ?>/organizations/updateActivity/<?php echo $activity->activity_id ?>"
-                                    class="activity-update">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
-                                <div class="activity-delete"
-                                    onclick="openPopup('activityDelete-popup-<?php echo $activity->activity_id ?>')">
-                                    <i class="fa-solid fa-square-minus"></i>
+                            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin' || (isset($_SESSION['user_email']) && $_SESSION['user_email'] === $data['organization']->contact_email)): ?>
+                                <div class="activity-options">
+                                    <a href="<?php echo URLROOT ?>/organizations/updateActivity/<?php echo $activity->activity_id ?>"
+                                        class="activity-update">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <div class="activity-delete"
+                                        onclick="openPopup('activityDelete-popup-<?php echo $activity->activity_id ?>')">
+                                        <i class="fa-solid fa-square-minus"></i>
+                                    </div>
                                 </div>
-                            </div>
+                            <?php endif; ?>
                             <div class="activity-content">
                                 <div class="activity-description-left">
                                     <?php echo $activity->activity_description ?>
@@ -147,16 +161,18 @@
                             <div class="activity-title">
                                 <?php echo $activity->activity_title ?>
                             </div>
-                            <div class="activity-options">
-                                <a href="<?php echo URLROOT ?>/organizations/updateActivity/<?php echo $activity->activity_id ?>"
-                                    class="activity-update">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
-                                <div class="activity-delete"
-                                    onclick="openPopup('activityDelete-popup-<?php echo $activity->activity_id ?>')">
-                                    <i class="fa-solid fa-square-minus"></i>
+                            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin' || (isset($_SESSION['user_email']) && $_SESSION['user_email'] === $data['organization']->contact_email)): ?>
+                                <div class="activity-options">
+                                    <a href="<?php echo URLROOT ?>/organizations/updateActivity/<?php echo $activity->activity_id ?>"
+                                        class="activity-update">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <div class="activity-delete"
+                                        onclick="openPopup('activityDelete-popup-<?php echo $activity->activity_id ?>')">
+                                        <i class="fa-solid fa-square-minus"></i>
+                                    </div>
                                 </div>
-                            </div>
+                            <?php endif; ?>
                             <div class="activity-content">
                                 <div class="activity-image">
                                     <img src="<?php echo URLROOT ?>/img/organizations/activity_images/<?php echo $activity->activity_image ?>"
@@ -209,12 +225,14 @@
                             <div class="news-timestamp">
                                 <?php echo date('F j, Y g:i A', strtotime($news->news_timestamp)) ?>
                             </div>
-                            <div class="news-options">
-                                <a href="<?php echo URLROOT ?>/organizations/updateNews/<?php echo $news->news_id ?>"
-                                    class="news-update"><i class="fa-solid fa-pen-to-square"></i></a>
-                                <div class="news-delete" onclick="openPopup('newsDelete-popup-<?php echo $news->news_id ?>')"><i
-                                        class="fa-solid fa-square-minus"></i></div>
-                            </div>
+                            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin' || (isset($_SESSION['user_email']) && $_SESSION['user_email'] === $data['organization']->contact_email)): ?>
+                                <div class="news-options">
+                                    <a href="<?php echo URLROOT ?>/organizations/updateNews/<?php echo $news->news_id ?>"
+                                        class="news-update"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <div class="news-delete" onclick="openPopup('newsDelete-popup-<?php echo $news->news_id ?>')"><i
+                                            class="fa-solid fa-square-minus"></i></div>
+                                </div>
+                            <?php endif; ?>
                             <div class="news-text"><?php echo $news->news_text ?></div>
                         </div>
                         <hr>

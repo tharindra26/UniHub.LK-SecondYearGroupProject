@@ -620,6 +620,20 @@ class Event
         return $row;
     }
 
+    public function getEventInterestUsersByEventId($eventId)
+    {
+        $this->db->query('SELECT DISTINCT u.* 
+                    FROM users u
+                    JOIN event_participation ep ON u.id = ep.user_id
+                    WHERE ep.event_id = :event_id
+                    AND ep.participation_status = "interested"');
+        $this->db->bind(':event_id', $eventId);
+
+        $users = $this->db->resultSet();
+
+        return $users;
+    }
+
 
     public function checkUserInterest($data)
     {

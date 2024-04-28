@@ -50,11 +50,14 @@
                         <i class="fa-regular fa-comment"></i>
                         <div class="comment-text"><?php echo $post->comment_count ?></div>
                     </a>
+
+                    <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'undergraduate')): ?>
                     <div class="bookmark-option" data-post-id="<?php echo $post->post_id ?>"
                         data-bookmarked-users='<?php echo json_encode(explode(',', $post->bookmarked_users)) ?>'>
                         <i class="fa-regular fa-bookmark"></i>
                         <div class="bookmark-text">Add Bookmark</div>
                     </div>
+                    <?php endif; ?>
                 </div>
                 <!-- <div class="explore-more-section">
                     <a href="<?php echo URLROOT ?>/posts/show/<?php echo $post->post_id ?>">

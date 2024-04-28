@@ -60,7 +60,7 @@ class Posts extends Controller
         'material_link' => trim($_POST['material_link']),
         'categories' => isset($_POST['categories']) ? $_POST['categories'] : [],
         'tags' => isset($_POST['tags']) ? $_POST['tags'] : [],
-        'post_profile_image' => trim($_POST['post_profile_image']),
+        'post_profile_image' => '',
         'postCategories' => $postCategories,
 
 
@@ -120,22 +120,17 @@ class Posts extends Controller
       }
 
       $postDomainsCheck = false;
-      if (!empty($data['university_id']) && !empty($data['email'])) {
-        $universityDomains = $this->universityModel->getDomainsByUniId($data['university_id']);
+      if (!empty($data['material_link'])) {
+        $postDomains = $this->postModel->getAllDomains();
         // Check if any part of the email matches any university domain
-        foreach ($universityDomains as $domainObj) {
+        foreach ($postDomains as $domainObj) {
           $domain = $domainObj->domain; // Extract domain string from object
-          if (strpos($data['email'], $domain) !== false) {
-            $universityDomainsCheck = true;
+          if (strpos($data['material_link'], $domain) !== false) {
+            $postDomainsCheck = true;
             break;
           }
         }
       }
-
-      if ($universityDomainsCheck === false) {
-        $data['email_err'] = 'Email you entered do not match with any university domain';
-      }
-
 
 
       // Make sure errors are empty
@@ -159,10 +154,63 @@ class Posts extends Controller
           $data['category_ids'] = $category_ids;
         }
 
-        if ($this->postModel->addPost($data)) {
-          // flash('event_message', "Event Added Successfully");
-          redirect('posts');
+        if ($postDomainsCheck === false) {
+          if ($this->postModel->addPostWithPending($data)) {
+            $admins = $this->userModel->getAdminsEmails();
+
+            foreach ($admins as $admin) {
+
+              $to = $admin->secondary_email;
+              $sender = 'developer.unihub@gmail.com';
+              $mail_subject = 'New Post Added - Review Required:' . $data['post_title'];
+
+              // Initialize $email_body properly and append to it
+              $email_body = '<p>Hello,</p>';
+              $email_body .= '<p>A new post has been added and requires your attention.<br>Please review the event details and take necessary actions.</p>';
+              $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+              $header = "From: {$sender}\r\n";
+              $header .= "Content-Type: text/html;";
+
+              $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+            }
+
+            $to = $_SESSION['user_secondary_email'];
+            $sender = 'developer.unihub@gmail.com';
+            $mail_subject = 'Post Under Approval: ' . $data['post_title'];
+
+            // Initialize $email_body properly and append to it
+            $email_body = '<p>Hello,</p>';
+            $email_body .= '<p>Your post is currently under review. We will notify you once the approval process is completed.</p>';
+            $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+            $header = "From: {$sender}\r\n";
+            $header .= "Content-Type: text/html;";
+
+            $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+
+
+            redirect('posts');
+          }
+        } else {
+          if ($this->postModel->addPost($data)) {
+            $to = $_SESSION['user_email'];
+            $sender = 'developer.unihub@gmail.com';
+            $mail_subject = 'Post Published: ' . $data['post_title'];
+
+            // Initialize $email_body properly and append to it
+            $email_body = '<p>Hello,</p>';
+            $email_body .= '<p>We are pleased to inform you that your post has been successfully published.</p>';
+            $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+            $header = "From: {$sender}\r\n";
+            $header .= "Content-Type: text/html;";
+
+            $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+            redirect('posts');
+          }
         }
+
       } else {
         //load view with error
         $this->view('posts/post-add', $data);
@@ -595,6 +643,24 @@ class Posts extends Controller
       ];
 
       if ($this->postModel->changeApproval($data)) {
+        $post = $this->postModel->getPostById($postId);
+        $user= $this->userModel->getUserById($post->user_id);
+
+        $to = $user->email;
+        $sender = 'developer.unihub@gmail.com';
+        $mail_subject = 'Post ' . $selectedPostApproval . ': ' . $post->post_title;
+
+        // Initialize $email_body properly and append to it
+        $email_body = '<p>Hello,</p>';
+        $email_body .= '<p>Your post has been ' . $selectedPostApproval . ' . Thank you for your submission.</p>';
+        $email_body .= '<p>For further information or inquiries, please contact us at developer.unihub@gmail.com</p>';
+        $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+        $header = "From: {$sender}\r\n";
+        $header .= "Content-Type: text/html;";
+
+        $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+
         echo true;
       } else {
         echo false;

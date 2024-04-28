@@ -83,13 +83,13 @@
                     <hr>
                 </div>
 
-                <?php if(isset($_SESSION['user_id'])): ?>
-                <div class="option" onclick="interesetedEvents('<?php echo $_SESSION['user_id'] ?>')">Interested
-                    <hr>
-                </div>
-                <div class="option" onclick="eventSuggestions('<?php echo $_SESSION['user_id'] ?>')">Suggestions
-                    <hr>
-                </div>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <div class="option" onclick="interesetedEvents('<?php echo $_SESSION['user_id'] ?>')">Interested
+                        <hr>
+                    </div>
+                    <div class="option" onclick="eventSuggestions('<?php echo $_SESSION['user_id'] ?>')">Suggestions
+                        <hr>
+                    </div>
                 <?php endif; ?>
 
                 <div class="option" onclick="quickShortcut('hackathon')">Hackathons
@@ -114,12 +114,15 @@
 
         <!-- filters-section -->
         <div class="filters-section">
-            <a href="<?php echo URLROOT ?>/events/add">
-                <div class="add-event-button">
-                    <i class="fa-solid fa-plus"></i>
-                    <span>Add Event</span>
-                </div>
-            </a>
+
+            <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'undergraduate')): ?>
+                <a href="<?php echo URLROOT ?>/events/add">
+                    <div class="add-event-button">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Add Event</span>
+                    </div>
+                </a>
+            <?php endif; ?>
 
             <!-- university-filter -->
             <div class="uni-filter ">
@@ -170,17 +173,19 @@
             <!-- category filter -->
 
             <!-- customize-feed-option -->
-            <div class="customize-feed-option">
-                <hr>
-                <div class="customize-feed-text">Pick Your Interests! Enhance your experience by selecting categories
-                    that matter most to you. Start personalizing now!</div>
-                <a href="<?php echo URLROOT ?>/users/changeEventInterest" class="customize-feed-btn">
-                    <i class="fa-solid fa-list-check"></i>
-                    <div class="customize-feed-btn-txt">
-                        Customize Event Feed
-                    </div>
-                </a>
-            </div>
+            <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'undergraduate')): ?>
+                <div class="customize-feed-option">
+                    <hr>
+                    <div class="customize-feed-text">Pick Your Interests! Enhance your experience by selecting categories
+                        that matter most to you. Start personalizing now!</div>
+                    <a href="<?php echo URLROOT ?>/users/changeEventInterest" class="customize-feed-btn">
+                        <i class="fa-solid fa-list-check"></i>
+                        <div class="customize-feed-btn-txt">
+                            Customize Event Feed
+                        </div>
+                    </a>
+                </div>
+            <?php endif; ?>
             <!-- customize-feed-option -->
 
         </div>

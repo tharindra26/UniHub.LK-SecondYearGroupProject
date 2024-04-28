@@ -119,6 +119,84 @@ class Post
         post_title,
         post_description,
         post_profile_image, 
+        material_link, approval) VALUES(:user_id, :post_title, :post_description, :post_profile_image, :material_link, :approval)");
+        //Bind values
+        $this->db->bind(':user_id', $_SESSION['user_id']);
+        $this->db->bind(':post_title', $data['post_title']);
+        $this->db->bind(':post_description', $data['post_description']);
+        $this->db->bind(':post_profile_image', $data['post_profile_image']);
+        $this->db->bind(':material_link', $data['material_link']);
+        $this->db->bind(':approval', 'accepted');
+
+
+
+        // Begin the transaction
+        $this->db->beginTransaction();
+
+        // Execute the first query
+        if (!$this->db->execute()) {
+            // Rollback the transaction if there's an error
+            $this->db->rollBack();
+            return false;
+        }
+
+        // Get the last inserted event ID
+        $postId = $this->db->lastInsertId();
+
+        // Loop through each category ID and insert into the events_categories table
+        foreach ($data['category_ids'] as $category_id) {
+            // Insert into the event_categories table
+            $this->db->query("INSERT INTO post_categories_mapping (post_id, category_id) VALUES (:post_id, :category_id)");
+
+            // Bind values
+            $this->db->bind(':post_id', $postId);
+            $this->db->bind(':category_id', $category_id);
+
+            // Execute the query
+            if (!$this->db->execute()) {
+                // Rollback the transaction if there's an error
+                $this->db->rollBack();
+                return false;
+            }
+        }
+
+        if (isset($postId)) {
+            // Process tags
+            $tags = explode(',', $data['tags']);
+            $tags = array_map('trim', $tags);
+            $tags = array_filter($tags); // Remove empty elements
+
+            foreach ($tags as $tag) {
+
+                // Insert into opportunity_tags pivot table
+                $query = "INSERT INTO post_tags (post_id, tag_text) VALUES (:post_id, :tag_text)";
+                $this->db->query($query);
+                $this->db->bind(':post_id', $postId);
+                $this->db->bind(':tag_text', $tag);
+                if (!$this->db->execute()) {
+                    // Failed to insert into opportunity_tags pivot table
+                    return false;
+                }
+            }
+        }
+
+
+        // Commit the transaction if everything is successful
+        $this->db->commit();
+        return true;
+
+    }
+
+    public function addPostWithPending($data)
+    {
+        // var_dump($data);
+        // die();
+
+        $this->db->query("INSERT INTO posts ( 
+        user_id,
+        post_title,
+        post_description,
+        post_profile_image, 
         material_link ) VALUES(:user_id, :post_title, :post_description, :post_profile_image, :material_link)");
         //Bind values
         $this->db->bind(':user_id', $_SESSION['user_id']);
@@ -646,6 +724,12 @@ class Post
         // Fetch the results
         $rows = $this->db->resultSet();
 
+        return $rows;
+    }
+
+    public function getAllDomains(){
+        $this->db->query('SELECT * FROM post_domains');
+        $rows = $this->db->resultSet();
         return $rows;
     }
 

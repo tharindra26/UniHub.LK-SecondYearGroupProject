@@ -266,7 +266,8 @@ class Organization
         return $row;
     }
 
-    public function filterByUserId($userId){
+    public function filterByUserId($userId)
+    {
         $query = 'SELECT 
                 of.*,o.*,
                 u_table.name AS university_name,
@@ -732,6 +733,20 @@ class Organization
         } else {
             return false;
         }
+    }
+
+    public function getFollowedUsersByOrganizationId($organizationId)
+    {
+        $this->db->query('SELECT users.* 
+                    FROM organization_followers
+                    JOIN users
+                    ON organization_followers.follower_id = users.id
+                    WHERE organization_followers.organization_id = :organization_id');
+        $this->db->bind(':organization_id', $organizationId);
+
+        $users = $this->db->resultSet();
+
+        return $users;
     }
 
 }

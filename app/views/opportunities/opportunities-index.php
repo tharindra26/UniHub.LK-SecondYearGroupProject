@@ -37,6 +37,7 @@
                         <hr>
                     </div>
                 <?php endif; ?>
+                
                 <div class="option" onclick="quickShortcut('Intern')">Intern
                     <hr>
                 </div>
