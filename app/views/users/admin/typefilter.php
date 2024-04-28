@@ -45,9 +45,9 @@
                         <?php if ($user->type != 'admin'): ?>
                             <a href="<?php echo URLROOT ?>/users/show/<?php echo $confirm ?>" class="view"><i
                                     class="fa-solid fa-eye"></i></a>
+                            <a href="#" class="update" onclick="updateUser('<?php echo $confirm; ?>')"><i
+                                    class="fa-solid fa-pen-to-square"></i></a>
                         <?php endif; ?>
-                        <a href="#" class="update" onclick="updateUser('<?php echo $confirm; ?>')"><i
-                                class="fa-solid fa-pen-to-square"></i></a>
 
                         <div class="activation-option" data-status="<?php echo $user->status ?>"
                             data-user-id="<?php echo $user->id ?>">

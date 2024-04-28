@@ -19,18 +19,18 @@
                                 <input type="text" name="organization_name"
                                     value="<?php echo $data['organization_name'] ?>" id=""
                                     placeholder="Enter the organization_name">
-                                <!-- <?php if (!empty($data['organization_name_err'])): ?>
+                                <?php if (!empty($data['organization_name_err'])): ?>
                                 <span class="error-message"><?php echo $data['organization_name_err']; ?></span>
-                            <?php endif; ?> -->
+                            <?php endif; ?>
                             </div>
                             <div class="input-box">
                                 <label for="">Role</label>
                                 <input type="text" name="role"
                                     value="<?php echo $data['role'] ?>" id=""
                                     placeholder="Enter the role">
-                                <!-- <?php if (!empty($data['role_err'])): ?>
+                                <?php if (!empty($data['role_err'])): ?>
                                 <span class="error-message"><?php echo $data['role_err']; ?></span>
-                            <?php endif; ?> -->
+                            <?php endif; ?>
                             </div>
                         </div>
 
@@ -47,9 +47,9 @@
                                     <?php endif; ?>
 
                                 </select>
-                                <!-- <?php if (!empty($data['organization_err'])): ?>
+                                <?php if (!empty($data['organization_err'])): ?>
                                 <span class="error-message"><?php echo $data['organization_err']; ?></span>
-                            <?php endif; ?> -->
+                            <?php endif; ?>
                             </div>
                             <div class="input-box">
                                 <label for="">Select University</label>
@@ -63,9 +63,9 @@
                                     <?php endif; ?>
 
                                 </select>
-                                <!-- <?php if (!empty($data['university_err'])): ?>
+                                <?php if (!empty($data['university_err'])): ?>
                                 <span class="error-message"><?php echo $data['university_err']; ?></span>
-                            <?php endif; ?> -->
+                            <?php endif; ?>
                             </div>
                         </div>
 
@@ -74,17 +74,17 @@
                                 <label for="">Start Date</label>
                                 <input type="date" name="start_date" id="start-date-input"
                                     value="<?php echo $data['start_date'] ?>">
-                                <!-- <?php if (!empty($data['start_date_err'])): ?>
+                                <?php if (!empty($data['start_date_err'])): ?>
                                     <span class="error-message"><?php echo $data['start_date_err']; ?></span>
-                                <?php endif; ?> -->
+                                <?php endif; ?>
                             </div>
                             <div class="input-box">
                                 <label for="">End Date</label>
                                 <input type="date" name="end_date" id="end-date-input"
                                     value="<?php echo $data['end_date'] ?>">
-                                <!-- <?php if (!empty($data['end_date_err'])): ?>
+                                <?php if (!empty($data['end_date_err'])): ?>
                                     <span class="error-message"><?php echo $data['end_date_err']; ?></span>
-                                <?php endif; ?> -->
+                                <?php endif; ?>
                             </div>
                         </div>
 

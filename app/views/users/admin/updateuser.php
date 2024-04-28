@@ -6,17 +6,6 @@
         <!-- <?php var_dump($data['users']); ?> -->
         <div class="bottom-part">
             <div class="options-box">
-
-                <a href="#" class="option-link">
-                    <div class="option">
-                        <div class="option-icon">
-                            <i class="fa-solid fa-user-tie"></i>
-                        </div>
-                        <div class="option-text">Type</div>
-                    </div>
-                </a>
-
-
                 <a href="#" class="option-link">
                     <div class="option">
                         <div class="option-icon">
@@ -32,32 +21,3 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="<?php echo URLROOT ?>/js/users/admin/updateuser.js"></script>
-
-<script>
-        $(document).ready(function () {
-        // Add click event to the button
-        $("#contact").on("click", function (e) {
-            console.log("Click");
-            e.preventDefault(); // Prevent the default link behavior
-            // // Your AJAX function here
-            $.ajax({
-                url: 'http://localhost/unihub/users/updateContactDetails',
-                type: 'POST', // or 'GET' depending on your needs
-                data: {
-                    user_id : <?php echo $data['users']->id ?>
-                },
-                success: function (response) { 
-                    echo 1
-                    console.log("AJAX request successful:", response);
-                    $("#main-id").html(response);
-                },
-                error: function (error) {
-                     console.error("AJAX request failed:", error);
-                }
-            });
-        });
-        // checkEventParticipation();
-    });
-
-</script>

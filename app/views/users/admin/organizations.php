@@ -27,15 +27,15 @@
     <!-- university-filter -->
     <div class="option select-uni filter">
         <div class="filter-text">University:</div>
-            <select name="university" id="uni-filter-org" placeholder=" Approval" class="dropdown-menu">
-                <option value="">None</option>
-                <?php if (!empty($data['universities'])): ?>
-                    <?php foreach ($data['universities'] as $uni): ?>
-                        <option value="<?php echo $uni->id ?>"><?php echo $uni->name ?></option>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+        <select name="university" id="uni-filter-org" placeholder=" Approval" class="dropdown-menu">
+            <option value="">None</option>
+            <?php if (!empty($data['universities'])): ?>
+                <?php foreach ($data['universities'] as $uni): ?>
+                    <option value="<?php echo $uni->id ?>"><?php echo $uni->name ?></option>
+                <?php endforeach; ?>
+            <?php endif; ?>
 
-            </select>
+        </select>
 
     </div>
 
@@ -43,14 +43,15 @@
 </div>
 
 <div class="summary">
-    <div class="option table-heading">
-        <div class="user-head">
-            <h2>All Organizations</h2>
+    <div class="option filter" onclick="generateOrganizationsPDF()" >
+        <div class="print-btn">
+            <i class="fa-solid fa-print"></i>
+            <div class="print-btn-txt">Print Table</div>
         </div>
     </div>
     <div class="option filter">
-    <div class="filter-text">Category:</div>
-    <select name="category" id="category-filter-org" class="dropdown-menu">
+        <div class="filter-text">Category:</div>
+        <select name="category" id="category-filter-org" class="dropdown-menu">
             <option value="">None</option>
             <?php if (!empty($data['categories'])): ?>
                 <?php foreach ($data['categories'] as $catogery): ?>
@@ -63,9 +64,8 @@
         </select>
     </div>
     <div class="option filter">
-    <div class="filter-text">Status:</div>
-        <select name="status" id="status-filter-org"
-            class="dropdown-menu">
+        <div class="filter-text">Status:</div>
+        <select name="status" id="status-filter-org" class="dropdown-menu">
             <option value="">None</option>
             <option value="active">Active</option>
             <option value="deactivated">Deactivated</option>
@@ -167,46 +167,59 @@
         document.getElementById("status-filter-org").value = "";
     }
     function mainOrganizationFilter(type) {
-    // Reset other filters to default values
-    resetOtherFilters();
-    // Make AJAX request with the selected filter type
-    $.ajax({
-        url: URLROOT + '/organizations/totalOrgFilter',
-        type: "POST",
-        data: {
-            value: type,
-        },
-        success: function (response) {
-            // Update the content section with the retrieved data
-            $("#organizations-filter-table").html(response); // Updated the selector to match the correct element
-        },
-        error: function (error) {
-            console.error("Error:", error);
-        },
-    });
-}
+        // Reset other filters to default values
+        resetOtherFilters();
+        // Make AJAX request with the selected filter type
+        $.ajax({
+            url: URLROOT + '/organizations/totalOrgFilter',
+            type: "POST",
+            data: {
+                value: type,
+            },
+            success: function (response) {
+                // Update the content section with the retrieved data
+                $("#organizations-filter-table").html(response); // Updated the selector to match the correct element
+            },
+            error: function (error) {
+                console.error("Error:", error);
+            },
+        });
+    }
 
 </script>
 <script>
     // Counter starts
-function initializeCount() {
-    totalValue = document.querySelectorAll(".tot");
-    let timeinterval = 200;
+    function initializeCount() {
+        totalValue = document.querySelectorAll(".tot");
+        let timeinterval = 200;
 
-    totalValue.forEach((valueDisplay) => {
-        let startValue = 0;
-        let endValue = parseInt(valueDisplay.getAttribute("data-val"));
-        let duration = Math.floor(timeinterval / endValue);
-        let counter = setInterval(() => {
-            startValue += 1;
-            valueDisplay.textContent = startValue;
-            if (startValue === endValue) {
-                clearInterval(counter);
-            }
-        }, duration);
-    });
-}
+        totalValue.forEach((valueDisplay) => {
+            let startValue = 0;
+            let endValue = parseInt(valueDisplay.getAttribute("data-val"));
+            let duration = Math.floor(timeinterval / endValue);
+            let counter = setInterval(() => {
+                startValue += 1;
+                valueDisplay.textContent = startValue;
+                if (startValue === endValue) {
+                    clearInterval(counter);
+                }
+            }, duration);
+        });
+    }
 
-initializeCount();
+    initializeCount();
+
+    function generateOrganizationsPDF() {
+        var element = document.getElementById('organizations-filter-table'); // Get the table element
+        var opt = {
+            margin:       1,
+            filename:     'organization-table.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'in', format: 'A3', orientation: 'landscape' }
+        };
+        var pdf = new html2pdf(element, opt); // Create HTML2PDF instance
+        pdf.save(); // Save the PDF
+    }
 
 </script>

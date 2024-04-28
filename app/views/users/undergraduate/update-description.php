@@ -23,18 +23,18 @@
                             <div class="input-box">
                                 <label for="">Profile Title</label>
                                 <input type="text" name="profile_title"  id="" placeholder="Enter the profile title" value="<?php echo $data['profile_title'] ?>">
-                                <!-- <?php if (!empty($data['profile_title_err'])): ?>
+                                <?php if (!empty($data['profile_title_err'])): ?>
                                     <span class="error-message"><?php echo $data['profile_title_err']; ?></span>
-                                <?php endif; ?> -->
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div class="column">
                             <div class="input-box">
                                 <label for="">Description</label>
                                 <textarea id="description" name="description" placeholder="Enter the description" rows="6" cols="50"><?php echo $data['description'] ?></textarea>
-                                <!-- <?php if (!empty($data['description_err'])): ?>
+                                <?php if (!empty($data['description_err'])): ?>
                                     <span class="error-message"><?php echo $data['description_err']; ?></span>
-                                <?php endif; ?> -->
+                                <?php endif; ?>
                             </div>
                         </div>
 

@@ -48,15 +48,6 @@
         </div>
 
     </div>
-
-
-</div>
-
-<div class="summary">
-    <div class="option table-heading">
-        <div class="user-head">
-        </div>
-    </div>
     <div class="option filter filter1">
         <div class="filter-text">Type:</div>
         <select name="type" id="type-filter-value" placeholder="Type" class="dropdown-menu">
@@ -66,6 +57,17 @@
             <option value="Part-Time">Part-Time</option>
         </select>
     </div>
+
+</div>
+
+<div class="summary">
+    <div class="option filter" onclick="generateOpportunitiesPDF()" >
+        <div class="print-btn">
+            <i class="fa-solid fa-print"></i>
+            <div class="print-btn-txt">Print Table</div>
+        </div>
+    </div>
+
     <div class="option filter filter1">
         <div class="filter-text">Approval:</div>
         <select name="approval" id="approval-filter-value" placeholder="Approval" class="dropdown-menu">
@@ -184,8 +186,8 @@
             type: "POST",
             data: {
                 approval: type,
-                keyword:'',
-                opportunityType:'',
+                keyword: '',
+                opportunityType: '',
                 status: '0',
             },
             success: function (response) {
@@ -227,4 +229,17 @@
     }
 
     initializeCount();
+
+    function generateOpportunitiesPDF() {
+        var element = document.getElementById('opportunity-filter-table'); // Get the table element
+        var opt = {
+            margin: 1,
+            filename: 'opportunities-table.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'A3', orientation: 'landscape' }
+        };
+        var pdf = new html2pdf(element, opt); // Create HTML2PDF instance
+        pdf.save(); // Save the PDF
+    }
 </script>
