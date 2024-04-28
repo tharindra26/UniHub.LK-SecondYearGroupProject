@@ -33,7 +33,7 @@
                             <div class="input-box">
                                 <label for="">Post Description</label>
                                 <textarea id="eventDescription" name="post_description"
-                                    placeholder="Enter the post description"><?php echo $data['post_description'] ?></textarea>
+                                    placeholder="Enter the post description" value="<?php echo $data['post_description'] ?>"</textarea>
                                 <?php if (!empty($data['post_description_err'])): ?>
                                     <span class="error-message">
                                         <?php echo $data['post_description_err']; ?>
