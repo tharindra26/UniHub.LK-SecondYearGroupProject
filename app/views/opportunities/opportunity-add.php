@@ -2,7 +2,6 @@
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/opportunities/opportunity-add_style.css">
 
-
 <div class="container">
     <div class="inner-container">
         <div class="add-event-form">
@@ -60,7 +59,7 @@
 
                     <div class="input-box">
                         <label for="">Contact Phone Number</label>
-                        <input type="text" name="contact_phone" id="" value="<?php echo $data['contact_phone'] ?>"
+                        <input type="tel" name="contact_phone" id="" value="<?php echo $data['contact_phone'] ?>"
                             placeholder="Enter the contact number">
                         <?php if (!empty($data['contact_phone_err'])): ?>
                             <span class="error-message">
@@ -76,9 +75,9 @@
                         <label for="">Opportunity Type</label>
                         <div class="select-box">
                             <select name="opportunity_type" id="selection">
-                                <option hidden <?php if (empty($data['opportunity_type']))
+                                <option hidden value="0" <?php if (empty($data['opportunity_type']))
                                     echo 'selected'; ?>>Select
-                                    Opportunity opportunity Type</option>
+                                    Opportunity  Type</option>
                                 <option value="Intern" <?php if ($data['opportunity_type'] == 'Intern')
                                     echo 'selected'; ?>>Intern</option>
                                 <option value="Part-Time" <?php if ($data['opportunity_type'] == 'Part-Time')
@@ -98,7 +97,7 @@
                         <label for="">Working Type</label>
                         <div class="select-box">
                             <select name="working_type" id="selection">
-                                <option hidden <?php if (empty($data['working_type']))
+                                <option hidden value="0" <?php if (empty($data['working_type']))
                                     echo 'selected'; ?>>Select
                                     Working Type</option>
                                 <option value="Physical Work" <?php if ($data['working_type'] == 'Physical Work')
@@ -226,7 +225,7 @@
 
                     <div class="input-box">
                         <H3>Cover Image for Opportunity</H3>
-                        <label for="">Upload a 600x600 pixels image. Accepted formats: JPG, PNG.</label>
+                        <label for="">Recommend to upload a image with a 16:9 aspect ratio. Accepted formats: JPG, PNG.</label>
                         <input type="file" id="coverImageUpload" name="opportunity_cover_image"
                             value="<?php echo $data['opportunity_cover_image'] ?>" accept="image/*">
                         <button type="button" id="custom-cover-img-btn"><i class="fa-regular fa-file-image"></i> &nbsp
@@ -242,7 +241,7 @@
 
                 <div class="input-box">
                     <H3>Additional Details Image about opportunity</H3>
-                    <label for="">Upload a 600x600 pixels image. Accepted formats: JPG, PNG.</label>
+                    <label for="">Upload a image. Accepted formats: JPG, PNG.</label>
                     <input type="file" id="descriptionImageUpload" name="description_image"
                         value="<?php echo $data['description_image'] ?>" accept="image/*">
                     <button type="button" id="custom-description-img-btn"><i class="fa-regular fa-file-image"></i> &nbsp
@@ -254,9 +253,6 @@
                         </span>
                     <?php endif; ?>
                 </div>
-
-
-
 
 
                 <button class="submit-btn" type="submit">Submit</button>

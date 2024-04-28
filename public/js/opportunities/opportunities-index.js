@@ -46,4 +46,22 @@ var URLROOT = document.querySelector(".urlRootValue").textContent.trim();
       },
     });
   }
-// });
+
+  function bookmarkedOpportunities(userId) {
+    $.ajax({
+        url: URLROOT + "/opportunities/filterByUserId",
+        type: "POST",
+        data: {
+            userId: userId,
+        },
+        success: function (response) {
+            $("#content-section").html(response);
+        },
+        error: function (error) {
+            console.error("Error:", error);
+        },
+    });
+}
+
+
+

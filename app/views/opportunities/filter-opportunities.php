@@ -1,13 +1,12 @@
 <?php if (!empty($data['opportunities'][0]->id)): ?>
     <?php foreach ($data['opportunities'] as $opportunity): ?>
         <?php
-        // Calculate remaining days for application deadline
+
         $deadline = date_create($opportunity->application_deadline);
         $today = date_create();
         $interval = date_diff($today, $deadline);
-        $remaining_days = $interval->days;
+        $remaining_days = max(0, $interval->days);
 
-        // Format the application deadline
         $formatted_deadline = date_format($deadline, 'd M, Y');
         ?>
         <a class="opportunity-card-link" href="<?php echo URLROOT ?>/opportunities/show/<?php echo $opportunity->id ?>">
@@ -25,15 +24,13 @@
                             </div>
                         </div>
                         <div class="working-mod-box">
-                            <div class="working-mod"><i class="fa-solid fa-building"></i> <?php echo $opportunity->working_type ?></div>
+                            <div class="working-mod"><i class="fa-solid fa-building"></i>
+                                <?php echo $opportunity->working_type ?></div>
                         </div>
                     </div>
                     <div class="interesting-count">
                         <div class="interesting-box">
-                            <p><span>253</span> Interesting </p>
-                        </div>
-                        <div class="bookmark"><i class="fa-solid fa-bookmark"></i>
-                            <p>Add Bookmark</p>
+                            <p><span><?php echo $opportunity->opportunity_bookmarks ?></span> Interesting </p>
                         </div>
                     </div>
                 </div>
@@ -61,5 +58,7 @@
         </a>
     <?php endforeach; ?>
 <?php else: ?>
-    <p>No opportunities available.</p>
+    <div class="no-data-image">
+        <img src="<?php echo URLROOT ?>/img/events/no_data/No data-rafiki.png" alt="no_data">
+    </div>
 <?php endif; ?>

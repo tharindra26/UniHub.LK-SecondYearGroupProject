@@ -46,9 +46,10 @@ class User
     public function register($data)
     {
 
-        $this->db->query("INSERT INTO users (email,type,password,status,verification_code,fname,lname,dob,university_id,contact_number,description,profile_image,cover_image) VALUES(:email,:type,:password,:status,:verification_code,:fname,:lname,:dob,:university_id,:contact_number,:description,:profile_image,:cover_image)");
+        $this->db->query("INSERT INTO users (email, secondary_email, type,password,status,verification_code,fname,lname,dob,university_id,contact_number,description,profile_image,cover_image) VALUES(:email, :secondary_email, :type,:password,:status,:verification_code,:fname,:lname,:dob,:university_id,:contact_number,:description,:profile_image,:cover_image)");
         //Bind values
         $this->db->bind(':email', $data['email']);
+        $this->db->bind(':secondary_email', $data['email']);
         $this->db->bind(':type', "undergraduate");
         $this->db->bind(':password', $data['password']);
         $this->db->bind(':status', false);
@@ -1508,6 +1509,21 @@ public function deleteSkill($data)
             return false;
         }
     }
+
+    public function getUnirepsEmailsByUniId($uniId){
+        $this->db->query("SELECT secondary_email FROM users WHERE university_id = :university_id AND type = 'unirep'");
+        $this->db->bind(':university_id', $uniId);
+        $emails = $this->db->resultSet();
+        return $emails;
+
+    }
+
+    public function getAdminsEmails(){
+        $this->db->query("SELECT secondary_email FROM users WHERE type='admin'");
+        $emails = $this->db->resultSet();
+        return $emails;
+    }
+
 
 
 }

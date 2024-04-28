@@ -76,6 +76,8 @@ function updateName(selectedLi) {
     .filter((item) => item.classList.contains("category-checked"))
     .map((item) => item.querySelector(".checkbox + span").innerText);
 
+
+    console.log(checkedCategories);
   // Send an AJAX request with the filter value
   $.ajax({
     url: URLROOT + "/organizations/searchOrganizations",
@@ -125,7 +127,7 @@ uniResetBtn.addEventListener("click", () => {
     .map((item) => item.querySelector(".checkbox + span").innerText);
 
   $.ajax({
-    url: URLROOT + "/events/searchEvents",
+    url: URLROOT + "/organizations/searchOrganizations",
     method: "POST",
     data: {
       keyword: keyword,
@@ -168,7 +170,7 @@ function updateCategoryFilter() {
     data: {
       keyword: keyword,
       university: university,
-      categories: checkedCategories,
+      categories: checkedCategories
     },
     success: function (data) {
       // Update the content section with the retrieved data

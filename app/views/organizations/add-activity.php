@@ -39,7 +39,7 @@
 
                         <div class="input-box">
                             <H3>Activity Image</H3>
-                            <label for="">Upload a 600x600 pixels image. Accepted formats: JPG, PNG.</label>
+                            <label for="">Not Manditory. Recommend to upload a image with a 16:9 aspect ratio. Accepted formats: JPG, PNG.</label>
                             <input type="file" id="activityImageUpload" name="activity_image"
                                 value="<?php echo $data['activity_image'] ?>" accept="image/*">
                             <button type="button" id="custom-activity-img-btn"><i class="fa-regular fa-file-image"></i>

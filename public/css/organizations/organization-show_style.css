@@ -466,3 +466,62 @@ hr {
 }
 
 /* popup-modal css */
+
+.activity-options{
+    display: flex;
+    flex-direction: row;
+    font-size: 18px;
+    color: #7f8c8d;
+}
+
+.activity-update{
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.activity-update:hover{
+    color: black;
+}
+
+.activity-delete{
+    text-decoration: none;
+    color: inherit;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.activity-delete:hover{
+    color: black;
+}
+
+
+
+
+.news-options{
+    display: flex;
+    flex-direction: row;
+    font-size: 18px;
+    color: #7f8c8d;
+}
+
+.news-update{
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.news-update:hover{
+    color: black;
+}
+
+.news-delete{
+    text-decoration: none;
+    color: inherit;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.news-delete:hover{
+    color: black;
+}

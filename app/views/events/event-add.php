@@ -31,59 +31,16 @@
                         <div class="input-box">
                             <label for="">University</label>
                             <div class="select-box">
-                                <select name="university" id="selection">
-                                    <option hidden <?php if (empty($data['university']))
+                                <select name="university_id" id="selection">
+                                    <option hidden value="" <?php if (empty($data['university_id']))
                                         echo 'selected'; ?>>Select
                                         University</option>
-                                    <option value="University of Colombo" <?php if ($data['university'] == 'University of Colombo')
-                                        echo 'selected'; ?>>University of Colombo</option>
-                                    <option value="University of Peradeniya" <?php if ($data['university'] == 'University of Peradeniya')
-                                        echo 'selected'; ?>>University of Peradeniya</option>
-                                    <option value="University of Moratuwa" <?php if ($data['university'] == 'University of Moratuwa')
-                                        echo 'selected'; ?>>University of Moratuwa</option>
-                                    <option value="University of Kelaniya" <?php if ($data['university'] == 'University of Kelaniya')
-                                        echo 'selected'; ?>>University of Kelaniya</option>
-                                    <option value="University of Sri Jayewardenepura" <?php if ($data['university'] == 'University of Sri Jayewardenepura')
-                                        echo 'selected'; ?>>
-                                        University of Sri Jayewardenepura</option>
-                                    <option value="University of Ruhuna" <?php if ($data['university'] == 'University of Ruhuna')
-                                        echo 'selected'; ?>>University of Ruhuna</option>
-                                    <option value="University of Jaffna" <?php if ($data['university'] == 'University of Jaffna')
-                                        echo 'selected'; ?>>University of Jaffna</option>
-                                    <option value="University of Sabaragamuwa" <?php if ($data['university'] == 'University of Sabaragamuwa')
-                                        echo 'selected'; ?>>
-                                        University of Sabaragamuwa</option>
-                                    <option value="Eastern University, Sri Lanka" <?php if ($data['university'] == 'Eastern University, Sri Lanka')
-                                        echo 'selected'; ?>>
-                                        Eastern University, Sri Lanka</option>
-                                    <option value="South Eastern University of Sri Lanka" <?php if ($data['university'] == 'South Eastern University of Sri Lanka')
-                                        echo 'selected'; ?>>South Eastern University of Sri Lanka</option>
-                                    <option value="Rajarata University of Sri Lanka" <?php if ($data['university'] == 'Rajarata University of Sri Lanka')
-                                        echo 'selected'; ?>>
-                                        Rajarata University of Sri Lanka</option>
-                                    <option value="Wayamba University of Sri Lanka" <?php if ($data['university'] == 'Wayamba University of Sri Lanka')
-                                        echo 'selected'; ?>>
-                                        Wayamba University of Sri Lanka</option>
-                                    <option value="Uva Wellassa University" <?php if ($data['university'] == 'Uva Wellassa University')
-                                        echo 'selected'; ?>>Uva Wellassa University</option>
-                                    <option value="University of the Visual and Performing Arts" <?php if ($data['university'] == 'University of the Visual and Performing Arts')
-                                        echo 'selected'; ?>>University of the Visual and Performing Arts</option>
-                                    <option value="Sabaragamuwa University of Sri Lanka" <?php if ($data['university'] == 'Sabaragamuwa University of Sri Lanka')
-                                        echo 'selected'; ?>>Sabaragamuwa University of Sri Lanka</option>
-                                    <option value="Open University of Sri Lanka" <?php if ($data['university'] == 'Open University of Sri Lanka')
-                                        echo 'selected'; ?>>Open University of Sri Lanka
-                                    </option>
-                                    <option value="General Sir John Kotelawala Defence University" <?php if ($data['university'] == 'General Sir John Kotelawala Defence University')
-                                        echo 'selected'; ?>>General Sir John Kotelawala Defence University</option>
-                                    <option value="Sri Lanka Institute of Information Technology (SLIIT)" <?php if ($data['university'] == 'Sri Lanka Institute of Information Technology (SLIIT)')
-                                        echo 'selected'; ?>>Sri Lanka Institute of Information Technology (SLIIT)
-                                    </option>
-                                    <option value="Informatics Institute of Technology (IIT)" <?php if ($data['university'] == 'Informatics Institute of Technology (IIT)')
-                                        echo 'selected'; ?>>Informatics Institute of Technology (IIT)</option>
-                                    <option value="General Sir John Kotelawala Defence University - Southern Campus"
-                                        <?php if ($data['university'] == 'General Sir John Kotelawala Defence University - Southern Campus')
-                                            echo 'selected'; ?>>General Sir John Kotelawala Defence
-                                        University - Southern Campus</option>
+                                    <?php foreach ($data['universities'] as $university): ?>
+                                        <option value="<?php echo $university->id ?>" <?php if ($data['university_id'] == $university->id)
+                                               echo 'selected'; ?>>
+                                            <?php echo $university->name ?>
+                                        </option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
                             <?php if (!empty($data['university_err'])): ?>
@@ -226,14 +183,13 @@
                             <div class="select-box category">
 
                                 <select name="categories[]" id="selection" multiple>
-                                    <option hidden>Select Category</option>
-                                    <option value="Concert" <?php if (is_array($data['categories']) && in_array('Concert', $data['categories']))
-                                        echo 'selected'; ?>>Concert</option>
-                                    <option value="Hackathon" <?php if (is_array($data['categories']) && in_array('Hackathon', $data['categories']))
-                                        echo 'selected'; ?>>Hackathon
-                                    </option>
-                                    <option value="Workshop" <?php if (is_array($data['categories']) && in_array('Workshop', $data['categories']))
-                                        echo 'selected'; ?>>Workshop</option>
+                                    <option hidden value="0">Select Category</option>
+                                    <?php foreach ($data['eventCategories'] as $category): ?>
+                                        <option value="<?php echo $category->id ?>" <?php if (is_array($data['categories']) && in_array($category->id, $data['categories']))
+                                               echo 'selected'; ?>>
+                                            <?php echo $category->category_name ?>
+                                        </option>
+                                    <?php endforeach; ?>
                                 </select>
 
 
@@ -254,7 +210,9 @@
                         value="<?php echo $data['event_profile_image'] ?>" accept="image/*">
                     <button type="button" id="custom-profile-img-btn"><i class="fa-regular fa-file-image"></i> &nbsp
                         Choose a image</button>
-                    <span id="profile-img-txt">No file chosen, yet.</span>
+                    <span id="profile-img-txt">
+                        <?php echo (!empty($data['event_profile_image'])) ? basename($data['event_profile_image']) : 'No file chosen, yet.'; ?>
+                    </span>
                     <?php if (!empty($data['event_profile_image_err'])): ?>
                         <span class="error-message"><?php echo $data['event_profile_image_err']; ?></span>
                     <?php endif; ?>
@@ -268,7 +226,9 @@
                         value="<?php echo $data['event_cover_image'] ?>" accept="image/*">
                     <button type="button" id="custom-cover-img-btn"><i class="fa-regular fa-file-image"></i> &nbsp
                         Choose a image</button>
-                    <span id="cover-img-txt">No file chosen, yet.</span>
+                    <span id="cover-img-txt">
+                        <?php echo (!empty($data['event_cover_image'])) ? basename($data['event_cover_image']) : 'No file chosen, yet.'; ?>
+                    </span>
                     <?php if (!empty($data['event_cover_image_err'])): ?>
                         <span class="error-message"><?php echo $data['event_cover_image_err']; ?></span>
                     <?php endif; ?>

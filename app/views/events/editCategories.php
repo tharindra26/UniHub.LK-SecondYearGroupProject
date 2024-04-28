@@ -76,9 +76,13 @@
 
                                     <select name="categories[]" id="selection">
                                         <option hidden>Select Category</option>
-                                        <option value="Concert">Concert</option>
-                                        <option value="Hackathon">Hackathon</option>
-                                        <option value="Workshop">Workshop</option>
+                                        <?php
+                                        if (!empty($data['allEventCategories'])) {
+                                            foreach ($data['allEventCategories'] as $category) {
+                                                echo '<option value="' . $category->category_name . '">' . $category->category_name . '</option>';
+                                            }
+                                        }
+                                        ?>
                                     </select>
 
 
@@ -132,9 +136,15 @@
         }
     }
     overlay.addEventListener("click", () => {
-        modalBox.classList.remove("active");
-        overlay.classList.remove("active");
+        // Find all elements with the "active" class
+        var activeElements = document.querySelectorAll('.active');
+
+        // Remove the "active" class from each element
+        activeElements.forEach(function (element) {
+            element.classList.remove("active");
+        });
     });
+
     // popup modal script
 
 
@@ -188,7 +198,7 @@
                         setTimeout(function () {
                             window.location.reload();
                         }, 500); // 1000 milliseconds delay (1 second)
-                    }else{
+                    } else {
                         $('.error-message').text('Error: Failed to add category');
                     }
                 },

@@ -8,6 +8,8 @@ class Post
         $this->db = new Database;
     }
 
+
+
     public function addPostView($postId)
     {
         $this->db->query('INSERT INTO post_views (post_id) VALUES (:postId)');
@@ -117,14 +119,12 @@ class Post
         post_title,
         post_description,
         post_profile_image, 
-        post_cover_image, 
-        material_link ) VALUES(:user_id, :post_title, :post_description, :post_profile_image, :post_cover_image, :material_link)");
+        material_link ) VALUES(:user_id, :post_title, :post_description, :post_profile_image, :material_link)");
         //Bind values
         $this->db->bind(':user_id', $_SESSION['user_id']);
         $this->db->bind(':post_title', $data['post_title']);
         $this->db->bind(':post_description', $data['post_description']);
         $this->db->bind(':post_profile_image', $data['post_profile_image']);
-        $this->db->bind(':post_cover_image', $data['post_cover_image']);
         $this->db->bind(':material_link', $data['material_link']);
 
 
@@ -625,8 +625,9 @@ class Post
         }
     }
 
-    
-    public function getlikedPostsByUser($id) {
+
+    public function getlikedPostsByUser($id)
+    {
         // Prepare the query to select posts liked by the user
         $this->db->query('SELECT posts.* 
                         FROM posts
@@ -635,19 +636,19 @@ class Post
                         WHERE post_likes.user_id = :user_id
                         ORDER BY post_likes.post_timestamp_liked DESC
                         LIMIT 3');
-        
+
         // Bind the user ID parameter
         $this->db->bind(':user_id', $id);
-    
+
         // Execute the query
         $this->db->execute();
-    
+
         // Fetch the results
         $rows = $this->db->resultSet();
-    
-        return $rows; 
+
+        return $rows;
     }
-    
+
     public function addDomain($data)
     {
         $this->db->query('INSERT INTO post_domains (website, domain) VALUES (:website, :domain)');
@@ -693,7 +694,8 @@ class Post
         return $row;
     }
 
-    public function deleteDomain($data){
+    public function deleteDomain($data)
+    {
         $this->db->query('DELETE FROM post_domains WHERE post_domain_id = :post_domain_id');
         $this->db->bind(':post_domain_id', $data['domainId']);
 
@@ -704,7 +706,8 @@ class Post
         }
     }
 
-    public function checkStatusByPostId($postId){
+    public function checkStatusByPostId($postId)
+    {
         $this->db->query("SELECT status FROM posts WHERE post_id = :postId");
         $this->db->bind(':postId', $postId);
 
@@ -712,7 +715,8 @@ class Post
         return $row->status;
     }
 
-    public function activatePostById($postId){
+    public function activatePostById($postId)
+    {
         $this->db->query("UPDATE posts SET status = 1 WHERE post_id = :postId");
         $this->db->bind(':postId', $postId);
 
@@ -724,7 +728,8 @@ class Post
         }
     }
 
-    public function deactivatePostById($postId){
+    public function deactivatePostById($postId)
+    {
         $this->db->query("UPDATE posts SET status = 0 WHERE post_id = :postId");
         $this->db->bind(':postId', $postId);
 
@@ -734,6 +739,141 @@ class Post
         } else {
             return false;
         }
+    }
+
+    public function getPopularPosts()
+    {
+        // SQL query to select posts sorted by view count in descending order, limited to 5
+        $this->db->query("SELECT p.*,
+                        COUNT(pv.post_id) AS view_count,
+                        u.fname AS fname,
+                        u.lname AS lname,
+                        u.profile_image AS author_profile_image
+                      FROM posts p
+                      LEFT JOIN post_views pv ON p.post_id = pv.post_id
+                      LEFT JOIN users u ON p.user_id = u.id
+                      LEFT JOIN post_categories_mapping m ON p.post_id = m.post_id
+                      LEFT JOIN post_categories c ON m.category_id = c.category_id
+                      GROUP BY p.post_id
+                      ORDER BY view_count DESC
+                      LIMIT 5");
+        $results = $this->db->resultSet();
+
+        // Return the results
+        return $results;
+    }
+
+    public function filterByCategory($category)
+    {
+
+        $query = 'SELECT 
+        p.*,
+        u.fname,
+        u.lname,
+        GROUP_CONCAT(DISTINCT pt.tag_text) AS tags,
+        GROUP_CONCAT(DISTINCT pc.category_name) AS categories,
+        GROUP_CONCAT(DISTINCT pl.user_id) AS liked_users,
+        GROUP_CONCAT(DISTINCT pb.user_id) AS bookmarked_users,
+        COUNT(DISTINCT pcmt.comment_id) AS comment_count
+        FROM posts p
+        LEFT JOIN post_tags pt ON p.post_id = pt.post_id
+        LEFT JOIN post_categories_mapping pcm ON p.post_id = pcm.post_id
+        LEFT JOIN post_categories pc ON pcm.category_id = pc.category_id
+        LEFT JOIN users u ON p.user_id = u.id
+        LEFT JOIN post_likes pl ON p.post_id = pl.post_id
+        LEFT JOIN post_bookmarks pb ON p.post_id = pb.post_id
+        LEFT JOIN post_comments pcmt ON p.post_id = pcmt.post_id';
+
+        if (!empty($category)) {
+            $query .= ' WHERE pc.category_name = :category_name';
+        }
+
+        $query .= ' GROUP BY p.post_id';
+
+        // Prepare the query
+        $this->db->query($query);
+
+        // Bind values to the placeholders
+        if (!empty($category)) {
+            $this->db->bind(':category_name', $category);
+        }
+
+        // Execute the query
+        $this->db->execute();
+
+        // Fetch the results
+        $posts = $this->db->resultSet();
+        return $posts;
+    }
+
+    public function filterByUserId($userId)
+    {
+        $query = 'SELECT 
+        p.*,
+        u.fname,
+        u.lname,
+        GROUP_CONCAT(DISTINCT pt.tag_text) AS tags,
+        GROUP_CONCAT(DISTINCT pc.category_name) AS categories,
+        GROUP_CONCAT(DISTINCT pl.user_id) AS liked_users,
+        GROUP_CONCAT(DISTINCT pb.user_id) AS bookmarked_users,
+        COUNT(DISTINCT pcmt.comment_id) AS comment_count
+        FROM posts p
+        LEFT JOIN post_tags pt ON p.post_id = pt.post_id
+        LEFT JOIN post_categories_mapping pcm ON p.post_id = pcm.post_id
+        LEFT JOIN post_categories pc ON pcm.category_id = pc.category_id
+        LEFT JOIN users u ON p.user_id = u.id
+        LEFT JOIN post_likes pl ON p.post_id = pl.post_id
+        LEFT JOIN post_bookmarks pb ON p.post_id = pb.post_id
+        LEFT JOIN post_comments pcmt ON p.post_id = pcmt.post_id
+        WHERE pb.user_id = :user_id
+        GROUP BY p.post_id';
+
+        // Prepare the query
+        $this->db->query($query);
+
+        // Bind user_id parameter
+        $this->db->bind(':user_id', $userId);
+
+        // Execute the query
+        $this->db->execute();
+
+        // Fetch the results
+        $posts = $this->db->resultSet();
+        return $posts;
+    }
+
+    public function getUserSuggestedPosts($userId)
+    {
+        $this->db->query("SELECT 
+        p.*,
+        u.fname,
+        u.lname,
+        GROUP_CONCAT(DISTINCT pt.tag_text) AS tags,
+        GROUP_CONCAT(DISTINCT pc.category_name) AS categories,
+        GROUP_CONCAT(DISTINCT pl.user_id) AS liked_users,
+        GROUP_CONCAT(DISTINCT pb.user_id) AS bookmarked_users,
+        COUNT(DISTINCT pcmt.comment_id) AS comment_count
+        FROM posts p
+        JOIN post_categories_mapping pcm ON p.post_id = pcm.post_id
+        JOIN user_post_interest_categories uic ON pcm.category_id = uic.post_category_id
+        LEFT JOIN post_tags pt ON p.post_id = pt.post_id
+        LEFT JOIN post_categories pc ON uic.post_category_id = pc.category_id
+        LEFT JOIN users u ON p.user_id = u.id
+        LEFT JOIN post_likes pl ON p.post_id = pl.post_id
+        LEFT JOIN post_bookmarks pb ON p.post_id = pb.post_id
+        LEFT JOIN post_comments pcmt ON p.post_id = pcmt.post_id
+        WHERE uic.user_id = :user_id
+        GROUP BY p.post_id;");
+
+
+        // Bind user_id parameter
+        $this->db->bind(':user_id', $userId);
+
+        // Execute the query
+        $results = $this->db->resultSet();
+
+        // Return the results
+        return $results;
     }
 
 
