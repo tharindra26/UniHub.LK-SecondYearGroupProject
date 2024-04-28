@@ -5,7 +5,7 @@
 <div class="container">
     <div class="inner-container">
         <div class="title-text">
-            <p>Add Qualification</p>
+            <p>Fill Extra Details For the Portfolio</p>
         </div>
         <div class="bottom-part">
 
