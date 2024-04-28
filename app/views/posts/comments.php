@@ -22,7 +22,7 @@
             <div class="post-card-left-section">
                 <div class="publisher-details">
                     <div class="publisher-image-box">
-                        <img src="<?php echo URLROOT ?>/img/posts/post-authors/default_user.png" alt="">
+                        <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $data['post']->user_profile_image ?>" alt="">
                     </div>
                     <div class="publisher-name">
                         <div class="publisher-name"><?php echo $data['post']->fname . ' ' . $data['post']->lname ?>
@@ -111,7 +111,7 @@
                         ?>
                         <div class="user-details">
                             <div class="user-image-box">
-                                <img src="<?php echo URLROOT ?>/img/posts/post-authors/default_user.png" alt="">
+                                <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $comment->user_profile_image ?>" alt="">
                             </div>
                             <div class="user-name">
                                 <div class="user-name">

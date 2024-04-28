@@ -7,8 +7,7 @@
 $deadline = date_create($data['opportunity']->application_deadline);
 $today = date_create();
 $interval = date_diff($today, $deadline);
-$remaining_days = $interval->days;
-
+$remaining_days = max(0, $interval->days);
 // Format the application deadline
 $formatted_deadline = date_format($deadline, 'd M, Y');
 ?>

@@ -90,6 +90,75 @@ class Opportunities extends Controller
 
       ];
 
+      if (isset($_FILES['opportunity_card_image']['name']) and !empty($_FILES['opportunity_card_image']['name'])) {
+
+
+        $img_name = $_FILES['opportunity_card_image']['name'];
+        $tmp_name = $_FILES['opportunity_card_image']['tmp_name'];
+        $error = $_FILES['opportunity_card_image']['error'];
+
+        if ($error === 0) {
+          $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+          $img_ex_to_lc = strtolower($img_ex);
+
+          $allowed_exs = array('jpg', 'jpeg', 'png');
+          if (in_array($img_ex_to_lc, $allowed_exs)) {
+            $new_img_name = $data['opportunity_title'] . '_opportunity_card_' . time() . '.' . $img_ex_to_lc;
+            $img_upload_path = "../public/img/opportunities/opportunities_card_images/" . $new_img_name;
+            move_uploaded_file($tmp_name, $img_upload_path);
+
+            $data['opportunity_card_image'] = $new_img_name;
+          }
+        }
+      }
+
+
+      //event-cover image adding
+      if (isset($_FILES['opportunity_cover_image']['name']) and !empty($_FILES['opportunity_cover_image']['name'])) {
+
+
+        $img_name = $_FILES['opportunity_cover_image']['name'];
+        $tmp_name = $_FILES['opportunity_cover_image']['tmp_name'];
+        $error = $_FILES['opportunity_cover_image']['error'];
+
+        if ($error === 0) {
+          $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+          $img_ex_to_lc = strtolower($img_ex);
+
+          $allowed_exs = array('jpg', 'jpeg', 'png');
+          if (in_array($img_ex_to_lc, $allowed_exs)) {
+            $new_img_name = $data['opportunity_title'] . '_opportunity_cover_' . time() . '.' . $img_ex_to_lc;
+            $img_upload_path = "../public/img/opportunities/opportunities_cover_images/" . $new_img_name;
+            move_uploaded_file($tmp_name, $img_upload_path);
+
+            $data['opportunity_cover_image'] = $new_img_name;
+          }
+        }
+      }
+
+      if (isset($_FILES['description_image']['name']) and !empty($_FILES['description_image']['name'])) {
+
+
+        $img_name = $_FILES['description_image']['name'];
+        $tmp_name = $_FILES['description_image']['tmp_name'];
+        $error = $_FILES['description_image']['error'];
+
+        if ($error === 0) {
+          $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+          $img_ex_to_lc = strtolower($img_ex);
+
+          $allowed_exs = array('jpg', 'jpeg', 'png');
+          if (in_array($img_ex_to_lc, $allowed_exs)) {
+            $new_img_name = $data['opportunity_title'] . '_description_image_' . time() . '.' . $img_ex_to_lc;
+            $img_upload_path = "../public/img/opportunities/description_images/" . $new_img_name;
+            move_uploaded_file($tmp_name, $img_upload_path);
+
+            $data['description_image'] = $new_img_name;
+          }
+        }
+      }
+
+
 
 
       if (empty($data['opportunity_title'])) {
@@ -104,9 +173,13 @@ class Opportunities extends Controller
       if (empty($data['contact_email'])) {
         $data['contact_email_err'] = 'Pleae enter the contact email address';
       }
+
       if (empty($data['contact_phone'])) {
-        $data['contact_phone_err'] = 'Pleae enter the contact phone number';
+        $data['contact_phone_err'] = 'Please enter the contact phone number';
+      } elseif (strlen($data['contact_phone']) !== 10) {
+        $data['contact_phone_err'] = 'Phone number must be 10 digits';
       }
+
       if (empty($data['opportunity_type'])) {
         $data['opportunity_type_err'] = 'Pleae enter the opportunity type';
       }
@@ -125,15 +198,26 @@ class Opportunities extends Controller
       if (empty($data['qualifications'])) {
         $data['qualifications_err'] = 'Pleae enter qualifications';
       }
+
       if (empty($data['application_deadline'])) {
-        $data['application_deadline_err'] = 'Pleae enter the application deadline';
+        $data['application_deadline_err'] = 'Please enter the application deadline';
+      } elseif (strtotime($data['application_deadline']) < time()) {
+        $data['application_deadline_err'] = 'Application deadline must be a future date';
       }
+
       if (empty($data['website_url'])) {
         $data['website_url_err'] = 'Pleae enter the website url';
       }
       if (empty($data['linkedin'])) {
         $data['linkedin_err'] = 'Pleae enter the linkedin';
       }
+      if (empty($data['opportunity_cover_image'])) {
+        $data['opportunity_cover_image_err'] = 'Pleae add the opportunity cover image';
+      }
+      if (empty($data['opportunity_card_image'])) {
+        $data['opportunity_card_image_err'] = 'Pleae add the opportunity card image';
+      }
+
 
 
 
@@ -159,86 +243,7 @@ class Opportunities extends Controller
         //Validated
 
         //event-profile image adding
-        if (isset($_FILES['opportunity_card_image']['name']) and !empty($_FILES['opportunity_card_image']['name'])) {
 
-
-          $img_name = $_FILES['opportunity_card_image']['name'];
-          $tmp_name = $_FILES['opportunity_card_image']['tmp_name'];
-          $error = $_FILES['opportunity_card_image']['error'];
-
-          // if($error === 0){
-          //    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-          //    $img_ex_to_lc = strtolower($img_ex);
-
-          //    $allowed_exs = array('jpg', 'jpeg', 'png');
-          //    if(in_array($img_ex_to_lc, $allowed_exs)){
-          //       $new_img_name = $data['event_title'] . '-event-profile-image.' . $img_ex_to_lc;
-          //       $img_upload_path = "../public/img/event-profile-images/".$new_img_name;
-          //       move_uploaded_file($tmp_name, $img_upload_path);
-
-          //       $data['event_profile_image']=$new_img_name;
-          //    }
-          // }
-          if ($error === 0) {
-            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-            $img_ex_to_lc = strtolower($img_ex);
-
-            $allowed_exs = array('jpg', 'jpeg', 'png');
-            if (in_array($img_ex_to_lc, $allowed_exs)) {
-              $new_img_name = $data['opportunity_title'] . '_opportunity_card_' . time() . '.' . $img_ex_to_lc;
-              $img_upload_path = "../public/img/opportunities/opportunities_card_images/" . $new_img_name;
-              move_uploaded_file($tmp_name, $img_upload_path);
-
-              $data['opportunity_card_image'] = $new_img_name;
-            }
-          }
-        }
-
-
-        //event-cover image adding
-        if (isset($_FILES['opportunity_cover_image']['name']) and !empty($_FILES['opportunity_cover_image']['name'])) {
-
-
-          $img_name = $_FILES['opportunity_cover_image']['name'];
-          $tmp_name = $_FILES['opportunity_cover_image']['tmp_name'];
-          $error = $_FILES['opportunity_cover_image']['error'];
-
-          if ($error === 0) {
-            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-            $img_ex_to_lc = strtolower($img_ex);
-
-            $allowed_exs = array('jpg', 'jpeg', 'png');
-            if (in_array($img_ex_to_lc, $allowed_exs)) {
-              $new_img_name = $data['opportunity_title'] . '_opportunity_cover_' . time() . '.' . $img_ex_to_lc;
-              $img_upload_path = "../public/img/opportunities/opportunities_cover_images/" . $new_img_name;
-              move_uploaded_file($tmp_name, $img_upload_path);
-
-              $data['opportunity_cover_image'] = $new_img_name;
-            }
-          }
-        }
-
-        if (isset($_FILES['description_image']['name']) and !empty($_FILES['description_image']['name'])) {
-
-
-          $img_name = $_FILES['description_image']['name'];
-          $tmp_name = $_FILES['description_image']['tmp_name'];
-          $error = $_FILES['description_image']['error'];
-
-          if ($error === 0) {
-            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-            $img_ex_to_lc = strtolower($img_ex);
-
-            $allowed_exs = array('jpg', 'jpeg', 'png');
-            if (in_array($img_ex_to_lc, $allowed_exs)) {
-              $new_img_name = $data['opportunity_title'] . '_description_image_' . time() . '.' . $img_ex_to_lc;
-              $img_upload_path = "../public/img/opportunities/description_images/" . $new_img_name;
-              move_uploaded_file($tmp_name, $img_upload_path);
-
-              $data['description_image'] = $new_img_name;
-            }
-          }
-        }
 
 
         // $data['category_id'] = $this->categoryModel->getCategoryIdByName($data['category']);
@@ -727,7 +732,8 @@ class Opportunities extends Controller
     }
   }
 
-  public function filterOpportunities(){
+  public function filterOpportunities()
+  {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
       // Sanitize post data
@@ -786,6 +792,26 @@ class Opportunities extends Controller
 
     }
 
+  }
+
+  public function filterByUserId()
+  {
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+      // Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $userId = $_POST['userId'];
+      $opportunities = $this->opportunityModel->filterByUserId($userId);
+
+      $data = [
+        'opportunities' => $opportunities,
+      ];
+
+
+      $this->view('opportunities/filter-opportunities', $data);
+
+    }
   }
 
 

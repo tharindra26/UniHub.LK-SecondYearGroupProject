@@ -119,7 +119,8 @@ overpass */
 }
 
 .trending-post-title {
-    font-size: 20px;
+    font-size: 25px;
+    font-weight: 500;
     /* border: 1px solid red; */
 }
 
@@ -212,7 +213,7 @@ overpass */
 }
 
 .search-bar {
-    width: 30%;
+    width: 100%;
     /* background: rgba(127, 140, 141, 0.3); */
     position: relative;
     right: 0;
@@ -258,10 +259,12 @@ overpass */
 .content-outer-container{
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    /* border: 1px solid red; */
 }
 
 .left-main-section {
-    width: 60%;
+    width: 80%;
     /* border: 1px solid red; */
     display: flex;
     flex-direction: column;
@@ -282,6 +285,7 @@ overpass */
     display: flex;
     flex-direction: row;
     margin-bottom: 10px;
+    margin-top: 20px;
 }
 
 .post-card-left-section{
@@ -417,6 +421,10 @@ overpass */
     cursor: pointer;
   }
 
+  .bookmark-option i{
+    margin-right: 5px;
+  }
+
   .explore-more-section{
     display: flex;
     flex-direction: row;
@@ -453,3 +461,177 @@ overpass */
   .explore-more-section a i{
     margin-right: 10px;
   }
+
+  /* Quick-shortcut-bar */
+.shortcut-bar {
+    width: 100%;
+    /* border: 1px solid red; */
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.section-name {
+    width: 25%;
+    /* border: 1px solid white; */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: black;
+    font-family: poppins;
+    font-size: 30px;
+
+}
+
+.shortcut-options {
+    width: 75%;
+    /* border:1px solid white; */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    font-weight: 500;
+}
+
+.shortcut-options h3 {
+    font-weight: 400;
+    color: black;
+}
+
+.shortcut-options-outer-box {
+    display: flex;
+    border: 0.5px solid #34495e;
+    padding-left: 10px;
+    margin-left: 10px;
+}
+
+.option {
+    /* background-color: #e67e22; */
+    color: #2980b9;
+    margin-left: 30px;
+    padding: 10px;
+    font-weight: 400;
+    /* border: 1px solid black; */
+    /* border-radius: 10px; */
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-bottom: 0;
+}
+
+/*.option hr{
+    height: 5px;
+    background-color: #1C5981;
+    border-style: none;
+}*/
+
+.option hr {
+    position: absolute;
+    bottom: -0px;
+    /* Adjust this value as needed */
+    left: 0;
+    width: 0;
+    height: 2px;
+    /* Thickness of the line */
+    background-color: #EDEDED;
+    /* Color of the line */
+    transition: width 0.5s ease;
+    /* Transition effect */
+    pointer-events: none;
+    /* Prevents the line from blocking clicks */
+    border-style: none;
+}
+
+.option:hover hr {
+    width: 100%;
+    /* Set width to 100% on hover */
+    background-color: black;
+}
+
+/*.option:hover {
+    color: white;
+    background-color: #2980b9;
+}*/
+
+/* Quick-shortcut-bar */
+
+.interest-setting-section{
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    height: 200px;
+    border-radius: 10px;
+    /* border: 1px solid red; */
+    padding: 10px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin-bottom: 20px;
+
+}
+
+.interest-left-side{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    /* border: 1px solid red; */
+    justify-content: center;
+    align-items: center;
+}
+
+.interest-right-side{
+    display: flex;
+    width: 40%;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.interest-right-side img {
+    max-height: 100%; 
+    width: auto; 
+    object-fit: cover; 
+}
+
+.interest-left-side-txt{
+    font-size: 30px;
+    color: black;
+    text-align: center;
+    font-weight: 500;
+}
+
+.interst-setting-btn{
+    padding: 10px 20px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #3498db;
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+    text-decoration: none;
+}
+
+.interst-setting-btn i{
+    margin-left: 10px;
+}
+
+.no-data-image {
+    display: flex;
+    width: 60%;
+    max-width: 100%;
+    max-height: 100%;
+    /* border: 1px solid red; */
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.no-data-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}

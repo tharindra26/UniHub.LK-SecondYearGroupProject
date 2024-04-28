@@ -21,6 +21,7 @@ class Users extends Controller
   /////////////////////////////////////////////////////////////////////////////////////////////
   public function register()
   {
+    $universities = $this->universityModel->getUniversities();
     //Check for POST
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       //process form
@@ -29,12 +30,13 @@ class Users extends Controller
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
       //Init data
+
       $data = [
         'email' => trim($_POST['email']),
         'fname' => trim($_POST['fname']),
         'lname' => trim($_POST['lname']),
         'dob' => trim($_POST['dob']),
-        'university' => trim($_POST['university']),
+        'university_id' => trim($_POST['university_id']),
         'password' => trim($_POST['password']),
         'confirm_password' => trim($_POST['confirm_password']),
         'email_err' => '',
@@ -45,54 +47,69 @@ class Users extends Controller
         'password_err' => '',
         'confirm_password_err' => '',
         'verification_code' => sha1($_POST['email'] . time()),
+        'universities' => $universities,
       ];
 
 
 
-      // Validate Email
       if (empty($data['email'])) {
         $data['email_err'] = 'Please enter email';
-      } else {
-        //check email is already exists
-        if ($this->userModel->findUserByEmail($data['email'])) {
-          $data['email_err'] = 'Please is already taken';
-        }
+      } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+        $data['email_err'] = 'Invalid email format';
+      } elseif ($this->userModel->findUserByEmail($data['email'])) {
+        $data['email_err'] = 'Email is already taken';
       }
 
-      // Validate Name
+
       if (empty($data['fname'])) {
         $data['fname_err'] = 'Please enter first name';
       }
 
-      // Validate Name
+
       if (empty($data['lname'])) {
         $data['lname_err'] = 'Please enter last name';
       }
 
-      // Validate Name
       if (empty($data['dob'])) {
         $data['dob_err'] = 'Please enter date of birth';
+      } elseif (strtotime($data['dob']) >= strtotime('today')) {
+        $data['dob_err'] = 'Date of birth must be before today';
       }
 
       // Validate Name
-      if (empty($data['university'])) {
+      if (empty($data['university_id'])) {
         $data['university_err'] = 'Please select University';
       }
 
-      // Validate Password
       if (empty($data['password'])) {
         $data['password_err'] = 'Please enter password';
       } elseif (strlen($data['password']) < 6) {
         $data['password_err'] = 'Password must be at least 6 characters';
       }
 
-      // Validate Confirm Password
       if (empty($data['confirm_password'])) {
         $data['confirm_password_err'] = 'Please confirm password';
-      } else {
-        if ($data['password'] != $data['confirm_password']) {
-          $data['confirm_password_err'] = 'Passwords do not match';
+      } elseif ($data['password'] != $data['confirm_password']) {
+        $data['confirm_password_err'] = 'Passwords do not match';
+      }
+
+
+
+      // domain check part
+      $universityDomainsCheck = false;
+      if (!empty($data['university_id']) && !empty($data['email'])) {
+        $universityDomains = $this->universityModel->getDomainsByUniId($data['university_id']);
+        // Check if any part of the email matches any university domain
+        foreach ($universityDomains as $domainObj) {
+          $domain = $domainObj->domain; // Extract domain string from object
+          if (strpos($data['email'], $domain) !== false) {
+            $universityDomainsCheck = true;
+            break;
+          }
         }
+      }
+      if ($universityDomainsCheck === false) {
+        $data['email_err'] = 'Email you entered do not match with any university domain';
       }
 
       // Make sure errors are empty
@@ -101,9 +118,6 @@ class Users extends Controller
 
         //Hash Password
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-
-        //Universe id
-        $data['university_id'] = $this->universityModel->getUniIdByName($data['university']);
 
 
         //Register User
@@ -165,7 +179,7 @@ class Users extends Controller
         'fname' => '',
         'lname' => '',
         'dob' => '',
-        'university' => '',
+        'university_id' => '',
         'password' => '',
         'confirm_password' => '',
         'email_err' => '',
@@ -176,6 +190,7 @@ class Users extends Controller
         'password_err' => '',
         'confirm_password_err' => '',
         'verification_code' => '',
+        'universities' => $universities,
       ];
 
       // Load view
@@ -303,8 +318,8 @@ class Users extends Controller
           $currentDate = new DateTime();
           $interval = $currentDate->diff($lastAuthDate);
 
-          // Check if it's been more than 7 days since the last authentication
-          if ($interval->days >= 7) {
+          // Check if it's been more than 30 days since the last authentication
+          if ($interval->days >= 30) {
 
             // Set google_auth_required flag to true
             $this->userModel->setGoogleAuthRequired($user->id, true);
@@ -325,6 +340,12 @@ class Users extends Controller
             if ($loggedInUser->google_auth_required == false && $loggedInUser->successfully_authenticated == true) {
               $this->createUserSession($loggedInUser);
               $this->userModel->addLoginRecord($_SESSION['user_id']);
+            } else {
+              $data = [
+                'user_id' => $user->id,
+              ];
+              $this->view('google-auth', $data);
+              die();
             }
           } else {
             $this->createUserSession($loggedInUser);
@@ -458,7 +479,15 @@ class Users extends Controller
       $this->view('users/unirep/unirepprofile', $data);
 
     } else if ($user->type == 'orgrep') {
-      $this->view('users/orgrep/orgrepprofile', $data);
+      $organization = $this->organizationModel->getOrganizationByEmail($_SESSION['user_email']);
+      $organization_activties = $this->organizationModel->getActivitiesByOrganizationId($organization->organization_id);
+      $organization_news = $this->organizationModel->getNewsByOrganizationId($organization->organization_id);
+      $data = [
+        'organization' => $organization,
+        'organization_activities' => $organization_activties,
+        'organization_news' => $organization_news
+      ];
+      $this->view('organizations/organization-show', $data);
     } else {
       $this->view('users/undergraduate/myprofile', $data);
     }
@@ -466,6 +495,21 @@ class Users extends Controller
 
   public function generatePortfolio($id)
   {
+    $user = $this->userModel->getUserById($id);
+    $university = $this->universityModel->getUniversityById($user->university_id);
+    $education = $this->userModel->getEducationByUserId($id);
+    $qualifications = $this->userModel->getQualificationByUserId($id);
+    $skills = $this->userModel->getSkillsByUserId($id);
+    $organizations = $this->userModel->getFollowingOrganizations($id);
+
+    $data = [
+      'user' => $user,
+      'university' => $university,
+      'education' => $education,
+      'qualifications' => $qualifications,
+      'skills' => $skills,
+      'organizations' => $organizations
+    ];
     if (!isLoggedIn()) {
       redirect('users/login');
     }
