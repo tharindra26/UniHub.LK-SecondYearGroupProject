@@ -1,5 +1,6 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
+
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/organizations/organization-show_style.css">
 <style>
     .organization-cover-image {
@@ -70,15 +71,6 @@
                 <div class="dashboard-txt">
                     Dashboard
                 </div>
-            </a>
-            <a href="<?php echo URLROOT ?>/organizations/addActivity/<?php echo $data['organization']->organization_id ?>"
-                class="activities">
-                Activities
-            </a>
-
-            <a href="<?php echo URLROOT ?>/organizations/addNews/<?php echo $data['organization']->organization_id ?>"
-                class="activities">
-                News
             </a>
         </div>
         <div class="right-section">
@@ -218,8 +210,10 @@
                                 <?php echo date('F j, Y g:i A', strtotime($news->news_timestamp)) ?>
                             </div>
                             <div class="news-options">
-                                <a href="<?php echo URLROOT ?>/organizations/updateNews/<?php echo $news->news_id ?>" class="news-update"><i class="fa-solid fa-pen-to-square"></i></a>
-                                <div class="news-delete" onclick="openPopup('newsDelete-popup-<?php echo $news->news_id ?>')"><i class="fa-solid fa-square-minus"></i></div>
+                                <a href="<?php echo URLROOT ?>/organizations/updateNews/<?php echo $news->news_id ?>"
+                                    class="news-update"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <div class="news-delete" onclick="openPopup('newsDelete-popup-<?php echo $news->news_id ?>')"><i
+                                        class="fa-solid fa-square-minus"></i></div>
                             </div>
                             <div class="news-text"><?php echo $news->news_text ?></div>
                         </div>
@@ -236,8 +230,7 @@
                             </h3>
 
                             <div class="buttons">
-                                <button class="close-btn"
-                                    onclick="deleteNews(<?php echo $news->news_id ?>)">Ok,Delete</button>
+                                <button class="close-btn" onclick="deleteNews(<?php echo $news->news_id ?>)">Ok,Delete</button>
                             </div>
                         </div>
 
@@ -265,9 +258,17 @@
         var currentUserId = -1;
     <?php endif; ?>
 
-    // popup modal script
-    const overlay = document.querySelector(".overlay");
-    const modalBox = document.querySelector(".modal-box");
+
+    <?php
+    if (!empty($data['organization_news']) || !empty($data['organization_activities'])) {
+        ?>
+        // popup modal script
+        const overlay = document.querySelector(".overlay");
+        const modalBox = document.querySelector(".modal-box");
+
+        <?php
+    }
+    ?>
 
     function openPopup(popupId) {
         var element = document.getElementById(popupId);
@@ -349,6 +350,7 @@
     $(document).ready(function () {
         // Function to handle liking a post via AJAX
         function followOrganization(organizationId) {
+            console.log('Following organization:', organizationId);
             $.ajax({
 
                 type: 'POST',
@@ -383,10 +385,13 @@
         $('.follow-btn').each(function () {
             var organizationId = $(this).data('organization-id');
             var followedUsers = $(this).data('followed-users');
+            var followOption = $('.follow-btn[data-organization-id="' + organizationId + '"]');
 
 
             if (followedUsers.includes(currentUserId.toString())) {
+                console.log(followedUsers.includes(currentUserId.toString()));
                 $(this).find('.fa-regular').removeClass('fa-regular').addClass('fa-solid');
+                followOption.find('.follow-btn-txt').text('Followed');
             }
         });
     });

@@ -65,7 +65,7 @@
     <div class="search-bar-container">
         <form action="" class="search-bar">
             <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-            <input type="text" name="searchInput" placeholder="Explore Opportunities" id="search-bar-input">
+            <input type="text" name="searchInput" placeholder="Search Events" id="search-bar-input">
 
         </form>
     </div>
@@ -82,6 +82,16 @@
                 <div class="option" onclick="quickShortcut('all')">All
                     <hr>
                 </div>
+
+                <?php if(isset($_SESSION['user_id'])): ?>
+                <div class="option" onclick="interesetedEvents('<?php echo $_SESSION['user_id'] ?>')">Interested
+                    <hr>
+                </div>
+                <div class="option" onclick="eventSuggestions('<?php echo $_SESSION['user_id'] ?>')">Suggestions
+                    <hr>
+                </div>
+                <?php endif; ?>
+
                 <div class="option" onclick="quickShortcut('hackathon')">Hackathons
                     <hr>
                 </div>
@@ -147,32 +157,14 @@
 
                 <ul class="list-items" id="category-list">
                     <div class="category-reset-btn">Reset</div>
-                    <li class="item">
-                        <span class="checkbox">
-                            <i class="fa-solid fa-check check-icon"></i>
-                        </span>
-                        <span class="item-text">Concert</span>
-                    </li>
-                    <li class="item">
-                        <span class="checkbox">
-                            <i class="fa-solid fa-check check-icon"></i>
-                        </span>
-                        <span class="item-text">Hackathon</span>
-                    </li>
-
-                    <li class="item">
-                        <span class="checkbox">
-                            <i class="fa-solid fa-check check-icon"></i>
-                        </span>
-                        <span class="item-text">Musical Show</span>
-                    </li>
-
-                    <li class="item">
-                        <span class="checkbox">
-                            <i class="fa-solid fa-check check-icon"></i>
-                        </span>
-                        <span class="item-text">Workshop</span>
-                    </li>
+                    <?php foreach ($data['event_categories'] as $category): ?>
+                        <li class="item">
+                            <span class="checkbox">
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </span>
+                            <span class="item-text"><?php echo $category->category_name; ?></span>
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
             <!-- category filter -->
@@ -190,7 +182,7 @@
                 </a>
             </div>
             <!-- customize-feed-option -->
-            
+
         </div>
         <!-- filters-section -->
 

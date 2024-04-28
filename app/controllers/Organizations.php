@@ -40,6 +40,8 @@ class Organizations extends Controller
       //Sanitize post data
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
+
+
       //Init data
       $data = [
         'organization_name' => trim($_POST['organization_name']),
@@ -79,6 +81,75 @@ class Organizations extends Controller
       ];
 
 
+      if (isset($_FILES['organization_profile_image']['name']) and !empty($_FILES['organization_profile_image']['name'])) {
+
+
+        $img_name = $_FILES['organization_profile_image']['name'];
+        $tmp_name = $_FILES['organization_profile_image']['tmp_name'];
+        $error = $_FILES['organization_profile_image']['error'];
+
+        if ($error === 0) {
+          $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+          $img_ex_to_lc = strtolower($img_ex);
+
+          $allowed_exs = array('jpg', 'jpeg', 'png');
+          if (in_array($img_ex_to_lc, $allowed_exs)) {
+            $new_img_name = $data['organization_name'] . '_organization_profile_' . time() . '.' . $img_ex_to_lc;
+            $img_upload_path = "../public/img/organizations/organization_profile_images/" . $new_img_name;
+            move_uploaded_file($tmp_name, $img_upload_path);
+
+            $data['organization_profile_image'] = $new_img_name;
+          }
+        }
+      }
+
+
+      //organization-cover image adding
+      if (isset($_FILES['organization_cover_image']['name']) and !empty($_FILES['organization_cover_image']['name'])) {
+
+
+        $img_name = $_FILES['organization_cover_image']['name'];
+        $tmp_name = $_FILES['organization_cover_image']['tmp_name'];
+        $error = $_FILES['organization_cover_image']['error'];
+
+        if ($error === 0) {
+          $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+          $img_ex_to_lc = strtolower($img_ex);
+
+          $allowed_exs = array('jpg', 'jpeg', 'png');
+          if (in_array($img_ex_to_lc, $allowed_exs)) {
+            $new_img_name = $data['organization_name'] . '_organization_cover_' . time() . '.' . $img_ex_to_lc;
+            $img_upload_path = "../public/img/organizations/organization_cover_images/" . $new_img_name;
+            move_uploaded_file($tmp_name, $img_upload_path);
+
+            $data['organization_cover_image'] = $new_img_name;
+          }
+        }
+      }
+
+
+      //organization-cover image adding
+      if (isset($_FILES['board_members_image']['name']) and !empty($_FILES['board_members_image']['name'])) {
+
+
+        $img_name = $_FILES['board_members_image']['name'];
+        $tmp_name = $_FILES['board_members_image']['tmp_name'];
+        $error = $_FILES['board_members_image']['error'];
+
+        if ($error === 0) {
+          $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+          $img_ex_to_lc = strtolower($img_ex);
+
+          $allowed_exs = array('jpg', 'jpeg', 'png');
+          if (in_array($img_ex_to_lc, $allowed_exs)) {
+            $new_img_name = $data['organization_name'] . '_board_members_' . time() . '.' . $img_ex_to_lc;
+            $img_upload_path = "../public/img/organizations/board_members_images/" . $new_img_name;
+            move_uploaded_file($tmp_name, $img_upload_path);
+
+            $data['board_members_image'] = $new_img_name;
+          }
+        }
+      }
 
       if (empty($data['organization_name'])) {
         $data['organization_name_err'] = 'Please enter the organization name';
@@ -101,7 +172,28 @@ class Organizations extends Controller
       }
 
       if (empty($data['contact_email'])) {
-        $data['contact_email_err'] = 'Please enter the contact email';
+        $data['contact_email_err'] = 'Please enter the organization email';
+      }
+
+
+
+      if (empty($data['contact_number'])) {
+        $data['contact_number_err'] = 'Please enter the contact number';
+      }
+      if (strlen($data['contact_number']) !== 10) {
+        $data['contact_number_err'] = 'Contact number must be 10 digits long';
+      }
+
+      if (empty($data['organization_profile_image'])) {
+        $data['organization_profile_image_err'] = 'Please add the organization profile image';
+      }
+
+      if (empty($data['organization_cover_image'])) {
+        $data['organization_cover_image_err'] = 'Please add the organization cover image';
+      }
+
+      if (empty($data['board_members_image'])) {
+        $data['board_members_image_err'] = 'Please add the board members image';
       }
 
       if (empty($data['contact_number'])) {
@@ -111,15 +203,18 @@ class Organizations extends Controller
 
       if (empty($data['number_of_members'])) {
         $data['number_of_members_err'] = 'Please enter the number of members';
+      } elseif (!is_numeric($data['number_of_members'])) {
+        $data['number_of_members_err'] = 'Please enter a valid number';
       }
 
 
-      ;
+
       // Make sure errors are empty
       if (
         empty($data['organization_name_err']) &&
         empty($data['short_caption_err']) &&
         empty($data['description_err']) &&
+        empty($data['university_err']) &&
         empty($data['categories_err']) &&
         empty($data['website_url_err']) &&
         empty($data['contact_email_err']) &&
@@ -129,75 +224,7 @@ class Organizations extends Controller
         //Validated
 
         //organization-profile image adding
-        if (isset($_FILES['organization_profile_image']['name']) and !empty($_FILES['organization_profile_image']['name'])) {
 
-
-          $img_name = $_FILES['organization_profile_image']['name'];
-          $tmp_name = $_FILES['organization_profile_image']['tmp_name'];
-          $error = $_FILES['organization_profile_image']['error'];
-
-          if ($error === 0) {
-            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-            $img_ex_to_lc = strtolower($img_ex);
-
-            $allowed_exs = array('jpg', 'jpeg', 'png');
-            if (in_array($img_ex_to_lc, $allowed_exs)) {
-              $new_img_name = $data['organization_name'] . '_organization_profile_' . time() . '.' . $img_ex_to_lc;
-              $img_upload_path = "../public/img/organizations/organization_profile_images/" . $new_img_name;
-              move_uploaded_file($tmp_name, $img_upload_path);
-
-              $data['organization_profile_image'] = $new_img_name;
-            }
-          }
-        }
-
-
-        //organization-cover image adding
-        if (isset($_FILES['organization_cover_image']['name']) and !empty($_FILES['organization_cover_image']['name'])) {
-
-
-          $img_name = $_FILES['organization_cover_image']['name'];
-          $tmp_name = $_FILES['organization_cover_image']['tmp_name'];
-          $error = $_FILES['organization_cover_image']['error'];
-
-          if ($error === 0) {
-            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-            $img_ex_to_lc = strtolower($img_ex);
-
-            $allowed_exs = array('jpg', 'jpeg', 'png');
-            if (in_array($img_ex_to_lc, $allowed_exs)) {
-              $new_img_name = $data['organization_name'] . '_organization_cover_' . time() . '.' . $img_ex_to_lc;
-              $img_upload_path = "../public/img/organizations/organization_cover_images/" . $new_img_name;
-              move_uploaded_file($tmp_name, $img_upload_path);
-
-              $data['organization_cover_image'] = $new_img_name;
-            }
-          }
-        }
-
-
-        //organization-cover image adding
-        if (isset($_FILES['board_members_image']['name']) and !empty($_FILES['board_members_image']['name'])) {
-
-
-          $img_name = $_FILES['board_members_image']['name'];
-          $tmp_name = $_FILES['board_members_image']['tmp_name'];
-          $error = $_FILES['board_members_image']['error'];
-
-          if ($error === 0) {
-            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-            $img_ex_to_lc = strtolower($img_ex);
-
-            $allowed_exs = array('jpg', 'jpeg', 'png');
-            if (in_array($img_ex_to_lc, $allowed_exs)) {
-              $new_img_name = $data['organization_name'] . '_board_members_' . time() . '.' . $img_ex_to_lc;
-              $img_upload_path = "../public/img/organizations/board_members_images/" . $new_img_name;
-              move_uploaded_file($tmp_name, $img_upload_path);
-
-              $data['board_members_image'] = $new_img_name;
-            }
-          }
-        }
 
 
         if ($this->organizationModel->addOrganization($data)) {
@@ -269,6 +296,43 @@ class Organizations extends Controller
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
       $organizations = $this->organizationModel->getOrganizationsBySearch($_POST);
+
+      $data = [
+        'organizations' => $organizations,
+      ];
+
+      $this->view('organizations/filter-organizations', $data);
+
+    }
+  }
+
+  public function filterByCategory()
+  {
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+      // Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $category = $_POST['category'];
+      $organizations = $this->organizationModel->filterByCategory($category);
+
+      $data = [
+        'organizations' => $organizations,
+      ];
+
+      $this->view('organizations/filter-organizations', $data);
+
+    }
+  }
+
+  public function userFollowedOrganizations()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+      // Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $userId = $_POST['userId'];
+      $organizations = $this->organizationModel->filterByUserId($userId);
 
       $data = [
         'organizations' => $organizations,
@@ -739,6 +803,7 @@ class Organizations extends Controller
 
   }
 
+
   public function editGeneralDetails($organizationId)
   {
     $universities = $this->universityModel->getUniversities();
@@ -777,6 +842,7 @@ class Organizations extends Controller
       if (empty($data['short_caption'])) {
         $data['short_caption_err'] = 'Please enter the short caption';
       }
+
 
       if (empty($data['description'])) {
         $data['description_err'] = 'Please enter the description';
@@ -828,7 +894,7 @@ class Organizations extends Controller
         'organization_name' => $organization->organization_name,
         'short_caption' => $organization->short_caption,
         'description' => $organization->description,
-        'university' => $organization->university,
+        'university' => $organization->university_id,
         'contact_number' => $organization->contact_number,
         'number_of_members' => $organization->number_of_members,
         'universities' => $universities,
@@ -872,20 +938,6 @@ class Organizations extends Controller
 
 
       ];
-
-
-      if (empty($data['organization_profile_image'])) {
-        $data['organization_profile_image_err'] = 'Please enter the profile image';
-      }
-
-      if (empty($data['organization_cover_image'])) {
-        $data['organization_cover_image_err'] = 'Please enter the cover image';
-      }
-
-      if (empty($data['board_members_image'])) {
-        $data['board_members_image_err'] = 'Please enter the board members image';
-      }
-
 
 
       if (isset($_FILES['organization_profile_image']['name']) and !empty($_FILES['organization_profile_image']['name'])) {
@@ -958,7 +1010,17 @@ class Organizations extends Controller
         }
       }
 
+      if (empty($data['organization_profile_image'])) {
+        $data['organization_profile_image_err'] = 'Please enter the profile image';
+      }
 
+      if (empty($data['organization_cover_image'])) {
+        $data['organization_cover_image_err'] = 'Please enter the cover image';
+      }
+
+      if (empty($data['board_members_image'])) {
+        $data['board_members_image_err'] = 'Please enter the board members image';
+      }
 
       // Make sure errors are empty
       if (
@@ -1131,7 +1193,7 @@ class Organizations extends Controller
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
       $organizationId = $_POST['organizationId'];
-      $data=[
+      $data = [
         'organizationId' => $organizationId
       ];
 

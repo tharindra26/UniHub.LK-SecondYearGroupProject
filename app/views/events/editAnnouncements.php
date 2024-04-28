@@ -81,11 +81,11 @@
                                                             <textarea id="eventAnnouncement" name="announcement"
                                                                 value="<?php echo $announcement->announcement_text ?>"
                                                                 placeholder="Enter the announcement"><?php echo $announcement->announcement_text ?></textarea>
-                                                            <!-- <?php if (!empty($data['announcement_err'])): ?>
-                                                                <span class="error-message">
-                                                                    <?php echo $data['announcement_err']; ?>
-                                                                </span>
-                                                            <?php endif; ?> -->
+
+                                                            <span class="error-message">
+
+                                                            </span>
+
                                                         </div>
                                                     </div>
 

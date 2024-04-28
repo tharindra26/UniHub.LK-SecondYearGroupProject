@@ -300,7 +300,7 @@
             align-items: center;
             padding: 10px 20px;
             /* border: 1px solid red; */
-            font-size: 20px;
+            font-size: 16px;
             border-radius: 10px;
             background-color: #3498db;
             color: white;
@@ -615,23 +615,23 @@ input#rate-5:checked ~ label{
 }
 
 #rate-1:checked ~ form header:before{
-    content: "I just hate it 😕";
+    content: "Thanks for your feedback! 😊";
 }
 
 #rate-2:checked ~ form header:before{
-    content: "I don't like it 😐";
+    content: "Appreciate your input! 😊";
 }
 
 #rate-3:checked ~ form header:before{
-    content: "It is awesome 🙂";
+    content: "Glad to hear your thoughts! 😊";
 }
 
 #rate-4:checked ~ form header:before{
-    content: "I liked it 😊";
+    content: "Your feedback means a lot to us! 😊";
 }
 
 #rate-5:checked ~ form header:before{
-    content: "I loved it 😍";
+    content: "Wow! We're thrilled you loved it! 😊";
 }
 
 .rating-box form{

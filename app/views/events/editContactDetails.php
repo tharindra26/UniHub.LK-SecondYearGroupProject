@@ -33,17 +33,17 @@
                                 <label for="">Email</label>
                                 <input type="text" name="email" id="" placeholder="Enter the email"
                                     value="<?php echo $data['email'] ?>">
-                                <!-- <?php if (!empty($data['email_err'])): ?>
+                                <?php if (!empty($data['email_err'])): ?>
                                     <span class="error-message"><?php echo $data['email_err']; ?></span>
-                                <?php endif; ?> -->
+                                <?php endif; ?>
                             </div>
                             <div class="input-box">
                                 <label for="">Contact Number</label>
                                 <input type="tel" name="contact_number" id="" placeholder="Enter the Contact Number"
                                     value="<?php echo $data['contact_number'] ?>">
-                                <!-- <?php if (!empty($data['contact_number_err'])): ?>
+                                <?php if (!empty($data['contact_number_err'])): ?>
                                     <span class="error-message"><?php echo $data['contact_number_err']; ?></span>
-                                <?php endif; ?> -->
+                                <?php endif; ?>
                             </div>
                         </div>
 

@@ -60,7 +60,7 @@
 
                 <div class="input-box">
                     <label for="">Number of members</label>
-                    <input type="text" name="number_of_members" value="<?php echo $data['number_of_members'] ?>" id=""
+                    <input type="number" name="number_of_members" value="<?php echo $data['number_of_members'] ?>" id=""
                         placeholder="Enter the number of members">
                     <?php if (!empty($data['number_of_members_err'])): ?>
                         <span class="error-message"><?php echo $data['number_of_members_err']; ?></span>

@@ -72,6 +72,24 @@ class Organization
         return $row;
     }
 
+    public function getOrganizationByEmail($email)
+    {
+        $this->db->query('SELECT o.*,
+        u_table.name AS university_name,
+        GROUP_CONCAT(DISTINCT oc.category_name) AS category_names,
+        GROUP_CONCAT(DISTINCT of.follower_id) AS organization_followers
+        FROM organizations o
+        LEFT JOIN organization_category_mapping ocm ON o.organization_id = ocm.organization_id
+        LEFT JOIN universities u_table ON o.university_id = u_table.id 
+        LEFT JOIN organization_categories oc ON ocm.organization_category_id = oc.category_id
+        LEFT JOIN organization_followers of ON o.organization_id =of.organization_id
+        WHERE o.contact_email= :email');
+
+        $this->db->bind(':email', $email);
+        $row = $this->db->single();
+        return $row;
+    }
+
     public function addOrganization($data)
     {
         // var_dump($data);
@@ -170,7 +188,8 @@ class Organization
         $query = 'SELECT 
                     o.*,
                     u_table.name AS university_name,
-                    GROUP_CONCAT(oc.category_name) AS category_names
+                    GROUP_CONCAT(oc.category_name) AS category_names,
+                    (SELECT COUNT(*) FROM organization_followers WHERE organization_id = o.organization_id) AS followers_count
                     FROM organizations o
                     LEFT JOIN organization_category_mapping ocm ON o.organization_id = ocm.organization_id
                     LEFT JOIN universities u_table ON o.university_id = u_table.id 
@@ -215,6 +234,56 @@ class Organization
         $row = $this->db->resultSet();
         return $row;
 
+
+    }
+
+    public function filterByCategory($category)
+    {
+        $query = 'SELECT 
+                o.*,
+                u_table.name AS university_name,
+                GROUP_CONCAT(oc.category_name) AS category_names,
+                (SELECT COUNT(*) FROM organization_followers WHERE organization_id = o.organization_id) AS followers_count
+                FROM organizations o
+                LEFT JOIN organization_category_mapping ocm ON o.organization_id = ocm.organization_id
+                LEFT JOIN universities u_table ON o.university_id = u_table.id 
+                LEFT JOIN organization_categories oc ON ocm.organization_category_id = oc.category_id';
+
+        // If $category is not null, add the WHERE clause
+        if ($category !== null && $category !== '') {
+            $query .= ' WHERE oc.category_name = :category_name';
+        }
+
+        $query .= " GROUP BY o.organization_id";
+        $this->db->query($query);
+
+        // Bind the parameter only if $category is not null
+        if ($category !== null && $category !== '') {
+            $this->db->bind(':category_name', $category);
+        }
+
+        $row = $this->db->resultSet();
+        return $row;
+    }
+
+    public function filterByUserId($userId){
+        $query = 'SELECT 
+                of.*,o.*,
+                u_table.name AS university_name,
+                GROUP_CONCAT(oc.category_name) AS category_names,
+                (SELECT COUNT(*) FROM organization_followers WHERE organization_id = o.organization_id) AS followers_count
+                FROM organization_followers of
+                LEFT JOIN organizations o ON of.organization_id = o.organization_id
+                LEFT JOIN organization_category_mapping ocm ON o.organization_id = ocm.organization_id
+                LEFT JOIN universities u_table ON o.university_id = u_table.id 
+                LEFT JOIN organization_categories oc ON ocm.organization_category_id = oc.category_id  
+                WHERE of.follower_id = :follower_id
+                GROUP BY o.organization_id';
+
+        $this->db->query($query);
+        $this->db->bind(':follower_id', $userId);
+        $row = $this->db->resultSet();
+        return $row;
 
     }
 
@@ -350,7 +419,8 @@ class Organization
         }
     }
 
-    public function getFollowingOrganizationsByUser($user_id){
+    public function getFollowingOrganizationsByUser($user_id)
+    {
         // Prepare the query to select posts liked by the user
         $this->db->query('SELECT organizations.* , universities.name AS uni_name
                         FROM organizations
@@ -360,16 +430,16 @@ class Organization
                         ON universities.id = organizations.university_id
                         WHERE organization_followers.follower_id = :user_id
                         LIMIT 3');
-        
+
         // Bind the user ID parameter
         $this->db->bind(':user_id', $user_id);
-    
+
         // Execute the query
         $this->db->execute();
-    
+
         // Fetch the results
         $rows = $this->db->resultSet();
-    
+
         return $rows;
     }
 
@@ -474,7 +544,7 @@ class Organization
 
     public function updateGeneralDetails($data)
     {
-        $this->db->query("UPDATE organizations SET organization_name = :organization_name, short_caption = :short_caption, description = :description, university = :university, contact_number= :contact_number, number_of_members = :number_of_members WHERE organization_id = :organization_id");
+        $this->db->query("UPDATE organizations SET organization_name = :organization_name, short_caption = :short_caption, description = :description, university_id = :university, contact_number= :contact_number, number_of_members = :number_of_members WHERE organization_id = :organization_id");
         $this->db->bind(':organization_id', $data['organization_id']);
         $this->db->bind(':organization_name', $data['organization_name']);
         $this->db->bind(':short_caption', $data['short_caption']);
@@ -614,7 +684,8 @@ class Organization
         }
     }
 
-    public function checkOrganizationExist($email){
+    public function checkOrganizationExist($email)
+    {
         $this->db->query("SELECT * FROM organizations WHERE contact_email = :contact_email");
         $this->db->bind(':contact_email', $email);
 
@@ -628,7 +699,8 @@ class Organization
         }
     }
 
-    public function checkStatusByOrganizationId($organizationId){
+    public function checkStatusByOrganizationId($organizationId)
+    {
         $this->db->query("SELECT status FROM organizations WHERE organization_id = :organizationId");
         $this->db->bind(':organizationId', $organizationId);
 
@@ -636,7 +708,8 @@ class Organization
         return $row->status;
     }
 
-    public function activateOrganizationById($organizationId){
+    public function activateOrganizationById($organizationId)
+    {
         $this->db->query("UPDATE organizations SET status = 1 WHERE organization_id = :organizationId");
         $this->db->bind(':organizationId', $organizationId);
 
@@ -648,7 +721,8 @@ class Organization
         }
     }
 
-    public function deactivateOrganizationById($organizationId){
+    public function deactivateOrganizationById($organizationId)
+    {
         $this->db->query("UPDATE organizations SET status = 0 WHERE organization_id = :organizationId");
         $this->db->bind(':organizationId', $organizationId);
 

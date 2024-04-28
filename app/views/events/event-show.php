@@ -131,7 +131,7 @@
             </div>
 
             <div class="rating-btn" onClick="openPopup('rating-popup')">
-                <p><i class="fa-solid fa-hands-clapping"></i> Share Your Thoughts</p>
+                <p><i class="fa-solid fa-hands-clapping"></i> Rate Us</p>
             </div>
 
             <!-- popupModal -->
@@ -462,7 +462,6 @@
 
 <script src="<?php echo URLROOT ?>/js/events/event-show.js"></script>
 <script>
-
     <?php
     // Your MySQL datetime value
     $mysqlDateTime = $data['event']->countdown_datetime;
@@ -472,13 +471,15 @@
 
     // Format the datetime value
     $formattedDateTime = $dateTime->format('F j, Y H:i:s');
-
-
     ?>
+
     var countDownDate = new Date('<?php echo $formattedDateTime ?>').getTime();
     var x = setInterval(function () {
         var now = new Date().getTime();
         var distance = countDownDate - now;
+
+        // Ensure distance is not negative
+        distance = Math.max(distance, 0);
 
         var days = Math.floor(distance / (1000 * 60 * 60 * 24));
         var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -489,18 +490,8 @@
         document.getElementById("hours").innerHTML = hours;
         document.getElementById("minutes").innerHTML = minutes;
         document.getElementById("seconds").innerHTML = seconds;
-
-        // If the countdown is over, clearInterval and display a message or take some action
-        // if (distance < 0) {
-        //     clearInterval(x);
-        //     document.getElementById("countdown").innerHTML = "EXPIRED";
-        //     // You may want to display a message or take some action when the countdown expires
-        // }
     }, 1000);
-
-
-
-
 </script>
+
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

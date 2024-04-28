@@ -104,8 +104,8 @@
 
                         <div class="column">
                             <div class="input-box">
-                                <H3>Profile Image for Post</H3>
-                                <label for="">Upload a 600x600 pixels image. Accepted formats: JPG, PNG.</label>
+                                <H3>Post Image</H3>
+                                <label for="">Recommend to upload a image with a 16:9 aspect ratio. Accepted formats: JPG, PNG.</label>
                                 <input type="file" id="profileImageUpload" name="post_profile_image"
                                     value="<?php echo $data['post_profile_image'] ?>" accept="image/*">
                                 <button type="button" id="custom-profile-img-btn"><i
@@ -120,22 +120,6 @@
                             </div>
                         </div>
 
-                        <div class="column">
-                            <div class="input-box">
-                                <H3>Post Cover Image</H3>
-                                <label for="">Upload a 600x600 pixels image. Accepted formats: JPG, PNG.</label>
-                                <input type="file" id="coverImageUpload" name="post_cover_image"
-                                    value="<?php echo $data['post_cover_image'] ?>" accept="image/*">
-                                <button type="button" id="custom-cover-img-btn"><i class="fa-regular fa-file-image"></i>
-                                    &nbsp Choose a image</button>
-                                <span id="cover-img-txt">No file chosen, yet.</span>
-                                <?php if (!empty($data['post_cover_image_err'])): ?>
-                                    <span class="error-message">
-                                        <?php echo $data['post_cover_image_err']; ?>
-                                    </span>
-                                <?php endif; ?>
-                            </div>
-                        </div>
 
                         <button class="submit-btn" type="submit">
                             <p><i class="fa-solid fa-paper-plane"></i> publish post</p>

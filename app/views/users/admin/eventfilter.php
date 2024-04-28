@@ -1,7 +1,7 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/admin/typefilter_style.css">
 <h1 class="section-title"></h1>
-<table class="user-table">
+<table id="user-table" class="user-table">
     <thead>
         <tr>
             <th>Event ID</th>
@@ -78,9 +78,25 @@
 
     </tbody>
 </table>
+<button onclick="generatePDF()">Download PDF</button> <!-- Add this button for PDF download -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.0/html2pdf.bundle.min.js"></script>
 
 <script>
     var URLROOT = document.querySelector('.urlRootValue').textContent.trim();
+
+    function generatePDF() {
+        var element = document.getElementById('user-table'); // Get the table element
+        var opt = {
+            margin:       1,
+            filename:     'events.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'in', format: 'A3', orientation: 'portrait' }
+        };
+        var pdf = new html2pdf(element, opt); // Create HTML2PDF instance
+        pdf.save(); // Save the PDF
+    }
 
     function changeEventActivation(eventId) {
         $.ajax({
@@ -124,5 +140,7 @@
             activationOption.html('<i class="fa-solid fa-toggle-off"></i>');
         }
     });
+
+   
 
 </script>

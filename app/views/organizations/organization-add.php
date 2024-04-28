@@ -32,7 +32,7 @@
                         <label for="">University</label>
                         <div class="select-box">
                             <select name="university" id="selection">
-                                <option hidden <?php if (empty($data['university']))
+                                <option hidden value="0" <?php if (empty($data['university']))
                                     echo 'selected'; ?>>Select
                                     University</option>
                                 <?php foreach ($data['universities'] as $university): ?>
@@ -72,7 +72,7 @@
 
                 <div class="input-box">
                     <label for="">Number of members</label>
-                    <input type="text" name="number_of_members" value="<?php echo $data['number_of_members'] ?>" id=""
+                    <input type="number" name="number_of_members" value="<?php echo $data['number_of_members'] ?>" id=""
                         placeholder="Enter the number of members">
                     <?php if (!empty($data['number_of_members_err'])): ?>
                         <span class="error-message"><?php echo $data['number_of_members_err']; ?></span>
@@ -98,9 +98,9 @@
 
 
                             </div>
-                            <?php if (!empty($data['category_err'])): ?>
+                            <?php if (!empty($data['categories_err'])): ?>
                                 <span class="error-message">
-                                    <?php echo $data['category_err']; ?>
+                                    <?php echo $data['categories_err']; ?>
                                 </span>
                             <?php endif; ?>
                         </div>
@@ -176,7 +176,9 @@
                             value="<?php echo $data['organization_profile_image'] ?>" accept="image/*">
                         <button type="button" id="custom-profile-img-btn"><i class="fa-regular fa-file-image"></i>
                             &nbsp Choose a image</button>
-                        <span id="profile-img-txt">No file chosen, yet.</span>
+                        <span id="profile-img-txt">
+                            <?php echo (!empty($data['organization_profile_image'])) ? basename($data['organization_profile_image']) : 'No file chosen, yet.'; ?>
+                        </span>
                         <?php if (!empty($data['organization_profile_image_err'])): ?>
                             <span class="error-message"><?php echo $data['organization_profile_image_err']; ?></span>
                         <?php endif; ?>
@@ -190,7 +192,9 @@
                             value="<?php echo $data['organization_cover_image'] ?>" accept="image/*">
                         <button type="button" id="custom-cover-img-btn"><i class="fa-regular fa-file-image"></i> &nbsp
                             Choose a image</button>
-                        <span id="cover-img-txt">No file chosen, yet.</span>
+                        <span id="cover-img-txt">
+                            <?php echo (!empty($data['organization_cover_image'])) ? basename($data['organization_cover_image']) : 'No file chosen, yet.'; ?>
+                        </span>
                         <?php if (!empty($data['organization_cover_image_err'])): ?>
                             <span class="error-message"><?php echo $data['organization_cover_image_err']; ?></span>
                         <?php endif; ?>
@@ -205,7 +209,9 @@
                         value="<?php echo $data['board_members_image'] ?>" accept="image/*">
                     <button type="button" id="custom-board-img-btn"><i class="fa-regular fa-file-image"></i> &nbsp
                         Choose a image</button>
-                    <span id="board-img-txt">No file chosen, yet.</span>
+                    <span id="board-img-txt">
+                        <?php echo (!empty($data['board_members_image'])) ? basename($data['board_members_image']) : 'No file chosen, yet.'; ?>
+                    </span>
                     <?php if (!empty($data['board_members_image_err'])): ?>
                         <span class="error-message"><?php echo $data['board_members_image_err']; ?></span>
                     <?php endif; ?>
