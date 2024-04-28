@@ -29,13 +29,15 @@ class User
         return $row->user_count;
     }
 
-    public function getNumberOfAllUsers(){
+    public function getNumberOfAllUsers()
+    {
         $this->db->query('SELECT COUNT(*) AS total_users FROM users;');
         $row = $this->db->single();
         return $row->total_users;
     }
 
-    public function getUserCountByType($type){
+    public function getUserCountByType($type)
+    {
         $this->db->query('SELECT COUNT(*) AS user_count FROM users WHERE type = :type');
         $this->db->bind(':type', $type);
         $row = $this->db->single();
@@ -88,8 +90,9 @@ class User
         }
     }
 
-    public function createAdmin($data){
-        $primaryUser= $this->getUserByEmail($data['secondaryEmail']);
+    public function createAdmin($data)
+    {
+        $primaryUser = $this->getUserByEmail($data['secondaryEmail']);
 
         $this->db->query("INSERT INTO users (email,secondary_email,type,password,status,verification_code,fname,lname,dob,university_id,contact_number,description,profile_image,cover_image) VALUES(:email, :secondary_email, :type,:password,:status,:verification_code,:fname,:lname,:dob,:university_id,:contact_number,:description,:profile_image,:cover_image)");
         //Bind values
@@ -117,8 +120,9 @@ class User
         }
     }
 
-    public function createUniRep($data){
-        $primaryUser= $this->getUserByEmail($data['secondaryEmail']);
+    public function createUniRep($data)
+    {
+        $primaryUser = $this->getUserByEmail($data['secondaryEmail']);
 
         $this->db->query("INSERT INTO users (email,secondary_email,type,password,status,verification_code,fname,lname,dob,university_id,contact_number,description,profile_image,cover_image) VALUES(:email, :secondary_email, :type,:password,:status,:verification_code,:fname,:lname,:dob,:university_id,:contact_number,:description,:profile_image,:cover_image)");
         //Bind values
@@ -146,15 +150,17 @@ class User
         }
     }
 
-    public function getOrganizationByEmail($email){
+    public function getOrganizationByEmail($email)
+    {
         $this->db->query('SELECT * FROM organizations WHERE contact_email = :contact_email');
         $this->db->bind(':contact_email', $email);
         $row = $this->db->single();
         return $row;
     }
 
-    public function creatOrgRep($data){
-        $organization= $this->getOrganizationByEmail($data['email']);
+    public function creatOrgRep($data)
+    {
+        $organization = $this->getOrganizationByEmail($data['email']);
         $this->db->query("INSERT INTO users (email,secondary_email,type,password,status,verification_code,fname,lname,dob,university_id,contact_number,description,profile_image,cover_image) VALUES(:email, :secondary_email, :type,:password,:status,:verification_code,:fname,:lname,:dob,:university_id,:contact_number,:description,:profile_image,:cover_image)");
         //Bind values
         $this->db->bind(':email', $data['email']);
@@ -348,7 +354,7 @@ class User
         }
     }
 
-    
+
 
     public function getUserByName($name)
     {
@@ -358,6 +364,25 @@ class User
         $this->db->query('SELECT id FROM users WHERE fname = :fname AND lname = :lname');
         $this->db->bind(':fname', $fname);
         $this->db->bind(':lname', $lname);
+
+        $row = $this->db->single();
+
+        //check row
+        if ($this->db->rowCount() > 0) {
+            return $row;
+        } else {
+            return false;
+        }
+    }
+
+    public function SearchUserByName($name){
+        $names = explode(' ', $name);
+        $fname = $names[0];
+        $lname = $names[1];
+        $this->db->query('SELECT id FROM users WHERE fname = :fname AND lname = :lname AND type = :type');
+        $this->db->bind(':fname', $fname);
+        $this->db->bind(':lname', $lname);
+        $this->db->bind(':type', "undergraduate");
 
         $row = $this->db->single();
 
@@ -756,36 +781,36 @@ class User
     }
 
     public function addSkill($data)
-{
-    // Insert skill into the database
-    $this->db->query('INSERT INTO user_skills (user_id, skill_name, proficiency_level) VALUES (:user_id, :skill_name, :proficiency_level)');
-    // Bind values
-    $this->db->bind(':user_id', $_SESSION['user_id']);
-    $this->db->bind(':skill_name', $data['skill_name']);
-    $this->db->bind(':proficiency_level', $data['proficiency_level']);
+    {
+        // Insert skill into the database
+        $this->db->query('INSERT INTO user_skills (user_id, skill_name, proficiency_level) VALUES (:user_id, :skill_name, :proficiency_level)');
+        // Bind values
+        $this->db->bind(':user_id', $_SESSION['user_id']);
+        $this->db->bind(':skill_name', $data['skill_name']);
+        $this->db->bind(':proficiency_level', $data['proficiency_level']);
 
-    // Execute
-    if ($this->db->execute()) {
-        return true;
-    } else {
-        return false;
+        // Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
-}
 
-public function deleteSkill($data)
-{
-    $this->db->query("UPDATE user_skills SET status = :status  WHERE user_skill_id= :user_skill_id");
-    //Bind values
-    $this->db->bind(':user_skill_id', $data['user_skill_id']);
-    $this->db->bind('status', 0);
+    public function deleteSkill($data)
+    {
+        $this->db->query("UPDATE user_skills SET status = :status  WHERE user_skill_id= :user_skill_id");
+        //Bind values
+        $this->db->bind(':user_skill_id', $data['user_skill_id']);
+        $this->db->bind('status', 0);
 
-    //Execute the query
-    if ($this->db->execute()) {
-        return true;
-    } else {
-        return false;
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
-}
 
 
 
@@ -808,14 +833,14 @@ public function deleteSkill($data)
 
     public function getOrganizationById($id)
     {
-        $this->db->query('SELECT user_organizations.*, universities.name AS uni_name, organizations.organization_name AS organization
-                        FROM user_organizations 
-                        INNER JOIN universities 
-                        ON universities.id = user_organizations.organization_university
-                        INNER JOIN organizations
-                        ON user_organizations.organization_id = organizations.organization_id
-                        WHERE user_organizations.id = :id
-                        AND user_organizations.status = :status');
+        $this->db->query('SELECT user_organizations.*, 
+        universities.name AS uni_name, 
+        organizations.organization_name AS organization
+ FROM user_organizations
+ LEFT JOIN universities ON user_organizations.organization_university = universities.id
+ LEFT JOIN organizations ON user_organizations.organization_id = organizations.organization_id
+ WHERE user_organizations.id = :id
+    OR user_organizations.status = :status');
 
         $this->db->bind(':id', $id);
         $this->db->bind(':status', 1);
@@ -914,31 +939,33 @@ public function deleteSkill($data)
         }
     }
 
-    public function getPassword($id){
+    public function getPassword($id)
+    {
         $this->db->query('SELECT password FROM users WHERE id = :id');
         $this->db->bind(':id', $id);
-    
+
         $row = $this->db->single();
-    
+
         return $row;
     }
-    
-    public function passwordReset($data) {
+
+    public function passwordReset($data)
+    {
         // First, verify the user's current password before proceeding
         $user = $this->getUserById($data['user_id']); // Retrieve user data from the database
-    
+
         // Verify if the current password matches the one stored in the database
         if (password_verify($data['current_password'], $user->password)) {
             // If the current password matches, proceed with updating the password
-    
+
             // Hash the new password
             $hashed_password = password_hash($data['new_password'], PASSWORD_DEFAULT);
-    
+
             // Update the user's password in the database
             $this->db->query("UPDATE users SET password = :password WHERE id = :id");
             $this->db->bind(':id', $data['user_id']);
             $this->db->bind(':password', $hashed_password);
-    
+
             // Execute the query
             if ($this->db->execute()) {
                 return true; // Password successfully updated
@@ -950,7 +977,7 @@ public function deleteSkill($data)
             return false;
         }
     }
-    
+
 
     public function getUsersByType($data)
     {
@@ -1009,7 +1036,7 @@ public function deleteSkill($data)
         $keyword = $data['keyword'];
         $type = isset($data['type']) ? $data['type'] : null;
         $status = isset($data['status']) ? $data['status'] : null;
-        $universityId = isset($data['university_id']) ? $data['university_id'] : null;
+        $universityId = isset($data['universityId']) ? $data['universityId'] : null;
 
 
 
@@ -1044,9 +1071,9 @@ public function deleteSkill($data)
             $this->db->bind(':type', $type);
         }
         if (!empty($status)) {
-            if($status == 'activated')
+            if ($status == 'activated')
                 $this->db->bind(':status', 1);
-            elseif($status == 'deactivated'){
+            elseif ($status == 'deactivated') {
                 $this->db->bind(':status', 0);
             }
         }
@@ -1478,7 +1505,8 @@ public function deleteSkill($data)
         }
     }
 
-    public function checkStatusByUserId($userId){
+    public function checkStatusByUserId($userId)
+    {
         $this->db->query("SELECT status FROM users WHERE id = :userId");
         $this->db->bind(':userId', $userId);
 
@@ -1486,7 +1514,8 @@ public function deleteSkill($data)
         return $row->status;
     }
 
-    public function activateUserById($userId){
+    public function activateUserById($userId)
+    {
         $this->db->query("UPDATE users SET status = 1 WHERE id = :userId");
         $this->db->bind(':userId', $userId);
 
@@ -1498,7 +1527,8 @@ public function deleteSkill($data)
         }
     }
 
-    public function deactivateUserById($userId){
+    public function deactivateUserById($userId)
+    {
         $this->db->query("UPDATE users SET status = 0 WHERE id = :userId");
         $this->db->bind(':userId', $userId);
 
@@ -1510,7 +1540,8 @@ public function deleteSkill($data)
         }
     }
 
-    public function getUnirepsEmailsByUniId($uniId){
+    public function getUnirepsEmailsByUniId($uniId)
+    {
         $this->db->query("SELECT secondary_email FROM users WHERE university_id = :university_id AND type = 'unirep'");
         $this->db->bind(':university_id', $uniId);
         $emails = $this->db->resultSet();
@@ -1518,7 +1549,8 @@ public function deleteSkill($data)
 
     }
 
-    public function getAdminsEmails(){
+    public function getAdminsEmails()
+    {
         $this->db->query("SELECT secondary_email FROM users WHERE type='admin'");
         $emails = $this->db->resultSet();
         return $emails;

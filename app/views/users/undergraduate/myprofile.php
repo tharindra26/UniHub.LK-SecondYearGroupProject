@@ -109,7 +109,17 @@
                             <?php if (!empty($data['education'][0]->education_id)): ?>
                                 <?php foreach ($data['education'] as $education): ?>
                                     <h4><?php echo $education->institution ?></h4>
-                                    <p><?php echo $education->start_year ?> - <?php echo $education->end_year ?></p>
+                                    <?php if (!empty($education->end_year)): ?>
+                                            <p>
+                                                <?php echo $education->start_year ?> -
+                                                <?php echo $education->end_year ?>
+                                            </p>
+                                        <?php else: ?>
+                                            <p>
+                                                From: &nbsp
+                                                <?php echo $education->start_year ?>
+                                            </p>
+                                        <?php endif; ?>
                                     <p><?php echo $education->description ?></p>
                                     <hr>
                                 <?php endforeach; ?>

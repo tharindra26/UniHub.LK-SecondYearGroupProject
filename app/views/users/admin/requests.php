@@ -6,9 +6,15 @@
 
 <div class="event-requests-section approval-main-section">
     <div class="summary">
-        <div class="option table-heading">
+        <div class="option table-heading" id="event-name">
             <div class="user-head">
                 <h2>Event Requests</h2>
+            </div>
+        </div>
+        <div class="option filter " onclick="generateEventsRequestsPDF()">
+            <div class="print-btn">
+                <i class="fa-solid fa-print"></i>
+                <div class="print-btn-txt">Print Table</div>
             </div>
         </div>
         <div class="option filter">
@@ -33,6 +39,12 @@
                 <h2>Organization Requests</h2>
             </div>
         </div>
+        <div class="option filter " onclick="generateOrganizationRequestsPDF()">
+            <div class="print-btn">
+                <i class="fa-solid fa-print"></i>
+                <div class="print-btn-txt">Print Table</div>
+            </div>
+        </div>
         <div class="option filter">
             <select name="approval" id="organization-filter-value" placeholder="Approval" class="dropdown-menu">
                 <option value="">All</option>
@@ -51,6 +63,12 @@
         <div class="option table-heading">
             <div class="user-head">
                 <h2>Post Requests</h2>
+            </div>
+        </div>
+        <div class="option filter " onclick="generatePostRequestsPDF()">
+            <div class="print-btn">
+                <i class="fa-solid fa-print"></i>
+                <div class="print-btn-txt">Print Table</div>
             </div>
         </div>
         <div class="option filter">
@@ -72,6 +90,12 @@
         <div class="option table-heading">
             <div class="user-head">
                 <h2>Opportunity Requests</h2>
+            </div>
+        </div>
+        <div class="option filter " onclick="generateOpportunityRequestsPDF()">
+            <div class="print-btn">
+                <i class="fa-solid fa-print"></i>
+                <div class="print-btn-txt">Print Table</div>
             </div>
         </div>
         <div class="option filter">
@@ -258,6 +282,55 @@
     $('#opportunity-filter-value').on('change', function () {
         handleOpportunityFilters();
     });
+
+    function generateEventsRequestsPDF() {
+        var element = document.getElementById('event-request-content'); // Get the table element
+        var opt = {
+            margin: 1,
+            filename: 'events-requests.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'A3', orientation: 'landscape' }
+        };
+        var pdf = new html2pdf(element, opt); // Create HTML2PDF instance
+        pdf.save(); // Save the PDF
+    }
+    function generateOrganizationRequestsPDF() {
+        var element = document.getElementById('organization-request-content'); // Get the table element
+        var opt = {
+            margin: 1,
+            filename: 'organization-requests.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'A3', orientation: 'landscape' }
+        };
+        var pdf = new html2pdf(element, opt); // Create HTML2PDF instance
+        pdf.save(); // Save the PDF
+    }
+    function generatePostRequestsPDF() {
+        var element = document.getElementById('post-request-content'); // Get the table element
+        var opt = {
+            margin: 1,
+            filename: 'post-requests.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'A3', orientation: 'landscape' }
+        };
+        var pdf = new html2pdf(element, opt); // Create HTML2PDF instance
+        pdf.save(); // Save the PDF
+    }
+    function generateOpportunityRequestsPDF() {
+        var element = document.getElementById('opportunity-request-content'); // Get the table element
+        var opt = {
+            margin: 1,
+            filename: 'opportunity-requests.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'A3', orientation: 'landscape' }
+        };
+        var pdf = new html2pdf(element, opt); // Create HTML2PDF instance
+        pdf.save(); // Save the PDF
+    }
 
 
 </script>

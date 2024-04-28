@@ -66,9 +66,10 @@
 </div>
 
 <div class="summary">
-    <div class="option table-heading">
-        <div class="user-head">
-            <h2>Recent Events</h2>
+    <div class="option filter" onclick="generateEventsPDF()" >
+        <div class="print-btn">
+            <i class="fa-solid fa-print"></i>
+            <div class="print-btn-txt">Print Table</div>
         </div>
     </div>
     <div class="option filter filter1">
@@ -231,4 +232,17 @@
     }
 
     initializeCount();
+
+    function generateEventsPDF() {
+        var element = document.getElementById('events-filter-table'); // Get the table element
+        var opt = {
+            margin:       1,
+            filename:     'events-table.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'in', format: 'A3', orientation: 'portrait' }
+        };
+        var pdf = new html2pdf(element, opt); // Create HTML2PDF instance
+        pdf.save(); // Save the PDF
+    }
 </script>

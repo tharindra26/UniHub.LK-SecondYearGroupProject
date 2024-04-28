@@ -52,7 +52,7 @@
     <div class="option search">
         <div class="search-bar-container">
             <form action="" class="search-bar">
-                <input type="text" name="searchInput" placeholder="Search Event" id="search-bar-input">
+                <input type="text" name="searchInput" placeholder="Search User" id="search-bar-user">
                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
         </div>
@@ -61,7 +61,7 @@
     <!-- university-filter -->
     <div class="option select-uni filter">
         <div class="filter-text">University:</div>
-        <select name="university" id="uni-filter-value" placeholder=" Approval" class="dropdown-menu">
+        <select name="university" id="uni-filter-user" placeholder=" Approval" class="dropdown-menu">
             <option value="">None</option>
             <?php if (!empty($data['universities'])): ?>
                 <?php foreach ($data['universities'] as $uni): ?>
@@ -77,9 +77,13 @@
 </div>
 
 <div class="summary">
-    <div class="option table-heading">
+    <div class="option filter " onclick="generateUserAccountPDF()" >
+        <div class="print-btn">
+            <i class="fa-solid fa-print"></i>
+            <div class="print-btn-txt" >Print Table</div>
+        </div>
     </div>
-    <div class="option filter filter1" onclick="addUserForm()">
+    <div class="option filter " onclick="addUserForm()">
         <div class="add-user-btn">
             <i class="fa-solid fa-user-plus"></i>
             <div class="add-user-btn-txt">New User</div>
@@ -88,7 +92,7 @@
 
     <div class="option filter filter1">
         <div class="filter-text">Type:</div>
-        <select name="status" id="type-filter-value" class="dropdown-menu">
+        <select name="status" id="type-filter-user" class="dropdown-menu">
             <option value="">All</option>
             <option value="admin">Admin</option>
             <option value="unirep">University Representative</option>
@@ -99,7 +103,7 @@
 
     <div class="option filter filter1">
         <div class="filter-text">Status:</div>
-        <select name="status" id="status-filter-value" class="dropdown-menu">
+        <select name="status" id="status-filter-user" class="dropdown-menu">
             <option value="">None</option>
             <option value="activated">Activated</option>
             <option value="deactivated">Deactivated</option>
@@ -172,10 +176,10 @@
     }
 
     function handleUserFilters() {
-        var searchInputValue = $('#search-bar-input').val();
-        var selectedUniversity = $('#uni-filter-value').val();
-        var selectedStatus = $('#status-filter-value').val();
-        var selectedType = $('#type-filter-value').val();
+        var searchInputValue = $('#search-bar-user').val();
+        var selectedUniversity = $('#uni-filter-user').val();
+        var selectedStatus = $('#status-filter-user').val();
+        var selectedType = $('#type-filter-user').val();
 
         if (searchInputValue === "") {
             searchInputValue = null;
@@ -214,39 +218,39 @@
     handleUserFilters();
 
     // Listen for changes in the search input
-    $('#search-bar-input').on('input', function () {
+    $('#search-bar-user').on('input', function () {
         handleUserFilters();
     });
 
     // Listen for changes in the university dropdown
-    $('#uni-filter-value').on('change', function () {
+    $('#uni-filter-user').on('change', function () {
         handleUserFilters();
     });
 
     // Listen for changes in the status dropdown
-    $('#status-filter-value').on('change', function () {
+    $('#status-filter-user').on('change', function () {
         handleUserFilters();
     });
 
-    $('#type-filter-value').on('change', function () {
+    $('#type-filter-user').on('change', function () {
         handleUserFilters();
     });
 
     // Function to reset other filters to default values
     function resetOtherFilters() {
         // Reset search input
-        document.getElementById("search-bar-input").value = "";
+        document.getElementById("search-bar-user").value = "";
 
         // Reset university filter to default
-        document.getElementById("uni-filter-value").value = "";
+        document.getElementById("uni-filter-user").value = "";
 
         // Reset approval filter to default
-        document.getElementById("category-filter-value").value = "";
+        // document.getElementById("category-filter-user").value = "";
 
         // Reset status filter to default
-        document.getElementById("status-filter-value").value = "";
+        document.getElementById("status-filter-user").value = "";
 
-        document.getElementById("type-filter-value").value = "";
+        document.getElementById("type-filter-user").value = "";
     }
 
     function addUserForm() {
@@ -265,6 +269,19 @@
                 console.error("Error:", error);
             },
         });
+    }
+
+    function generateUserAccountPDF() {
+        var element = document.getElementById('filter-table'); // Get the table element
+        var opt = {
+            margin:       1,
+            filename:     'user-table.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'in', format: 'A3', orientation: 'portrait' }
+        };
+        var pdf = new html2pdf(element, opt); // Create HTML2PDF instance
+        pdf.save(); // Save the PDF
     }
 
 

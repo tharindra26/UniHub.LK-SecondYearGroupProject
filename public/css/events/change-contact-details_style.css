@@ -268,6 +268,16 @@ overpass */
     display: none; /* Initially hidden */
 }
 
+.dropdown-menu{
+    width: 100%;
+    background-color: white;
+    color: #7f8c8d;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    padding: 15px;
+    font-size: 15px;
+}
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }

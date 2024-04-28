@@ -1468,7 +1468,8 @@ class Users extends Controller
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       //process form
       $web = trim($_POST['web']);
-      $email = trim($_POST['email']);
+      $user = $this->userModel->getUserById($id);
+      //$email = trim($_POST['email']);
       $linkedin = trim($_POST['linkedin']);
 
       //Sanitize post data
@@ -1480,7 +1481,7 @@ class Users extends Controller
         'id' => $id,
         'contact_number' => trim($_POST['contact_number']),
         'web' => $web,
-        'email' => $email,
+        'email' => $user->email,
         'linkedin' => $linkedin,
 
         'web_err' => '',
@@ -1490,12 +1491,20 @@ class Users extends Controller
 
 
       if (empty($data['email'])) {
-        $data['email_err'] = 'Pleae enter the email';
+        $data['email_err'] = 'Please enter the email';
+      } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+        $data['email_err'] = 'Please enter a valid email';
       }
 
+      // Validate contact_number
+      if (empty($data['contact_number'])) {
+        $data['contact_number_err'] = 'Please enter the contact number';
+      } elseif (!preg_match('/^\d{10}$/', $data['contact_number'])) {
+        $data['contact_number_err'] = 'Contact number must be exactly 10 digits';
+      }
 
       // Make sure errors are empty
-      if (empty($data['email_err'])) {
+      if (empty($data['contact_number_err']) ) {
         //Validated
 
         if ($this->userModel->updateContactDetails($data)) {
@@ -1569,7 +1578,7 @@ class Users extends Controller
 
 
       // Make sure errors are empty
-      if (empty($data['description_err'])) {
+      if (empty($data['profile_title_err']) && empty($data['description_err'])) {
         //Validated
         if ($this->userModel->updateDescription($data)) {
           // 
@@ -1578,7 +1587,7 @@ class Users extends Controller
       } else {
 
         //load view with errors
-        $this->view('users/undergraduate/editContactDetails', $data);
+        $this->view('users/undergraduate/update-description', $data);
 
       }
     } else {
@@ -1832,6 +1841,8 @@ class Users extends Controller
     if (!isLoggedIn()) {
       redirect('users/login');
     }
+    $universities = $this->userModel->getAllUniversities();
+    $organizations = $this->organizationModel->getAllOrganizations();
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       //process form
       $organization_name = trim($_POST['organization_name']);
@@ -1840,6 +1851,7 @@ class Users extends Controller
       $organization_id = trim($_POST['organization_id']);
       $start_date = trim($_POST['start_date']);
       $end_date = trim($_POST['end_date']);
+     
 
       //Sanitize post data
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -1852,6 +1864,8 @@ class Users extends Controller
         'organization_id' => $organization_id,
         'start_date' => $start_date,
         'end_date' => $end_date,
+        'universities' => $universities,
+        'organizations' => $organizations,
 
         'organization_name_err' => '',
         'role_err' => '',
@@ -1862,11 +1876,12 @@ class Users extends Controller
       ];
 
       if (empty($data['organization_name'])) {
-        $data['organization_name_err'] = 'Pleae enter the organization_name';
+        $data['organization_name_err'] = 'Pleae enter the organization name';
       }
 
-      if (empty($data['organization_university'])) {
-        $data['organization_university_err'] = 'Pleae select the organization university';
+      
+      if (empty($data['role'])) {
+        $data['role_err'] = 'Pleae enter the role';
       }
 
       if (empty($data['start_date'])) {
@@ -1875,7 +1890,7 @@ class Users extends Controller
 
 
       // Make sure errors are empty
-      if (empty($data['organization_name_err']) && empty($data['organization_university_err']) && empty($data['start_date_err'])) {
+      if (empty($data['organization_name_err']) && empty($data['role_err'])  && empty($data['start_date_err'])) {
         //Validated
         if ($this->userModel->addOrganization($data)) {
           // 
@@ -1889,8 +1904,7 @@ class Users extends Controller
       }
     } else {
       //get existing post from model
-      $universities = $this->userModel->getAllUniversities();
-      $organizations = $this->organizationModel->getAllOrganizations();
+      
 
       // Init data
       $data = [
@@ -2055,7 +2069,7 @@ class Users extends Controller
           // 
           redirect('users/show/' . $_SESSION['user_id']);
         }
-      } else {
+      } else{
 
         //load view with errors
         $this->view('users/undergraduate/passwordReset', $data);
@@ -2141,7 +2155,7 @@ class Users extends Controller
       }
 
       // Make sure errors are empty
-      if (empty($data['institution_err']) && empty($data['description_err']) && empty($data['start_year_err']) && empty($data['end_year_err'])) {
+      if (empty($data['institution_err']) && empty($data['description_err']) && empty($data['start_year_err'])) {
         //Validated
         if ($this->userModel->updateEducation($data)) {
           // 
@@ -2239,7 +2253,7 @@ class Users extends Controller
       }
 
       // Make sure errors are empty
-      if (empty($data['institution_err']) && empty($data['description_err']) && empty($data['start_year_err']) && empty($data['end_year_err'])) {
+      if (empty($data['institution_err']) && empty($data['description_err']) && empty($data['start_year_err'])) {
         //Validated
 
         if ($this->userModel->addEducation($data)) {
