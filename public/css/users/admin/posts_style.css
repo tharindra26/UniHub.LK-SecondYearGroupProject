@@ -1,16 +1,29 @@
+
 .add-post-domain-btn{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px 10px;
+    padding: 10px 20px;
+    background-color: #3498DB;
     color: white;
-    background-color: black;
-    cursor: pointer;
+    border: 2px solid #3498DB;
     border-radius: 10px;
+    cursor: pointer;
+    width: auto;
 }
 
 .add-post-domain-btn-txt{
-    margin-left: 5px;
+    margin-left: 10px;
+}
+
+.add-post-domain-btn:hover{
+    background-color: white;
+    color: #3498DB;
+    border: 2px solid #3498DB;
+    border-radius: 10px;
+    cursor: pointer;
+    width: auto;
+    margin-right: 20px;
 }
 
 /* form text */

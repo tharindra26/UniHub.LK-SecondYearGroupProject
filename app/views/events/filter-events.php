@@ -54,5 +54,7 @@
 
     <?php endforeach; ?>
 <?php else: ?>
-    <p>No events available.</p>
+    <div class="no-data-image">
+        <img src="<?php echo URLROOT ?>/img/events/no_data/No data-rafiki.png" alt="no_data">
+    </div>
 <?php endif; ?>

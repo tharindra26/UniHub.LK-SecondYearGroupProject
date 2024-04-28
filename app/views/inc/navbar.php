@@ -16,8 +16,13 @@
                     <a href="<?php echo URLROOT ?>/users/show/<?php echo $_SESSION['user_id'] ?>">
                         <div class="profile-navigator">
                             <div class="profile-image">
-                                <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $_SESSION["user_profile_image"] ?>"
-                                    alt="not found">
+                                <?php
+                                if ($_SESSION['user_type'] === 'orgrep') {
+                                    echo '<img src="' . URLROOT . '/img/organizations/organization_profile_images/' . $_SESSION["user_profile_image"] . '" alt="not found">';
+                                } else {
+                                    echo '<img src="' . URLROOT . '/img/users/users_profile_images/' . $_SESSION["user_profile_image"] . '" alt="not found">';
+                                }
+                                ?>
                             </div>
                             <div class="profile-name">
                                 <div class="user-name"><?php echo $_SESSION["user_name"] ?></div>
@@ -58,7 +63,7 @@
             <li class="hideOnMobile">
                 <div class="notification-icon" onclick="toggleNotificationList()">
                     <i class="fa-solid fa-bell"></i>
-                    <div class="notification-count">50</div>
+                    <div class="notification-count">3</div>
                     <div class="notification-list" id="notification-list">
                         <!-- Notification items will go here -->
                         <div class="notification-item">
@@ -79,8 +84,13 @@
                     <a href="#">
                         <div class="profile-navigator" onclick="toggleMenu()">
                             <div class="profile-image">
-                                <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $_SESSION["user_profile_image"] ?>"
-                                    alt="not found">
+                                <?php
+                                if ($_SESSION['user_type'] === 'orgrep') {
+                                    echo '<img src="' . URLROOT . '/img/organizations/organization_profile_images/' . $_SESSION["user_profile_image"] . '" alt="not found">';
+                                } else {
+                                    echo '<img src="' . URLROOT . '/img/users/users_profile_images/' . $_SESSION["user_profile_image"] . '" alt="not found">';
+                                }
+                                ?>
                             </div>
                             <div class="profile-name">
                                 <div class="user-name"><?php echo $_SESSION["user_name"] ?></div>
@@ -96,9 +106,9 @@
                             <div class="sub-menu-profile-image">
                                 <?php
                                 if ($_SESSION['user_type'] === 'orgrep') {
-                                    echo '<img src="' . URLROOT . '/img/organizations/organization_profile_images/'. $_SESSION["user_profile_image"] . '" alt="not found">';
+                                    echo '<img src="' . URLROOT . '/img/organizations/organization_profile_images/' . $_SESSION["user_profile_image"] . '" alt="not found">';
                                 } else {
-                                    echo '<img src="' . URLROOT . '/img/users/users_profile_images/'. $_SESSION["user_profile_image"] . '" alt="not found">';
+                                    echo '<img src="' . URLROOT . '/img/users/users_profile_images/' . $_SESSION["user_profile_image"] . '" alt="not found">';
                                 }
                                 ?>
 

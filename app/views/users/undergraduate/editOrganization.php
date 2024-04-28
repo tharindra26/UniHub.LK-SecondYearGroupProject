@@ -16,8 +16,7 @@
             <div class="left-box">
                 <div class="form-outer-box">
 
-                    <form class="form"
-                        action="<?php echo URLROOT; ?>/users/editOrganization/<?php echo $data['id'] ?>"
+                    <form class="form" action="<?php echo URLROOT; ?>/users/editOrganization/<?php echo $data['id'] ?>"
                         method="post" enctype="multipart/form-data">
 
                         <div class="column">
@@ -32,8 +31,7 @@
                             </div>
                             <div class="input-box">
                                 <label for="">Role</label>
-                                <input type="text" name="role"
-                                    value="<?php echo $data['role'] ?>" id=""
+                                <input type="text" name="role" value="<?php echo $data['role'] ?>" id=""
                                     placeholder="Enter the role">
                                 <!-- <?php if (!empty($data['role_err'])): ?>
                                 <span class="error-message"><?php echo $data['role_err']; ?></span>
@@ -49,7 +47,13 @@
                                     <option value="">None</option>
                                     <?php if (!empty($data['organizations'])): ?>
                                         <?php foreach ($data['organizations'] as $org): ?>
-                                            <option value="<?php echo $org->organization_id ?>"><?php echo $org->organization_name ?></option>
+                                            <?php if ($data['organization_id'] == $org->organizati0n_id): ?>
+                                                <option value="<?php echo $org->organization_id ?>" selected>
+                                                    <?php echo $org->organization_name ?></option>
+                                            <?php else: ?>
+                                                <option value="<?php echo $org->organization_id ?>">
+                                                    <?php echo $org->organization_name ?></option>
+                                            <?php endif; ?>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
 
@@ -65,7 +69,11 @@
                                     <option value="">None</option>
                                     <?php if (!empty($data['universities'])): ?>
                                         <?php foreach ($data['universities'] as $uni): ?>
-                                            <option value="<?php echo $uni->id ?>"><?php echo $uni->name ?></option>
+                                            <?php if ($data['organization_university'] == $uni->id): ?>
+                                            <option value="<?php echo $uni->id ?>" selected><?php echo $uni->name ?></option>
+                                            <?php else: ?>
+                                                <option value="<?php echo $uni->id ?>"><?php echo $uni->name ?></option>
+                                            <?php endif; ?>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
 

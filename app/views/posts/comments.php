@@ -22,7 +22,8 @@
             <div class="post-card-left-section">
                 <div class="publisher-details">
                     <div class="publisher-image-box">
-                        <img src="<?php echo URLROOT ?>/img/posts/post-authors/default_user.png" alt="">
+                        <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $data['post']->user_profile_image ?>"
+                            alt="">
                     </div>
                     <div class="publisher-name">
                         <div class="publisher-name"><?php echo $data['post']->fname . ' ' . $data['post']->lname ?>
@@ -30,14 +31,17 @@
                     </div>
                     <div class="published-date"><?php echo $formatted_timestamp ?></div>
 
-                    <!-- bookmark-option -->
-                    <div class="bookmark-option" data-post-id="<?php echo $data['post']->post_id ?>"
-                        data-bookmarked-users='<?php echo json_encode(explode(',', $data['post']->bookmarked_users)) ?>'>
-                        <i class="fa-regular fa-bookmark"></i>
-                        <div class="bookmark-text">Add Bookmark</div>
-                    </div>
-                    <!-- bookmark-option -->
-                    
+
+                    <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'undergraduate')): ?>
+                        <!-- bookmark-option -->
+                        <div class="bookmark-option" data-post-id="<?php echo $data['post']->post_id ?>"
+                            data-bookmarked-users='<?php echo json_encode(explode(',', $data['post']->bookmarked_users)) ?>'>
+                            <i class="fa-regular fa-bookmark"></i>
+                            <div class="bookmark-text">Add Bookmark</div>
+                        </div>
+                        <!-- bookmark-option -->
+                    <?php endif; ?>
+
                 </div>
                 <div class="post-title"><?php echo $data['post']->post_title ?></div>
                 <div class="post-tags">
@@ -58,18 +62,24 @@
                     </a>
                 </div>
                 <div class="explore-more-section">
-                    <a class="explore-more-btn" href="<?php echo URLROOT ?>/posts/show/<?php echo $data['post']->post_id ?>">
+                    <a class="explore-more-btn"
+                        href="<?php echo URLROOT ?>/posts/show/<?php echo $data['post']->post_id ?>">
                         <i class="fa-solid fa-rocket"></i>
                         <div class="explore-more-text">
                             Explore More
                         </div>
                     </a>
-                    <a href="#" class="add-comment-btn" onclick="openPopup('addComment-popup-<?php echo $data['post']->post_id ?>')">
-                        <i class="fa-solid fa-comment"></i>
-                        <div class="explore-more-text">
-                            Add Comment
-                        </div>
-                    </a>
+
+                    <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'undergraduate')): ?>
+                        <a href="#" class="add-comment-btn"
+                            onclick="openPopup('addComment-popup-<?php echo $data['post']->post_id ?>')">
+                            <i class="fa-solid fa-comment"></i>
+                            <div class="explore-more-text">
+                                Add Comment
+                            </div>
+                        </a>
+                    <?php endif; ?>
+
                     <!-- popupModal -->
                     <span class="overlay"></span>
                     <div class="modal-box" id="addComment-popup-<?php echo $data['post']->post_id ?>">
@@ -111,7 +121,8 @@
                         ?>
                         <div class="user-details">
                             <div class="user-image-box">
-                                <img src="<?php echo URLROOT ?>/img/posts/post-authors/default_user.png" alt="">
+                                <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $comment->user_profile_image ?>"
+                                    alt="">
                             </div>
                             <div class="user-name">
                                 <div class="user-name">
@@ -120,7 +131,8 @@
                             </div>
                             <div class="published-date"><?php echo $formatted_comment_timestamp ?></div>
 
-                            <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $comment->user_id): ?>
+                            <?php if ($_SESSION['user_type'] === 'admin' || isset($_SESSION['user_id']) && $_SESSION['user_id'] === $comment->user_id) : ?>
+
                                 <div class="comment-delete-option"
                                     onclick="openPopup('deleteComment-popup-<?php echo $comment->comment_id ?>')">
                                     <i class="fa-solid fa-trash-can"></i>
@@ -130,6 +142,7 @@
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </div>
                             <?php endif; ?>
+                            
                             <!-- popupModal -->
                             <span class="overlay"></span>
                             <div class="modal-box" id="updateComment-popup-<?php echo $comment->comment_id ?>">

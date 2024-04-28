@@ -28,6 +28,12 @@
             </form>
         </div>
     </div>
+    <div class="option filter" onclick="generateUniversitiesPDF()" >
+        <div class="print-btn">
+            <i class="fa-solid fa-print"></i>
+            <div class="print-btn-txt">Print Table</div>
+        </div>
+    </div>
     <div class="add-university-btn" onclick="addUniversityForm()">
         <i class="fa-solid fa-plus"></i>
         <div class="add-university-btn-txt">
@@ -78,6 +84,12 @@
 </div>
 
 <div class="summary">
+    <div class="option filter" onclick="generateUniversityDomainPDF()" >
+        <div class="print-btn">
+            <i class="fa-solid fa-print"></i>
+            <div class="print-btn-txt">Print Table</div>
+        </div>
+    </div>
     <div class="add-university-btn" onclick="addUniDomainForm()">
         <i class="fa-solid fa-plus"></i>
         <div class="add-university-btn-txt">
@@ -289,6 +301,31 @@
     }
 
 
+    function generateUniversitiesPDF() {
+        var element = document.getElementById('university-filter-table'); // Get the table element
+        var opt = {
+            margin: 1,
+            filename: 'univerisities-table.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'A3', orientation: 'portrait' }
+        };
+        var pdf = new html2pdf(element, opt); // Create HTML2PDF instance
+        pdf.save(); // Save the PDF
+    }
+
+    function generateUniversityDomainPDF() {
+        var element = document.getElementById('unidomain-filter-table'); // Get the table element
+        var opt = {
+            margin: 1,
+            filename: 'university-domains-table.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'A3', orientation: 'landscape' }
+        };
+        var pdf = new html2pdf(element, opt); // Create HTML2PDF instance
+        pdf.save(); // Save the PDF
+    }
 
 
 </script>

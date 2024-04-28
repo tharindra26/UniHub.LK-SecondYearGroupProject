@@ -1,5 +1,6 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
+
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/organizations/organization-show_style.css">
 <style>
     .organization-cover-image {
@@ -57,29 +58,28 @@
                     <i class="fa-brands fa-linkedin-in"></i>
                 </a>
             </div>
-            <div class="follow-btn" href="#" data-organization-id="<?php echo $data['organization']->organization_id ?>"
-                data-followed-users='<?php echo json_encode(explode(',', $data['organization']->organization_followers)) ?>'>
-                <i class="fa-regular fa-thumbs-up"></i>
-                <div class="follow-btn-txt">
-                    Follow us
-                </div>
-            </div>
-            <a href="<?php echo URLROOT ?>/organizations/settings/<?php echo $data['organization']->organization_id ?>"
-                class="profile-dashboard">
-                <i class="fa-solid fa-bars"></i>
-                <div class="dashboard-txt">
-                    Dashboard
-                </div>
-            </a>
-            <a href="<?php echo URLROOT ?>/organizations/addActivity/<?php echo $data['organization']->organization_id ?>"
-                class="activities">
-                Activities
-            </a>
 
-            <a href="<?php echo URLROOT ?>/organizations/addNews/<?php echo $data['organization']->organization_id ?>"
-                class="activities">
-                News
-            </a>
+            <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'undergraduate')): ?>
+                <div class="follow-btn" href="#" data-organization-id="<?php echo $data['organization']->organization_id ?>"
+                    data-followed-users='<?php echo json_encode(explode(',', $data['organization']->organization_followers)) ?>'>
+                    <i class="fa-regular fa-thumbs-up"></i>
+                    <div class="follow-btn-txt">
+                        Follow us
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin' || (isset($_SESSION['user_email']) && $_SESSION['user_email'] === $data['organization']->contact_email)): ?>
+                <a href="<?php echo URLROOT ?>/organizations/settings/<?php echo $data['organization']->organization_id ?>"
+                    class="profile-dashboard">
+                    <i class="fa-solid fa-bars"></i>
+                    <div class="dashboard-txt">
+                        Dashboard
+                    </div>
+                </a>
+            <?php endif; ?>
+
+
         </div>
         <div class="right-section">
             <div class="about-us">
@@ -109,16 +109,20 @@
                         <?php if (empty($activity->activity_image)): ?>
                             <!-- HTML structure for activity with image -->
                             <div class="activity-title"><?php echo $activity->activity_title ?></div>
-                            <div class="activity-options">
-                                <a href="<?php echo URLROOT ?>/organizations/updateActivity/<?php echo $activity->activity_id ?>"
-                                    class="activity-update">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
-                                <div class="activity-delete"
-                                    onclick="openPopup('activityDelete-popup-<?php echo $activity->activity_id ?>')">
-                                    <i class="fa-solid fa-square-minus"></i>
+
+                            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin' || (isset($_SESSION['user_email']) && $_SESSION['user_email'] === $data['organization']->contact_email)): ?>
+                                <div class="activity-options">
+                                    <a href="<?php echo URLROOT ?>/organizations/updateActivity/<?php echo $activity->activity_id ?>"
+                                        class="activity-update">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <div class="activity-delete"
+                                        onclick="openPopup('activityDelete-popup-<?php echo $activity->activity_id ?>')">
+                                        <i class="fa-solid fa-square-minus"></i>
+                                    </div>
                                 </div>
-                            </div>
+                            <?php endif; ?>
+
                             <div class="activity-content">
                                 <div class="activity-description-plain">
                                     <?php echo $activity->activity_description ?>
@@ -130,16 +134,18 @@
                             <div class="activity-title">
                                 <?php echo $activity->activity_title ?>
                             </div>
-                            <div class="activity-options">
-                                <a href="<?php echo URLROOT ?>/organizations/updateActivity/<?php echo $activity->activity_id ?>"
-                                    class="activity-update">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
-                                <div class="activity-delete"
-                                    onclick="openPopup('activityDelete-popup-<?php echo $activity->activity_id ?>')">
-                                    <i class="fa-solid fa-square-minus"></i>
+                            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin' || (isset($_SESSION['user_email']) && $_SESSION['user_email'] === $data['organization']->contact_email)): ?>
+                                <div class="activity-options">
+                                    <a href="<?php echo URLROOT ?>/organizations/updateActivity/<?php echo $activity->activity_id ?>"
+                                        class="activity-update">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <div class="activity-delete"
+                                        onclick="openPopup('activityDelete-popup-<?php echo $activity->activity_id ?>')">
+                                        <i class="fa-solid fa-square-minus"></i>
+                                    </div>
                                 </div>
-                            </div>
+                            <?php endif; ?>
                             <div class="activity-content">
                                 <div class="activity-description-left">
                                     <?php echo $activity->activity_description ?>
@@ -155,16 +161,18 @@
                             <div class="activity-title">
                                 <?php echo $activity->activity_title ?>
                             </div>
-                            <div class="activity-options">
-                                <a href="<?php echo URLROOT ?>/organizations/updateActivity/<?php echo $activity->activity_id ?>"
-                                    class="activity-update">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
-                                <div class="activity-delete"
-                                    onclick="openPopup('activityDelete-popup-<?php echo $activity->activity_id ?>')">
-                                    <i class="fa-solid fa-square-minus"></i>
+                            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin' || (isset($_SESSION['user_email']) && $_SESSION['user_email'] === $data['organization']->contact_email)): ?>
+                                <div class="activity-options">
+                                    <a href="<?php echo URLROOT ?>/organizations/updateActivity/<?php echo $activity->activity_id ?>"
+                                        class="activity-update">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <div class="activity-delete"
+                                        onclick="openPopup('activityDelete-popup-<?php echo $activity->activity_id ?>')">
+                                        <i class="fa-solid fa-square-minus"></i>
+                                    </div>
                                 </div>
-                            </div>
+                            <?php endif; ?>
                             <div class="activity-content">
                                 <div class="activity-image">
                                     <img src="<?php echo URLROOT ?>/img/organizations/activity_images/<?php echo $activity->activity_image ?>"
@@ -217,10 +225,14 @@
                             <div class="news-timestamp">
                                 <?php echo date('F j, Y g:i A', strtotime($news->news_timestamp)) ?>
                             </div>
-                            <div class="news-options">
-                                <a href="<?php echo URLROOT ?>/organizations/updateNews/<?php echo $news->news_id ?>" class="news-update"><i class="fa-solid fa-pen-to-square"></i></a>
-                                <div class="news-delete" onclick="openPopup('newsDelete-popup-<?php echo $news->news_id ?>')"><i class="fa-solid fa-square-minus"></i></div>
-                            </div>
+                            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin' || (isset($_SESSION['user_email']) && $_SESSION['user_email'] === $data['organization']->contact_email)): ?>
+                                <div class="news-options">
+                                    <a href="<?php echo URLROOT ?>/organizations/updateNews/<?php echo $news->news_id ?>"
+                                        class="news-update"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <div class="news-delete" onclick="openPopup('newsDelete-popup-<?php echo $news->news_id ?>')"><i
+                                            class="fa-solid fa-square-minus"></i></div>
+                                </div>
+                            <?php endif; ?>
                             <div class="news-text"><?php echo $news->news_text ?></div>
                         </div>
                         <hr>
@@ -236,8 +248,7 @@
                             </h3>
 
                             <div class="buttons">
-                                <button class="close-btn"
-                                    onclick="deleteNews(<?php echo $news->news_id ?>)">Ok,Delete</button>
+                                <button class="close-btn" onclick="deleteNews(<?php echo $news->news_id ?>)">Ok,Delete</button>
                             </div>
                         </div>
 
@@ -265,9 +276,17 @@
         var currentUserId = -1;
     <?php endif; ?>
 
-    // popup modal script
-    const overlay = document.querySelector(".overlay");
-    const modalBox = document.querySelector(".modal-box");
+
+    <?php
+    if (!empty($data['organization_news']) || !empty($data['organization_activities'])) {
+        ?>
+        // popup modal script
+        const overlay = document.querySelector(".overlay");
+        const modalBox = document.querySelector(".modal-box");
+
+        <?php
+    }
+    ?>
 
     function openPopup(popupId) {
         var element = document.getElementById(popupId);
@@ -349,6 +368,7 @@
     $(document).ready(function () {
         // Function to handle liking a post via AJAX
         function followOrganization(organizationId) {
+            console.log('Following organization:', organizationId);
             $.ajax({
 
                 type: 'POST',
@@ -383,10 +403,13 @@
         $('.follow-btn').each(function () {
             var organizationId = $(this).data('organization-id');
             var followedUsers = $(this).data('followed-users');
+            var followOption = $('.follow-btn[data-organization-id="' + organizationId + '"]');
 
 
             if (followedUsers.includes(currentUserId.toString())) {
+                console.log(followedUsers.includes(currentUserId.toString()));
                 $(this).find('.fa-regular').removeClass('fa-regular').addClass('fa-solid');
+                followOption.find('.follow-btn-txt').text('Followed');
             }
         });
     });

@@ -89,7 +89,7 @@
                                 <!-- <label for="">Press ctrl to select multiple categories.</label> -->
                                 <div class="select-box category">
 
-                                    <select name="categories[]" id="selection">
+                                    <select name="categories[]" id="proficiency-level">
                                         <option hidden>Select Proficiency Level</option>
                                         <option value="Beginner">Beginner</option>
                                         <option value="Intermediate">Intermediate</option>
@@ -151,76 +151,73 @@
 
 
     // Function to handle the deletion of a category
-    function deleteCategory(eventId, categoryId) {
+    function deleteCategory(skill_id) {
         // Send an AJAX request to the server to delete the category
         $.ajax({
             type: 'POST',
-            url: URLROOT + '/events/deleteEventCategory', // Replace with the URL of your server-side script
+            url: URLROOT + '/users/deleteSkill', // Replace with the URL of your server-side script
             data: {
-                categoryId: categoryId,
-                eventId: eventId
+                skill_id: skill_id,
             }, // Pass the ID of the category to delete
             success: function (response) {
                 if (response == true) {
-                    console.log('Category deleted successfully');
-                    closePopup('delete-popup-' + categoryId);
+                    console.log('Skill Deleted Successfully');
+                    closePopup(skill_id);
                     setTimeout(function () {
                         window.location.reload();
                     }, 500); // 1000 milliseconds delay (1 second)
                 }
             },
             error: function (xhr, status, error) {
-                console.error('Error deleting category:', error);
+                console.error('Error deleting skill:', error);
             }
         });
     }
 
-    function addSkill() {
-        // Get the selected category value
-        var selectedCategory = $('#selection').val();
-        var skillName = $('#skill_name').val();
-        console.log('skillName', skillName);
-        console.log('selectedCategory', selectedCategory);
 
-        // Check if a category is selected
-        if (selectedCategory && skillName) {
-            // Send an AJAX request to the backend
-            $.ajax({
-                type: 'POST',
-                url: "http://localhost/unihub/users/addSkill", // Replace 'your-backend-url' with the actual backend URL
-                data: {
-                    userId: <?php echo $data['user_id']; ?>,
-                    skill_name:skillName,
-                    proficiency_level: selectedCategory
-                },
-                success: function (response) {
-                    if (response == true) {
-                        // Handle success response
-                        console.log('Category added successfully');
-                        // Optionally, reset the selection
-                        $('#skill_name').val('');
-                        $('#selection').val('');
-                        setTimeout(function () {
-                            window.location.reload();
-                        }, 500); // 1000 milliseconds delay (1 second)
-                    }else{
-                        $('.error-message').text('Error: Failed to add category');
-                    }
-                },
-                error: function (xhr, status, error) {
-                    // Handle error
-                    console.error('Error adding category:', error);
-                }
-            });
-        } else {
-            // Show an error message if no category is selected
-            alert('Please select a category');
+    function addSkill() {
+        // Get the skill name and selected proficiency level
+        var skillName = document.getElementById('skill_name').value;
+        var proficiencyLevel = document.getElementById('proficiency-level').value;
+
+        // Check if both skill name and proficiency level are not empty
+        if (skillName.trim() === '' || proficiencyLevel === 'Select Proficiency Level') {
+            // Display an error message or handle the empty fields as needed
+            alert('Please enter a skill name and select a proficiency level.');
+            return;
         }
+
+        // Log the skill name and proficiency level to the console
+        console.log('Skill Name:', skillName);
+        console.log('Proficiency Level:', proficiencyLevel);
+
+        $.ajax({
+            type: 'POST',
+            url: URLROOT + '/users/addSkill', // Replace with the URL of your server-side script
+            data: {
+                skill_name: skillName,
+                proficiency_level: proficiencyLevel
+            }, // Pass the ID of the category to delete
+            success: function (response) {
+                if (response == true) {
+                    console.log('Skill added successfully');
+                }
+                setTimeout(function () {
+                        window.location.reload();
+                    }, 500); // 1000 milliseconds delay (1 second)
+            },
+            error: function (xhr, status, error) {
+                console.error('Error deleting skill:', error);
+            }
+        });
+
+        // Proceed with your AJAX request or any other logic here
     }
+
+    
 
 </script>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="<?php echo URLROOT ?>/js/events/editCategories.js"></script>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

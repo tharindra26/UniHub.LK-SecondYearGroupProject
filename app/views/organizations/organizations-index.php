@@ -67,7 +67,7 @@
     <div class="search-bar-container">
         <form action="" class="search-bar">
             <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-            <input type="text" name="searchInput" placeholder="Explore Opportunities" id="search-bar-input">
+            <input type="text" name="searchInput" placeholder="Explore Organizations" id="search-bar-input">
 
         </form>
     </div>
@@ -81,16 +81,25 @@
         <div class="shortcut-options">
             <h3>Sort:</h3>
             <div class="shortcut-options-outer-box">
-                <div class="option" onclick="quickShortcut('all')">All
+                <div class="option" onclick="quickShortcut('')">All
                     <hr>
                 </div>
-                <div class="option" onclick="quickShortcut('hackathon')">Hackathons
+
+                <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'undergraduate')): ?>
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                        <div class="option" onclick="userFollowedOrganizations('<?php echo $_SESSION['user_id'] ?>')">Followed
+                            <hr>
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
+
+                <div class="option" onclick="quickShortcut('Sports')">Sports
                     <hr>
                 </div>
-                <div class="option" onclick="quickShortcut('entertainment')">Entertainment
+                <div class="option" onclick="quickShortcut('Volunteer')">Volunteer
                     <hr>
                 </div>
-                <div class="option" onclick="quickShortcut('workshop')">Workshops
+                <div class="option" onclick="quickShortcut('Arts & Performance')">Art & Performance
                     <hr>
                 </div>
             </div>
@@ -105,13 +114,16 @@
     <div class="outer-body-container">
 
         <!-- filters-section -->
+
         <div class="filters-section">
-            <a href="<?php echo URLROOT ?>/organizations/add">
-                <div class="add-event-button">
-                    <i class="fa-solid fa-envelope"></i>
-                    <span>Request Organization</span>
-                </div>
-            </a>
+            <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'undergraduate')): ?>
+                <a href="<?php echo URLROOT ?>/organizations/add">
+                    <div class="add-event-button">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>Request Organization</span>
+                    </div>
+                </a>
+            <?php endif; ?>
 
             <!-- university-filter -->
             <div class="uni-filter ">
@@ -161,7 +173,7 @@
 
         <!-- organization-card-section -->
         <div class="content-section" id="content-section">
-           
+
 
         </div>
         <!-- organization-card-section -->
@@ -172,4 +184,40 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="<?php echo URLROOT ?>/js/organizations/organizations-index.js"></script>
+<script>
+    function quickShortcut(category) {
+        $.ajax({
+            url: URLROOT + "/organizations/filterByCategory",
+            type: "POST",
+            data: {
+                category: category,
+            },
+            success: function (response) {
+                $("#content-section").html(response);
+            },
+            error: function (error) {
+                console.error("Error:", error);
+            },
+        });
+    }
+
+    function userFollowedOrganizations(userId) {
+        $.ajax({
+            url: URLROOT + "/organizations/userFollowedOrganizations",
+            type: "POST",
+            data: {
+                userId: userId,
+            },
+            success: function (response) {
+                $("#content-section").html(response);
+            },
+            error: function (error) {
+                console.error("Error:", error);
+            },
+        });
+    }
+
+
+
+</script>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

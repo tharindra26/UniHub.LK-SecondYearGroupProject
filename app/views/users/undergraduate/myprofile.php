@@ -109,7 +109,17 @@
                             <?php if (!empty($data['education'][0]->education_id)): ?>
                                 <?php foreach ($data['education'] as $education): ?>
                                     <h4><?php echo $education->institution ?></h4>
-                                    <p><?php echo $education->start_year ?> - <?php echo $education->end_year ?></p>
+                                    <?php if (!empty($education->end_year)): ?>
+                                            <p>
+                                                <?php echo $education->start_year ?> -
+                                                <?php echo $education->end_year ?>
+                                            </p>
+                                        <?php else: ?>
+                                            <p>
+                                                From: &nbsp
+                                                <?php echo $education->start_year ?>
+                                            </p>
+                                        <?php endif; ?>
                                     <p><?php echo $education->description ?></p>
                                     <hr>
                                 <?php endforeach; ?>
@@ -134,7 +144,7 @@
                     </li>
                     <li>
                         <input type="radio" name="accordion" id="third">
-                        <label for="fourth">Skills</label>
+                        <label for="third">Skills</label>
                         <div class="accordion-content">
                             <?php if (!empty($data['skills'][0]->user_skill_id)): ?>
                                 <?php foreach ($data['skills'] as $skill): ?>
@@ -147,7 +157,7 @@
                     </li>
                     <li>
                         <input type="radio" name="accordion" id="fourth">
-                        <label for="third">Organizations</label>
+                        <label for="fourth">Organizations</label>
                         <div class="accordion-content">
                             <?php if (!empty($data['organizations'][0]->id)): ?>
                                 <?php foreach ($data['organizations'] as $organization): ?>
@@ -155,7 +165,7 @@
                                         <?php echo $organization->name ?>
                                     </h4>
                                     <p><?php echo $organization->role ?></p>
-                                    <p>Duration: <?php echo $organization->start_date ?> - <?php echo $organization->end_date ?>
+                                    <p>From: <?php echo $organization->start_date ?> To: <?php echo $organization->end_date ?>
                                     </p>
                                     <hr>
                                 <?php endforeach; ?>

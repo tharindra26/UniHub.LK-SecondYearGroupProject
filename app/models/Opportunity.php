@@ -9,7 +9,8 @@ class Opportunity
     }
 
 
-    public function addOpportunityView($opportunityId) {
+    public function addOpportunityView($opportunityId)
+    {
         $this->db->query('INSERT INTO opportunity_views (opportunity_id) VALUES (:opportunityId)');
         $this->db->bind(':opportunityId', $opportunityId);
 
@@ -21,14 +22,16 @@ class Opportunity
         }
     }
 
-    public function getOpportunityCountByApproval($approval){
+    public function getOpportunityCountByApproval($approval)
+    {
         $this->db->query('SELECT COUNT(*) AS opportunity_count FROM opportunities WHERE approval = :approval');
         $this->db->bind(':approval', $approval);
         $row = $this->db->single();
         return $row->opportunity_count;
     }
 
-    public function getOpportunitiesCount() {
+    public function getOpportunitiesCount()
+    {
         $this->db->query('SELECT COUNT(*) AS opportunity_count FROM opportunities');
         $row = $this->db->single();
         return $row->opportunity_count;
@@ -212,17 +215,19 @@ class Opportunity
         $query = 'SELECT 
                 o.*,
                 GROUP_CONCAT(DISTINCT ot.tag) AS tags,
-                GROUP_CONCAT(DISTINCT otp.title_position) AS title_positions
+                GROUP_CONCAT(DISTINCT otp.title_position) AS title_positions,
+                COUNT(DISTINCT oub.user_id) AS opportunity_bookmarks
                 FROM opportunities o
                 LEFT JOIN opportunity_tags ot ON o.id = ot.opportunity_id
                 LEFT JOIN opportunity_title_positions otp ON o.id = otp.opportunity_id
+                LEFT JOIN opportunity_user_bookmark oub ON o.id = oub.opportunity_id
                 WHERE 1=1';
 
         if (!empty($keyword)) {
             $query .= " AND o.opportunity_title LIKE :keyword";
         }
 
-        // Group by opportunity id to aggregate tags and title positions
+        // Group by opportunity id to aggregate tags, title positions, and count bookmarks
         $query .= " GROUP BY o.id";
 
         // Prepare the query
@@ -248,10 +253,12 @@ class Opportunity
         $query = 'SELECT 
                 o.*,
                 GROUP_CONCAT(DISTINCT ot.tag) AS tags,
-                GROUP_CONCAT(DISTINCT otp.title_position) AS title_positions
+                GROUP_CONCAT(DISTINCT otp.title_position) AS title_positions,
+                COUNT(DISTINCT oub.user_id) AS opportunity_bookmarks
                 FROM opportunities o
                 LEFT JOIN opportunity_tags ot ON o.id = ot.opportunity_id
                 LEFT JOIN opportunity_title_positions otp ON o.id = otp.opportunity_id
+                LEFT JOIN opportunity_user_bookmark oub ON o.id = oub.opportunity_id
                 WHERE 1=1';
 
         if ($category !== "All") {
@@ -405,18 +412,18 @@ class Opportunity
             }
         }
 
-        return true; // Opportunity, tags, and title positions updated successfully
+        return true;
     }
 
     public function deleteOpportunityById($id)
     {
-        $query = "DELETE FROM opportunities WHERE id = :id";
+        $query = "UPDATE opportunities SET status = 0 WHERE id = :id";
         $this->db->query($query);
         $this->db->bind(':id', $id);
         if ($this->db->execute()) {
-            return true; // Opportunity delete failed
-        }else{
-            return false; // Opportunity delete failed
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -471,13 +478,13 @@ class Opportunity
         }
 
         if (!empty($status)) {
-            if($status == 'activated')
+            if ($status == 'activated')
                 $this->db->bind(':status', 1);
-            elseif($status == 'deactivated'){
+            elseif ($status == 'deactivated') {
                 $this->db->bind(':status', 0);
             }
         }
-        
+
         // Execute the query
         $this->db->execute();
 
@@ -487,7 +494,8 @@ class Opportunity
 
     }
 
-    public function changeApproval($data){
+    public function changeApproval($data)
+    {
         $this->db->query("UPDATE opportunities SET approval = :approval WHERE id = :id");
         $this->db->bind(':id', $data['opportunityId']);
         $this->db->bind(':approval', $data['selectedOpportunityApproval']);
@@ -500,7 +508,8 @@ class Opportunity
         }
     }
 
-    public function checkStatusByOpportunityId($opportunityId){
+    public function checkStatusByOpportunityId($opportunityId)
+    {
         $this->db->query("SELECT status FROM opportunities WHERE id = :opportunityId");
         $this->db->bind(':opportunityId', $opportunityId);
 
@@ -508,7 +517,8 @@ class Opportunity
         return $row->status;
     }
 
-    public function activateOpportunityById($opportunityId){
+    public function activateOpportunityById($opportunityId)
+    {
         $this->db->query("UPDATE opportunities SET status = 1 WHERE id = :opportunityId");
         $this->db->bind(':opportunityId', $opportunityId);
 
@@ -520,7 +530,8 @@ class Opportunity
         }
     }
 
-    public function deactivateOpportunityById($opportunityId){
+    public function deactivateOpportunityById($opportunityId)
+    {
         $this->db->query("UPDATE opportunities SET status = 0 WHERE id = :opportunityId");
         $this->db->bind(':opportunityId', $opportunityId);
 
@@ -530,6 +541,34 @@ class Opportunity
         } else {
             return false;
         }
+    }
+
+    public function filterByUserId($userId)
+    {
+        $query = 'SELECT 
+                o.*,
+                GROUP_CONCAT(DISTINCT ot.tag) AS tags,
+                GROUP_CONCAT(otp.title_position) AS title_positions,
+                COUNT(DISTINCT oub.user_id) AS opportunity_bookmarks
+                FROM opportunities o
+                LEFT JOIN opportunity_tags ot ON o.id = ot.opportunity_id
+                LEFT JOIN opportunity_title_positions otp ON o.id = otp.opportunity_id 
+                INNER JOIN opportunity_user_bookmark oub ON o.id = oub.opportunity_id
+                WHERE oub.user_id = :user_id
+                GROUP BY o.id';
+
+        // Prepare the query
+        $this->db->query($query);
+
+        // Bind user_id parameter
+        $this->db->bind(':user_id', $userId);
+
+        // Execute the query
+        $this->db->execute();
+
+        // Fetch the results
+        $opportunities = $this->db->resultSet();
+        return $opportunities;
     }
 
 

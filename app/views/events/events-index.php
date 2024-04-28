@@ -65,7 +65,7 @@
     <div class="search-bar-container">
         <form action="" class="search-bar">
             <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-            <input type="text" name="searchInput" placeholder="Explore Opportunities" id="search-bar-input">
+            <input type="text" name="searchInput" placeholder="Search Events" id="search-bar-input">
 
         </form>
     </div>
@@ -82,6 +82,16 @@
                 <div class="option" onclick="quickShortcut('all')">All
                     <hr>
                 </div>
+
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <div class="option" onclick="interesetedEvents('<?php echo $_SESSION['user_id'] ?>')">Interested
+                        <hr>
+                    </div>
+                    <div class="option" onclick="eventSuggestions('<?php echo $_SESSION['user_id'] ?>')">Suggestions
+                        <hr>
+                    </div>
+                <?php endif; ?>
+
                 <div class="option" onclick="quickShortcut('hackathon')">Hackathons
                     <hr>
                 </div>
@@ -104,12 +114,15 @@
 
         <!-- filters-section -->
         <div class="filters-section">
-            <a href="<?php echo URLROOT ?>/events/add">
-                <div class="add-event-button">
-                    <i class="fa-solid fa-plus"></i>
-                    <span>Add Event</span>
-                </div>
-            </a>
+
+            <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'undergraduate')): ?>
+                <a href="<?php echo URLROOT ?>/events/add">
+                    <div class="add-event-button">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Add Event</span>
+                    </div>
+                </a>
+            <?php endif; ?>
 
             <!-- university-filter -->
             <div class="uni-filter ">
@@ -147,50 +160,34 @@
 
                 <ul class="list-items" id="category-list">
                     <div class="category-reset-btn">Reset</div>
-                    <li class="item">
-                        <span class="checkbox">
-                            <i class="fa-solid fa-check check-icon"></i>
-                        </span>
-                        <span class="item-text">Concert</span>
-                    </li>
-                    <li class="item">
-                        <span class="checkbox">
-                            <i class="fa-solid fa-check check-icon"></i>
-                        </span>
-                        <span class="item-text">Hackathon</span>
-                    </li>
-
-                    <li class="item">
-                        <span class="checkbox">
-                            <i class="fa-solid fa-check check-icon"></i>
-                        </span>
-                        <span class="item-text">Musical Show</span>
-                    </li>
-
-                    <li class="item">
-                        <span class="checkbox">
-                            <i class="fa-solid fa-check check-icon"></i>
-                        </span>
-                        <span class="item-text">Workshop</span>
-                    </li>
+                    <?php foreach ($data['event_categories'] as $category): ?>
+                        <li class="item">
+                            <span class="checkbox">
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </span>
+                            <span class="item-text"><?php echo $category->category_name; ?></span>
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
             <!-- category filter -->
 
             <!-- customize-feed-option -->
-            <div class="customize-feed-option">
-                <hr>
-                <div class="customize-feed-text">Pick Your Interests! Enhance your experience by selecting categories
-                    that matter most to you. Start personalizing now!</div>
-                <a href="<?php echo URLROOT ?>/users/changeEventInterest" class="customize-feed-btn">
-                    <i class="fa-solid fa-list-check"></i>
-                    <div class="customize-feed-btn-txt">
-                        Customize Event Feed
-                    </div>
-                </a>
-            </div>
+            <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'undergraduate')): ?>
+                <div class="customize-feed-option">
+                    <hr>
+                    <div class="customize-feed-text">Pick Your Interests! Enhance your experience by selecting categories
+                        that matter most to you. Start personalizing now!</div>
+                    <a href="<?php echo URLROOT ?>/users/changeEventInterest" class="customize-feed-btn">
+                        <i class="fa-solid fa-list-check"></i>
+                        <div class="customize-feed-btn-txt">
+                            Customize Event Feed
+                        </div>
+                    </a>
+                </div>
+            <?php endif; ?>
             <!-- customize-feed-option -->
-            
+
         </div>
         <!-- filters-section -->
 

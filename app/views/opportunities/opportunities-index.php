@@ -32,6 +32,12 @@
                 <div class="option" onclick="quickShortcut('All')">All
                     <hr>
                 </div>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <div class="option" onclick="bookmarkedOpportunities('<?php echo $_SESSION['user_id'] ?>')">Bookmarked
+                        <hr>
+                    </div>
+                <?php endif; ?>
+                
                 <div class="option" onclick="quickShortcut('Intern')">Intern
                     <hr>
                 </div>
@@ -88,7 +94,7 @@
 <!-- event-showing-section -->
 
 <script>
-
+    
 </script>
 
 

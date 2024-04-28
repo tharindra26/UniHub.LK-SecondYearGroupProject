@@ -20,9 +20,9 @@ class Events extends Controller
   }
   public function index()
   {
-    // $events= $this->eventModel->getEvents();
+    $event_categories = $this->eventModel->getEventCategories();
     $data = [
-      // 'events'=> $events
+      'event_categories' => $event_categories
     ];
 
     $this->view('events/events-index', $data);
@@ -30,6 +30,8 @@ class Events extends Controller
 
   public function add()
   {
+    $universities = $this->universityModel->getUniversities();
+    $eventCategories = $this->eventModel->getEventCategories();
 
     //check the user is a registered user
     if (!isLoggedIn()) {
@@ -51,7 +53,7 @@ class Events extends Controller
       //Init data
       $data = [
         'title' => trim($_POST['title']),
-        'university' => (trim($_POST['university']) == 'Select University' ? '' : trim($_POST['university'])),
+        'university_id' => (trim($_POST['university_id'])),
         'organized_by' => trim($_POST['organized_by']),
         'venue' => trim($_POST['venue']),
         'email' => trim($_POST['email']),
@@ -67,6 +69,8 @@ class Events extends Controller
         'categories' => isset($_POST['categories']) ? $_POST['categories'] : [],
         'event_profile_image' => '',
         'event_cover_image' => '',
+        'universities' => $universities,
+        'eventCategories' => $eventCategories,
 
         'title_err' => '',
         'university_err' => '',
@@ -89,11 +93,59 @@ class Events extends Controller
       ];
 
 
+      //event-profile image adding
+      if (isset($_FILES['event_profile_image']['name']) and !empty($_FILES['event_profile_image']['name'])) {
+
+
+        $img_name = $_FILES['event_profile_image']['name'];
+        $tmp_name = $_FILES['event_profile_image']['tmp_name'];
+        $error = $_FILES['event_profile_image']['error'];
+
+        if ($error === 0) {
+          $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+          $img_ex_to_lc = strtolower($img_ex);
+
+          $allowed_exs = array('jpg', 'jpeg', 'png');
+          if (in_array($img_ex_to_lc, $allowed_exs)) {
+            $new_img_name = $data['title'] . '_event_profile_' . time() . '.' . $img_ex_to_lc;
+            $img_upload_path = "../public/img/events/events_profile_images/" . $new_img_name;
+            move_uploaded_file($tmp_name, $img_upload_path);
+
+            $data['event_profile_image'] = $new_img_name;
+          }
+        }
+      }
+
+
+      //event-cover image adding
+      if (isset($_FILES['event_cover_image']['name']) and !empty($_FILES['event_cover_image']['name'])) {
+
+
+        $img_name = $_FILES['event_cover_image']['name'];
+        $tmp_name = $_FILES['event_cover_image']['tmp_name'];
+        $error = $_FILES['event_cover_image']['error'];
+
+        if ($error === 0) {
+          $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+          $img_ex_to_lc = strtolower($img_ex);
+
+          $allowed_exs = array('jpg', 'jpeg', 'png');
+          if (in_array($img_ex_to_lc, $allowed_exs)) {
+            $new_img_name = $data['title'] . '_event_cover_' . time() . '.' . $img_ex_to_lc;
+            $img_upload_path = "../public/img/events/events_cover_images/" . $new_img_name;
+            move_uploaded_file($tmp_name, $img_upload_path);
+
+            $data['event_cover_image'] = $new_img_name;
+          }
+        }
+      }
+
+
 
       if (empty($data['title'])) {
         $data['title_err'] = 'Pleae enter event title';
       }
-      if (empty($data['university'])) {
+      if (empty($data['university_id'])) {
         $data['university_err'] = 'Pleae select the university';
       }
       if (empty($data['organized_by'])) {
@@ -106,19 +158,31 @@ class Events extends Controller
         $data['email_err'] = 'Pleae enter the email';
       }
       if (empty($data['contact_number'])) {
-        $data['contact_number_err'] = 'Pleae enter the contact number';
+        $data['contact_number_err'] = 'Please enter the contact number';
+      } elseif (strlen($data['contact_number']) !== 10) {
+        $data['contact_number_err'] = 'Contact number must be exactly 10 digits';
       }
       if (empty($data['map_navigation'])) {
         $data['map_navigation_err'] = 'Pleae enter the embed Google map link';
       }
       if (empty($data['start_datetime'])) {
-        $data['start_datetime_err'] = 'Pleae enter the starting date & time';
+        $data['start_datetime_err'] = 'Please enter the starting date & time';
+      } elseif (strtotime($data['start_datetime']) <= time()) {
+        $data['start_datetime_err'] = 'Start datetime must be in the future';
       }
       if (empty($data['end_datetime'])) {
-        $data['end_datetime_err'] = 'Pleae enter the ending date & time';
+        $data['end_datetime_err'] = 'Please enter the ending date & time';
+      } elseif (strtotime($data['end_datetime']) <= strtotime($data['start_datetime'])) {
+        $data['end_datetime_err'] = 'End datetime must be after start datetime';
       }
       if (empty($data['description'])) {
         $data['description_err'] = 'Pleae enter the description';
+      }
+      if (empty($data['event_profile_image'])) {
+        $data['event_profile_image_err'] = 'Pleae add the profile image';
+      }
+      if (empty($data['event_cover_image'])) {
+        $data['event_cover_image_err'] = 'Pleae add the cover image';
       }
       // Check if categories are empty
       if (empty($data['categories'])) {
@@ -127,75 +191,49 @@ class Events extends Controller
 
 
 
+
       // Make sure errors are empty
       if (empty($data['title_err']) && empty($data['university_err']) && empty($data['organized_by_err']) && empty($data['map_navigation_err']) && empty($data['start_datetime_err']) && empty($data['end_datetime_err']) && empty($data['description_datetime_err']) && empty($data['category_err'])) {
         //Validated
 
-        //event-profile image adding
-        if (isset($_FILES['event_profile_image']['name']) and !empty($_FILES['event_profile_image']['name'])) {
-
-
-          $img_name = $_FILES['event_profile_image']['name'];
-          $tmp_name = $_FILES['event_profile_image']['tmp_name'];
-          $error = $_FILES['event_profile_image']['error'];
-
-          if ($error === 0) {
-            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-            $img_ex_to_lc = strtolower($img_ex);
-
-            $allowed_exs = array('jpg', 'jpeg', 'png');
-            if (in_array($img_ex_to_lc, $allowed_exs)) {
-              $new_img_name = $data['title'] . '_event_profile_' . time() . '.' . $img_ex_to_lc;
-              $img_upload_path = "../public/img/events/events_profile_images/" . $new_img_name;
-              move_uploaded_file($tmp_name, $img_upload_path);
-
-              $data['event_profile_image'] = $new_img_name;
-            }
-          }
-        }
-
-
-        //event-cover image adding
-        if (isset($_FILES['event_cover_image']['name']) and !empty($_FILES['event_cover_image']['name'])) {
-
-
-          $img_name = $_FILES['event_cover_image']['name'];
-          $tmp_name = $_FILES['event_cover_image']['tmp_name'];
-          $error = $_FILES['event_cover_image']['error'];
-
-          if ($error === 0) {
-            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-            $img_ex_to_lc = strtolower($img_ex);
-
-            $allowed_exs = array('jpg', 'jpeg', 'png');
-            if (in_array($img_ex_to_lc, $allowed_exs)) {
-              $new_img_name = $data['title'] . '_event_cover_' . time() . '.' . $img_ex_to_lc;
-              $img_upload_path = "../public/img/events/events_cover_images/" . $new_img_name;
-              move_uploaded_file($tmp_name, $img_upload_path);
-
-              $data['event_cover_image'] = $new_img_name;
-            }
-          }
-        }
-
-
-        // $data['category_id'] = $this->categoryModel->getCategoryIdByName($data['category']);
-        if (!empty($data['categories'])) {
-          // Convert array of category names to category IDs
-          $category_ids = [];
-          foreach ($data['categories'] as $category_name) {
-            $category_id = $this->categoryModel->getCategoryIdByName($category_name);
-            if ($category_id !== false) {
-              $category_ids[] = $category_id;
-            }
-          }
-          $data['category_ids'] = $category_ids;
-        }
-        $data['university_id'] = $this->universityModel->getUniIdByName($data['university']);
-
-
         if ($this->eventModel->addEvent($data)) {
-          // flash('event_message', "Event Added Successfully");
+          $unireps = $this->userModel->getUnirepsEmailsByUniId($data['university_id']);
+          $admins = $this->userModel->getAdminsEmails();
+          $recipients = array_merge($unireps, $admins);
+          foreach ($recipients as $recipient) {
+
+            $to = $recipient->secondary_email;
+            $sender = 'developer.unihub@gmail.com';
+            $mail_subject = 'New Event Added - Review Required:' . $data['title'];
+
+            // Initialize $email_body properly and append to it
+            $email_body = '<p>Hello,</p>';
+            $email_body .= '<p>A new event has been added and requires your attention.<br>Please review the event details and take necessary actions.</p>';
+            $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+            $header = "From: {$sender}\r\n";
+            $header .= "Content-Type: text/html;";
+
+            $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+          }
+
+
+
+          $to = $data['email'];
+          $sender = 'developer.unihub@gmail.com';
+          $mail_subject = 'Event Under Approval: ' . $data['title'];
+
+          // Initialize $email_body properly and append to it
+          $email_body = '<p>Hello,</p>';
+          $email_body .= '<p>Your event is currently under review. We will notify you once the approval process is completed.</p>';
+          $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+          $header = "From: {$sender}\r\n";
+          $header .= "Content-Type: text/html;";
+
+          $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+
+
           redirect('events');
         }
       } else {
@@ -209,7 +247,7 @@ class Events extends Controller
       // Init data
       $data = [
         'title' => '',
-        'university' => '',
+        'university_id' => '',
         'organized_by' => '',
         'venue' => '',
         'email' => '',
@@ -225,6 +263,8 @@ class Events extends Controller
         'categories' => [],
         'event_profile_image' => '',
         'event_cover_image' => '',
+        'universities' => $universities,
+        'eventCategories' => $eventCategories,
 
         'title_err' => '',
         'university_err' => '',
@@ -677,7 +717,7 @@ class Events extends Controller
         $data['announcement_err'] = 'Pleae enter the announcement';
       }
       if (empty($data['sharingOption'])) {
-        $data['sharingOption_err'] = 'Pleae select a option';
+        $data['sharingOption_err'] = 'Pleae select an option';
       }
 
 
@@ -689,7 +729,30 @@ class Events extends Controller
 
 
         if ($this->eventModel->addAnnouncement($data)) {
-          // flash('event_message', "Event Added Successfully");
+          if ($data['sharingOption'] === '1') {
+            $eventInterestUsers = $this->eventModel->getEventInterestUsersByEventId($data['event_id']);
+
+            $event = $this->eventModel->getEventById($data['event_id']);
+            foreach ($eventInterestUsers as $recipient) {
+
+              $to = $recipient->secondary_email;
+              $sender = 'developer.unihub@gmail.com';
+              $mail_subject = 'New Announcement for ' . $event->title;
+
+              // Initialize $email_body properly and append to it
+              $email_body = '<p>Hello,</p>';
+              $email_body .= '<p>We are excited to inform you about a new announcement related to an event you are interested in!</p>';
+              $email_body .= '<p>There is a new announcement has been published for the event <strong>' . $event->title . '</strong></p>';
+              $email_body .= '<p>Please log in to our website to read the full announcement and stay updated with the latest news.</p>';
+              $email_body .= '<p>' . URLROOT . '/events/show/' . $data['event_id'] . '</p>';
+              $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+              $header = "From: {$sender}\r\n";
+              $header .= "Content-Type: text/html;";
+
+              $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+            }
+          }
           redirect('events/settings/' . $id);
         }
       } else {
@@ -760,11 +823,18 @@ class Events extends Controller
       }
 
       if (empty($data['email'])) {
-        $data['email_err'] = 'Pleae enter the email';
+        $data['email_err'] = 'Please enter the email';
+      } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+        $data['email_err'] = 'Please enter a valid email';
       }
+
+      // Validate contact_number
       if (empty($data['contact_number'])) {
-        $data['contact_number_err'] = 'Pleae enter the contact number';
+        $data['contact_number_err'] = 'Please enter the contact number';
+      } elseif (!preg_match('/^\d{10}$/', $data['contact_number'])) {
+        $data['contact_number_err'] = 'Contact number must be exactly 10 digits';
       }
+
 
 
 
@@ -851,11 +921,26 @@ class Events extends Controller
       if (empty($data['map_navigation'])) {
         $data['map_navigation_err'] = 'Pleae enter the embed Google map link';
       }
+
       if (empty($data['start_datetime'])) {
-        $data['start_datetime_err'] = 'Pleae enter the starting date & time';
+        $data['start_datetime_err'] = 'Please enter the starting date & time';
+      } else {
+        $startDateTime = new DateTime($data['start_datetime']);
+        $now = new DateTime(); // Current date and time
+
+        if ($startDateTime < $now) {
+          $data['start_datetime_err'] = 'Start date & time must be in the future';
+        }
       }
+
       if (empty($data['end_datetime'])) {
-        $data['end_datetime_err'] = 'Pleae enter the ending date & time';
+        $data['end_datetime_err'] = 'Please enter the ending date & time';
+      } else {
+        $endDateTime = new DateTime($data['end_datetime']);
+
+        if ($endDateTime <= $startDateTime) {
+          $data['end_datetime_err'] = 'End date & time must be after start date & time';
+        }
       }
 
 
@@ -949,9 +1034,11 @@ class Events extends Controller
   public function editCategories($id)
   {
     $eventCategories = $this->eventModel->getEventCategoriesByEventId($id);
+    $allEventCategories = $this->eventModel->getEventCategories();
     $data = [
       'id' => $id,
-      'eventCategories' => $eventCategories
+      'eventCategories' => $eventCategories,
+      'allEventCategories' => $allEventCategories,
     ];
     $this->view('events/editCategories', $data);
   }
@@ -963,6 +1050,40 @@ class Events extends Controller
       // echo $_POST['value'];
 
       $events = $this->eventModel->getEventsByShortcut($_POST);
+
+      $data = [
+        'events' => $events,
+      ];
+
+      $this->view('events/filter-events', $data);
+
+    }
+  }
+
+  public function interesetedEvents()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      // echo $_POST['value'];
+      $userId = $_POST['userId'];
+      $events = $this->eventModel->getUserInterestedEvents($userId);
+
+      $data = [
+        'events' => $events,
+      ];
+
+      $this->view('events/filter-events', $data);
+
+    }
+  }
+
+  public function suggestedEvents()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      // echo $_POST['value'];
+      $userId = $_POST['userId'];
+      $events = $this->eventModel->getUserSuggestedEvents($userId);
 
       $data = [
         'events' => $events,
@@ -1296,6 +1417,30 @@ class Events extends Controller
 
       if ($this->eventModel->updateAnnouncementById($data)) {
         echo true;
+        if ($data['sharingOption'] === '1') {
+          $eventInterestUsers = $this->eventModel->getEventInterestUsersByEventId($data['event_id']);
+
+          $event = $this->eventModel->getEventById($data['event_id']);
+          foreach ($eventInterestUsers as $recipient) {
+
+            $to = $recipient->secondary_email;
+            $sender = 'developer.unihub@gmail.com';
+            $mail_subject = 'Announcement has updated in ' . $event->title;
+
+            // Initialize $email_body properly and append to it
+            $email_body = '<p>Hello,</p>';
+            $email_body .= '<p>We are excited to inform you about a new announcement related to an event you are interested in!</p>';
+            $email_body .= '<p>There is an announcement has been updated for the event <strong>' . $event->title . '</strong></p>';
+            $email_body .= '<p>Please log in to our website to read the full announcement and stay updated with the latest news.</p>';
+            $email_body .= '<p>' . URLROOT . '/events/show/' . $data['event_id'] . '</p>';
+            $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+            $header = "From: {$sender}\r\n";
+            $header .= "Content-Type: text/html;";
+
+            $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+          }
+        }
       } else {
         echo false;
       }
@@ -1361,15 +1506,29 @@ class Events extends Controller
       ];
 
       if ($this->eventModel->changeApproval($data)) {
+        $event = $this->eventModel->getEventById($eventId);
+        $eventEmail = $event->email;
+
+        $to = $eventEmail;
+        $sender = 'developer.unihub@gmail.com';
+        $mail_subject = 'Event ' . $selectedApproval . ': ' . $event->title;
+
+        // Initialize $email_body properly and append to it
+        $email_body = '<p>Hello,</p>';
+        $email_body .= '<p>Your event has been ' . $selectedApproval . ' . Thank you for your submission.</p>';
+        $email_body .= '<p>For further information or inquiries, please contact us at developer.unihub@gmail.com</p>';
+        $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+        $header = "From: {$sender}\r\n";
+        $header .= "Content-Type: text/html;";
+
+        $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+
         echo true;
       } else {
         echo false;
       }
-
     }
-
   }
-
-
 }
 

@@ -278,3 +278,37 @@ function quickShortcut(category) {
     },
   });
 }
+
+function interesetedEvents(userId) {
+  // console.log(category);
+
+  $.ajax({
+    url: URLROOT + "/events/interesetedEvents",
+    type: "POST",
+    data: {
+      userId: userId
+    },
+    success: function (response) {
+      $("#content-section").html(response);
+    },
+    error: function (error) {
+      console.error("Error:", error);
+    },
+  });
+}
+
+function eventSuggestions(userId) {
+  $.ajax({
+    url: URLROOT + "/events/suggestedEvents",
+    type: "POST",
+    data: {
+      userId: userId
+    },
+    success: function (response) {
+      $("#content-section").html(response);
+    },
+    error: function (error) {
+      console.error("Error:", error);
+    },
+  });
+}

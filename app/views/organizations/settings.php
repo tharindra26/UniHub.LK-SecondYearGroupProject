@@ -10,69 +10,101 @@
         <div class="bottom-part">
             <div class="options-box">
 
-                <a href="<?php echo URLROOT ?>/organizations/editGeneralDetails/<?php echo $data['id'] ?>"
-                    class="option-link">
-                    <div class="option">
-                        <div class="option-icon">
-                            <i class="fa-solid fa-gears"></i>
+                <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin' || (isset($_SESSION['user_email']) && $_SESSION['user_email'] === $data['organization']->contact_email)): ?>
+                    <a href="<?php echo URLROOT ?>/organizations/editGeneralDetails/<?php echo $data['id'] ?>"
+                        class="option-link">
+                        <div class="option">
+                            <div class="option-icon">
+                                <i class="fa-solid fa-gears"></i>
+                            </div>
+                            <div class="option-text">General Details</div>
                         </div>
-                        <div class="option-text">General Details</div>
-                    </div>
-                </a>
+                    </a>
 
-                <a href="<?php echo URLROOT ?>/organizations/editProfileImage/<?php echo $data['id'] ?>"
-                    class="option-link">
-                    <div class="option">
-                        <div class="option-icon">
-                            <i class="fa-regular fa-images"></i>
+                    <a href="<?php echo URLROOT ?>/organizations/editProfileImage/<?php echo $data['id'] ?>"
+                        class="option-link">
+                        <div class="option">
+                            <div class="option-icon">
+                                <i class="fa-regular fa-images"></i>
+                            </div>
+                            <div class="option-text">Profile Image ,Cover Image & Board Members</div>
                         </div>
-                        <div class="option-text">Profile Image ,Cover Image & Board Members</div>
-                    </div>
-                </a>
+                    </a>
 
 
-                <a href="<?php echo URLROOT ?>/organizations/editSocialMedia/<?php echo $data['id'] ?>"
-                    class="option-link">
-                    <div class="option">
-                        <div class="option-icon">
-                            <i class="fa-solid fa-link"></i>
+                    <a href="<?php echo URLROOT ?>/organizations/editSocialMedia/<?php echo $data['id'] ?>"
+                        class="option-link">
+                        <div class="option">
+                            <div class="option-icon">
+                                <i class="fa-solid fa-link"></i>
+                            </div>
+                            <div class="option-text">Social Media Handles</div>
                         </div>
-                        <div class="option-text">Social Media Handles</div>
-                    </div>
-                </a>
+                    </a>
 
 
-                <a href="<?php echo URLROOT ?>/organizations/changeOrganizationCategories/<?php echo $data['id'] ?>"
-                    class="option-link">
-                    <div class="option">
-                        <div class="option-icon">
-                            <i class="fa-solid fa-table-list"></i>
+                    <a href="<?php echo URLROOT ?>/organizations/changeOrganizationCategories/<?php echo $data['id'] ?>"
+                        class="option-link">
+                        <div class="option">
+                            <div class="option-icon">
+                                <i class="fa-solid fa-table-list"></i>
+                            </div>
+                            <div class="option-text">Organization Categories</div>
                         </div>
-                        <div class="option-text">Organization Categories</div>
-                    </div>
-                </a>
+                    </a>
 
-                <a href="#" class="option-link " onclick="openPopup('activation-popup-<?php echo $data['id'] ?>')">
-                    <div class="activation-option <?php if ($data['organization']->status == 0) echo 'deactivated'; ?>">
-                        <div class="option-icon">
-                            <i class="fa-solid fa-toggle-off"></i>
+                    <a href="<?php echo URLROOT ?>/organizations/addActivity/<?php echo $data['id'] ?>" class="option-link">
+                        <div class="option">
+                            <div class="option-icon">
+                                <i class="fa-solid fa-hand-holding-heart"></i>
+                            </div>
+                            <div class="option-text">Add Activity</div>
                         </div>
-                        <div class="option-text"><?php if ($data['organization']->status == 0) echo 'Activate Organization'; else echo 'Deactivate Organization'; ?></div>
-                    </div>
-                </a>
+                    </a>
+
+                    <a href="<?php echo URLROOT ?>/organizations/addNews/<?php echo $data['id'] ?>" class="option-link">
+                        <div class="option">
+                            <div class="option-icon">
+                                <i class="fa-solid fa-newspaper"></i>
+                            </div>
+                            <div class="option-text">Add News</div>
+                        </div>
+                    </a>
+
+                    <a href="#" class="option-link " onclick="openPopup('activation-popup-<?php echo $data['id'] ?>')">
+                        <div class="activation-option <?php if ($data['organization']->status == 0)
+                            echo 'deactivated'; ?>">
+                            <div class="option-icon">
+                                <i class="fa-solid fa-toggle-off"></i>
+                            </div>
+                            <div class="option-text">
+                                <?php if ($data['organization']->status == 0)
+                                    echo 'Activate Organization';
+                                else
+                                    echo 'Deactivate Organization'; ?>
+                            </div>
+                        </div>
+                    </a>
+                <?php endif; ?>
 
                 <!-- popupModal -->
                 <span class="overlay"></span>
                 <div class="modal-box" id="activation-popup-<?php echo $data['id'] ?>">
                     <i class="fa-solid fa-toggle-off"></i>
-                    <h2><?php if ($data['organization']->status == 0) echo 'Activate Organization'; else echo 'Deactivate Organization'; ?></h2>
+                    <h2><?php if ($data['organization']->status == 0)
+                        echo 'Activate Organization';
+                    else
+                        echo 'Deactivate Organization'; ?>
+                    </h2>
                     <h3>Organization:
                         <?php echo $data['organization']->organization_name ?>
                     </h3>
 
                     <div class="buttons">
-                        <button class="close-btn"
-                            onclick="changeActivation(<?php echo $data['id'] ?>)"><?php if ($data['organization']->status == 0) echo 'Activate'; else echo 'Deactivate'; ?></button>
+                        <button class="close-btn" onclick="changeActivation(<?php echo $data['id'] ?>)"><?php if ($data['organization']->status == 0)
+                               echo 'Activate';
+                           else
+                               echo 'Deactivate'; ?></button>
                     </div>
                 </div>
                 <!-- popupModal -->

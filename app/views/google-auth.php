@@ -179,12 +179,6 @@
 </script>
 
 
-<?php if($_SESSION['login_status'] =='invalid'): ?>
-    <script>
-        openPopup('login-fail');
-    </script>
-    <?php unset($_SESSION['login_status']); ?> 
-<?php endif; ?>
 
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

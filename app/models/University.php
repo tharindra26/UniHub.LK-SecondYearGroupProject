@@ -185,6 +185,14 @@ class University
             return false; // Return false if there is an error
         }
     }
+
+    public function getDomainsByUniId($universityId){
+        $this->db->query('SELECT * FROM university_domains WHERE university_id = :university_id');
+        $this->db->bind(':university_id', $universityId);
+        $results = $this->db->resultSet();
+        return $results;
+    }
+
 }
 
     

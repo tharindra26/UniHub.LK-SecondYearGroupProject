@@ -22,18 +22,18 @@
                         <div class="column">
                             <div class="input-box">
                                 <label for="">Email</label>
-                                <input type="text" name="email"  id="" placeholder="Enter the email" value="<?php echo $data['email'] ?>">
-                                <!-- <?php if (!empty($data['email_err'])): ?>
+                                <input type="text" name="email"  id="" placeholder="Enter the email" value="<?php echo $data['email'] ?>" disabled>
+                                <?php if (!empty($data['email_err'])): ?>
                                     <span class="error-message"><?php echo $data['email_err']; ?></span>
-                                <?php endif; ?> -->
+                                <?php endif; ?>
                             </div>
                             <div class="input-box">
                                 <label for="">Contact Number</label>
                                 <input type="tel" name="contact_number"  id=""
                                     placeholder="Enter the Contact Number" value="<?php echo $data['contact_number'] ?>">
-                                <!-- <?php if (!empty($data['contact_number_err'])): ?>
+                                <?php if (!empty($data['contact_number_err'])): ?>
                                     <span class="error-message"><?php echo $data['contact_number_err']; ?></span>
-                                <?php endif; ?> -->
+                                <?php endif; ?>
                             </div>
                         </div>
 
@@ -41,16 +41,16 @@
                             <div class="input-box">
                                 <label for="">Web Address</label>
                                 <input type="text" name="web"  id="" placeholder="Enter the web" value="<?php echo $data['web'] ?>">
-                                <!-- <?php if (!empty($data['web_err'])): ?>
+                                <?php if (!empty($data['web_err'])): ?>
                                     <span class="error-message"><?php echo $data['web_err']; ?></span>
-                                <?php endif; ?> -->
+                                <?php endif; ?>
                             </div>
                             <div class="input-box">
                                 <label for="">LinkedIn</label>
                                 <input type="tel" name="linkedin"  id="" placeholder="Enter the linkedin" value="<?php echo $data['linkedin'] ?>">
-                                <!-- <?php if (!empty($data['linkedin_err'])): ?>
+                                <?php if (!empty($data['linkedin_err'])): ?>
                                     <span class="error-message"><?php echo $data['linkedin_err']; ?></span>
-                                <?php endif; ?> -->
+                                <?php endif; ?>
                             </div>
                         </div>
 

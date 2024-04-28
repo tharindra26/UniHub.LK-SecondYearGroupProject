@@ -13,7 +13,7 @@
                 <p>Organizations</p>
             </div>
             <div class="add-btn">
-                <a href="<?php echo URLROOT ?>/users/addOrganizations" class="button">Add New</a>
+                <a href="<?php echo URLROOT ?>/users/addOrganization/" class="button">Add New</a>
             </div>
 
         </div>
@@ -30,7 +30,6 @@
                                         <p><?php echo $organization->role ?></p>
                                         <p>Duration: <?php echo $organization->start_date ?> - <?php echo $organization->end_date ?></p>
                                     </div>
-                                    <?php echo $organization->id ?>
                                     <div class="edu-btn">
                                         <a href="<?php echo URLROOT ?>/users/editOrganization/<?php echo $organization->id; ?>" class="button">Update</a>
                                         <a href="#" class="button" onclick="openPopup('<?php echo $organization->id; ?>')">Delete</a>

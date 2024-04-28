@@ -52,17 +52,20 @@
                     alt="">
             </div>
         </div>
-        <div class="event-reaction-section">
-            <a href="#" id="interested-btn-id" class="interested-btn">
-                <i class="fa-regular fa-face-grin-hearts"></i>
-                <span>&nbsp Interested</span>
-            </a>
-            <!-- <a href="#" id="going-btn-id" class="going-btn">
+
+        <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'undergraduate')): ?>
+            <div class="event-reaction-section">
+                <a href="#" id="interested-btn-id" class="interested-btn">
+                    <i class="fa-regular fa-face-grin-hearts"></i>
+                    <span>&nbsp Interested</span>
+                </a>
+                <!-- <a href="#" id="going-btn-id" class="going-btn">
                 <i class="fa-regular fa-face-grin-hearts"></i>
                 <span>&nbsp Going</span>
             </a> -->
 
-        </div>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
 
@@ -111,28 +114,32 @@
             <?php endif; ?>
 
 
+            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin' || (isset($_SESSION['user_id']) && $_SESSION['user_id'] === $data['event']->user_id)): ?>
+                <div class="event-announcements">
+                    <a href="<?php echo URLROOT ?>/events/addAnnouncement/<?php echo $data['event']->id ?>"
+                        class="event-announcements-link">
+                        <div class="event-settings-btn">
+                            <i class="fa-solid fa-bullhorn"></i> &nbsp Add Announcement
+                        </div>
+                    </a>
+                </div>
 
-            <div class="event-announcements">
-                <a href="<?php echo URLROOT ?>/events/addAnnouncement/<?php echo $data['event']->id ?>"
-                    class="event-announcements-link">
-                    <div class="event-settings-btn">
-                        <i class="fa-solid fa-bullhorn"></i> &nbsp Add Announcement
-                    </div>
-                </a>
-            </div>
+                <div class="event-settings">
+                    <a href="<?php echo URLROOT ?>/events/settings/<?php echo $data['event']->id ?>"
+                        class="event-settings-link">
+                        <div class="event-settings-btn">
+                            <i class="fa-solid fa-gear"></i> &nbsp Event Settings
+                        </div>
+                    </a>
+                </div>
+            <?php endif; ?>
 
-            <div class="event-settings">
-                <a href="<?php echo URLROOT ?>/events/settings/<?php echo $data['event']->id ?>"
-                    class="event-settings-link">
-                    <div class="event-settings-btn">
-                        <i class="fa-solid fa-gear"></i> &nbsp Event Settings
-                    </div>
-                </a>
-            </div>
 
-            <div class="rating-btn" onClick="openPopup('rating-popup')">
-                <p><i class="fa-solid fa-hands-clapping"></i> Share Your Thoughts</p>
-            </div>
+            <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'undergraduate')): ?>
+                <div class="rating-btn" onClick="openPopup('rating-popup')">
+                    <p><i class="fa-solid fa-hands-clapping"></i> Rate Us</p>
+                </div>
+            <?php endif; ?>
 
             <!-- popupModal -->
 
@@ -462,7 +469,6 @@
 
 <script src="<?php echo URLROOT ?>/js/events/event-show.js"></script>
 <script>
-
     <?php
     // Your MySQL datetime value
     $mysqlDateTime = $data['event']->countdown_datetime;
@@ -472,13 +478,15 @@
 
     // Format the datetime value
     $formattedDateTime = $dateTime->format('F j, Y H:i:s');
-
-
     ?>
+
     var countDownDate = new Date('<?php echo $formattedDateTime ?>').getTime();
     var x = setInterval(function () {
         var now = new Date().getTime();
         var distance = countDownDate - now;
+
+        // Ensure distance is not negative
+        distance = Math.max(distance, 0);
 
         var days = Math.floor(distance / (1000 * 60 * 60 * 24));
         var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -489,18 +497,8 @@
         document.getElementById("hours").innerHTML = hours;
         document.getElementById("minutes").innerHTML = minutes;
         document.getElementById("seconds").innerHTML = seconds;
-
-        // If the countdown is over, clearInterval and display a message or take some action
-        // if (distance < 0) {
-        //     clearInterval(x);
-        //     document.getElementById("countdown").innerHTML = "EXPIRED";
-        //     // You may want to display a message or take some action when the countdown expires
-        // }
     }, 1000);
-
-
-
-
 </script>
+
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

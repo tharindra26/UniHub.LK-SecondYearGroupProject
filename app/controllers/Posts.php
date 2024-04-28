@@ -17,9 +17,9 @@ class Posts extends Controller
 
   public function index()
   {
-    // $events= $this->eventModel->getEvents();
+    $popularPosts = $this->postModel->getPopularPosts();
     $data = [
-      // 'events'=> $events
+      'popularPosts' => $popularPosts
     ];
 
     $this->view('posts/post-index', $data);
@@ -37,6 +37,9 @@ class Posts extends Controller
 
   public function add()
   {
+
+    $postCategories = $this->postModel->getPostCategories();
+
 
     //check the user is a registered user
     if (!isLoggedIn()) {
@@ -57,8 +60,8 @@ class Posts extends Controller
         'material_link' => trim($_POST['material_link']),
         'categories' => isset($_POST['categories']) ? $_POST['categories'] : [],
         'tags' => isset($_POST['tags']) ? $_POST['tags'] : [],
-        'post_profile_image' => "",
-        'post_cover_image' => "",
+        'post_profile_image' => '',
+        'postCategories' => $postCategories,
 
 
 
@@ -69,11 +72,31 @@ class Posts extends Controller
         'category_err' => '',
         'tags_err' => '',
         'post_profile_image_err' => '',
-        'post_cover_image_err' => '',
-
-
 
       ];
+
+
+      if (isset($_FILES['post_profile_image']['name']) and !empty($_FILES['post_profile_image']['name'])) {
+
+
+        $img_name = $_FILES['post_profile_image']['name'];
+        $tmp_name = $_FILES['post_profile_image']['tmp_name'];
+        $error = $_FILES['post_profile_image']['error'];
+
+        if ($error === 0) {
+          $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+          $img_ex_to_lc = strtolower($img_ex);
+
+          $allowed_exs = array('jpg', 'jpeg', 'png');
+          if (in_array($img_ex_to_lc, $allowed_exs)) {
+            $new_img_name = $data['post_title'] . '_post_profile_' . time() . '.' . $img_ex_to_lc;
+            $img_upload_path = "../public/img/posts/post_profile_images/" . $new_img_name;
+            move_uploaded_file($tmp_name, $img_upload_path);
+
+            $data['post_profile_image'] = $new_img_name;
+          }
+        }
+      }
 
 
 
@@ -92,58 +115,31 @@ class Posts extends Controller
       if (empty($data['tags'])) {
         $data['tags_err'] = 'Please add at least one tag';
       }
+      if (empty($data['post_profile_image'])) {
+        $data['post_profile_image_err'] = 'Please add a image for post';
+      }
 
+      $postDomainsCheck = false;
+      if (!empty($data['material_link'])) {
+        $postDomains = $this->postModel->getAllDomains();
+        // Check if any part of the email matches any university domain
+        foreach ($postDomains as $domainObj) {
+          $domain = $domainObj->domain; // Extract domain string from object
+          if (strpos($data['material_link'], $domain) !== false) {
+            $postDomainsCheck = true;
+            break;
+          }
+        }
+      }
 
 
       // Make sure errors are empty
-      if (empty($data['post_title_err']) && empty($data['post_description_err']) && empty($data['material_link_err']) && empty($data['category_err']) && empty($data['tags_err'])) {
+      if (empty($data['post_title_err']) && empty($data['post_description_err']) && empty($data['material_link_err']) && empty($data['category_err']) && empty($data['tags_err']) && empty($data['post_profile_image_err'])) {
         //Validated
 
 
         //post-profile image adding
-        if (isset($_FILES['post_profile_image']['name']) and !empty($_FILES['post_profile_image']['name'])) {
 
-
-          $img_name = $_FILES['post_profile_image']['name'];
-          $tmp_name = $_FILES['post_profile_image']['tmp_name'];
-          $error = $_FILES['post_profile_image']['error'];
-
-          if ($error === 0) {
-            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-            $img_ex_to_lc = strtolower($img_ex);
-
-            $allowed_exs = array('jpg', 'jpeg', 'png');
-            if (in_array($img_ex_to_lc, $allowed_exs)) {
-              $new_img_name = $data['post_title'] . '_post_profile_' . time() . '.' . $img_ex_to_lc;
-              $img_upload_path = "../public/img/posts/post_profile_images/" . $new_img_name;
-              move_uploaded_file($tmp_name, $img_upload_path);
-
-              $data['post_profile_image'] = $new_img_name;
-            }
-          }
-        }
-
-        if (isset($_FILES['post_cover_image']['name']) and !empty($_FILES['post_cover_image']['name'])) {
-
-
-          $img_name = $_FILES['post_cover_image']['name'];
-          $tmp_name = $_FILES['post_cover_image']['tmp_name'];
-          $error = $_FILES['post_cover_image']['error'];
-
-          if ($error === 0) {
-            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-            $img_ex_to_lc = strtolower($img_ex);
-
-            $allowed_exs = array('jpg', 'jpeg', 'png');
-            if (in_array($img_ex_to_lc, $allowed_exs)) {
-              $new_img_name = $data['post_title'] . '_post_cover_' . time() . '.' . $img_ex_to_lc;
-              $img_upload_path = "../public/img/posts/post_cover_images/" . $new_img_name;
-              move_uploaded_file($tmp_name, $img_upload_path);
-
-              $data['post_cover_image'] = $new_img_name;
-            }
-          }
-        }
 
 
         if (!empty($data['categories'])) {
@@ -158,10 +154,63 @@ class Posts extends Controller
           $data['category_ids'] = $category_ids;
         }
 
-        if ($this->postModel->addPost($data)) {
-          // flash('event_message', "Event Added Successfully");
-          redirect('posts');
+        if ($postDomainsCheck === false) {
+          if ($this->postModel->addPostWithPending($data)) {
+            $admins = $this->userModel->getAdminsEmails();
+
+            foreach ($admins as $admin) {
+
+              $to = $admin->secondary_email;
+              $sender = 'developer.unihub@gmail.com';
+              $mail_subject = 'New Post Added - Review Required:' . $data['post_title'];
+
+              // Initialize $email_body properly and append to it
+              $email_body = '<p>Hello,</p>';
+              $email_body .= '<p>A new post has been added and requires your attention.<br>Please review the event details and take necessary actions.</p>';
+              $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+              $header = "From: {$sender}\r\n";
+              $header .= "Content-Type: text/html;";
+
+              $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+            }
+
+            $to = $_SESSION['user_secondary_email'];
+            $sender = 'developer.unihub@gmail.com';
+            $mail_subject = 'Post Under Approval: ' . $data['post_title'];
+
+            // Initialize $email_body properly and append to it
+            $email_body = '<p>Hello,</p>';
+            $email_body .= '<p>Your post is currently under review. We will notify you once the approval process is completed.</p>';
+            $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+            $header = "From: {$sender}\r\n";
+            $header .= "Content-Type: text/html;";
+
+            $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+
+
+            redirect('posts');
+          }
+        } else {
+          if ($this->postModel->addPost($data)) {
+            $to = $_SESSION['user_email'];
+            $sender = 'developer.unihub@gmail.com';
+            $mail_subject = 'Post Published: ' . $data['post_title'];
+
+            // Initialize $email_body properly and append to it
+            $email_body = '<p>Hello,</p>';
+            $email_body .= '<p>We are pleased to inform you that your post has been successfully published.</p>';
+            $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+            $header = "From: {$sender}\r\n";
+            $header .= "Content-Type: text/html;";
+
+            $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+            redirect('posts');
+          }
         }
+
       } else {
         //load view with error
         $this->view('posts/post-add', $data);
@@ -179,6 +228,7 @@ class Posts extends Controller
         'tags' => '',
         'post_profile_image' => '',
         'post_cover_image' => '',
+        'postCategories' => $postCategories,
 
 
         'post_title_err' => '',
@@ -593,6 +643,24 @@ class Posts extends Controller
       ];
 
       if ($this->postModel->changeApproval($data)) {
+        $post = $this->postModel->getPostById($postId);
+        $user= $this->userModel->getUserById($post->user_id);
+
+        $to = $user->email;
+        $sender = 'developer.unihub@gmail.com';
+        $mail_subject = 'Post ' . $selectedPostApproval . ': ' . $post->post_title;
+
+        // Initialize $email_body properly and append to it
+        $email_body = '<p>Hello,</p>';
+        $email_body .= '<p>Your post has been ' . $selectedPostApproval . ' . Thank you for your submission.</p>';
+        $email_body .= '<p>For further information or inquiries, please contact us at developer.unihub@gmail.com</p>';
+        $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+        $header = "From: {$sender}\r\n";
+        $header .= "Content-Type: text/html;";
+
+        $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+
         echo true;
       } else {
         echo false;
@@ -705,6 +773,61 @@ class Posts extends Controller
 
     }
 
+  }
+
+  public function filterByCategory()
+  {
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+      // Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $category = $_POST['category'];
+      $posts = $this->postModel->filterByCategory($category);
+
+      $data = [
+        'posts' => $posts,
+      ];
+
+      $this->view('posts/filter-posts', $data);
+
+    }
+  }
+
+  public function filterByUserId()
+  {
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+      // Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $userId = $_POST['userId'];
+      $posts = $this->postModel->filterByUserId($userId);
+
+      $data = [
+        'posts' => $posts,
+      ];
+
+      $this->view('posts/filter-posts', $data);
+
+    }
+  }
+
+  public function suggestedPosts()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      // echo $_POST['value'];
+      $userId = $_POST['userId'];
+      $posts = $this->postModel->getUserSuggestedPosts($userId);
+
+      $data = [
+        'posts' => $posts,
+      ];
+
+      $this->view('events/filter-events', $data);
+
+    }
   }
 
 }
