@@ -75,6 +75,9 @@ function closePopup(friend_id) {
     element.classList.remove("active");
     overlay.classList.remove("active");
   }
+  setTimeout(function () {
+    window.location.reload();
+}, 500);
 }
 overlay.addEventListener("click", () => {
   modalBox.classList.remove("active");
