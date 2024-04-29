@@ -89,6 +89,20 @@ class User
             return false;
         }
     }
+    public function updateVerificationCode($data){
+        $this->db->query('UPDATE users SET verification_code = :verification_code WHERE email = :email');
+
+         //Bind values
+         $this->db->bind(':email', $data['email']);
+        $this->db->bind(':verification_code', $data['verification_code']);
+
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public function createAdmin($data)
     {
@@ -430,12 +444,29 @@ class User
 
         $row = $this->db->execute();
         $rowCount = $this->db->rowCount();
-
-        return $result = [
+        $result = [
             'row' => $row,
             'rowCount' => $rowCount,
 
         ];
+
+        return $result;
+    }
+
+    public function getUserByVerifyEmail($email){
+        $this->db->query('SELECT * FROM users WHERE email = :email');
+
+        $this->db->bind(':email', $email);
+
+        $row = $this->db->execute();
+        $rowCount = $this->db->rowCount();
+        $result = [
+            'row' => $row,
+            'rowCount' => $rowCount,
+
+        ];
+
+        return $result;
     }
 
     public function deleteUser($id)
@@ -466,6 +497,22 @@ class User
             return false;
         }
     }
+
+    public function deleteCode($verificationCode)
+    {
+        $this->db->query("UPDATE users SET verification_code = :new_verification_code WHERE verification_code= :verification_code");
+        //Bind values
+        $this->db->bind(':new_verification_code', NULL);
+        $this->db->bind(':verification_code', $verificationCode);
+
+        //Execute the query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     public function getAllInterestedEventsByUserId($user_id)
     {
@@ -951,20 +998,12 @@ class User
 
     public function passwordReset($data)
     {
-        // First, verify the user's current password before proceeding
-        $user = $this->getUserById($data['user_id']); // Retrieve user data from the database
 
-        // Verify if the current password matches the one stored in the database
-        if (password_verify($data['current_password'], $user->password)) {
-            // If the current password matches, proceed with updating the password
-
-            // Hash the new password
-            $hashed_password = password_hash($data['new_password'], PASSWORD_DEFAULT);
-
+        $new_password = password_hash($data['new_password'], PASSWORD_DEFAULT);
             // Update the user's password in the database
             $this->db->query("UPDATE users SET password = :password WHERE id = :id");
             $this->db->bind(':id', $data['user_id']);
-            $this->db->bind(':password', $hashed_password);
+            $this->db->bind(':password', $new_password);
 
             // Execute the query
             if ($this->db->execute()) {
@@ -972,10 +1011,6 @@ class User
             } else {
                 return false; // Failed to update password
             }
-        } else {
-            // If the current password does not match, return false
-            return false;
-        }
     }
 
 
