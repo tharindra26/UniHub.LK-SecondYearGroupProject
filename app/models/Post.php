@@ -126,7 +126,7 @@ class Post
         $this->db->bind(':post_description', $data['post_description']);
         $this->db->bind(':post_profile_image', $data['post_profile_image']);
         $this->db->bind(':material_link', $data['material_link']);
-        $this->db->bind(':approval', 'accepted');
+        $this->db->bind(':approval', 'approved');
 
 
 
@@ -287,6 +287,7 @@ class Post
             p.*,
             u.fname,
             u.lname,
+            u.profile_image AS user_profile_image,
             GROUP_CONCAT(DISTINCT pt.tag_text) AS tags,
             GROUP_CONCAT(DISTINCT pc.category_name) AS categories,
             GROUP_CONCAT(DISTINCT pl.user_id) AS liked_users,
