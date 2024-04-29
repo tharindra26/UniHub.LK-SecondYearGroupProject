@@ -1,6 +1,6 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
-<link rel="stylesheet" href="<?php echo URLROOT ?>/css/events/change-contact-details_style.css">
+<link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/undergraduate/edit-contact-details_style.css">
 
 <div class="container">
     <div class="inner-container">

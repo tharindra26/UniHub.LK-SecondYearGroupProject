@@ -110,16 +110,16 @@
                                 <?php foreach ($data['education'] as $education): ?>
                                     <h4><?php echo $education->institution ?></h4>
                                     <?php if (!empty($education->end_year)): ?>
-                                            <p>
-                                                <?php echo $education->start_year ?> -
-                                                <?php echo $education->end_year ?>
-                                            </p>
-                                        <?php else: ?>
-                                            <p>
-                                                From: &nbsp
-                                                <?php echo $education->start_year ?>
-                                            </p>
-                                        <?php endif; ?>
+                                        <p>
+                                            <?php echo $education->start_year ?> -
+                                            <?php echo $education->end_year ?>
+                                        </p>
+                                    <?php else: ?>
+                                        <p>
+                                            From: &nbsp
+                                            <?php echo $education->start_year ?>
+                                        </p>
+                                    <?php endif; ?>
                                     <p><?php echo $education->description ?></p>
                                     <hr>
                                 <?php endforeach; ?>
@@ -177,173 +177,177 @@
             <!--Accordion Ends-->
             <!--Slide Indicator Starts-->
             <?php if ($data['user']->id == $_SESSION['user_id']): ?>
-            <div class="slide-indicator">
-                <input type="radio" name="nav-slider" id="liked_materials" checked>
-                <input type="radio" name="nav-slider" id="going_events">
-                <input type="radio" name="nav-slider" id="interest">
-                <nav>
-                    <label for="liked_materials" class="liked_materials">Liked Posts</label>
-                    <label for="going_events" class="going_events">Organizations</label>
-                    <label for="interest" class="interest">Interest</label>
-                    <div class="nav-slider"></div>
-                </nav>
-                <section>
-                    <!-- <?php echo var_dump($data['likedPosts']); ?> -->
-                    <!-- Liked Materials -->
-                    <div class="tab-content content-1">
-                        <?php if (!empty($data['likedPosts'])): ?>
-                            <?php foreach ($data['likedPosts'] as $likedPosts): ?>
-                                <div class="material">
-                                    <a href="<?php echo URLROOT ?>/posts/show/<?php echo $likedPosts->post_id ?>">
-                                        <div class="material-img">
+                <div class="slide-indicator">
+                    <input type="radio" name="nav-slider" id="liked_materials" checked>
+                    <input type="radio" name="nav-slider" id="going_events">
+                    <input type="radio" name="nav-slider" id="interest">
+                    <nav>
+                        <label for="liked_materials" class="liked_materials">Liked Posts</label>
+                        <label for="going_events" class="going_events">Organizations</label>
+                        <label for="interest" class="interest">Interest</label>
+                        <div class="nav-slider"></div>
+                    </nav>
+                    <section>
+                        <!-- <?php echo var_dump($data['likedPosts']); ?> -->
+                        <!-- Liked Materials -->
+                        <div class="tab-content content-1">
+                            <?php if (!empty($data['likedPosts'])): ?>
+                                <?php foreach ($data['likedPosts'] as $likedPosts): ?>
+                                    <div class="material">
+                                        <a href="<?php echo URLROOT ?>/posts/show/<?php echo $likedPosts->post_id ?>">
+                                            <div class="material-img">
 
-                                            <img src="<?php echo URLROOT ?>/img/posts/post_profile_images/<?php echo $likedPosts->post_profile_image ?>"
-                                                alt="Post Profile Image">
-                                        </div>
-                                        <div class="material-content">
-                                            <h4><?php echo $likedPosts->post_title ?></h4>
-                                            <p>
-                                                <?php
-                                                $content = $likedPosts->post_description;
-                                                $string = strip_tags($content);
-                                                if (strlen($string) > 100):
-                                                    $stringCut = substr($string, 0, 200);
-                                                    $endPoint = strrpos($stringCut, ' ');
-                                                    $string = $endPoint ? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
-                                                    echo $string;
-                                                    ?>
-                                                    <span class="see-more-btn">See more...</span>
-                                                    <?php
-                                                else:
-                                                    echo $string;
-                                                endif;
-                                                ?>
-                                            </p>
-                                        </div>
-                                    </a>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-
-                        <div class="show-more-link">
-                            <a href="<?php echo URLROOT ?>/users/showAllLikedPosts/<?php echo $data['user']->id ?>">Show All Liked Posts <i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <!-- Following Organizations -->
-                    <div class="tab-content content-2">
-                    <?php if (!empty($data['followingOrganizations'])): ?>
-                            <?php foreach ($data['followingOrganizations'] as $org): ?>
-                                <div class="material">
-                                    <a href="<?php echo URLROOT ?>/organizations/show/<?php echo $org->organization_id ?>">
-                                        <div class="material-img">
-                                            <img class="org-log" src="<?php echo URLROOT ?>/img/organizations/organization_profile_images/<?php echo $org->organization_profile_image ?>"
-                                                alt="Organization Profile Image">
-                                        </div>
-                                        <div class="material-content">
-                                            <h4><?php echo $org->organization_name ?></h4>
-                                            <div class="date-vennue">
-                                                <div class="tab-venue-section">
-                                                    <i class="fa-solid fa-location-dot"></i> &nbsp
-                                                    <?php echo $org->uni_name ?>
-                                                </div>
+                                                <img src="<?php echo URLROOT ?>/img/posts/post_profile_images/<?php echo $likedPosts->post_profile_image ?>"
+                                                    alt="Post Profile Image">
                                             </div>
-                                            
-                                            <p>
-                                                <?php
-                                                $content = $org->description;
-                                                $string = strip_tags($content);
-                                                if (strlen($string) > 100):
-                                                    $stringCut = substr($string, 0, 150);
-                                                    $endPoint = strrpos($stringCut, ' ');
-                                                    $string = $endPoint ? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
-                                                    echo $string;
-                                                    ?>
-                                                    <span class="see-more-btn">See more...</span>
+                                            <div class="material-content">
+                                                <h4><?php echo $likedPosts->post_title ?></h4>
+                                                <p>
                                                     <?php
-                                                else:
-                                                    echo $string;
-                                                endif;
-                                                ?>
-                                            </p>
-                                        </div>
-                                    </a>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-
-
-                        <div class="show-more-link">
-                            <a href="<?php echo URLROOT ?>/users/showAllFollowingOrganizations/<?php echo $data['user']->id ?>">Show All Following Organizations <i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <!-- Interested Events -->
-                    <div class="tab-content content-3">
-                        <?php if (!empty($data['interestEvents'][0]->id)): ?>
-                            <?php foreach ($data['interestEvents'] as $interestEvents): ?>
-
-                                <?php
-                                $eventStartDate = $interestEvents->start_datetime;
-                                // Convert MySQL datetime to DateTime object
-                                $dateTime = new DateTime($eventStartDate);
-                                // Format the DateTime object to extract only THU NOV 16
-                                $extractedDate = $dateTime->format('D M j');
-                                // Format the DateTime object to extract only the time (06.00PM)
-                                $extractedTime = $dateTime->format('h:i A');
-                                ?>
-                                <div class="material">
-                                    <a href="<?php echo URLROOT ?>/events/show/<?php echo $interestEvents->id ?>">
-                                        <div class="material-img">
-
-                                            <img src="<?php echo URLROOT ?>/img/events/events_profile_images/<?php echo $interestEvents->event_profile_image ?>"
-                                                alt="Event Profile Image">
-                                        </div>
-                                        <div class="material-content">
-                                            <h4><?php echo $interestEvents->title ?></h4>
-                                            <div class="date-vennue">
-                                                <div class="tab-date-section">
-                                                    <i class="fa-regular fa-calendar-days"></i> &nbsp
-                                                    <?php echo $extractedDate ?> &nbsp &nbsp
-                                                    <i class="fa-solid fa-clock"></i> &nbsp <?php echo $extractedTime ?>
-                                                </div>
-                                                <div class="tab-venue-section">
-                                                    <i class="fa-solid fa-location-dot"></i> &nbsp
-                                                    <?php echo $interestEvents->venue ?>
-                                                </div>
+                                                    $content = $likedPosts->post_description;
+                                                    $string = strip_tags($content);
+                                                    if (strlen($string) > 100):
+                                                        $stringCut = substr($string, 0, 200);
+                                                        $endPoint = strrpos($stringCut, ' ');
+                                                        $string = $endPoint ? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
+                                                        echo $string;
+                                                        ?>
+                                                        <span class="see-more-btn">See more...</span>
+                                                        <?php
+                                                    else:
+                                                        echo $string;
+                                                    endif;
+                                                    ?>
+                                                </p>
                                             </div>
-                                            <p>
-                                                <?php
-                                                $content = $interestEvents->description;
-                                                $string = strip_tags($content);
-                                                if (strlen($string) > 100):
-                                                    $stringCut = substr($string, 0, 100);
-                                                    $endPoint = strrpos($stringCut, ' ');
-                                                    $string = $endPoint ? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
-                                                    echo $string;
-                                                    ?>
-                                                    <span class="see-more-btn">See more...</span>
-                                                    <?php
-                                                else:
-                                                    echo $string;
-                                                endif;
-                                                ?>
-                                            </p>
-                                        </div>
-                                    </a>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                        <div class="show-more-link">
-                            <a
-                                href="<?php echo URLROOT ?>/users/showAllInterestedEvents/<?php echo $data['user']->id ?>">Show
-                                All Interested Events <i class="fa-solid fa-arrow-right"></i></a>
+                                        </a>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+
+                            <div class="show-more-link">
+                                <a href="<?php echo URLROOT ?>/users/showAllLikedPosts/<?php echo $data['user']->id ?>">Show
+                                    All Liked Posts <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
                         </div>
-                    </div>
-                </section>
-            </div>
-            <!--Slide Indicator Ends-->
-            
+
+                        <!-- Following Organizations -->
+                        <div class="tab-content content-2">
+                            <?php if (!empty($data['followingOrganizations'])): ?>
+                                <?php foreach ($data['followingOrganizations'] as $org): ?>
+                                    <div class="material">
+                                        <a href="<?php echo URLROOT ?>/organizations/show/<?php echo $org->organization_id ?>">
+                                            <div class="material-img">
+                                                <img class="org-log"
+                                                    src="<?php echo URLROOT ?>/img/organizations/organization_profile_images/<?php echo $org->organization_profile_image ?>"
+                                                    alt="Organization Profile Image">
+                                            </div>
+                                            <div class="material-content">
+                                                <h4><?php echo $org->organization_name ?></h4>
+                                                <div class="date-vennue">
+                                                    <div class="tab-venue-section">
+                                                        <i class="fa-solid fa-location-dot"></i> &nbsp
+                                                        <?php echo $org->uni_name ?>
+                                                    </div>
+                                                </div>
+
+                                                <p>
+                                                    <?php
+                                                    $content = $org->description;
+                                                    $string = strip_tags($content);
+                                                    if (strlen($string) > 100):
+                                                        $stringCut = substr($string, 0, 150);
+                                                        $endPoint = strrpos($stringCut, ' ');
+                                                        $string = $endPoint ? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
+                                                        echo $string;
+                                                        ?>
+                                                        <span class="see-more-btn">See more...</span>
+                                                        <?php
+                                                    else:
+                                                        echo $string;
+                                                    endif;
+                                                    ?>
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+
+
+                            <div class="show-more-link">
+                                <a
+                                    href="<?php echo URLROOT ?>/users/showAllFollowingOrganizations/<?php echo $data['user']->id ?>">Show
+                                    All Following Organizations <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+
+                        <!-- Interested Events -->
+                        <div class="tab-content content-3">
+                            <?php if (!empty($data['interestEvents'][0]->id)): ?>
+                                <?php foreach ($data['interestEvents'] as $interestEvents): ?>
+
+                                    <?php
+                                    $eventStartDate = $interestEvents->start_datetime;
+                                    // Convert MySQL datetime to DateTime object
+                                    $dateTime = new DateTime($eventStartDate);
+                                    // Format the DateTime object to extract only THU NOV 16
+                                    $extractedDate = $dateTime->format('D M j');
+                                    // Format the DateTime object to extract only the time (06.00PM)
+                                    $extractedTime = $dateTime->format('h:i A');
+                                    ?>
+                                    <div class="material">
+                                        <a href="<?php echo URLROOT ?>/events/show/<?php echo $interestEvents->id ?>">
+                                            <div class="material-img">
+
+                                                <img src="<?php echo URLROOT ?>/img/events/events_profile_images/<?php echo $interestEvents->event_profile_image ?>"
+                                                    alt="Event Profile Image">
+                                            </div>
+                                            <div class="material-content">
+                                                <h4><?php echo $interestEvents->title ?></h4>
+                                                <div class="date-vennue">
+                                                    <div class="tab-date-section">
+                                                        <i class="fa-regular fa-calendar-days"></i> &nbsp
+                                                        <?php echo $extractedDate ?> &nbsp &nbsp
+                                                        <i class="fa-solid fa-clock"></i> &nbsp <?php echo $extractedTime ?>
+                                                    </div>
+                                                    <div class="tab-venue-section">
+                                                        <i class="fa-solid fa-location-dot"></i> &nbsp
+                                                        <?php echo $interestEvents->venue ?>
+                                                    </div>
+                                                </div>
+                                                <p>
+                                                    <?php
+                                                    $content = $interestEvents->description;
+                                                    $string = strip_tags($content);
+                                                    if (strlen($string) > 100):
+                                                        $stringCut = substr($string, 0, 100);
+                                                        $endPoint = strrpos($stringCut, ' ');
+                                                        $string = $endPoint ? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
+                                                        echo $string;
+                                                        ?>
+                                                        <span class="see-more-btn">See more...</span>
+                                                        <?php
+                                                    else:
+                                                        echo $string;
+                                                    endif;
+                                                    ?>
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                            <div class="show-more-link">
+                                <a
+                                    href="<?php echo URLROOT ?>/users/showAllInterestedEvents/<?php echo $data['user']->id ?>">Show
+                                    All Interested Events <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!--Slide Indicator Ends-->
+
             <?php endif; ?>
 
         </div>
@@ -358,7 +362,8 @@
                             Embrace the future of career development in just a few clicks. Your journey to success begins
                             here!</p>
                     </div>
-                    <a href="<?php echo URLROOT ?>/users/generatePortfolio/<?php echo $data['user']->id ?>">Generate Portfolio</a>
+                    <a href="<?php echo URLROOT ?>/users/generatePortfolio/<?php echo $data['user']->id ?>">Generate
+                        Portfolio</a>
                 </div>
             <?php endif; ?>
 
@@ -446,11 +451,51 @@
             <?php else: ?>
                 <div class="friends">
                     <h2>Mutual Friends</h2>
+                    <div class="friends-content">
+                    <?php if (!empty($data['mutual_friends'][0]->id)): ?>
+                        <?php foreach ($data['mutual_friends'] as $mutual):
+                            $friend_id = $mutual->follower_relationship_id; ?>
+                                <div class="friend-profile">
+                                    <div class="friend-pic">
+                                        <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $mutual->profile_image ?>"
+                                            alt="">
+                                    </div>
+                                    <div class="friend-info">
+                                        <h4><?php echo $mutual->fname, " ", $mutual->lname ?></h4>
+                                        <div class="friend-uni"><?php
+                                        $uni = $mutual->university_name;
+                                        $string = strip_tags($uni);
+                                        if (strlen($string) > 30):
+                                            $stringCut = substr($string, 0, 23);
+                                            $endPoint = strrpos($stringCut, '');
+                                            $string = $endPoint ? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
+                                            echo $string;
+                                            ?>
+                                                <span class="see-more-btn">...</span>
+                                                <?php
+                                        else:
+                                            echo $string;
+                                        endif;
+                                        ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            <div class="btn">
+                            <a href="<?php echo URLROOT ?>/users/show/<?php echo $mutual->id ?>" class="profile-link">View Profile</a>
+                            </div>
+                            <hr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <span>No Mutual Friends</span>
+                    <?php endif; ?>
                 </div>
-            <?php endif; ?>
-
+            </div>
         </div>
-    </div>
+    <?php endif; ?>
+
+</div>
+</div>
 </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

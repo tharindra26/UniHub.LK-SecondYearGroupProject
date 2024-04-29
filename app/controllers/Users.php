@@ -198,6 +198,142 @@ class Users extends Controller
     }
   }
 
+  public function forgotPassword()
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $email = $_POST['email'];
+      $data = [
+        'email' => $email,
+        'verification_code' => sha1($_POST['email'] . time())
+      ];
+      if ($this->userModel->updateVerificationCode($data)) {
+        $user = $this->userModel->getUserByEmail($email);
+        //if ($user && isset($user->email, $user->fname, $user->lname)) {
+          //mail sending code
+          $verification_URL = 'http://localhost/unihub/users/verifyUser/' . $user;
+
+          $to = $user->secondary_email;
+          $sender = 'developer.unihub@gmail.com';
+          $mail_subject = 'Verify Email Address';
+
+          // Initialize $email_body properly and append to it
+          $email_body = '<p>Dear ' . $user->fname. ' ' . $user->lname . '</p>';
+          $email_body .= '<p>Thank you for signing up. There is one more step. Click below link to verify your email address in order to activate your account.</p>';
+          $email_body .= '<p>' . $verification_URL . '</p>';
+          $email_body .= '<p>Thank You, <br>UniHub.lk </p>';
+
+          $header = "From: {$sender}\r\n";
+          $header .= "Content-Type: text/html;";
+
+          $send_mail_result = mail($to, $mail_subject, $email_body, $header);
+
+
+          if ($send_mail_result) {
+            echo 'Please check your email';
+          } else {
+            echo 'Error.';
+          }
+        //}
+
+      } else {
+        echo 0;
+      }
+    }
+  }
+
+  public function verifyUser($data){
+    if (isset($data->verification_code)) {
+        $result = $this->userModel->getUserByVerifyEmail($data['email']);
+        
+        // Check if the row exists and is not false
+        if ($result['row']) {
+            $user_id = $result['row']->id; // Assuming 'id' is the column name for user_id
+            if ($result['rowCount'] == 1) {
+                if ($this->userModel->deleteCode($data->verification_code)) {
+                    // Pass user_id as an argument to the passwordChange method
+                    redirect('users/passwordChange/' . $user_id);
+                } else {
+                    echo 'Error occurred while deleting verification code';
+                }
+            } else {
+                echo 'Invalid verification code';
+            }
+        } else {
+            echo 'No user found with the given verification code';
+        }
+    }
+}
+
+
+
+  public function passwordChange($user_id)
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      //process form
+      $new_password = trim($_POST['new_password']);
+      $confirm_password = trim($_POST['confirm_password']);
+      //Sanitize post data
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      //Init data
+      $data = [
+
+        'user_id' => $user_id,
+        'new_password' => $new_password,
+        'confirm_password' => $confirm_password,
+
+        'new_password_err' => '',
+        'confirm_password_err' => ''
+      ];
+
+     
+
+
+      if (empty($data['new_password'])) {
+        $data['new_password_err'] = 'Please enter new password';
+      } elseif (strlen($data['new_password']) < 6) {
+        $data['new_password_err'] = 'Password must be at least 6 characters';
+      }
+
+      // Validate Confirm Password
+      if (empty($data['confirm_password'])) {
+        $data['confirm_password_err'] = 'Please confirm password';
+      } 
+        if ($data['new_password'] != $data['confirm_password']) {
+          $data['confirm_password_err'] = 'Passwords do not match';
+        }
+      
+        if (empty($data['new_password_err']) && empty($data['confirm_password_err'])) {
+          //Validated
+          if ($this->userModel->passwordReset($data)) {
+            // Redirect to appropriate location
+            redirect('users/show/' . $_SESSION['user_id']);
+          }
+        } else {
+          $this->view('users/undergraduate/forgotPassword', $data);
+        }
+
+    } else {
+      //get existing post from model
+      //$education = $this->userModel->getEducationById($education_id);
+
+      // Init data
+      $data = [
+        'user_id' => $user_id,
+        'new_password' => '',
+        'confirm_password' => '',
+
+        'new_password_err' => '',
+        'confirm_password_err' => ''
+      ];
+
+      // Load view
+      $this->view('users/undergraduate/forgotPassword', $data);
+    }
+  }
+
+
   public function googleLogin()
   {
 
@@ -438,7 +574,19 @@ class Users extends Controller
     $organizations = $this->userModel->getFollowingOrganizations($id);
     $requests = $this->userModel->getFriendRequestsById($id);
     $followingOrganizations = $this->organizationModel->getFollowingOrganizationsByUser($id);
-    // $friends = $this->userModel->getFriendsByUserId($user->id);
+    $mutualFriends1 = $this->userModel->getFriendsByUserId($id);
+    $mutualFriends2 = $this->userModel->getFriendsByUserId($_SESSION['user_id']);
+
+    $allMutualFriends = array_merge($mutualFriends1, $mutualFriends2);
+
+    // Create an associative array with user IDs as keys
+    $uniqueMutualFriends = [];
+    foreach ($allMutualFriends as $friend) {
+      $uniqueMutualFriends[$friend->id] = $friend;
+    }
+
+    // Convert the associative array back to a regular indexed array
+    $uniqueMutualFriends = array_values($uniqueMutualFriends);
 
     $data = [
       'user' => $user,
@@ -451,8 +599,8 @@ class Users extends Controller
       'skills' => $skills,
       'organizations' => $organizations,
       'requests' => $requests,
-      'followingOrganizations' => $followingOrganizations
-      // 'friends' => $friends
+      'followingOrganizations' => $followingOrganizations,
+      'mutual_friends' => $uniqueMutualFriends
     ];
 
     if ($user->type == 'admin') {
@@ -1121,6 +1269,7 @@ class Users extends Controller
 
       if ($result['rowCount'] == 1) { //check number of raws using mysqli_num_rows
         if ($this->userModel->activateUser($code)) {
+          echo $result['row']->id;
           echo 'Email address verified successfully';
         } else {
           echo 'Invalid verification code';
@@ -1504,7 +1653,7 @@ class Users extends Controller
       }
 
       // Make sure errors are empty
-      if (empty($data['contact_number_err']) ) {
+      if (empty($data['contact_number_err'])) {
         //Validated
 
         if ($this->userModel->updateContactDetails($data)) {
@@ -1767,8 +1916,14 @@ class Users extends Controller
 
       if (empty($data['completion_date'])) {
         $data['completion_date_err'] = 'Pleae enter the completion date';
-      }
+      } else {
+        $startDateTime = new DateTime($data['completion_date']);
+        $now = new DateTime(); // Current date and time
 
+        if ($startDateTime > $now) {
+          $data['completion_date_err'] = 'Completion date must not be a future date';
+        }
+      }
       // Make sure errors are empty
       if (empty(empty($data['qualification_name_err']) && $data['institution_err']) && empty($data['description_err']) && empty($data['completion_date_err'])) {
         //Validated
@@ -1851,7 +2006,7 @@ class Users extends Controller
       $organization_id = trim($_POST['organization_id']);
       $start_date = trim($_POST['start_date']);
       $end_date = trim($_POST['end_date']);
-     
+
 
       //Sanitize post data
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -1879,7 +2034,7 @@ class Users extends Controller
         $data['organization_name_err'] = 'Pleae enter the organization name';
       }
 
-      
+
       if (empty($data['role'])) {
         $data['role_err'] = 'Pleae enter the role';
       }
@@ -1890,7 +2045,7 @@ class Users extends Controller
 
 
       // Make sure errors are empty
-      if (empty($data['organization_name_err']) && empty($data['role_err'])  && empty($data['start_date_err'])) {
+      if (empty($data['organization_name_err']) && empty($data['role_err']) && empty($data['start_date_err'])) {
         //Validated
         if ($this->userModel->addOrganization($data)) {
           // 
@@ -1904,7 +2059,7 @@ class Users extends Controller
       }
     } else {
       //get existing post from model
-      
+
 
       // Init data
       $data = [
@@ -2024,6 +2179,7 @@ class Users extends Controller
       $current_password = trim($_POST['current_password']);
       $new_password = trim($_POST['new_password']);
       $confirm_password = trim($_POST['confirm_password']);
+      $exsisting_password = $this->userModel->getPassword($user_id);
 
       //Sanitize post data
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -2061,20 +2217,28 @@ class Users extends Controller
         }
       }
 
-      // Make sure errors are empty
-      if (empty($data['current_password_err']) && empty($data['new_password_err']) && empty($data['confirm_password_err'])) {
+      // Fetch the password from the database
+      $existing_user = $this->userModel->getPassword($user_id);
+      $existing_password = $existing_user->password;
 
-        //Validated
-        if ($this->userModel->passwordReset($data)) {
-          // 
-          redirect('users/show/' . $_SESSION['user_id']);
+      // Verify if the current password matches the one stored in the database
+      if (password_verify($data['current_password'], $existing_password)) {
+        // If the current password matches, proceed with updating the password
+        if (empty($data['current_password_err']) && empty($data['new_password_err']) && empty($data['confirm_password_err'])) {
+          //Validated
+          if ($this->userModel->passwordReset($data)) {
+            // Redirect to appropriate location
+            redirect('users/show/' . $_SESSION['user_id']);
+          }
+        } else {
+          $this->view('users/undergraduate/passwordReset', $data);
         }
-      } else{
-
-        //load view with errors
+      } else {
+        // Passwords do not match, handle the error
+        $data['current_password_err'] = 'Incorrect current password';
         $this->view('users/undergraduate/passwordReset', $data);
-
       }
+
     } else {
       //get existing post from model
       //$education = $this->userModel->getEducationById($education_id);

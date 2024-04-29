@@ -32,7 +32,7 @@
     flex-wrap: wrap; 
     padding: 0 10px;
     justify-content: flex-start;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 
@@ -112,7 +112,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .image-box img {

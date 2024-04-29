@@ -771,11 +771,17 @@ input[type="radio"]{
 }
 .friends .friend-pic{
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    width: 60px;
+    height:60px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px white;
+    transition: box-shadow 0.5s;
+    overflow: hidden;
 }
 .friends .friend-pic img{
-    width: 60px;
+    width: 100%;
     border-radius: 50%;
     border: 2px solid #95a5a6;
 }

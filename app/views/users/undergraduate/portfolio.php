@@ -123,11 +123,11 @@
                                     <p><?php echo $qualification->description ?></p>
                                 </li>
                             <?php endforeach; ?>
-                        <?php endif; ?>
+                       
                     </ul>
                 </div>
             </div>
-
+            <?php endif; ?>
             <?php if (!empty($data['education'][0]->education_id)): ?>
                 <div class="qualifications">
                     <div class="list-heading">
@@ -142,11 +142,11 @@
                                     <p><?php echo $education->description ?></p>
                                 </li>
                             <?php endforeach; ?>
-                        <?php endif; ?>
+                        
                     </ul>
                 </div>
             </div>
-
+            <?php endif; ?>
             <?php if (!empty($data['organizations'][0]->id)): ?>
                 <div class="qualifications">
                     <div class="list-heading">
@@ -164,10 +164,10 @@
                                     </p>
                                 </li>
                             <?php endforeach; ?>
-                        <?php endif; ?>
                     </ul>
                 </div>
             </div>
+            <?php endif; ?>
             <div class="qualifications">
                 <div class="list-heading">
                     <h4>NON-RELATED REFERENCES</h4>
