@@ -38,6 +38,7 @@ function deleteAccount(user_id) {
         if (response === "1") {
             closePopup(user_id);
             console.log("Ajax request successfull");
+            window.location.href = "http://localhost/unihub/users/logout";
             
         }
       },

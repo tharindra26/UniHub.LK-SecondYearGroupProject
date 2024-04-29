@@ -1589,28 +1589,6 @@ class Users extends Controller
     $this->view('users/unirep/requests', $data);
   }
 
-  public function reports()
-  {
-    $data = [
-
-    ];
-
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      $this->view('users/admin/reports', $data);
-    }
-  }
-
-  public function settings()
-  {
-    $data = [
-
-    ];
-
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      $this->view('users/admin/settings', $data);
-    }
-  }
-
   //update myprofile
   public function updateContactDetails($id)
   {
