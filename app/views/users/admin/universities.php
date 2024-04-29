@@ -2,7 +2,7 @@
 <!-- <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/admin/adminprofile_style.css"> -->
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/admin/events_style.css">
 <link rel="stylesheet" href="<?php echo URLROOT ?>/css/users/admin/university_style.css">
-<h1 class="section-title">Posts</h1>
+<h1 class="section-title">Universities</h1>
 <div class="summary">
     <div class="box total" id="all" onclick="mainUniversityFilter();">
         <div class="box-content">
@@ -23,7 +23,7 @@
     <div class="option search">
         <div class="search-bar-container">
             <form action="" class="search-bar">
-                <input type="text" name="searchInput" placeholder="Search Post" id="search-bar-university">
+                <input type="text" name="searchInput" placeholder="Search University" id="search-bar-university">
                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
         </div>
@@ -63,7 +63,7 @@
     <div class="option search">
         <div class="search-bar-container">
             <form action="" class="search-bar">
-                <input type="text" name="searchInput" placeholder="Search Post" id="search-bar-unidomain">
+                <input type="text" name="searchInput" placeholder="Search University" id="search-bar-unidomain">
                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
         </div>
