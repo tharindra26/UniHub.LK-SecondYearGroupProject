@@ -962,8 +962,7 @@ class Event
 
     public function getUserInterestedEvents($userId)
     {
-        $this->db->query("SELECT e.*,
-        GROUP_CONCAT(c.category_name) AS category_names
+        $this->db->query("SELECT e.*, GROUP_CONCAT(c.category_name) AS category_names
         FROM event_participation ep
         LEFT JOIN events e ON ep.event_id = e.id
         LEFT JOIN users u ON e.user_id = u.id
@@ -971,9 +970,10 @@ class Event
         LEFT JOIN universities u_table ON e.university_id = u_table.id 
         LEFT JOIN categories c ON ec.category_id = c.id
         WHERE ep.user_id = :user_id
-        AND ep.participation_status = 'interested'
-        AND e.status = 1
-        AND e.approval = 'approved';");
+          AND ep.participation_status = 'interested'
+          AND e.status = 1
+          AND e.approval = 'approved'
+        GROUP BY e.id, c.id;");
 
         $this->db->bind(':user_id', $userId);
 
