@@ -14,7 +14,7 @@ overpass */
     flex-direction: column;
     background-color: white;
     border-radius: 10px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 
 }
 
@@ -42,7 +42,7 @@ overpass */
     flex-wrap: wrap; 
     padding: 0 10px;
     justify-content: space-around;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .image-box {
