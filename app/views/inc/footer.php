@@ -16,7 +16,7 @@
                     <ul>
                         <li><a href="#" >Home</a></li>
                         <li><a href="#" >About</a></li>
-                        <li><a href="#" >Contact Us</a></li>
+                        <li><a href="mailto:developer.unihub@gmail.com?subject=Contact Us" >Contact Us</a></li>
                         <li><a href="#" >Our Team</a></li>
                     </ul>
                     

@@ -174,10 +174,15 @@
         }
     }
     overlay.addEventListener("click", () => {
-        modalBox.classList.remove("active");
-        overlay.classList.remove("active");
+        // Find all elements with the "active" class
+        var activeElements = document.querySelectorAll('.active');
+
+        // Remove the "active" class from each element
+        activeElements.forEach(function (element) {
+            element.classList.remove("active");
+        });
     });
-    // popup modal script
+
 
 
 

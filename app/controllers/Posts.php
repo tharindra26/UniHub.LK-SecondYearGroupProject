@@ -77,8 +77,6 @@ class Posts extends Controller
 
 
       if (isset($_FILES['post_profile_image']['name']) and !empty($_FILES['post_profile_image']['name'])) {
-
-
         $img_name = $_FILES['post_profile_image']['name'];
         $tmp_name = $_FILES['post_profile_image']['tmp_name'];
         $error = $_FILES['post_profile_image']['error'];

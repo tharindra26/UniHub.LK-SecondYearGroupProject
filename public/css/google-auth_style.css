@@ -158,7 +158,7 @@ nav li:first-child {
     flex-direction: column;
     width: 50%;
     padding: 20px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     justify-content: center;
 }
 
