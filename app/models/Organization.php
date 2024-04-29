@@ -209,6 +209,8 @@ class Organization
             $query .= " AND oc.category_name IN ($categoryPlaceholders)";
         }
 
+        $query .= " AND o.approval = 'approved' AND o.status = 1";
+        
         $query .= " GROUP BY o.organization_id";
 
         // Prepare the query
@@ -249,9 +251,11 @@ class Organization
                 LEFT JOIN universities u_table ON o.university_id = u_table.id 
                 LEFT JOIN organization_categories oc ON ocm.organization_category_id = oc.category_id';
 
+        $query .= " WHERE o.status = 1 AND o.approval = 'approved'";
+
         // If $category is not null, add the WHERE clause
         if ($category !== null && $category !== '') {
-            $query .= ' WHERE oc.category_name = :category_name';
+            $query .= ' AND oc.category_name = :category_name';
         }
 
         $query .= " GROUP BY o.organization_id";
@@ -279,6 +283,8 @@ class Organization
                 LEFT JOIN universities u_table ON o.university_id = u_table.id 
                 LEFT JOIN organization_categories oc ON ocm.organization_category_id = oc.category_id  
                 WHERE of.follower_id = :follower_id
+                AND o.status = 1
+                AND o.approval = "approved"
                 GROUP BY o.organization_id';
 
         $this->db->query($query);

@@ -62,8 +62,8 @@ class User
         $this->db->bind(':university_id', $data['university_id']);
         $this->db->bind(':contact_number', "0000000000");
         $this->db->bind(':description', "default_description");
-        $this->db->bind(':profile_image', "default_profile_image.jpg");
-        $this->db->bind(':cover_image', "default_cover_image.jpg");
+        $this->db->bind(':profile_image', "default_user_profile_image.jpg");
+        $this->db->bind(':cover_image', "default_user_cover_image.jpg");
 
 
         //Execute the query

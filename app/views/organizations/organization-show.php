@@ -278,7 +278,7 @@
 
 
     <?php
-    if (!empty($data['organization_news']) || !empty($data['organization_activities'])) {
+    if (isset($data['organization_news']) && !empty($data['organization_news']) || isset($data['organization_activities']) && !empty($data['organization_activities'])) {
         ?>
         // popup modal script
         const overlay = document.querySelector(".overlay");
@@ -303,15 +303,22 @@
             overlay.classList.remove("active");
         }
     }
-    overlay.addEventListener("click", () => {
-        // Find all elements with the "active" class
-        var activeElements = document.querySelectorAll('.active');
 
-        // Remove the "active" class from each element
-        activeElements.forEach(function (element) {
-            element.classList.remove("active");
+    <?php
+    if (isset($data['organization_news']) && !empty($data['organization_news']) || isset($data['organization_activities']) && !empty($data['organization_activities'])) {
+        ?>
+        overlay.addEventListener("click", () => {
+            // Find all elements with the "active" class
+            var activeElements = document.querySelectorAll('.active');
+
+            // Remove the "active" class from each element
+            activeElements.forEach(function (element) {
+                element.classList.remove("active");
+            });
         });
-    });
+        <?php
+    }
+    ?>
 
     // popup modal script
 

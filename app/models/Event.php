@@ -386,17 +386,19 @@ class Event
         $categories = isset($data['categories']) ? $data['categories'] : [];
 
         // Create a placeholder for each category
-        $categoryPlaceholders = implode(',', array_fill(0, count($categories), '?'));
+        $categoryPlaceholders = implode(',', array_map(function ($category, $key) {
+            return ":category$key";
+        }, $categories, array_keys($categories)));
 
         $query = 'SELECT 
-                    e.*,
-                    GROUP_CONCAT(c.category_name) AS category_names
-                    FROM events e
-                    LEFT JOIN users u ON e.user_id = u.id
-                    LEFT JOIN events_categories ec ON e.id = ec.event_id
-                    LEFT JOIN universities u_table ON e.university_id = u_table.id 
-                    LEFT JOIN categories c ON ec.category_id = c.id
-                    WHERE 1=1';
+                e.*,
+                GROUP_CONCAT(c.category_name) AS category_names
+                FROM events e
+                LEFT JOIN users u ON e.user_id = u.id
+                LEFT JOIN events_categories ec ON e.id = ec.event_id
+                LEFT JOIN universities u_table ON e.university_id = u_table.id 
+                LEFT JOIN categories c ON ec.category_id = c.id
+                WHERE 1=1';
 
         if (!empty($keyword)) {
             $query .= " AND e.title LIKE :keyword";
@@ -416,6 +418,8 @@ class Event
             $query .= " AND c.category_name IN ($categoryPlaceholders)";
         }
 
+
+        $query .= " AND e.approval = 'approved' AND e.status = 1";
         $query .= " GROUP BY e.id";
 
         // Prepare the query
@@ -435,7 +439,7 @@ class Event
         }
 
         foreach ($categories as $key => $category) {
-            $this->db->bind(($key + 1), $category);
+            $this->db->bind(":category$key", $category);
         }
 
         // Execute the query
@@ -446,7 +450,6 @@ class Event
         return $row;
 
 
-
     }
 
     public function getFilterEvents($data)
@@ -455,6 +458,7 @@ class Event
         $university = $data['university'];
         $approval = $data['approval'];
         $status = $data['status'];
+
 
         $query = 'SELECT 
                     e.*,
@@ -531,6 +535,7 @@ class Event
             FROM events
             JOIN events_categories ON events.id = events_categories.event_id
             JOIN categories ON events_categories.category_id = categories.id
+            WHERE events.status = 1 AND events.approval = "approved"
             GROUP BY events.id');
         } else {
             $this->db->query('SELECT events.*,
@@ -539,6 +544,7 @@ class Event
                          JOIN events_categories ON events.id = events_categories.event_id
                          JOIN categories ON events_categories.category_id = categories.id
                          WHERE categories.category_name = :category
+                         AND events.status = 1 AND events.approval = "approved"
                          GROUP BY events.id');
             $this->db->bind(':category', $shortcut);
         }
@@ -965,7 +971,9 @@ class Event
         LEFT JOIN universities u_table ON e.university_id = u_table.id 
         LEFT JOIN categories c ON ec.category_id = c.id
         WHERE ep.user_id = :user_id
-        AND ep.participation_status = 'interested';");
+        AND ep.participation_status = 'interested'
+        AND e.status = 1
+        AND e.approval = 'approved';");
 
         $this->db->bind(':user_id', $userId);
 
@@ -987,6 +995,8 @@ class Event
         LEFT JOIN universities u_table ON e.university_id = u_table.id 
         LEFT JOIN categories c ON ec.category_id = c.id
         WHERE ueic.user_id = :user_id
+        AND e.status = 1
+        AND e.approval = 'approved'
         GROUP BY e.id");
 
 
