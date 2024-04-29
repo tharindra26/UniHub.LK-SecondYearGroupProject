@@ -42,7 +42,7 @@
     <div class="option search">
         <div class="search-bar-container">
             <form action="" class="search-bar">
-                <input type="text" name="searchInput" placeholder="Search Event" id="search-bar-input">
+                <input type="text" name="searchInput" placeholder="Search Opportunity" id="search-bar-input">
                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
         </div>

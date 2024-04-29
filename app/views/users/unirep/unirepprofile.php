@@ -21,11 +21,6 @@
             <a href="#" id="requests-btn">
                 <span><i class="fa-solid fa-grip"></i></span>
                 <h3>Requests</h3>
-                <span class="rq_count">14</span>
-            </a>
-            <a href="#" id="settings-btn">
-                <span><i class="fa-solid fa-gear"></i></span>
-                <h3>Settings</h3>
             </a>
         </div>
     </menu>

@@ -161,17 +161,20 @@ overpass */
 }
 
 .submit-btn {
+    display: flex;
     height: 55px;
     width: 100%;
     font-size: 16px;
     border: none;
-    margin-top: 30px;
+    /* margin-top: 30px; */
     cursor: pointer;
     border-radius: 6px;
     font-weight: 500;
     background: #3498db;
     color: white;
     transition: all 0.2s ease;
+    justify-content: center;
+    align-items: center;
 }
 
 .submit-btn:hover {

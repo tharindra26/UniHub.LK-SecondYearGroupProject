@@ -53,7 +53,7 @@
                         <a href="<?php echo URLROOT ?>/posts/show/<?php echo $post->post_id ?>" class="view">
                             <i class="fa-solid fa-eye"></i>
                         </a>
-                        <a href="<?php echo URLROOT ?>/posts/settings/<?php echo $post->id ?>" class="update">
+                        <a href="<?php echo URLROOT ?>/posts/settings/<?php echo $post->post_id ?>" class="update">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
 

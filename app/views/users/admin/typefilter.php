@@ -38,7 +38,7 @@
                     <td>
                         <?php echo $user->type ?>
                     </td>
-                    <td>
+                    <td class="approval">
                         <div class="<?php echo ($user->status == 1) ? 'activated' : 'deactivated'; ?>"><?php
                                  if ($user->status == 1):
                                      echo "Active";
@@ -51,8 +51,6 @@
                         <?php if ($user->type != 'admin'): ?>
                             <a href="<?php echo URLROOT ?>/users/show/<?php echo $confirm ?>" class="view"><i
                                     class="fa-solid fa-eye"></i></a>
-                            <a href="#" class="update" onclick="updateUser('<?php echo $confirm; ?>')"><i
-                                    class="fa-solid fa-pen-to-square"></i></a>
                         <?php endif; ?>
 
                         <div class="activation-option" data-status="<?php echo $user->status ?>"

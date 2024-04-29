@@ -44,7 +44,7 @@ overpass */
     padding: 0 10px;
     justify-content: center;
     /* align-items: center;  */
-    border: 1px solid red;
+    /* border: 1px solid red; */
     flex-direction: column;
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
 }
@@ -55,7 +55,7 @@ overpass */
     display: flex;
     justify-content: center;
     /* align-items: center; */
-    border: 1px solid red;
+    /* border: 1px solid red; */
     flex-direction: column;
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
 }
@@ -84,7 +84,7 @@ overpass */
 
 .form-outer-box .form {
     margin-top: 30px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .form .input-box {
@@ -92,7 +92,7 @@ overpass */
     flex-direction: column;
     width: 100%;
     margin-bottom: 5px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .input-box label {
@@ -110,7 +110,7 @@ overpass */
     border: 1px solid #bdc3c7;
     border-radius: 6px;
     padding-left: 10px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 
 }
 
@@ -352,5 +352,5 @@ overpass */
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }

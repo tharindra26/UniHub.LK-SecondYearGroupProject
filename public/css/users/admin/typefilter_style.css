@@ -20,6 +20,7 @@
 .user-table tbody tr td{
     font-size: 15px;
     padding: 10px 10px 0 10px ;
+    align-items: left;
 }
 
 .user-table .null-text{
@@ -66,6 +67,7 @@
     padding: 3px;
     border: 1px solid green;
     border-radius: 5px;
+
 }
 
 
