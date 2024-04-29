@@ -92,13 +92,13 @@
                     </div>
                 <?php endif; ?>
 
-                <div class="option" onclick="quickShortcut('hackathon')">Hackathons
+                <div class="option" onclick="quickShortcut('Hackathons')">Hackathons
                     <hr>
                 </div>
-                <div class="option" onclick="quickShortcut('entertainment')">Entertainment
+                <div class="option" onclick="quickShortcut('Concerts & Music Festivals')">Entertainment
                     <hr>
                 </div>
-                <div class="option" onclick="quickShortcut('workshop')">Workshops
+                <div class="option" onclick="quickShortcut('Workshops & Seminars')">Workshops
                     <hr>
                 </div>
             </div>

@@ -99,7 +99,7 @@
                 <div class="option" onclick="quickShortcut('Volunteer')">Volunteer
                     <hr>
                 </div>
-                <div class="option" onclick="quickShortcut('Arts & Performance')">Art & Performance
+                <div class="option" onclick="quickShortcut('Arts and Performance')">Art & Performance
                     <hr>
                 </div>
             </div>

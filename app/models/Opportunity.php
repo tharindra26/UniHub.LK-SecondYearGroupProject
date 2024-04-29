@@ -221,7 +221,9 @@ class Opportunity
                 LEFT JOIN opportunity_tags ot ON o.id = ot.opportunity_id
                 LEFT JOIN opportunity_title_positions otp ON o.id = otp.opportunity_id
                 LEFT JOIN opportunity_user_bookmark oub ON o.id = oub.opportunity_id
-                WHERE 1=1';
+                WHERE 1=1
+                AND o.status = 1
+                AND o.approval = "approved"';
 
         if (!empty($keyword)) {
             $query .= " AND o.opportunity_title LIKE :keyword";
@@ -259,7 +261,9 @@ class Opportunity
                 LEFT JOIN opportunity_tags ot ON o.id = ot.opportunity_id
                 LEFT JOIN opportunity_title_positions otp ON o.id = otp.opportunity_id
                 LEFT JOIN opportunity_user_bookmark oub ON o.id = oub.opportunity_id
-                WHERE 1=1';
+                WHERE 1=1
+                AND o.status = 1
+                AND o.approval = "approved"';
 
         if ($category !== "All") {
             $query .= " AND o.opportunity_type = :category";
@@ -555,6 +559,8 @@ class Opportunity
                 LEFT JOIN opportunity_title_positions otp ON o.id = otp.opportunity_id 
                 INNER JOIN opportunity_user_bookmark oub ON o.id = oub.opportunity_id
                 WHERE oub.user_id = :user_id
+                AND o.status = 1
+                AND o.approval = "approved"
                 GROUP BY o.id';
 
         // Prepare the query

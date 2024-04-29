@@ -126,7 +126,7 @@ class Post
         $this->db->bind(':post_description', $data['post_description']);
         $this->db->bind(':post_profile_image', $data['post_profile_image']);
         $this->db->bind(':material_link', $data['material_link']);
-        $this->db->bind(':approval', 'accepted');
+        $this->db->bind(':approval', 'approved');
 
 
 
@@ -287,6 +287,7 @@ class Post
             p.*,
             u.fname,
             u.lname,
+            u.profile_image AS user_profile_image,
             GROUP_CONCAT(DISTINCT pt.tag_text) AS tags,
             GROUP_CONCAT(DISTINCT pc.category_name) AS categories,
             GROUP_CONCAT(DISTINCT pl.user_id) AS liked_users,
@@ -300,7 +301,9 @@ class Post
             LEFT JOIN post_likes pl ON p.post_id = pl.post_id
             LEFT JOIN post_bookmarks pb ON p.post_id = pb.post_id
             LEFT JOIN post_comments pcmt ON p.post_id = pcmt.post_id
-            WHERE 1=1';
+            WHERE 1=1
+            AND p.status = 1
+            AND p.approval = "approved"';
 
         if (!empty($keyword)) {
             $query .= " AND p.post_title LIKE :keyword";
@@ -727,7 +730,8 @@ class Post
         return $rows;
     }
 
-    public function getAllDomains(){
+    public function getAllDomains()
+    {
         $this->db->query('SELECT * FROM post_domains');
         $rows = $this->db->resultSet();
         return $rows;
@@ -838,6 +842,7 @@ class Post
                       LEFT JOIN users u ON p.user_id = u.id
                       LEFT JOIN post_categories_mapping m ON p.post_id = m.post_id
                       LEFT JOIN post_categories c ON m.category_id = c.category_id
+                      WHERE p.status = 1 AND p.approval = 'approved'
                       GROUP BY p.post_id
                       ORDER BY view_count DESC
                       LIMIT 5");
@@ -868,8 +873,10 @@ class Post
         LEFT JOIN post_bookmarks pb ON p.post_id = pb.post_id
         LEFT JOIN post_comments pcmt ON p.post_id = pcmt.post_id';
 
+        $query .= ' WHERE p.status = 1 AND p.approval = "approved"';
+
         if (!empty($category)) {
-            $query .= ' WHERE pc.category_name = :category_name';
+            $query .= ' AND pc.category_name = :category_name';
         }
 
         $query .= ' GROUP BY p.post_id';
@@ -910,6 +917,8 @@ class Post
         LEFT JOIN post_bookmarks pb ON p.post_id = pb.post_id
         LEFT JOIN post_comments pcmt ON p.post_id = pcmt.post_id
         WHERE pb.user_id = :user_id
+        AND p.status = 1
+        AND p.approval = "approved"
         GROUP BY p.post_id';
 
         // Prepare the query
@@ -947,6 +956,8 @@ class Post
         LEFT JOIN post_bookmarks pb ON p.post_id = pb.post_id
         LEFT JOIN post_comments pcmt ON p.post_id = pcmt.post_id
         WHERE uic.user_id = :user_id
+        AND p.status = 1
+        AND p.approval = 'approved'
         GROUP BY p.post_id;");
 
 

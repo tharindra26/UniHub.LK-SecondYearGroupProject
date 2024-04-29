@@ -131,7 +131,7 @@
                             </div>
                             <div class="published-date"><?php echo $formatted_comment_timestamp ?></div>
 
-                            <?php if ($_SESSION['user_type'] === 'admin' || isset($_SESSION['user_id']) && $_SESSION['user_id'] === $comment->user_id) : ?>
+                            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin' || isset($_SESSION['user_id']) && $_SESSION['user_id'] === $comment->user_id) : ?>
 
                                 <div class="comment-delete-option"
                                     onclick="openPopup('deleteComment-popup-<?php echo $comment->comment_id ?>')">
@@ -142,7 +142,7 @@
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </div>
                             <?php endif; ?>
-                            
+
                             <!-- popupModal -->
                             <span class="overlay"></span>
                             <div class="modal-box" id="updateComment-popup-<?php echo $comment->comment_id ?>">

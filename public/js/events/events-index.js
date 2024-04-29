@@ -207,6 +207,7 @@ items.forEach((item) => {
       categoryBtnText.innerText = `Select Category`;
     }
     updateCategoryFilter();
+    console.log('category clicked');
   });
 });
 
@@ -233,6 +234,8 @@ function updateCategoryFilter() {
     selectBtn.firstElementChild.innerText != "Select University"
       ? selectBtn.firstElementChild.innerText
       : "";
+
+      console.log(university);
 
   // Send an AJAX request with the filter values
   $.ajax({

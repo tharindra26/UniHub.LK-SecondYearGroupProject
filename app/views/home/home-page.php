@@ -178,7 +178,7 @@
                         <a class="join-btn " href="<?php echo URLROOT ?>/users/login">
                             <i class="fa-solid fa-rocket"></i> &nbsp Join the Community
                         </a>
-                        <a class="discover-btn " href="#">
+                        <a class="discover-btn " href="<?php echo URLROOT ?>/events">
                             Discover More
                         </a>
                     </div>

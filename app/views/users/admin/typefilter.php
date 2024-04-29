@@ -24,7 +24,13 @@
 
                 <tr>
                     <td>
-                        <?php echo $user->fname, " ", $user->lname ?>
+                        <?php
+                        if ($user->type !== 'orgrep') {
+                            echo $user->fname, " ", $user->lname;
+                        } else {
+                            echo $user->fname;
+                        }
+                        ?>
                     </td>
                     <td>
                         <?php echo $user->email ?>

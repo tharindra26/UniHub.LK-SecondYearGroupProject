@@ -110,6 +110,12 @@ overpass */
 
 }
 
+.add-post-btn:hover{
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+}
+
 
 .trending-post-section {
     display: flex;
@@ -146,11 +152,14 @@ overpass */
     display: flex;
     flex-direction: column;
     /* border: 1px solid red; */
-    max-width: 400px;
+    width: 300px;
+    height: 100px;
     margin: 20px;
     background-color: rgba(255, 255, 255, 1);
     padding: 10px;
     border-radius: 5px;
+    /* border: 1px solid #e67e22; */
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
 }
 

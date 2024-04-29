@@ -11,7 +11,7 @@
             <div class="post-card-left-section">
                 <div class="publisher-details">
                     <div class="publisher-image-box">
-                        <img src="<?php echo URLROOT ?>/img/posts/post-authors/default_user.png" alt="">
+                        <img src="<?php echo URLROOT ?>/img/users/users_profile_images/<?php echo $post->user_profile_image ?>" alt="">
                     </div>
                     <div class="publisher-name">
                         <div class="publisher-name"><?php echo $post->fname . ' ' . $post->lname ?></div>
