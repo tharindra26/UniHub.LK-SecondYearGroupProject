@@ -6,7 +6,7 @@
     <div class="search">
         <div class="search-bar-container">
             <form action="" class="search-bar">
-                <input type="text" name="searchInput" placeholder="Search Profile" id="search-bar-input">
+                <input type="text" name="searchInput" placeholder="Search Users" id="search-bar-input">
                 <!-- <div class="searchId" id = "searchId">test</div> -->
                 <a href="#">
                     <button type="submit" onclick="viewUser()"><i
@@ -46,10 +46,6 @@
                         <?php else:
                             if ($_SESSION['user_type'] == 'undergraduate'): ?>
                                 <a href="#" class="follow-btn" id="friendBtn" onclick="profileFriendBtnOption()"></a>
-                                <a href="#" class="msg-btn">Report</a>
-                            <?php elseif ($_SESSION['user_type'] == 'admin'): ?>
-                                <a href="#" class="follow-btn" id="friendBtn">Update Profile</a>
-                                <a href="#" class="msg-btn">Report</a>
                             <?php endif;
                         endif; ?>
                     </div>
@@ -481,7 +477,7 @@
                                     </div>
                                 </div>
                             
-                            <div class="btn">
+                            <div class="view-btn">
                             <a href="<?php echo URLROOT ?>/users/show/<?php echo $mutual->id ?>" class="profile-link">View Profile</a>
                             </div>
                             <hr>

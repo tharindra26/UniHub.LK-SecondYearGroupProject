@@ -53,16 +53,6 @@
             <a href="#" id="requests-btn">
                 <span><i class="fa-solid fa-grip"></i></span>
                 <h3>Requests</h3>
-                <span class="rq_count">14</span>
-            </a>
-            <a href="#" id="reports-btn">
-                <span><i class="fa-solid fa-circle-exclamation"></i></span>
-                <h3>Inqueries</h3>
-                <span id="rq_count" class="rq_count">20</span>
-            </a>
-            <a href="#" id="settings-btn">
-                <span><i class="fa-solid fa-gear"></i></span>
-                <h3>Settings</h3>
             </a>
         </div>
     </menu>
@@ -252,51 +242,6 @@
                 }
             });
         });
-
-        $("#reports-btn").on("click", function (e) {
-
-            e.preventDefault(); // Prevent the default link behavior
-            // // Your AJAX function here
-            $.ajax({
-                url: 'http://localhost/unihub/users/reports',
-                type: 'POST', // or 'GET' depending on your needs
-                data: {
-
-                },
-                success: function (response) { //echo 1
-                    // console.log("AJAX request successful:", response);
-                    $("#main-id").html(response);
-                },
-                error: function (error) {
-                    // console.error("AJAX request failed:", error);
-                }
-            });
-        });
-
-        $(document).ready(function () {
-            // Add click event to the button
-            $("#settings-btn").on("click", function (e) {
-
-                e.preventDefault(); // Prevent the default link behavior
-                // // Your AJAX function here
-                $.ajax({
-                    url: 'http://localhost/unihub/users/settings',
-                    type: 'POST', // or 'GET' depending on your needs
-                    data: {
-
-                    },
-                    success: function (response) { //echo 1
-                        // console.log("AJAX request successful:", response);
-                        $("#main-id").html(response);
-                    },
-                    error: function (error) {
-                        // console.error("AJAX request failed:", error);
-                    }
-                });
-            });
-            // checkEventParticipation();
-        });
-
 
     });
 

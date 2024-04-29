@@ -8,7 +8,7 @@
             <div class="input-box">
                 <label for="">University</label>
                 <div class="select-box">
-                    <select name="university" id="selection">
+                    <select name="university" id="selection" class="dropdown-menu">
                         <option value="0" hidden >Select
                             University</option>
                         <?php foreach ($data['universities'] as $university): ?>
