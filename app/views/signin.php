@@ -120,7 +120,7 @@
                                 <i class="fa-solid fa-envelope"></i>
                             </span>
                             <label>Enter Your Email</label>
-                            <input type="email" name="email" value="<?php echo $data['email'] ?>">
+                            <input type="email" name="email" value="<?php echo $data['email'] ?>" id = "email">
                         </div>
                         <?php if (!empty($data['email_err'])): ?>
                             <span class="error-message">
@@ -144,8 +144,7 @@
 
 
                         <div class="remember-forgot">
-                            <label><input type="checkbox" name="" id="">Remember Me</label>
-                            <a href="#">Forgot Password?</a>
+                            <a href="#" onclick="forgotPasswordCall()" >Forgot Password?</a>
                         </div>
                         <button type="submit" class="btn">Login</button>
 
@@ -177,6 +176,8 @@
 </div>
 
 <!-- popupModal -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 <script>
 
@@ -204,6 +205,27 @@
         overlay.classList.remove("active");
     });
     // popup modal script
+
+    function forgotPasswordCall(){
+        var email = document.getElementById('email').value;
+        console.log(email);
+        $.ajax({
+                url: "http://localhost/unihub/users/forgotPassword",
+                type: "POST",
+                data: {
+                    email: email
+
+                },
+
+                success: function (response) {
+                    console.log("AJAX request successful:", response);
+                },
+                error: function (error) {
+                    // Handle the error response
+                    console.error("AJAX request failed:", error);
+                },
+            });
+    }
 
 </script>
 
