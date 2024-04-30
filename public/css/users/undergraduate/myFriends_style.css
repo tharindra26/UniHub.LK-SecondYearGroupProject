@@ -57,7 +57,7 @@
     padding: 30px;
     border-radius: 8px;
     margin: 20px 20px 20px 0;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .row .content{

@@ -108,6 +108,8 @@ class Users extends Controller
           }
         }
       }
+      var_dump($universityDomainsCheck);
+      die();
       if ($universityDomainsCheck === false) {
         $data['email_err'] = 'Email you entered do not match with any university domain';
       }
