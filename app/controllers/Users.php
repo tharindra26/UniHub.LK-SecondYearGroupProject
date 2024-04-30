@@ -2261,6 +2261,7 @@ class Users extends Controller
       //process form
       $institution = trim($_POST['institution']);
       $description = trim($_POST['description']);
+      $grade = trim($_POST['grade']);
       $start_year = trim($_POST['start_year']);
       $end_year = trim($_POST['end_year']);
 
@@ -2273,11 +2274,13 @@ class Users extends Controller
         'education_id' => $education_id,
         'institution' => $institution,
         'description' => $description,
+        'grade' => $grade,
         'start_year' => $start_year,
         'end_year' => $end_year,
 
         'institution_err' => '',
         'description_err' => '',
+        'grade_err' => '',
         'start_year_err' => '',
         'end_year_err' => ''
       ];
@@ -2288,6 +2291,10 @@ class Users extends Controller
 
       if (empty($data['description'])) {
         $data['description_err'] = 'Pleae enter the description';
+      }
+
+      if (empty($data['grade'])) {
+        $data['grade_err'] = 'Pleae enter the grade';
       }
 
       if (empty($data['start_year'])) {
@@ -2320,11 +2327,13 @@ class Users extends Controller
         'education_id' => $education->education_id,
         'institution' => $education->institution,
         'description' => $education->description,
+        'grade' => $education->grade,
         'start_year' => $education->start_year,
         'end_year' => $education->end_year,
 
         'institution_err' => '',
         'description_err' => '',
+        'grade_err' => '',
         'start_year_err' => '',
         'end_year_err' => ''
       ];
@@ -2362,6 +2371,7 @@ class Users extends Controller
       //process form
       $institution = trim($_POST['institution']);
       $description = trim($_POST['description']);
+      $grade = trim($_POST['grade']);
       $start_year = trim($_POST['start_year']);
       $end_year = trim($_POST['end_year']);
 
@@ -2372,11 +2382,13 @@ class Users extends Controller
       $data = [
         'institution' => $institution,
         'description' => $description,
+        'grade' => $grade,
         'start_year' => $start_year,
         'end_year' => $end_year,
 
         'institution_err' => '',
         'description_err' => '',
+        'grade_err' => '',
         'start_year_err' => '',
         'end_year_err' => '',
       ];
@@ -2389,6 +2401,11 @@ class Users extends Controller
       if (empty($data['description'])) {
         $data['description_err'] = 'Pleae enter the description';
       }
+
+      if (empty($data['grade'])) {
+        $data['grade_err'] = 'Pleae enter the your grade';
+      }
+
       if (empty($data['start_year'])) {
         $data['start_year_err'] = 'Pleae enter the start year';
       }
@@ -2416,11 +2433,13 @@ class Users extends Controller
       $data = [
         'institution' => '',
         'description' => '',
+        'grade' => '',
         'start_year' => '',
         'end_year' => '',
 
         'institution_err' => '',
         'description_err' => '',
+        'grade_err' => '',
         'start_year_err' => '',
         'end_year_err' => '',
       ];

@@ -117,6 +117,7 @@
                                         </p>
                                     <?php endif; ?>
                                     <p><?php echo $education->description ?></p>
+                                    <p><?php echo $education->grade ?></p>
                                     <hr>
                                 <?php endforeach; ?>
                             <?php endif; ?>

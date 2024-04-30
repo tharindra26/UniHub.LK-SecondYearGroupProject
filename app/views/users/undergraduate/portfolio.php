@@ -79,7 +79,7 @@
                     </ul>
                 </div>
             </div>
-            <?php if (!empty($data['languages'])): ?>
+            <!-- <?php if (!empty($data['languages'])): ?>
                 <div class="languages">
                     <div class="info-heading">
                         <h4>Languages</h4>
@@ -91,12 +91,14 @@
                                     <h4><?php echo $language ?></h4>
                                 </li>
                             <?php endforeach; ?>
-                        <?php endif; ?>
+                        
                     </ul>
                 </div>
             </div>
+            <?php endif; ?> -->
 
         </div>
+
         <div class="rightbar">
             <div class="name">
                 <h1><?php echo $data['user']->fname, " ", $data['user']->lname ?></h1>

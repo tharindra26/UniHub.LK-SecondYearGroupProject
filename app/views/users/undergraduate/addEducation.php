@@ -35,6 +35,16 @@
 
                     <div class="column">
                             <div class="input-box">
+                                <label for="">Grade</label>
+                                <input type="text" name="grade"  id="" placeholder="Enter the Grade" value="<?php echo $data['grade'] ?>">
+                                <?php if (!empty($data['grade_err'])): ?>
+                                    <span class="error-message"><?php echo $data['grade_err']; ?></span>
+                                <?php endif; ?>
+                            </div>
+                    </div>
+
+                    <div class="column">
+                            <div class="input-box">
                                 <label for="">Start Year</label>
                                 <input type="number" name="start_year"  id="startyearInput" min="1990" max="2100" step="1" placeholder="YYYY"  value="<?php echo $data['start_year'] ?>" required>
                                 <?php if (!empty($data['start_year_err'])): ?>

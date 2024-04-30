@@ -11,6 +11,7 @@ body{
 .print-portfolio{
     /* border: 1px solid red; */
     display: flex;
+    flex-direction: row;
     /* width: 70%; */
     width: 210mm;
     /* height: 297mm; */

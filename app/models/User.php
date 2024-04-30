@@ -1281,6 +1281,7 @@ class User
         $this->db->query("UPDATE user_education SET
                         institution = :institution,
                         description = :description,
+                        grade = :grade,
                         start_year = :start_year,
                         end_year = :end_year
                         WHERE education_id = :education_id");
@@ -1288,6 +1289,7 @@ class User
         $this->db->bind(':education_id', $data['education_id']);
         $this->db->bind(':institution', $data['institution']);
         $this->db->bind(':description', $data['description']);
+        $this->db->bind(':grade', $data['grade']);
         $this->db->bind(':start_year', $data['start_year']);
         $this->db->bind(':end_year', $data['end_year']);
 
@@ -1322,12 +1324,14 @@ class User
         user_id, 
         institution,
         description,
+        grade,
         start_year, 
-        end_year) VALUES(:user_id, :institution, :description, :start_year, :end_year)");
+        end_year) VALUES(:user_id, :institution, :description, :grade, :start_year, :end_year)");
         //Bind values
         $this->db->bind(':user_id', $_SESSION['user_id']);
         $this->db->bind(':institution', $data['institution']);
         $this->db->bind(':description', $data['description']);
+        $this->db->bind(':grade', $data['grade']);
         $this->db->bind(':start_year', $data['start_year']);
         $this->db->bind(':end_year', $data['end_year']);
 

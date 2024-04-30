@@ -44,13 +44,13 @@
                                         <p>
                                             <?php echo $education->description ?>
                                         </p>
+                                        <p><?php echo $education->grade ?></p>
                                     </div>
                                     <div class="edu-btn">
                                         <a href="<?php echo URLROOT ?>/users/editEducation/<?php echo $education->education_id ?>"
                                             class="button">Update</a>
                                         <a href="#" class="button"
-                                            onclick="openPopup('<?php echo $education->education_id;
-                                            ; ?>')">Delete</a>
+                                            onclick="openPopup('<?php echo $education->education_id;?>')">Delete</a>
                                         <!-- popupModal -->
 
                                         <span class="overlay"></span>
