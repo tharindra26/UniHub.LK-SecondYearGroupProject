@@ -16,7 +16,7 @@
             <div class="left-box">
                 <div class="form-outer-box">
 
-                    <form class="form" action="<?php echo URLROOT; ?>/users/passwordChange/<?php echo $data['user_id'] ?>"
+                    <form class="form" action="<?php echo URLROOT; ?>/users/passwordReset/<?php echo $data['user_id'] ?>"
                         method="post" enctype="multipart/form-data">
 
                         <div class="column">

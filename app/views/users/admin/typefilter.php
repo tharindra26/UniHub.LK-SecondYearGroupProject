@@ -52,12 +52,12 @@
                             <a href="<?php echo URLROOT ?>/users/show/<?php echo $confirm ?>" class="view"><i
                                     class="fa-solid fa-eye"></i></a>
                         <?php endif; ?>
-
+                        <?php if($user->id != $_SESSION['user_id']):?>
                         <div class="activation-option" data-status="<?php echo $user->status ?>"
                             data-user-id="<?php echo $user->id ?>">
                             <!-- <i class="fa-solid fa-toggle-off"></i> -->
                         </div>
-
+                        <?php endif; ?>
                     </td>
                 </tr>
 
