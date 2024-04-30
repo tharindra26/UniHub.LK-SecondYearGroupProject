@@ -2202,7 +2202,7 @@ class Users extends Controller
       // Verify if the current password matches the one stored in the database
       if (password_verify($data['current_password'], $existing_password)) {
         // If the current password matches, proceed with updating the password
-        if (empty($data['current_password_err']) && empty($data['new_password_err']) && empty($data['confirm_password_err'])) {
+        if (empty($data['new_password_err']) && empty($data['confirm_password_err'])) {
           //Validated
           if ($this->userModel->passwordReset($data)) {
             // Redirect to appropriate location

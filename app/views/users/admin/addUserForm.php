@@ -30,7 +30,7 @@
                         <option value="orgrep">Organization Representative</option>
                     </select>
                 </div>
-                <span class="secondary-email-error-message error-message">
+                <span class="user-type-error-message error-message">
                 </span>
             </div>
         </div>
@@ -38,7 +38,7 @@
         <div class="column">
             <div class="input-box">
                 <label for="">Password</label>
-                <input type="text" name="password" id="password" placeholder="Enter the password">
+                <input type="password" name="password" id="password" placeholder="Enter the password">
                 <span class="password-error-message error-message">
                 </span>
             </div>
