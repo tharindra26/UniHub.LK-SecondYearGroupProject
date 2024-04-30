@@ -257,7 +257,7 @@
     flex-direction: row;
     /* border: 1px solid red; */
     border-radius: 5px;
-    width: auto;
+    width: 100%;
     justify-content: space-between;
     margin: 0 0 0 10px;
     background-color: white;
