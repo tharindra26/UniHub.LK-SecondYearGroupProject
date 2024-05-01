@@ -91,5 +91,6 @@
 ![Image Description](https://github.com/tharindra26/UniHub.LK-SecondYearGroupProject/blob/main/Documentation/screenshots/19.png)
 ![Image Description](https://github.com/tharindra26/UniHub.LK-SecondYearGroupProject/blob/main/Documentation/screenshots/20.png)
 ![Image Description](https://github.com/tharindra26/UniHub.LK-SecondYearGroupProject/blob/main/Documentation/screenshots/21.png)
+![Image Description](https://github.com/tharindra26/UniHub.LK-SecondYearGroupProject/blob/main/Documentation/screenshots/footer.png)
 
 </div>
