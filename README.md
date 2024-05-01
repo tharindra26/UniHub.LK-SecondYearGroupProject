@@ -6,7 +6,7 @@ UniHub.lk, a web platform empowering Sri Lankan undergrads with events, knowledg
 
 Your content with the first level of indent.
 
-<div style="margin-right: 20px;">
+<div style="margin-left: 50px;">
 
 Your content with the second level of indent.
 
