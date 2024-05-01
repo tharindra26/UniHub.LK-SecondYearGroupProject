@@ -69,6 +69,7 @@
 
 ## Screen Captures
 <div style="text-align: center;">
+    
 ![Image Description](https://github.com/tharindra26/UniHub.LK-SecondYearGroupProject/blob/main/Documentation/screenshots/1.png)
 ![Image Description](https://github.com/tharindra26/UniHub.LK-SecondYearGroupProject/blob/main/Documentation/screenshots/2.png)
 ![Image Description](https://github.com/tharindra26/UniHub.LK-SecondYearGroupProject/blob/main/Documentation/screenshots/3.png)
@@ -90,4 +91,5 @@
 ![Image Description](https://github.com/tharindra26/UniHub.LK-SecondYearGroupProject/blob/main/Documentation/screenshots/19.png)
 ![Image Description](https://github.com/tharindra26/UniHub.LK-SecondYearGroupProject/blob/main/Documentation/screenshots/20.png)
 ![Image Description](https://github.com/tharindra26/UniHub.LK-SecondYearGroupProject/blob/main/Documentation/screenshots/21.png)
+
 </div>
